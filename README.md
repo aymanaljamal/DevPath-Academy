@@ -100,7 +100,8 @@ This course is suitable for:
 complete-react-developer-course/
 │
 ├── index.html
-├── README.md```
+├── README.md
+```
 
 ## 🎓 Learning Goal
 
