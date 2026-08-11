@@ -1,7 +1,7 @@
 {
-  "name": "The Complete React Developer Course",
-  "short_name": "React Course",
-  "description": "An interactive React learning platform by Ayman Aljamal.",
+  "name": "DevPath Academy",
+  "short_name": "DevPath",
+  "description": "An extensible academy for React, Java, Spring Boot, projects, and future development paths.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

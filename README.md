@@ -1,190 +1,154 @@
-# Interactive React Learning Platform
+# DevPath Academy
 
-A comprehensive, standalone React developer course created by **Ayman Aljamal**. The platform contains 18 chapters, persistent learning progress, searchable course content, personal notes, creative quizzes, bookmarks, reading preferences, and structured note exports.
+An interactive, bilingual, offline-ready learning academy for modern software development.
 
-GitHub: [github.com/aymanaljamal](https://github.com/aymanaljamal)
+DevPath Academy brings **React**, **Java**, **Spring & Spring Boot**, and practical **Projects** into one consistent learning experience—with shared navigation, progress tracking, notes, bookmarks, review tools, and course-aware themes.
 
-## Highlights
+Created by **Ayman Aljamal** · [GitHub Profile](https://github.com/aymanaljamal)
 
-- 18 chapters from beginner concepts to enterprise React practices
-- 416 major sections, 555 code examples, and 26 comparison tables
-- Full-course search with `Ctrl/Cmd + K`
-- Chapter completion tracking and Continue Learning
-- Persistent bookmarks, personal notes, quiz scores, theme, and reading preferences
-- Notes workspace with section-based subject suggestions and autocomplete
-- Notes statistics: total notes, covered chapters, word count, and latest update
-- Structured JSON export for backups and integrations
-- Styled A4 PDF report export through the browser's **Save as PDF** workflow
-- Import/Restore for complete progress backups
-- Learning analytics dashboard with chapter performance and study-time statistics
-- Smart spaced-review queue generated from incorrect quiz answers
-- Final assessment with a printable PDF completion certificate
-- Offline-installable PWA support
-- Command palette for fast keyboard navigation
-- English and Arabic interface modes
-- Persistent per-chapter study-time tracking
-- Persistent text highlights inside course chapters
-- Markdown note export for GitHub, Notion, and other knowledge tools
-- Responsive sidebar, keyboard navigation, dark mode, and accessible dialogs
-- One-file production output that opens directly in a modern browser
+## Learning Paths
+
+| Path | Current content | Accent |
+|---|---:|---|
+| React | 18 chapters · 416 major sections | Blue |
+| Complete Java | 54 lessons | Orange |
+| Spring & Spring Boot | 77 lessons | Green |
+| Projects | 4 guided projects | Purple |
+
+The Academy uses a red global identity while each learning path keeps its own accent color. The complete original React curriculum is preserved and loaded separately only when the learner opens it, keeping the home page fast.
+
+## Features
+
+- Unified responsive interface across every course
+- English and Arabic controls with shared RTL/LTR state
+- Shared light and charcoal dark themes
+- Course-aware Previous and Next navigation
+- Independent completion progress for every learning path
+- Persistent bookmarks and advanced notes
+- Note count, statistics, JSON backup, and printable PDF export
+- Dashboard, smart review, quizzes, final assessment, and certificate
+- Global search and command palette with `Ctrl/Cmd + K`
+- Study timer and learning analytics
+- Persistent text highlights with five colors
+- Import and restore for saved learning data
+- Markdown note export
+- Three interactive learning tools on the home page
+- Installable PWA with offline support
+- Mobile-friendly course reader and toolbar
+
+All learning data is stored locally in the browser. Theme and language preferences are shared between the Academy and the original React reader.
+
+## Quick Start
+
+Requirements: **Node.js 18+**. No npm dependencies, backend, or database are required.
+
+```bash
+npm run build
+npm run verify
+npm start
+```
+
+Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 
 ## Project Structure
 
 ```text
 .
-|-- src/
-|   |-- index.template.html          # Application shell and build placeholders
-|   |-- content/
-|   |   `-- chapters/                # One HTML file per course chapter
-|   |       |-- chapter-01.html
-|   |       `-- chapter-18.html
-|   |-- styles/
-|   |   |-- base.css                 # Core layout and course typography
-|   |   |-- course-enhancements.css  # Navigation, search, tables, and code UI
-|   |   `-- learning-dashboard.css   # Notes, quizzes, dialogs, theme, and tools
-|   `-- scripts/
-|       |-- course.js                # Core navigation and course behavior
-|       `-- learning-dashboard.js    # Persistence, notes, exports, and quizzes
-|-- scripts/
-|   |-- build.mjs                    # Produces the standalone HTML artifact
-|   `-- verify.mjs                   # Structural and JavaScript verification
-|-- assets/
-|   `-- course-icon.svg              # PWA application icon
-|-- index.html                       # Canonical deployment entry point
-|-- public/                          # Generated Vercel deployment output (gitignored)
-|-- manifest.webmanifest             # Installable app metadata
-|-- sw.js                            # Offline cache service worker
-`-- package.json
+├── src/
+│   ├── index.template.html          # Shared application shell
+│   ├── content/chapters/            # Original 18 React chapters
+│   ├── data/courses/                # Java, Spring Boot, Projects, React catalog data
+│   ├── scripts/
+│   │   ├── course.js                # Original reader navigation
+│   │   ├── learning-dashboard.js    # React learning tools and persistence
+│   │   └── devpath-platform.js      # Academy routing and shared tools
+│   └── styles/
+│       ├── base.css
+│       ├── course-enhancements.css
+│       ├── learning-dashboard.css
+│       └── devpath-platform.css
+├── scripts/
+│   ├── build.mjs                    # Generates production files
+│   └── verify.mjs                   # Runs structural and feature checks
+├── assets/course-icon.svg           # Red PWA icon
+├── index.html                       # Lightweight Academy entry point
+├── react.html                       # Lazy-loaded complete React reader
+├── manifest.webmanifest
+├── sw.js
+└── vercel.json
 ```
 
-## Requirements
+Generated files such as `index.html`, `react.html`, and the `public/` deployment bundle should not be edited manually. Change the source under `src/`, then run the build.
 
-- Node.js 18 or newer
-- No npm packages are required
-- No backend, database, or framework build tool is required
+## Add a New Learning Path
 
-## Build
+Create a JavaScript course definition under `src/data/courses/`. The build discovers course files automatically.
+
+A course definition needs:
+
+- A stable `id` and `slug`
+- Title, short title, description, and accent color
+- Categorized modules
+- Stable lesson slugs and lesson content
+
+The new path is automatically included in the catalog, search, progress calculations, bookmarks, notes, course toolbar, and lesson navigation.
+
+## Notes, Bookmarks, and PDF
+
+Every course includes the same learning toolbar:
+
+- **Bookmark** saves the current lesson or section.
+- **Notes** opens the bilingual notes workspace and displays the saved-note count.
+- **Complete** updates course progress.
+- **PDF** opens the browser print workflow for saving a clean PDF.
+- **Theme** switches between the shared morning and night themes.
+- **Dashboard** and **Review** expose progress and revision tools.
+- **AR / EN** switches the interface language everywhere.
+
+Saved notes can be exported as JSON, Markdown, or a formatted PDF report. Browser data can also be backed up and restored.
+
+## Build and Verification
 
 ```bash
 npm run build
+npm run verify
 ```
 
-For local PWA testing, run `npm start` and open `http://127.0.0.1:4173`.
+The current verification suite runs **76 checks**, including:
 
-The build script reads the modular source files and creates the canonical standalone artifact plus a Vercel deployment bundle:
+- React content preservation
+- Java and Spring lesson counts
+- Valid navigation and unique DOM IDs
+- Shared toolbar actions and boundary states
+- Notes, bookmarks, exports, and restore support
+- Shared theme and bilingual state
+- Course colors and dark-theme consistency
+- PWA assets and generated deployment output
 
-- `index.html` - **the canonical deployment entry point**
-- `public/index.html` - generated Vercel output
+Current verified content:
 
-The files contain all course content, CSS, and application JavaScript and can be opened directly in a modern browser. Deploy the project root and configure the host to serve `index.html`.
+| Item | Count |
+|---|---:|
+| React chapters | 18 |
+| Major React sections | 416 |
+| Code blocks | 557 |
+| Tables | 26 |
+| Verification checks | 76 |
 
 ## Deployment
 
-The root-level `index.html` is the official application entry point. For GitHub Pages, Netlify, Vercel, Cloudflare Pages, or a standard static host, publish the project root after running:
+The project is ready for GitHub Pages, Vercel, Netlify, Cloudflare Pages, or any static host.
 
-```bash
-npm run build
-npm run verify
-```
+For Vercel, `vercel.json` runs the build and publishes the generated `public/` directory. For other static hosts, publish the production files after running the build.
 
-Include `index.html`, `manifest.webmanifest`, `sw.js`, and the `assets/` folder in the deployment. PWA installation and offline caching require HTTP/HTTPS; the core standalone course still works when `index.html` is opened as a local file.
-
-### Vercel
-
-`vercel.json` configures `npm run build` and publishes the generated `public/` directory. The build copies only the production HTML, manifest, service worker, and application icon into that directory. Do not edit `public/` manually.
-
-## Verify
-
-```bash
-npm run verify
-```
-
-Verification checks the expected content counts, duplicate DOM IDs, sidebar targets, JavaScript syntax, persistence features, creator credit, and both note export formats.
-
-## Editing the Course
-
-### Edit educational content
-
-Update the relevant file in `src/content/chapters/`. Chapter filenames use a fixed two-digit order so the build remains deterministic.
-
-### Edit styling
-
-- Use `base.css` for typography and the main page layout.
-- Use `course-enhancements.css` for navigation, search, code blocks, and tables.
-- Use `learning-dashboard.css` for notes, quizzes, dialogs, themes, and dashboard controls.
-
-### Edit behavior
-
-- Use `course.js` for core reading and navigation behavior.
-- Use `learning-dashboard.js` for persisted user data and interactive learning tools.
-
-After every source change, run:
-
-```bash
-npm run build
-npm run verify
-```
-
-Do not manually edit the generated root `index.html`; update files under `src/` and run the build instead.
-
-## Personal Notes and Exports
-
-Each section has an **Add note** control. The note subject is automatically suggested from the current section and can also be selected from the course-wide autocomplete list.
-
-The notes workspace provides:
-
-- A complete saved-notes list
-- Chapter and section metadata
-- Total-note, chapter-coverage, word-count, and last-update statistics
-- JSON export for reliable backup and future import/integration
-- PDF export with a cover page, summary statistics, section metadata, and print-safe note cards
-
-For PDF export, select **Export PDF**, then choose **Save as PDF** in the browser print dialog. This approach keeps the platform dependency-free and works from the standalone local HTML file.
-
-## How Bookmarks Work
-
-Bookmarks save a course location, not a copy of the content.
-
-1. Navigate to the section you want to remember.
-2. Select the **star button (☆)** in the learning toolbar, or the star beside a section heading.
-3. A filled/highlighted star confirms that the section is saved.
-4. Open **Bookmarks** to see every saved section and its chapter.
-5. Select a saved item to jump directly to that section.
-6. Select **Remove** to delete a bookmark.
-
-Bookmarks persist after refresh, are included in progress JSON exports, and can be restored through Import/Restore. The `?` help button in the application shows the same workflow.
-
-## Advanced Learning Features
-
-- **Import/Restore:** Open Preferences, choose a valid JSON backup, and confirm replacement of current local data.
-- **Dashboard:** Review completion, quiz average, notes, bookmarks, review queue, highlights, study time, and per-chapter scores.
-- **Smart Review:** Incorrect chapter quizzes enter a spaced review queue. Correct 3/3 answers remove that chapter from the queue.
-- **Final Exam:** Open Dashboard, select Final Exam, and score at least 80% to unlock the certificate.
-- **Certificate:** Enter the learner name and select Print Certificate PDF, then choose Save as PDF.
-- **Command Palette:** Press `Ctrl/Cmd + K` to search commands and chapters.
-- **Language:** Choose English or Arabic under Preferences. Course educational content remains unchanged.
-- **Study Time:** Time is recorded only while the page is visible and saved per chapter.
-- **Highlights:** Select course text, choose yellow, green, blue, pink, or purple, then press Highlight. The selected color and highlight survive refresh and are included in progress backups. Saved highlights can be opened from the command palette.
-- **Markdown:** Open Notes and select Export Markdown.
-
-## Stored Data
-
-Learning data is stored locally in the browser under versioned `localStorage` keys. It never leaves the device unless the learner explicitly exports it. Reset Course Data requires confirmation before deletion.
-
-## Content Preservation
-
-The modular build preserves the original educational material. Current production counts are:
-
-| Element | Count |
-|---|---:|
-| Chapters | 18 |
-| Major sections | 416 |
-| Code blocks | 555 |
-| Tables | 26 |
-| Interview-question occurrences | 20 |
+PWA installation and offline caching require HTTP or HTTPS.
 
 ## Author
 
-Designed and crafted by **Ayman Aljamal**.
+Designed and developed by **Ayman Aljamal**.
 
-- GitHub: [aymanaljamal](https://github.com/aymanaljamal)
+- GitHub: [@aymanaljamal](https://github.com/aymanaljamal)
+
+## License
+
+This repository is intended for educational use. Add a dedicated license file before redistributing or publishing the course content under specific reuse terms.

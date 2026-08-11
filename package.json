@@ -1,8 +1,8 @@
 {
-  "name": "interactive-react-learning-platform",
+  "name": "devpath-academy",
   "version": "2.0.0",
   "private": true,
-  "description": "A scalable, standalone React learning course with progress tracking, notes, quizzes, and printable PDF reports.",
+  "description": "DevPath Academy: an extensible multi-language software-development learning platform.",
   "scripts": {
     "start": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
