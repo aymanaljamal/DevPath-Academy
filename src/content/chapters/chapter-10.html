@@ -1,0 +1,1778 @@
+<section class="chapter" id="chapter-10" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">10</span>
+<h1 class="chapter-title" id="typescript-in-react">TypeScript in React</h1>
+</div>
+<h2 id="101-introduction-to-typescript">10.1 Introduction to TypeScript</h2>
+<h3 id="simple-explanation--10">Simple Explanation</h3>
+<p>TypeScript is a superset of JavaScript that adds static typing. It helps you catch errors early, write more predictable code, and get better editor support. Think of it as JavaScript with superpowers - you write JavaScript, but with type annotations that help prevent bugs.</p>
+<p>Think of TypeScript like a spell-checker for your code. Just as a spell-checker catches spelling errors before you send an email, TypeScript catches type errors before you run your code.</p>
+<h3 id="technical-explanation--10">Technical Explanation</h3>
+<p>TypeScript is a strongly typed programming language that builds on JavaScript. It adds optional static types, classes, interfaces, and other features to JavaScript. TypeScript code is transpiled to plain JavaScript that runs anywhere JavaScript runs.</p>
+<p>Key characteristics:
+- <strong>Static Typing</strong>: Catch errors at compile time
+- <strong>Type Inference</strong>: TypeScript can infer types automatically
+- <strong>Structural Typing</strong>: Types are checked by their structure
+- <strong>Generics</strong>: Write reusable, type-safe code
+- <strong>ES Features</strong>: Support for latest ECMAScript features
+- <strong>Tooling</strong>: Excellent IDE support with autocomplete and refactoring</p>
+<h3 id="professional-explanation--10">Professional Explanation</h3>
+<p>In enterprise React development, TypeScript is essential for:
+- <strong>Code Quality</strong>: Catch type errors before runtime
+- <strong>Maintainability</strong>: Types serve as documentation
+- <strong>Refactoring</strong>: Safe refactoring with type checking
+- <strong>Collaboration</strong>: Clear contracts between components
+- <strong>IDE Support</strong>: Better autocomplete and error detection
+- <strong>Scalability</strong>: Types help manage growing codebases</p>
+<h2 id="102-typescript-setup-with-react">10.2 TypeScript Setup with React</h2>
+<h3 id="simple-explanation_1--6">Simple Explanation</h3>
+<p>Setting up TypeScript with React involves creating a project with TypeScript support. The easiest way is using Create React App with the TypeScript template, or Vite with TypeScript support.</p>
+<h3 id="technical-explanation_1--6">Technical Explanation</h3>
+<p>TypeScript can be added to React projects in several ways:
+1. <strong>Create React App</strong>: <code>npx create-react-app my-app --template typescript</code>
+2. <strong>Vite</strong>: <code>npm create vite@latest my-app -- --template react-ts</code>
+3. <strong>Manual Setup</strong>: Install TypeScript and configure tsconfig.json</p>
+<p>Key files:
+- <strong>tsconfig.json</strong>: TypeScript configuration
+- <strong>.tsx</strong>: TypeScript file with JSX
+- <strong>.ts</strong>: TypeScript file without JSX
+- <strong>types/</strong>: Directory for type declarations</p>
+<h3 id="professional-explanation_1--6">Professional Explanation</h3>
+<p>Enterprise TypeScript setup includes:
+- <strong>Strict Mode</strong>: Enable strict type checking
+- <strong>Path Aliases</strong>: Cleaner imports
+- <strong>Declaration Files</strong>: Types for third-party libraries
+- <strong>Build Configuration</strong>: Production-ready build setup
+- <strong>Linting</strong>: ESLint with TypeScript rules
+- <strong>Formatting</strong>: Prettier for consistent formatting</p>
+<h3 id="typescript-setup-examples">TypeScript Setup Examples</h3>
+<pre><code class="language-json">// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"],
+      "@api/*": ["src/api/*"]
+    }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+
+// Vite configuration with TypeScript
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@types': path.resolve(__dirname, './src/types'),
+      '@api': path.resolve(__dirname, './src/api')
+    }
+  }
+});
+
+// Type declaration file
+// src/vite-env.d.ts
+/// &lt;reference types="vite/client" /&gt;
+
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string;
+  readonly VITE_APP_TITLE: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+</code></pre>
+<h2 id="103-basic-types">10.3 Basic Types</h2>
+<h3 id="simple-explanation_2--6">Simple Explanation</h3>
+<p>Basic types in TypeScript are the building blocks of type annotations. They include primitive types like string, number, boolean, and more complex types like arrays and objects.</p>
+<h3 id="technical-explanation_2--6">Technical Explanation</h3>
+<p>TypeScript has several basic types:
+- <strong>Primitive Types</strong>: string, number, boolean, null, undefined, symbol, bigint
+- <strong>Any</strong>: Disables type checking (avoid using)
+- <strong>Void</strong>: No return value
+- <strong>Never</strong>: Function that never returns
+- <strong>Unknown</strong>: Type-safe alternative to any
+- <strong>Arrays</strong>: <code>type[]</code> or <code>Array&lt;type&gt;</code>
+- <strong>Tuples</strong>: Fixed-length arrays
+- <strong>Enums</strong>: Named constants</p>
+<h3 id="professional-explanation_2--6">Professional Explanation</h3>
+<p>In React TypeScript, basic types are used for:
+- <strong>Props</strong>: Define component prop types
+- <strong>State</strong>: Type state variables
+- <strong>Functions</strong>: Type parameters and return values
+- <strong>API Responses</strong>: Type API data
+- <strong>Event Handlers</strong>: Type event objects</p>
+<h3 id="basic-types-examples">Basic Types Examples</h3>
+<pre><code class="language-tsx">// Primitive types
+let name: string = "John Doe";
+let age: number = 30;
+let isActive: boolean = true;
+let value: null = null;
+let data: undefined = undefined;
+
+// Any (use sparingly)
+let anything: any = "Hello";
+anything = 42;
+anything = { key: "value" };
+
+// Unknown (safe alternative to any)
+let unknownValue: unknown = "Hello";
+if (typeof unknownValue === "string") {
+    console.log(unknownValue.toUpperCase());
+}
+
+// Void (no return value)
+function logMessage(message: string): void {
+    console.log(message);
+    // No return value
+}
+
+// Never (function never returns)
+function throwError(message: string): never {
+    throw new Error(message);
+}
+
+function infiniteLoop(): never {
+    while (true) {
+        // Infinite loop
+    }
+}
+
+// Arrays
+let numbers: number[] = [1, 2, 3, 4, 5];
+let strings: Array&lt;string&gt; = ["Hello", "World"];
+let mixed: (string | number)[] = ["Hello", 42];
+
+// Tuples (fixed-length arrays)
+let user: [number, string, boolean] = [1, "John", true];
+const [userId, userName, isAdmin] = user;
+
+// Enums
+enum UserRole {
+    Admin = "admin",
+    User = "user",
+    Guest = "guest"
+}
+
+enum Status {
+    Pending = 0,
+    Approved = 1,
+    Rejected = 2
+}
+
+function getRole(role: UserRole): string {
+    return `User role: ${role}`;
+}
+
+// React component with types
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    age?: number; // Optional property
+    role: UserRole;
+    tags: string[];
+    address: {
+        street: string;
+        city: string;
+        country: string;
+    };
+}
+
+function UserProfile({ user }: { user: User }) {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;p&gt;Email: {user.email}&lt;/p&gt;
+            {user.age &amp;&amp; &lt;p&gt;Age: {user.age}&lt;/p&gt;}
+            &lt;p&gt;Role: {user.role}&lt;/p&gt;
+            &lt;p&gt;Address: {user.address.street}, {user.address.city}&lt;/p&gt;
+            &lt;ul&gt;
+                {user.tags.map(tag =&gt; (
+                    &lt;li key={tag}&gt;{tag}&lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="104-interfaces-and-type-aliases">10.4 Interfaces and Type Aliases</h2>
+<h3 id="simple-explanation_3--6">Simple Explanation</h3>
+<p>Interfaces and type aliases are ways to define custom types. They describe the shape of an object or the structure of a type. Interfaces are more commonly used for object types, while type aliases can be used for any type.</p>
+<p>Think of interfaces like contracts that define what properties and methods an object must have.</p>
+<h3 id="technical-explanation_3--6">Technical Explanation</h3>
+<p><strong>Interfaces</strong>: Define contracts for object structures
+- Can be extended
+- Can be implemented by classes
+- Can be merged (declaration merging)
+- Better for object types</p>
+<p><strong>Type Aliases</strong>: Create new names for types
+- Can represent any type (primitives, unions, intersections)
+- Cannot be extended
+- No declaration merging
+- More flexible for complex types</p>
+<h3 id="professional-explanation_3--6">Professional Explanation</h3>
+<p>Best practices:
+- Use <strong>interfaces</strong> for public API definitions
+- Use <strong>type aliases</strong> for union types, tuple types, and type aliases
+- Use <strong>interfaces</strong> when you need inheritance
+- Use <strong>type aliases</strong> for function signatures
+- Document interfaces with JSDoc</p>
+<h3 id="interfaces-and-type-aliases-examples">Interfaces and Type Aliases Examples</h3>
+<pre><code class="language-tsx">// Interface definition
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    age?: number; // Optional property
+    readonly createdAt: Date; // Readonly property
+}
+
+// Interface with methods
+interface UserService {
+    getUser(id: number): Promise&lt;User&gt;;
+    createUser(user: Omit&lt;User, 'id'&gt;): Promise&lt;User&gt;;
+    updateUser(id: number, user: Partial&lt;User&gt;): Promise&lt;User&gt;;
+    deleteUser(id: number): Promise&lt;void&gt;;
+}
+
+// Interface extension
+interface Admin extends User {
+    permissions: string[];
+    role: 'admin' | 'superadmin';
+}
+
+interface PremiumUser extends User {
+    subscription: {
+        tier: 'basic' | 'premium' | 'enterprise';
+        expiresAt: Date;
+    };
+}
+
+// Interface with index signature
+interface Dictionary&lt;T&gt; {
+    [key: string]: T;
+}
+
+interface StringDictionary {
+    [key: string]: string;
+}
+
+// Type alias
+type UserRole = 'admin' | 'user' | 'guest';
+type UserStatus = 'active' | 'inactive' | 'suspended';
+
+// Type alias for union type
+type UserType = User | Admin | PremiumUser;
+
+// Type alias for function
+type UserCallback = (user: User) =&gt; void;
+type AsyncUserCallback = (user: User) =&gt; Promise&lt;void&gt;;
+
+// Type alias with generic
+type ApiResponse&lt;T&gt; = {
+    data: T;
+    status: number;
+    message: string;
+};
+
+type UserResponse = ApiResponse&lt;User&gt;;
+type UsersResponse = ApiResponse&lt;User[]&gt;;
+
+// Type alias for tuple
+type Coordinates = [number, number];
+type UserTuple = [number, string, boolean];
+
+// Type alias with conditional type
+type IsArray&lt;T&gt; = T extends any[] ? true : false;
+type IsString&lt;T&gt; = T extends string ? true : false;
+
+// Using interfaces in React
+interface ButtonProps {
+    variant: 'primary' | 'secondary' | 'danger';
+    size: 'small' | 'medium' | 'large';
+    disabled?: boolean;
+    onClick?: (event: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; void;
+    children: React.ReactNode;
+}
+
+function Button({ variant, size, disabled, onClick, children }: ButtonProps) {
+    const className = `btn btn-${variant} btn-${size}`;
+    return (
+        &lt;button
+            className={className}
+            disabled={disabled}
+            onClick={onClick}
+        &gt;
+            {children}
+        &lt;/button&gt;
+    );
+}
+
+// Type alias for props
+type InputProps = {
+    value: string;
+    onChange: (value: string) =&gt; void;
+    placeholder?: string;
+    error?: string;
+    disabled?: boolean;
+    type?: 'text' | 'email' | 'password' | 'number';
+};
+
+// Generic interface
+interface Repository&lt;T&gt; {
+    find(id: string): Promise&lt;T | null&gt;;
+    findAll(): Promise&lt;T[]&gt;;
+    create(data: Omit&lt;T, 'id'&gt;): Promise&lt;T&gt;;
+    update(id: string, data: Partial&lt;T&gt;): Promise&lt;T&gt;;
+    delete(id: string): Promise&lt;void&gt;;
+}
+
+// Implementing an interface
+class UserRepository implements Repository&lt;User&gt; {
+    async find(id: string): Promise&lt;User | null&gt; {
+        // Implementation
+        return null;
+    }
+
+    async findAll(): Promise&lt;User[]&gt; {
+        // Implementation
+        return [];
+    }
+
+    async create(data: Omit&lt;User, 'id'&gt;): Promise&lt;User&gt; {
+        // Implementation
+        return {} as User;
+    }
+
+    async update(id: string, data: Partial&lt;User&gt;): Promise&lt;User&gt; {
+        // Implementation
+        return {} as User;
+    }
+
+    async delete(id: string): Promise&lt;void&gt; {
+        // Implementation
+    }
+}
+</code></pre>
+<h2 id="105-generics">10.5 Generics</h2>
+<h3 id="simple-explanation_4--6">Simple Explanation</h3>
+<p>Generics allow you to create reusable components and functions that work with multiple types. They're like type variables that you can specify when using the component or function.</p>
+<p>Think of generics like a template for a stamp - you can use the same stamp with different colored ink (types) to stamp different designs.</p>
+<h3 id="technical-explanation_4--6">Technical Explanation</h3>
+<p>Generics allow you to write code that works with a variety of types rather than a single one. The type is specified when the function or component is used.</p>
+<p>Key concepts:
+- <strong>Type Parameters</strong>: Placeholders for types
+- <strong>Constraints</strong>: Restrict type parameters
+- <strong>Default Types</strong>: Default type if not specified
+- <strong>Generic Components</strong>: Reusable React components
+- <strong>Generic Hooks</strong>: Reusable hooks with generic types</p>
+<h3 id="professional-explanation_4--6">Professional Explanation</h3>
+<p>Generics are essential for:
+- <strong>Data Structures</strong>: Reusable collections
+- <strong>API Clients</strong>: Type-safe API responses
+- <strong>Form Hooks</strong>: Type-safe form handling
+- <strong>Component Libraries</strong>: Flexible, type-safe components
+- <strong>Utility Functions</strong>: Reusable type-safe utilities</p>
+<h3 id="generics-examples">Generics Examples</h3>
+<pre><code class="language-tsx">// Basic generic function
+function identity&lt;T&gt;(value: T): T {
+    return value;
+}
+
+const num = identity&lt;number&gt;(42); // Type: number
+const str = identity&lt;string&gt;("Hello"); // Type: string
+const inferred = identity("Hello"); // Type inferred as string
+
+// Generic with multiple type parameters
+function pair&lt;T, U&gt;(first: T, second: U): [T, U] {
+    return [first, second];
+}
+
+const result = pair("Hello", 42); // Type: [string, number]
+
+// Generic with constraints
+interface HasLength {
+    length: number;
+}
+
+function logLength&lt;T extends HasLength&gt;(item: T): T {
+    console.log(item.length);
+    return item;
+}
+
+logLength("Hello"); // Works
+logLength([1, 2, 3]); // Works
+// logLength(42); // Error: number doesn't have length
+
+// Generic interface
+interface ApiResponse&lt;T&gt; {
+    data: T;
+    status: number;
+    message: string;
+}
+
+function fetchApi&lt;T&gt;(url: string): Promise&lt;ApiResponse&lt;T&gt;&gt; {
+    return fetch(url).then(res =&gt; res.json());
+}
+
+// Using generic interface
+async function getUser(id: number): Promise&lt;ApiResponse&lt;User&gt;&gt; {
+    return fetchApi&lt;User&gt;(`/api/users/${id}`);
+}
+
+// Generic class
+class Box&lt;T&gt; {
+    private value: T;
+
+    constructor(value: T) {
+        this.value = value;
+    }
+
+    getValue(): T {
+        return this.value;
+    }
+
+    setValue(value: T): void {
+        this.value = value;
+    }
+}
+
+const numberBox = new Box(42);
+const stringBox = new Box("Hello");
+
+// Generic React component
+interface ListProps&lt;T&gt; {
+    items: T[];
+    renderItem: (item: T, index: number) =&gt; React.ReactNode;
+    keyExtractor?: (item: T) =&gt; string;
+}
+
+function List&lt;T&gt;({ items, renderItem, keyExtractor }: ListProps&lt;T&gt;) {
+    return (
+        &lt;ul&gt;
+            {items.map((item, index) =&gt; (
+                &lt;li key={keyExtractor ? keyExtractor(item) : String(index)}&gt;
+                    {renderItem(item, index)}
+                &lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}
+
+// Using generic component
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+}
+
+function ProductList({ products }: { products: Product[] }) {
+    return (
+        &lt;List&lt;Product&gt;
+            items={products}
+            keyExtractor={(product) =&gt; String(product.id)}
+            renderItem={(product) =&gt; (
+                &lt;div&gt;
+                    &lt;h3&gt;{product.name}&lt;/h3&gt;
+                    &lt;p&gt;${product.price}&lt;/p&gt;
+                &lt;/div&gt;
+            )}
+        /&gt;
+    );
+}
+
+// Generic custom hook
+function useApi&lt;T&gt;(url: string) {
+    const [data, setData] = useState&lt;T | null&gt;(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState&lt;string | null&gt;(null);
+
+    useEffect(() =&gt; {
+        const fetchData = async () =&gt; {
+            try {
+                const response = await fetch(url);
+                const json = await response.json();
+                setData(json);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [url]);
+
+    return { data, loading, error };
+}
+
+// Using generic hook
+function UserPage() {
+    const { data: user, loading, error } = useApi&lt;User&gt;('/api/users/1');
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+    if (!user) return &lt;div&gt;User not found&lt;/div&gt;;
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;p&gt;{user.email}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Generic with default type
+function createArray&lt;T = string&gt;(length: number, value: T): T[] {
+    return Array(length).fill(value);
+}
+
+const strings = createArray(3, "Hello"); // Type: string[]
+const numbers = createArray(3, 42); // Type: number[] (inferred)
+
+// Generic with extends and keyof
+function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K): T[K] {
+    return obj[key];
+}
+
+const user = { name: "John", age: 30, email: "john@example.com" };
+const name = getProperty(user, "name"); // Type: string
+const age = getProperty(user, "age"); // Type: number
+// const invalid = getProperty(user, "invalid"); // Error: invalid key
+</code></pre>
+<h2 id="106-utility-types">10.6 Utility Types</h2>
+<h3 id="simple-explanation_5--6">Simple Explanation</h3>
+<p>Utility types are built-in TypeScript types that help you transform existing types. They allow you to create new types based on existing ones without rewriting them.</p>
+<p>Think of utility types like tools in a workshop - each tool (utility type) helps you shape and transform your materials (types) in a specific way.</p>
+<h3 id="technical-explanation_5--6">Technical Explanation</h3>
+<p>TypeScript provides several built-in utility types:
+- <strong>Partial<t></t></strong>: Makes all properties optional
+- <strong>Required<t></t></strong>: Makes all properties required
+- <strong>Readonly<t></t></strong>: Makes all properties readonly
+- <strong>Pick<t, k=""></t,></strong>: Select specific properties
+- <strong>Omit<t, k=""></t,></strong>: Remove specific properties
+- <strong>Exclude<t, u=""></t,></strong>: Exclude types
+- <strong>Extract<t, u=""></t,></strong>: Extract types
+- <strong>Record<k, t=""></k,></strong>: Create object type with keys
+- <strong>ReturnType<t></t></strong>: Get function return type
+- <strong>Parameters<t></t></strong>: Get function parameters</p>
+<h3 id="professional-examples">Professional Examples</h3>
+<p>Utility types are essential for:
+- <strong>Form Handling</strong>: Partial for form values
+- <strong>API Clients</strong>: Pick for selecting fields
+- <strong>Type Safety</strong>: Readonly for immutable data
+- <strong>Data Transformation</strong>: Omit for sensitive data
+- <strong>Type Mapping</strong>: Record for dictionaries</p>
+<h3 id="utility-types-examples">Utility Types Examples</h3>
+<pre><code class="language-tsx">// Partial&lt;T&gt;
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    age: number;
+}
+
+type PartialUser = Partial&lt;User&gt;;
+// { id?: number; name?: string; email?: string; age?: number; }
+
+function updateUser(id: number, updates: Partial&lt;User&gt;) {
+    // updates can contain any subset of User properties
+    console.log('Updating user:', id, updates);
+}
+
+// Required&lt;T&gt;
+type RequiredUser = Required&lt;PartialUser&gt;;
+// { id: number; name: string; email: string; age: number; }
+
+// Readonly&lt;T&gt;
+type ReadonlyUser = Readonly&lt;User&gt;;
+// { readonly id: number; readonly name: string; readonly email: string; readonly age: number; }
+
+const readonlyUser: ReadonlyUser = {
+    id: 1,
+    name: "John",
+    email: "john@example.com",
+    age: 30
+};
+// readonlyUser.name = "Jane"; // Error: Cannot assign to 'name' because it is a read-only property
+
+// Pick&lt;T, K&gt;
+type UserNameEmail = Pick&lt;User, 'name' | 'email'&gt;;
+// { name: string; email: string; }
+
+function getUserBasicInfo(user: User): Pick&lt;User, 'name' | 'email'&gt; {
+    return {
+        name: user.name,
+        email: user.email
+    };
+}
+
+// Omit&lt;T, K&gt;
+type UserWithoutEmail = Omit&lt;User, 'email'&gt;;
+// { id: number; name: string; age: number; }
+
+function getUserProfile(user: User): Omit&lt;User, 'email'&gt; {
+    const { email, ...profile } = user;
+    return profile;
+}
+
+// Exclude&lt;T, U&gt;
+type MyTypes = 'one' | 'two' | 'three' | 'four';
+type ExcludeOne = Exclude&lt;MyTypes, 'one'&gt;;
+// 'two' | 'three' | 'four'
+
+// Extract&lt;T, U&gt;
+type ExtractOne = Extract&lt;MyTypes, 'one' | 'two'&gt;;
+// 'one' | 'two'
+
+// NonNullable&lt;T&gt;
+type NullableType = string | null | undefined;
+type NonNullableType = NonNullable&lt;NullableType&gt;;
+// string
+
+// Record&lt;K, T&gt;
+type UserRoles = 'admin' | 'user' | 'guest';
+type RolePermissions = Record&lt;UserRoles, string[]&gt;;
+// { admin: string[]; user: string[]; guest: string[]; }
+
+const permissions: RolePermissions = {
+    admin: ['read', 'write', 'delete'],
+    user: ['read', 'write'],
+    guest: ['read']
+};
+
+// ReturnType&lt;T&gt;
+function getUser(): User {
+    return {
+        id: 1,
+        name: "John",
+        email: "john@example.com",
+        age: 30
+    };
+}
+
+type GetUserReturn = ReturnType&lt;typeof getUser&gt;;
+// User
+
+// Parameters&lt;T&gt;
+function createUser(name: string, age: number): User {
+    return {
+        id: Date.now(),
+        name,
+        age,
+        email: `${name}@example.com`
+    };
+}
+
+type CreateUserParams = Parameters&lt;typeof createUser&gt;;
+// [string, number]
+
+// Custom utility type
+type Nullable&lt;T&gt; = T | null;
+type Optional&lt;T&gt; = T | undefined;
+type Maybe&lt;T&gt; = T | null | undefined;
+
+type UserData = {
+    id: number;
+    name: string;
+    age: Maybe&lt;number&gt;;
+};
+
+// Combining utility types
+type UserFormData = Partial&lt;Omit&lt;User, 'id'&gt;&gt;;
+// Partial of User without id
+
+// React component with utility types
+interface FormFieldProps {
+    value: string;
+    onChange: (value: string) =&gt; void;
+    error?: string;
+    label: string;
+    type: 'text' | 'email' | 'password';
+    required?: boolean;
+}
+
+function FormField({
+    value,
+    onChange,
+    error,
+    label,
+    type,
+    required
+}: FormFieldProps) {
+    return (
+        &lt;div className="form-group"&gt;
+            &lt;label&gt;
+                {label}
+                {required &amp;&amp; &lt;span className="required"&gt;*&lt;/span&gt;}
+            &lt;/label&gt;
+            &lt;input
+                type={type}
+                value={value}
+                onChange={(e) =&gt; onChange(e.target.value)}
+                className={error ? 'error' : ''}
+            /&gt;
+            {error &amp;&amp; &lt;span className="error-message"&gt;{error}&lt;/span&gt;}
+        &lt;/div&gt;
+    );
+}
+
+// Type-safe event handlers
+type FormEvent = React.FormEvent&lt;HTMLFormElement&gt;;
+type ChangeEvent = React.ChangeEvent&lt;HTMLInputElement&gt;;
+type ClickEvent = React.MouseEvent&lt;HTMLButtonElement&gt;;
+
+function LoginForm() {
+    const [formData, setFormData] = useState&lt;Pick&lt;User, 'email'&gt;&gt;({
+        email: ''
+    });
+    const [errors, setErrors] = useState&lt;Partial&lt;Record&lt;keyof Pick&lt;User, 'email'&gt;, string&gt;&gt;&gt;({});
+
+    const handleChange = (e: ChangeEvent) =&gt; {
+        const { name, value } = e.target;
+        setFormData(prev =&gt; ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = (e: FormEvent) =&gt; {
+        e.preventDefault();
+        // Validation logic
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;FormField
+                label="Email"
+                type="email"
+                value={formData.email}
+                onChange={(value) =&gt; setFormData(prev =&gt; ({ ...prev, email: value }))}
+                error={errors.email}
+                required
+            /&gt;
+            &lt;button type="submit"&gt;Login&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h2 id="107-type-narrowing-and-type-guards">10.7 Type Narrowing and Type Guards</h2>
+<h3 id="simple-explanation_6--6">Simple Explanation</h3>
+<p>Type narrowing is the process of refining a variable's type from a broader type to a more specific one. Type guards are conditions that help TypeScript narrow down types.</p>
+<p>Think of type narrowing like a detective investigation - you start with a suspect (unknown type) and gather clues (conditions) until you can identify exactly who they are (specific type).</p>
+<h3 id="technical-explanation_6--6">Technical Explanation</h3>
+<p>Type narrowing helps TypeScript understand more specific types:
+- <strong>typeof</strong>: Check primitive types
+- <strong>instanceof</strong>: Check class instances
+- <strong>in</strong>: Check property existence
+- <strong>Equality</strong>: Check equality with specific values
+- <strong>User-defined</strong>: Custom type guard functions</p>
+<p>Type guards are functions that return a type predicate, helping TypeScript narrow types.</p>
+<h3 id="professional-explanation_5--6">Professional Explanation</h3>
+<p>Type narrowing is essential for:
+- <strong>API Responses</strong>: Handling different response shapes
+- <strong>Form Inputs</strong>: Validating user input
+- <strong>Error Handling</strong>: Different error types
+- <strong>Event Handling</strong>: Different event types
+- <strong>Polymorphism</strong>: Handling different types</p>
+<h3 id="type-narrowing-and-type-guards-examples">Type Narrowing and Type Guards Examples</h3>
+<pre><code class="language-tsx">// typeof type guard
+function processValue(value: string | number | boolean) {
+    if (typeof value === 'string') {
+        // value is string
+        return value.toUpperCase();
+    }
+
+    if (typeof value === 'number') {
+        // value is number
+        return value.toFixed(2);
+    }
+
+    // value is boolean
+    return value ? 'true' : 'false';
+}
+
+// instanceof type guard
+class Dog {
+    bark() {
+        console.log('Woof!');
+    }
+}
+
+class Cat {
+    meow() {
+        console.log('Meow!');
+    }
+}
+
+function makeSound(animal: Dog | Cat) {
+    if (animal instanceof Dog) {
+        animal.bark(); // Dog
+    } else {
+        animal.meow(); // Cat
+    }
+}
+
+// in operator type guard
+interface Car {
+    drive(): void;
+    fuel: string;
+}
+
+interface Boat {
+    sail(): void;
+    fuel: string;
+}
+
+function operate(vehicle: Car | Boat) {
+    if ('drive' in vehicle) {
+        vehicle.drive(); // Car
+    } else {
+        vehicle.sail(); // Boat
+    }
+}
+
+// Equality narrowing
+function processStatus(status: 'success' | 'error' | 'loading') {
+    if (status === 'success') {
+        // Handle success
+        return 'Operation completed successfully';
+    }
+
+    if (status === 'error') {
+        // Handle error
+        return 'Operation failed';
+    }
+
+    // status is 'loading'
+    return 'Operation in progress...';
+}
+
+// User-defined type guard
+interface AdminUser {
+    id: number;
+    name: string;
+    role: 'admin';
+    permissions: string[];
+}
+
+interface RegularUser {
+    id: number;
+    name: string;
+    role: 'user';
+    preferences: {
+        theme: 'light' | 'dark';
+        notifications: boolean;
+    };
+}
+
+function isAdmin(user: AdminUser | RegularUser): user is AdminUser {
+    return user.role === 'admin';
+}
+
+function isRegularUser(user: AdminUser | RegularUser): user is RegularUser {
+    return user.role === 'user';
+}
+
+function getUserInfo(user: AdminUser | RegularUser) {
+    if (isAdmin(user)) {
+        // user is AdminUser
+        return `Admin with permissions: ${user.permissions.join(', ')}`;
+    }
+
+    if (isRegularUser(user)) {
+        // user is RegularUser
+        return `User with theme: ${user.preferences.theme}`;
+    }
+
+    return 'Unknown user type';
+}
+
+// Type guard with discriminated union
+type Shape =
+    | { kind: 'circle'; radius: number }
+    | { kind: 'rectangle'; width: number; height: number }
+    | { kind: 'triangle'; base: number; height: number };
+
+function getArea(shape: Shape): number {
+    switch (shape.kind) {
+        case 'circle':
+            return Math.PI * shape.radius ** 2;
+        case 'rectangle':
+            return shape.width * shape.height;
+        case 'triangle':
+            return (shape.base * shape.height) / 2;
+        default:
+            throw new Error('Unknown shape');
+    }
+}
+
+// Type guard with null checks
+function processString(value: string | null | undefined): string {
+    if (value === null || value === undefined) {
+        return 'No value provided';
+    }
+
+    // value is string
+    return value.toUpperCase();
+}
+
+// Custom type guard with async
+async function isUserValid(user: unknown): Promise&lt;user is User&gt; {
+    if (!user || typeof user !== 'object') {
+        return false;
+    }
+
+    const possibleUser = user as User;
+    return typeof possibleUser.id === 'number' &amp;&amp;
+           typeof possibleUser.name === 'string' &amp;&amp;
+           typeof possibleUser.email === 'string';
+}
+
+// React component with type guards
+interface ApiError {
+    code: number;
+    message: string;
+}
+
+interface ApiSuccess&lt;T&gt; {
+    data: T;
+    status: 'success';
+}
+
+function isApiError(response: unknown): response is ApiError {
+    return (
+        typeof response === 'object' &amp;&amp;
+        response !== null &amp;&amp;
+        'code' in response &amp;&amp;
+        'message' in response
+    );
+}
+
+function DataFetcher() {
+    const [data, setData] = useState&lt;unknown&gt;(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState&lt;string | null&gt;(null);
+
+    useEffect(() =&gt; {
+        fetch('/api/data')
+            .then(res =&gt; res.json())
+            .then((response) =&gt; {
+                if (isApiError(response)) {
+                    setError(response.message);
+                } else {
+                    setData(response);
+                }
+            })
+            .catch((err) =&gt; {
+                setError(err.message);
+            })
+            .finally(() =&gt; {
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+
+    return &lt;div&gt;{JSON.stringify(data)}&lt;/div&gt;;
+}
+</code></pre>
+<h2 id="108-advanced-types">10.8 Advanced Types</h2>
+<h3 id="simple-explanation_7--6">Simple Explanation</h3>
+<p>Advanced types in TypeScript allow you to create complex, flexible type definitions. They include mapped types, conditional types, template literal types, and other powerful type-level programming features.</p>
+<p>Think of advanced types like a swiss army knife - each tool allows you to solve a specific type problem in a precise way.</p>
+<h3 id="technical-explanation_7--6">Technical Explanation</h3>
+<p>Advanced types include:
+- <strong>Mapped Types</strong>: Transform properties of a type
+- <strong>Conditional Types</strong>: Types based on conditions
+- <strong>Template Literal Types</strong>: String manipulation at type level
+- <strong>Infer</strong>: Extract types from complex types
+- <strong>Indexed Access Types</strong>: Access property types
+- <strong>Recursive Types</strong>: Self-referential types</p>
+<h3 id="professional-explanation_6--6">Professional Explanation</h3>
+<p>Advanced types are useful for:
+- <strong>Type Libraries</strong>: Creating reusable type utilities
+- <strong>API Clients</strong>: Type-safe API responses
+- <strong>Form Libraries</strong>: Type-safe form handling
+- <strong>State Management</strong>: Type-safe state updates
+- <strong>Component Libraries</strong>: Flexible, type-safe components</p>
+<h3 id="advanced-types-examples">Advanced Types Examples</h3>
+<pre><code class="language-tsx">// Mapped types
+type Readonly&lt;T&gt; = {
+    readonly [P in keyof T]: T[P];
+};
+
+type Partial&lt;T&gt; = {
+    [P in keyof T]?: T[P];
+};
+
+type Nullable&lt;T&gt; = {
+    [P in keyof T]: T[P] | null;
+};
+
+type MyUser = {
+    id: number;
+    name: string;
+    email: string;
+    age: number;
+};
+
+type ReadonlyUser = Readonly&lt;MyUser&gt;;
+type PartialUser = Partial&lt;MyUser&gt;;
+type NullableUser = Nullable&lt;MyUser&gt;;
+
+// Conditional types
+type IsString&lt;T&gt; = T extends string ? true : false;
+type IsNumber&lt;T&gt; = T extends number ? true : false;
+
+type StringCheck = IsString&lt;'hello'&gt;; // true
+type NumberCheck = IsNumber&lt;'hello'&gt;; // false
+
+// Template literal types
+type EventType = 'click' | 'hover' | 'focus';
+type EventHandler = `on${Capitalize&lt;EventType&gt;}`;
+// 'onClick' | 'onHover' | 'onFocus'
+
+type Color = 'red' | 'blue' | 'green';
+type Size = 'small' | 'medium' | 'large';
+type ColorSize = `${Color}-${Size}`;
+// 'red-small' | 'red-medium' | 'red-large' | 'blue-small' | ...
+
+// Infer keyword
+type ReturnType&lt;T&gt; = T extends (...args: any[]) =&gt; infer R ? R : never;
+
+function greet(name: string): string {
+    return `Hello, ${name}!`;
+}
+
+type GreetReturn = ReturnType&lt;typeof greet&gt;; // string
+
+// Indexed access types
+type UserName = MyUser['name']; // string
+type UserAge = MyUser['age']; // number
+type UserKeys = keyof MyUser; // 'id' | 'name' | 'email' | 'age'
+
+// Recursive types
+type JsonPrimitive = string | number | boolean | null;
+type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+interface JsonObject {
+    [key: string]: JsonValue;
+}
+interface JsonArray extends Array&lt;JsonValue&gt; {}
+
+// Mapped type with modifiers
+type Mutable&lt;T&gt; = {
+    -readonly [P in keyof T]: T[P];
+};
+
+type Required&lt;T&gt; = {
+    [P in keyof T]-?: T[P];
+};
+
+// Conditional mapped types
+type ExtractProperty&lt;T, U&gt; = {
+    [P in keyof T]: T[P] extends U ? P : never;
+}[keyof T];
+
+// Union transformation types
+type UnionToIntersection&lt;U&gt; =
+    (U extends any ? (k: U) =&gt; void : never) extends ((k: infer I) =&gt; void) ? I : never;
+
+type Union = { a: number } | { b: string } | { c: boolean };
+type Intersection = UnionToIntersection&lt;Union&gt;; // { a: number } &amp; { b: string } &amp; { c: boolean }
+
+// Advanced React type definitions
+type ComponentProps&lt;T&gt; = T extends React.ComponentType&lt;infer P&gt; ? P : never;
+
+function withAuth&lt;T extends React.ComponentType&lt;any&gt;&gt;(
+    Component: T
+): React.ComponentType&lt;Omit&lt;ComponentProps&lt;T&gt;, 'user'&gt;&gt; {
+    return function AuthenticatedComponent(props: Omit&lt;ComponentProps&lt;T&gt;, 'user'&gt;) {
+        const user = useAuth();
+        return &lt;Component {...props as any} user={user} /&gt;;
+    };
+}
+
+// Type-safe event system
+type EventMap = {
+    userCreated: { id: number; name: string };
+    userDeleted: { id: number };
+    userUpdated: { id: number; changes: Partial&lt;User&gt; };
+};
+
+type EventListener&lt;T&gt; = (data: T) =&gt; void;
+
+class EventBus {
+    private listeners: {
+        [K in keyof EventMap]?: EventListener&lt;EventMap[K]&gt;[];
+    } = {};
+
+    emit&lt;K extends keyof EventMap&gt;(event: K, data: EventMap[K]) {
+        const listeners = this.listeners[event] || [];
+        listeners.forEach(listener =&gt; listener(data));
+    }
+
+    on&lt;K extends keyof EventMap&gt;(event: K, listener: EventListener&lt;EventMap[K]&gt;) {
+        if (!this.listeners[event]) {
+            this.listeners[event] = [];
+        }
+        this.listeners[event]!.push(listener);
+        return () =&gt; this.off(event, listener);
+    }
+
+    off&lt;K extends keyof EventMap&gt;(event: K, listener: EventListener&lt;EventMap[K]&gt;) {
+        const listeners = this.listeners[event];
+        if (listeners) {
+            this.listeners[event] = listeners.filter(l =&gt; l !== listener);
+        }
+    }
+}
+
+// Using the event system
+const eventBus = new EventBus();
+
+eventBus.on('userCreated', (data) =&gt; {
+    console.log('User created:', data.id, data.name);
+});
+
+eventBus.emit('userCreated', { id: 1, name: 'John' });
+</code></pre>
+<h2 id="109-typescript-in-react-components">10.9 TypeScript in React Components</h2>
+<h3 id="simple-explanation_8--5">Simple Explanation</h3>
+<p>TypeScript enhances React components by providing type safety for props, state, and events. This leads to fewer bugs, better IDE support, and self-documenting components.</p>
+<h3 id="technical-explanation_8--5">Technical Explanation</h3>
+<p>TypeScript with React components involves:
+- <strong>Props</strong>: Define prop types
+- <strong>State</strong>: Type state variables
+- <strong>Events</strong>: Type event handlers
+- <strong>Hooks</strong>: Type useState, useReducer, etc.
+- <strong>Context</strong>: Type context values
+- <strong>Refs</strong>: Type refs
+- <strong>Higher-Order Components</strong>: Type HOCs</p>
+<h3 id="professional-examples_1">Professional Examples</h3>
+<p>TypeScript makes React components robust and maintainable by catching type errors at compile time.</p>
+<h3 id="typescript-in-react-components-examples">TypeScript in React Components Examples</h3>
+<pre><code class="language-tsx">// Functional component with props
+interface ButtonProps {
+    variant: 'primary' | 'secondary' | 'danger';
+    size?: 'small' | 'medium' | 'large';
+    disabled?: boolean;
+    onClick?: (event: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; void;
+    children: React.ReactNode;
+    className?: string;
+}
+
+const Button: React.FC&lt;ButtonProps&gt; = ({
+    variant,
+    size = 'medium',
+    disabled = false,
+    onClick,
+    children,
+    className
+}) =&gt; {
+    const baseClasses = 'btn';
+    const variantClasses = {
+        primary: 'btn-primary',
+        secondary: 'btn-secondary',
+        danger: 'btn-danger'
+    };
+    const sizeClasses = {
+        small: 'btn-sm',
+        medium: 'btn-md',
+        large: 'btn-lg'
+    };
+
+    return (
+        &lt;button
+            className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className || ''}`}
+            disabled={disabled}
+            onClick={onClick}
+        &gt;
+            {children}
+        &lt;/button&gt;
+    );
+};
+
+// Component with generic props
+interface ListProps&lt;T&gt; {
+    items: T[];
+    renderItem: (item: T, index: number) =&gt; React.ReactNode;
+    keyExtractor: (item: T) =&gt; string;
+    emptyMessage?: string;
+    className?: string;
+}
+
+function List&lt;T&gt;({
+    items,
+    renderItem,
+    keyExtractor,
+    emptyMessage,
+    className
+}: ListProps&lt;T&gt;) {
+    if (items.length === 0) {
+        return &lt;div&gt;{emptyMessage || 'No items to display'}&lt;/div&gt;;
+    }
+
+    return (
+        &lt;ul className={className}&gt;
+            {items.map((item, index) =&gt; (
+                &lt;li key={keyExtractor(item)}&gt;
+                    {renderItem(item, index)}
+                &lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}
+
+// Component with state
+interface CounterState {
+    count: number;
+    lastUpdated: Date;
+}
+
+function Counter() {
+    const [state, setState] = useState&lt;CounterState&gt;({
+        count: 0,
+        lastUpdated: new Date()
+    });
+
+    const increment = () =&gt; {
+        setState(prev =&gt; ({
+            count: prev.count + 1,
+            lastUpdated: new Date()
+        }));
+    };
+
+    const decrement = () =&gt; {
+        setState(prev =&gt; ({
+            count: prev.count - 1,
+            lastUpdated: new Date()
+        }));
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {state.count}&lt;/p&gt;
+            &lt;p&gt;Last updated: {state.lastUpdated.toLocaleTimeString()}&lt;/p&gt;
+            &lt;button onClick={increment}&gt;+&lt;/button&gt;
+            &lt;button onClick={decrement}&gt;-&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Component with refs
+interface InputProps {
+    value: string;
+    onChange: (value: string) =&gt; void;
+    placeholder?: string;
+    error?: string;
+}
+
+const Input = React.forwardRef&lt;HTMLInputElement, InputProps&gt;(
+    ({ value, onChange, placeholder, error }, ref) =&gt; {
+        return (
+            &lt;div className="input-group"&gt;
+                &lt;input
+                    ref={ref}
+                    type="text"
+                    value={value}
+                    onChange={(e) =&gt; onChange(e.target.value)}
+                    placeholder={placeholder}
+                    className={error ? 'error' : ''}
+                /&gt;
+                {error &amp;&amp; &lt;span className="error-message"&gt;{error}&lt;/span&gt;}
+            &lt;/div&gt;
+        );
+    }
+);
+
+// Component with context
+interface ThemeContextValue {
+    theme: 'light' | 'dark';
+    toggleTheme: () =&gt; void;
+}
+
+const ThemeContext = React.createContext&lt;ThemeContextValue | null&gt;(null);
+
+function ThemeProvider({ children }: { children: React.ReactNode }) {
+    const [theme, setTheme] = useState&lt;'light' | 'dark'&gt;('light');
+
+    const toggleTheme = () =&gt; {
+        setTheme(prev =&gt; prev === 'light' ? 'dark' : 'light');
+    };
+
+    const value: ThemeContextValue = {
+        theme,
+        toggleTheme
+    };
+
+    return (
+        &lt;ThemeContext.Provider value={value}&gt;
+            {children}
+        &lt;/ThemeContext.Provider&gt;
+    );
+}
+
+function useTheme() {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        throw new Error('useTheme must be used within a ThemeProvider');
+    }
+    return context;
+}
+
+function ThemedButton() {
+    const { theme, toggleTheme } = useTheme();
+
+    return (
+        &lt;button
+            className={`btn-theme-${theme}`}
+            onClick={toggleTheme}
+        &gt;
+            Switch to {theme === 'light' ? 'dark' : 'light'} mode
+        &lt;/button&gt;
+    );
+}
+
+// Custom hook with types
+function useFetch&lt;T&gt;(url: string): {
+    data: T | null;
+    loading: boolean;
+    error: string | null;
+    refetch: () =&gt; void;
+} {
+    const [data, setData] = useState&lt;T | null&gt;(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState&lt;string | null&gt;(null);
+
+    const fetchData = useCallback(async () =&gt; {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            setData(json);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An error occurred');
+        } finally {
+            setLoading(false);
+        }
+    }, [url]);
+
+    useEffect(() =&gt; {
+        fetchData();
+    }, [fetchData]);
+
+    return { data, loading, error, refetch: fetchData };
+}
+
+// Component with custom hook
+function UserProfile() {
+    const { data: user, loading, error } = useFetch&lt;User&gt;('/api/users/1');
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+    if (!user) return &lt;div&gt;User not found&lt;/div&gt;;
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;p&gt;{user.email}&lt;/p&gt;
+            {user.age &amp;&amp; &lt;p&gt;Age: {user.age}&lt;/p&gt;}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="1010-common-mistakes-and-best-practices">10.10 Common Mistakes and Best Practices</h2>
+<h3 id="10101-common-mistakes">10.10.1 Common Mistakes</h3>
+<pre><code class="language-tsx">// ❌ Using any instead of proper types
+function processData(data: any) {
+    // Disables type checking
+    return data.name;
+}
+
+// ✅ Use proper types
+function processData(data: { name: string }) {
+    return data.name;
+}
+
+// ❌ Not handling optional props
+interface User {
+    id: number;
+    name: string;
+    email?: string;
+}
+
+function UserCard({ user }: { user: User }) {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;p&gt;{user.email}&lt;/p&gt; {/* ❌ email might be undefined */}
+        &lt;/div&gt;
+    );
+}
+
+// ✅ Handle optional props
+function UserCard({ user }: { user: User }) {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;p&gt;{user.email || 'No email provided'}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// ❌ Type assertion abuse
+const user = {} as User;
+user.id = 1; // ❌ Not safe
+
+// ✅ Use proper initialization
+const user: User = {
+    id: 1,
+    name: 'John'
+};
+
+// ❌ Overly complex types
+interface ComplexType {
+    data: {
+        items: {
+            id: number;
+            name: string;
+            metadata: {
+                created: string;
+                updated: string;
+                tags: string[];
+            };
+        }[];
+        pagination: {
+            page: number;
+            limit: number;
+            total: number;
+        };
+    };
+}
+
+// ✅ Break down complex types
+interface Item {
+    id: number;
+    name: string;
+    metadata: Metadata;
+}
+
+interface Metadata {
+    created: string;
+    updated: string;
+    tags: string[];
+}
+
+interface Pagination {
+    page: number;
+    limit: number;
+    total: number;
+}
+
+interface DataResponse {
+    items: Item[];
+    pagination: Pagination;
+}
+</code></pre>
+<h3 id="10102-best-practices">10.10.2 Best Practices</h3>
+<pre><code class="language-tsx">// ✅ Use interfaces for object types
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+// ✅ Use type aliases for union types
+type UserRole = 'admin' | 'user' | 'guest';
+
+// ✅ Use proper event types
+function handleClick(event: React.MouseEvent&lt;HTMLButtonElement&gt;) {
+    // Type-safe event handling
+}
+
+// ✅ Use generic components
+function List&lt;T&gt;({ items, renderItem }: ListProps&lt;T&gt;) {
+    // Reusable type-safe list
+}
+
+// ✅ Use strict null checks
+function getValue(value: string | null | undefined): string {
+    return value ?? 'default';
+}
+
+// ✅ Document types with JSDoc
+/**
+ * User information interface
+ * @property id - Unique user identifier
+ * @property name - Full name of the user
+ * @property email - Email address of the user
+ */
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+// ✅ Use utility types
+type UserPreview = Pick&lt;User, 'id' | 'name'&gt;;
+type UserUpdate = Partial&lt;Omit&lt;User, 'id'&gt;&gt;;
+type UserResponse = ApiResponse&lt;User&gt;;
+
+// ✅ Use discriminated unions
+type ApiState =
+    | { status: 'idle' }
+    | { status: 'loading' }
+    | { status: 'success'; data: User }
+    | { status: 'error'; error: string };
+
+function handleState(state: ApiState) {
+    switch (state.status) {
+        case 'idle':
+            return 'Ready';
+        case 'loading':
+            return 'Loading...';
+        case 'success':
+            return `User: ${state.data.name}`;
+        case 'error':
+            return `Error: ${state.error}`;
+    }
+}
+</code></pre>
+<h2 id="1011-interview-questions">10.11 Interview Questions</h2>
+<h3 id="junior-level-questions--10">Junior Level Questions</h3>
+<p><strong>Q: What is TypeScript and why use it with React?</strong></p>
+<p><strong>Answer</strong>: TypeScript is a typed superset of JavaScript that adds static typing. Benefits with React:
+- Better IDE support and autocomplete
+- Catch errors at compile time
+- Self-documenting code
+- Easier refactoring</p>
+<pre><code class="language-tsx">interface Props {
+    name: string;
+    age: number;
+}
+
+function Greeting({ name, age }: Props) {
+    return &lt;h1&gt;Hello, {name}! You are {age} years old.&lt;/h1&gt;;
+}
+</code></pre>
+<p><strong>Q: What is the difference between <code>interface</code> and <code>type</code>?</strong></p>
+<p><strong>Answer</strong>:
+- <strong>Interface</strong>: For object types, can be extended, declaration merging
+- <strong>Type</strong>: More flexible, supports union types, can be used for any type</p>
+<pre><code class="language-tsx">// Interface
+interface User {
+    id: number;
+    name: string;
+}
+
+// Type
+type User = {
+    id: number;
+    name: string;
+};
+
+type UserRole = 'admin' | 'user';
+</code></pre>
+<h3 id="mid-level-questions--10">Mid Level Questions</h3>
+<p><strong>Q: How do you use generics in React components?</strong></p>
+<p><strong>Answer</strong>: Generics allow components to work with multiple types while maintaining type safety.</p>
+<pre><code class="language-tsx">function List&lt;T&gt;({ items, renderItem }: ListProps&lt;T&gt;) {
+    return items.map((item, index) =&gt; renderItem(item, index));
+}
+
+// Usage
+&lt;List&lt;User&gt;
+    items={users}
+    renderItem={(user) =&gt; &lt;UserCard user={user} /&gt;}
+/&gt;
+</code></pre>
+<p><strong>Q: What are utility types and when would you use them?</strong></p>
+<p><strong>Answer</strong>: Utility types are built-in TypeScript types that transform existing types. Common ones:
+- <code>Partial&lt;T&gt;</code>: Make all properties optional
+- <code>Pick&lt;T, K&gt;</code>: Select specific properties
+- <code>Omit&lt;T, K&gt;</code>: Remove specific properties
+- <code>Readonly&lt;T&gt;</code>: Make all properties readonly</p>
+<pre><code class="language-tsx">type UserUpdate = Partial&lt;Omit&lt;User, 'id'&gt;&gt;;
+function updateUser(id: number, updates: UserUpdate) {
+    // updates can contain any subset of User properties
+}
+</code></pre>
+<h3 id="senior-level-questions--10">Senior Level Questions</h3>
+<p><strong>Q: How do you create type-safe API clients with TypeScript?</strong></p>
+<p><strong>Answer</strong>: Use generics, utility types, and conditional types to create type-safe API clients.</p>
+<pre><code class="language-tsx">interface ApiClient {
+    get&lt;T&gt;(url: string): Promise&lt;ApiResponse&lt;T&gt;&gt;;
+    post&lt;T&gt;(url: string, data: unknown): Promise&lt;ApiResponse&lt;T&gt;&gt;;
+    put&lt;T&gt;(url: string, data: unknown): Promise&lt;ApiResponse&lt;T&gt;&gt;;
+    delete&lt;T&gt;(url: string): Promise&lt;ApiResponse&lt;T&gt;&gt;;
+}
+
+// Using the client
+const user = await client.get&lt;User&gt;('/users/1');
+const users = await client.get&lt;User[]&gt;('/users');
+</code></pre>
+<p><strong>Q: How do you implement type-safe forms in React?</strong></p>
+<p><strong>Answer</strong>: Use TypeScript with form libraries like React Hook Form for type-safe forms.</p>
+<pre><code class="language-tsx">interface FormData {
+    name: string;
+    email: string;
+    age: number;
+}
+
+function MyForm() {
+    const { register, handleSubmit } = useForm&lt;FormData&gt;();
+
+    const onSubmit = (data: FormData) =&gt; {
+        console.log(data);
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit(onSubmit)}&gt;
+            &lt;input {...register('name')} /&gt;
+            &lt;input {...register('email')} /&gt;
+            &lt;input {...register('age')} /&gt;
+            &lt;button type="submit"&gt;Submit&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h2 id="1012-summary">10.12 Summary</h2>
+<h3 id="typescript-concepts">TypeScript Concepts</h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primitives</strong></td>
+<td>Basic types</td>
+<td><code>string</code>, <code>number</code>, <code>boolean</code></td>
+</tr>
+<tr>
+<td><strong>Interfaces</strong></td>
+<td>Object type definitions</td>
+<td><code>interface User { name: string }</code></td>
+</tr>
+<tr>
+<td><strong>Type Aliases</strong></td>
+<td>Custom type names</td>
+<td><code>type UserRole = 'admin' \| 'user'</code></td>
+</tr>
+<tr>
+<td><strong>Generics</strong></td>
+<td>Type parameters</td>
+<td><code>function&lt;T&gt;(value: T): T</code></td>
+</tr>
+<tr>
+<td><strong>Utility Types</strong></td>
+<td>Type transformations</td>
+<td><code>Partial&lt;T&gt;</code>, <code>Pick&lt;T, K&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Type Guards</strong></td>
+<td>Type narrowing</td>
+<td><code>typeof</code>, <code>instanceof</code>, user-defined</td>
+</tr>
+</tbody>
+</table>
+<h3 id="typescript-in-react-2">TypeScript in React</h3>
+<table>
+<thead>
+<tr>
+<th>React Concept</th>
+<th>TypeScript Usage</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Props</strong></td>
+<td>Interface or type</td>
+<td><code>interface Props { name: string }</code></td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>Type annotation</td>
+<td><code>const [state, setState] = useState&lt;Type&gt;()</code></td>
+</tr>
+<tr>
+<td><strong>Events</strong></td>
+<td>Event types</td>
+<td><code>(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void</code></td>
+</tr>
+<tr>
+<td><strong>Hooks</strong></td>
+<td>Type parameters</td>
+<td><code>useState&lt;string&gt;('')</code></td>
+</tr>
+<tr>
+<td><strong>Context</strong></td>
+<td>Context types</td>
+<td><code>const ctx = createContext&lt;Type | null&gt;(null)</code></td>
+</tr>
+<tr>
+<td><strong>Refs</strong></td>
+<td>Ref types</td>
+<td><code>const ref = useRef&lt;HTMLInputElement&gt;(null)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="best-practices-summary--8">Best Practices Summary</h3>
+<ol>
+<li><strong>Use interfaces for object types</strong></li>
+<li><strong>Use type aliases for union types and complex types</strong></li>
+<li><strong>Use generics for reusable components</strong></li>
+<li><strong>Use utility types to transform existing types</strong></li>
+<li><strong>Use type guards for safe type narrowing</strong></li>
+<li><strong>Avoid <code>any</code> type</strong></li>
+<li><strong>Use strict mode in TypeScript</strong></li>
+<li><strong>Document types with JSDoc</strong></li>
+<li><strong>Use discriminated unions for state management</strong></li>
+<li><strong>Keep types organized and maintainable</strong></li>
+</ol>
+<hr/>
+<p><em>End of Chapter 10</em></p>
+<p><strong>Next Chapter Preview</strong>: Chapter 11 will cover Project Structure in React, including enterprise folder organization, file naming conventions, and the purpose of each folder and file type.</p>
+<hr/>
+<p><em>This chapter provides comprehensive coverage of TypeScript in React. Master these concepts to build type-safe, maintainable, and scalable React applications.</em></p>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-10" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-9"><span class="pager-label">← Previous chapter</span><strong>09 · API Integration in React</strong></a><a class="pager-card pager-card--next" href="#chapter-11"><span class="pager-label">Next chapter →</span><strong>11 · Enterprise React Project Structure</strong></a></nav></section>

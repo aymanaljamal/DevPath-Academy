@@ -1,0 +1,521 @@
+<section class="chapter" id="chapter-15" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">15</span>
+<h1 class="chapter-title" id="testing-react-applications">Testing React Applications</h1>
+</div>
+<hr/>
+<h2 id="introduction--5">Introduction</h2>
+<p>Writing code is only half of a software developer's job.</p>
+<p>The other half is ensuring that the code works correctly.</p>
+<p>This is where <strong>testing</strong> comes in.</p>
+<p>Testing is the process of verifying that your application behaves as expected under different conditions.</p>
+<p>Professional software companies invest heavily in automated testing because it:</p>
+<ul>
+<li>Prevents bugs</li>
+<li>Improves code quality</li>
+<li>Makes refactoring safer</li>
+<li>Increases developer confidence</li>
+<li>Reduces production issues</li>
+</ul>
+<p>Testing is especially important in enterprise React applications where multiple developers work on the same codebase.</p>
+<hr/>
+<h2 id="what-is-testing">What is Testing?</h2>
+<p>Testing means writing code that verifies other code.</p>
+<p>Instead of manually checking whether a button works every time you make a change, you write an automated test that checks it for you.</p>
+<p>Example:</p>
+<pre><code class="language-text">User clicks Login → Login API called → Success response → Redirect to Dashboard → Test Passed
+</code></pre>
+<hr/>
+<h2 id="why-testing-matters">Why Testing Matters</h2>
+<p>Imagine a project with:</p>
+<ul>
+<li>100 React components</li>
+<li>500 API endpoints</li>
+<li>20 developers</li>
+<li>Thousands of users</li>
+</ul>
+<p>One small change could accidentally break another feature.</p>
+<p>Without tests:</p>
+<pre><code class="language-text">Developer Changes Code → Deploy → Production Bug → Customer Complaints
+</code></pre>
+<p>With tests:</p>
+<pre><code class="language-text">Developer Changes Code → Run Tests → Bug Found → Fix Before Deployment
+</code></pre>
+<hr/>
+<h2 id="types-of-testing">Types of Testing</h2>
+<p>React applications commonly use three levels of testing.</p>
+<pre><code class="language-text">                 End-to-End Tests
+              (Entire Application)
+
+            Integration Tests
+     (Multiple Components Together)
+
+         Unit Tests
+   (Single Function or Component)
+</code></pre>
+<hr/>
+<h2 id="unit-testing">Unit Testing</h2>
+<p>Unit tests verify a single unit of code.</p>
+<p>A unit can be:</p>
+<ul>
+<li>Function</li>
+<li>Hook</li>
+<li>Utility</li>
+<li>Component</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-tsx">function add(a, b) {
+    return a + b;
+}
+</code></pre>
+<p>Test:</p>
+<ul>
+<li>Input:</li>
+<li>2 + 3</li>
+<li>↓</li>
+<li>Expected:</li>
+<li>5</li>
+</ul>
+<p>Only one function is tested.</p>
+<hr/>
+<h2 id="component-testing">Component Testing</h2>
+<p>React components are also units.</p>
+<p>Example:</p>
+<pre><code class="language-tsx">&lt;Button&gt;
+
+Save
+
+&lt;/Button&gt;
+</code></pre>
+<p>Questions:</p>
+<ul>
+<li>Does the button render?</li>
+<li>Does it display the correct text?</li>
+<li>Does clicking it call the function?</li>
+</ul>
+<hr/>
+<h2 id="integration-testing">Integration Testing</h2>
+<p>Integration tests verify that multiple parts work together.</p>
+<p>Example:</p>
+<pre><code class="language-text">Login Form → Validation → API Call → Dashboard Redirect
+</code></pre>
+<p>Instead of testing one component, we test the interaction between components.</p>
+<hr/>
+<h2 id="end-to-end-testing-e2e">End-to-End Testing (E2E)</h2>
+<p>E2E tests simulate a real user.</p>
+<p>Example:</p>
+<pre><code class="language-text">Open Website → Login → Navigate → Create Customer → Update Customer → Delete Customer → Logout
+</code></pre>
+<p>Everything is tested from the user's perspective.</p>
+<p>Popular tools:</p>
+<ul>
+<li>Cypress</li>
+<li>Playwright</li>
+</ul>
+<hr/>
+<h2 id="testing-pyramid">Testing Pyramid</h2>
+<p>Professional applications usually follow the testing pyramid.</p>
+<pre><code class="language-text">            E2E Tests
+          Small Number
+
+      Integration Tests
+       Moderate Number
+
+         Unit Tests
+        Large Number
+</code></pre>
+<p>Why?</p>
+<p>Unit tests are:</p>
+<ul>
+<li>Fast</li>
+<li>Cheap</li>
+<li>Easy to maintain</li>
+</ul>
+<p>E2E tests are:</p>
+<ul>
+<li>Slow</li>
+<li>Expensive</li>
+<li>Harder to maintain</li>
+</ul>
+<hr/>
+<h2 id="testing-tools">Testing Tools</h2>
+<p>Most React projects use:</p>
+<ul>
+<li>Vitest</li>
+<li>Jest</li>
+<li>React Testing Library</li>
+<li>Mock Service Worker (MSW)</li>
+</ul>
+<hr/>
+<h2 id="why-vitest">Why Vitest?</h2>
+<p>Modern React projects created with <strong>Vite</strong> usually use <strong>Vitest</strong>.</p>
+<p>Advantages:</p>
+<ul>
+<li>Very fast</li>
+<li>Native Vite integration</li>
+<li>TypeScript support</li>
+<li>Jest-compatible API</li>
+<li>Easy configuration</li>
+</ul>
+<hr/>
+<h2 id="why-jest">Why Jest?</h2>
+<p>Jest has been the standard testing framework for React for many years.</p>
+<p>Features:</p>
+<ul>
+<li>Test Runner</li>
+<li>Assertions</li>
+<li>Mocking</li>
+<li>Snapshots</li>
+<li>Code Coverage</li>
+</ul>
+<p>Many older enterprise projects still use Jest.</p>
+<hr/>
+<h2 id="react-testing-library-rtl">React Testing Library (RTL)</h2>
+<p>RTL focuses on testing applications the same way users interact with them.</p>
+<p>Instead of testing implementation details, it tests behavior.</p>
+<p>Example:</p>
+<pre><code class="language-text">User sees button → Clicks button → Button performs action
+</code></pre>
+<p>This approach produces more reliable tests.</p>
+<hr/>
+<h2 id="testing-philosophy">Testing Philosophy</h2>
+<p>Bad test:</p>
+<pre><code>Does Component use useState?
+</code></pre>
+<p>Good test:</p>
+<pre><code>Can the user successfully submit the form?
+</code></pre>
+<p>Always test behavior, not implementation.</p>
+<hr/>
+<h2 id="project-structure">Project Structure</h2>
+<p>Example:</p>
+<pre><code class="language-text">src
+│
+├── components
+│
+│   ├── Button.tsx
+│   └── Button.test.tsx
+│
+├── hooks
+│
+│   ├── useAuth.ts
+│   └── useAuth.test.ts
+│
+├── services
+│
+│   ├── customer.service.ts
+│   └── customer.service.test.ts
+</code></pre>
+<p>Every important module has its own tests.</p>
+<hr/>
+<h2 id="naming-convention">Naming Convention</h2>
+<p>Examples:</p>
+<ul>
+<li>Button.tsx</li>
+<li>Button.test.tsx</li>
+</ul>
+<hr/>
+<ul>
+<li>CustomerTable.tsx</li>
+<li>CustomerTable.test.tsx</li>
+</ul>
+<hr/>
+<h2 id="writing-your-first-test">Writing Your First Test</h2>
+<p>Component:</p>
+<pre><code class="language-tsx">&lt;Button&gt;
+
+Save
+
+&lt;/Button&gt;
+</code></pre>
+<p>Test:</p>
+<pre><code class="language-tsx">import { render, screen } from "@testing-library/react";
+import Button from "./Button";
+
+test("renders button text", () =&gt; {
+    render(&lt;Button&gt;Save&lt;/Button&gt;);
+    expect(screen.getByText("Save")).toBeInTheDocument();
+});
+</code></pre>
+<p>Explanation:</p>
+<ul>
+<li>Render component</li>
+<li>Search for text</li>
+<li>Verify it exists</li>
+</ul>
+<hr/>
+<h2 id="testing-user-interaction">Testing User Interaction</h2>
+<p>Instead of checking HTML directly, simulate user behavior.</p>
+<p>Example:</p>
+<pre><code class="language-text">User Click → Button → Function Called → Success
+</code></pre>
+<p>This ensures your application behaves correctly.</p>
+<hr/>
+<h2 id="testing-forms">Testing Forms</h2>
+<p>Example:</p>
+<pre><code class="language-text">Enter Name → Enter Email → Click Submit → Validation → API Request
+</code></pre>
+<p>Things to test:</p>
+<ul>
+<li>Required fields</li>
+<li>Invalid input</li>
+<li>Valid input</li>
+<li>Error messages</li>
+<li>Successful submission</li>
+</ul>
+<hr/>
+<h2 id="testing-api-calls">Testing API Calls</h2>
+<p>Components often call APIs.</p>
+<p>Instead of calling the real backend during tests, use <strong>mocking</strong>.</p>
+<p>Example:</p>
+<pre><code class="language-text">Real Backend → Replace with Fake Response → Component Receives Data → Test UI
+</code></pre>
+<p>This keeps tests:</p>
+<ul>
+<li>Fast</li>
+<li>Predictable</li>
+<li>Independent</li>
+</ul>
+<hr/>
+<h2 id="mocking">Mocking</h2>
+<p>Mocking replaces real dependencies with fake ones.</p>
+<p>Instead of:</p>
+<pre><code>Real Server
+</code></pre>
+<p>Return:</p>
+<pre><code class="language-json">[
+    {
+        "id":1,
+        "name":"John"
+    }
+]
+</code></pre>
+<p>The component believes it received real data.</p>
+<hr/>
+<h2 id="mock-service-worker-msw">Mock Service Worker (MSW)</h2>
+<p>MSW intercepts HTTP requests.</p>
+<p>Instead of:</p>
+<pre><code class="language-text">Axios → Internet → Backend
+</code></pre>
+<p>MSW changes the flow to:</p>
+<pre><code class="language-text">Axios → Mock Server → Fake Response
+</code></pre>
+<p>No real backend is required.</p>
+<hr/>
+<h2 id="testing-react-query">Testing React Query</h2>
+<p>When using React Query:</p>
+<pre><code class="language-text">Component → Query → Cache → API
+</code></pre>
+<p>Tests usually provide a custom Query Client.</p>
+<p>This isolates each test and prevents cache interference.</p>
+<hr/>
+<h2 id="testing-context">Testing Context</h2>
+<p>Applications often use:</p>
+<ul>
+<li>AuthContext</li>
+<li>ThemeContext</li>
+<li>LanguageContext</li>
+</ul>
+<p>Tests wrap components with the appropriate providers.</p>
+<p>Example:</p>
+<pre><code class="language-text">AuthProvider → Component → Test
+</code></pre>
+<hr/>
+<h2 id="testing-custom-hooks">Testing Custom Hooks</h2>
+<p>Hooks contain reusable logic.</p>
+<p>Example:</p>
+<pre><code class="language-text">usePagination() → Current Page → Next Page → Previous Page
+</code></pre>
+<p>Tests verify the hook's behavior without rendering an entire page.</p>
+<hr/>
+<h2 id="snapshot-testing">Snapshot Testing</h2>
+<p>A snapshot stores the rendered output of a component.</p>
+<p>Future tests compare the new output with the saved snapshot.</p>
+<p>Useful for:</p>
+<ul>
+<li>Static components</li>
+<li>UI libraries</li>
+</ul>
+<p>Not recommended for frequently changing components.</p>
+<hr/>
+<h2 id="code-coverage">Code Coverage</h2>
+<p>Coverage measures how much of your application is tested.</p>
+<p>Example:</p>
+<pre><code class="language-text">Files → Functions → Branches → Lines
+</code></pre>
+<p>Example report:</p>
+<ul>
+<li>Statements</li>
+<li>92%</li>
+<li>Branches</li>
+<li>88%</li>
+<li>Functions</li>
+<li>95%</li>
+<li>Lines</li>
+<li>93%</li>
+</ul>
+<p>Higher coverage generally means better confidence, but <strong>100% coverage does not guarantee bug-free software</strong>.</p>
+<hr/>
+<h2 id="continuous-integration">Continuous Integration</h2>
+<p>Professional teams run tests automatically.</p>
+<p>Workflow:</p>
+<pre><code class="language-text">Developer Pushes Code → GitHub Actions → Install Dependencies → Run Tests → Tests Pass? → Yes → Build → No → Reject
+</code></pre>
+<p>Broken code never reaches production.</p>
+<hr/>
+<h2 id="what-should-you-test">What Should You Test?</h2>
+<p>Always test:</p>
+<ul>
+<li>Utility functions</li>
+<li>Business logic</li>
+<li>Form validation</li>
+<li>Components</li>
+<li>Custom hooks</li>
+<li>API interactions</li>
+<li>Authentication flow</li>
+<li>Error handling</li>
+</ul>
+<hr/>
+<h2 id="what-should-you-avoid-testing">What Should You Avoid Testing?</h2>
+<p>Avoid testing:</p>
+<ul>
+<li>Third-party libraries</li>
+<li>React internals</li>
+<li>Browser internals</li>
+<li>Implementation details</li>
+<li>Private component state</li>
+</ul>
+<p>Focus on what users experience.</p>
+<hr/>
+<h2 id="common-testing-mistakes">Common Testing Mistakes</h2>
+<p>❌ Testing implementation instead of behavior.</p>
+<p>❌ Depending on a real backend.</p>
+<p>❌ Writing fragile tests.</p>
+<p>❌ Ignoring edge cases.</p>
+<p>❌ Creating huge tests that verify too many things.</p>
+<p>❌ Not cleaning up test data.</p>
+<p>❌ Forgetting loading and error states.</p>
+<hr/>
+<h2 id="best-practices--3">Best Practices</h2>
+<p>✅ Test user behavior.</p>
+<p>✅ Keep tests small.</p>
+<p>✅ Test one feature per test.</p>
+<p>✅ Mock external services.</p>
+<p>✅ Use meaningful test names.</p>
+<p>✅ Test success and failure cases.</p>
+<p>✅ Test loading states.</p>
+<p>✅ Test error states.</p>
+<p>✅ Keep tests independent.</p>
+<p>✅ Run tests in CI/CD pipelines.</p>
+<hr/>
+<h2 id="enterprise-testing-workflow">Enterprise Testing Workflow</h2>
+<pre><code class="language-text">Developer Writes Feature
+        │
+        ▼
+Write Unit Tests
+        │
+        ▼
+Write Integration Tests
+        │
+        ▼
+Run Tests Locally
+        │
+        ▼
+Push to Git
+        │
+        ▼
+GitHub Actions
+        │
+        ▼
+Run All Tests
+        │
+        ▼
+Tests Pass?
+        │
+   ┌────┴────┐
+   │         │
+  Yes        No
+   │         │
+   ▼         ▼
+Deploy     Fix Bugs
+</code></pre>
+<hr/>
+<h2 id="testing-tools-comparison">Testing Tools Comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vitest</td>
+<td>Test runner for Vite projects</td>
+</tr>
+<tr>
+<td>Jest</td>
+<td>General JavaScript testing framework</td>
+</tr>
+<tr>
+<td>React Testing Library</td>
+<td>Test React components through user interactions</td>
+</tr>
+<tr>
+<td>MSW</td>
+<td>Mock API requests</td>
+</tr>
+<tr>
+<td>Cypress</td>
+<td>End-to-end testing</td>
+</tr>
+<tr>
+<td>Playwright</td>
+<td>Cross-browser end-to-end testing</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="choosing-the-right-tool">Choosing the Right Tool</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommended Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vite + React</td>
+<td>Vitest + RTL</td>
+</tr>
+<tr>
+<td>Older React project</td>
+<td>Jest + RTL</td>
+</tr>
+<tr>
+<td>Mock HTTP requests</td>
+<td>MSW</td>
+</tr>
+<tr>
+<td>Browser automation</td>
+<td>Playwright or Cypress</td>
+</tr>
+<tr>
+<td>Full application testing</td>
+<td>Playwright or Cypress</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="chapter-summary--4">Chapter Summary</h2>
+<p>Testing is an essential part of professional React development.</p>
+<p>Enterprise applications rely on multiple layers of testing:</p>
+<ul>
+<li><strong>Unit Tests</strong> verify individual functions, hooks, and components.</li>
+<li><strong>Integration Tests</strong> ensure multiple parts work together correctly.</li>
+<li><strong>End-to-End Tests</strong> simulate real user behavior across the entire application.</li>
+</ul>
+<p>Modern React projects commonly use <strong>Vitest</strong> (or <strong>Jest</strong>) with <strong>React Testing Library</strong> for component testing, <strong>MSW</strong> for mocking API requests, and <strong>Playwright</strong> or <strong>Cypress</strong> for end-to-end testing.</p>
+<p>A strong testing strategy catches bugs early, improves code quality, enables safe refactoring, and gives development teams confidence to evolve large applications without breaking existing functionality.</p>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-15" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-14"><span class="pager-label">← Previous chapter</span><strong>14 · React Performance Optimization</strong></a><a class="pager-card pager-card--next" href="#chapter-16"><span class="pager-label">Next chapter →</span><strong>16 · Deployment and DevOps for React Applications</strong></a></nav></section>

@@ -1,0 +1,2444 @@
+<section class="chapter" id="chapter-9" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">09</span>
+<h1 class="chapter-title" id="api-integration-in-react">API Integration in React</h1>
+</div>
+<h2 id="91-introduction-to-api-integration">9.1 Introduction to API Integration</h2>
+<h3 id="simple-explanation--9">Simple Explanation</h3>
+<p>API integration is how your React application communicates with backend servers. It involves sending and receiving data over HTTP using methods like GET, POST, PUT, and DELETE. This is how your app fetches data, saves user input, and interacts with external services.</p>
+<p>Think of API integration like ordering food at a restaurant - you send a request (order) to the kitchen (server), they prepare it, and send back the food (response). The menu items are the available endpoints, and the order is the request.</p>
+<h3 id="technical-explanation--9">Technical Explanation</h3>
+<p>API integration in React typically involves making HTTP requests to backend services to fetch or manipulate data. Common approaches include:
+- <strong>Fetch API</strong>: Native browser API
+- <strong>Axios</strong>: Popular HTTP client library
+- <strong>React Query</strong>: Advanced data fetching library
+- <strong>SWR</strong>: Data fetching with stale-while-revalidate</p>
+<p>Key concepts:
+- <strong>Endpoints</strong>: URL paths for resources
+- <strong>HTTP Methods</strong>: GET, POST, PUT, DELETE, PATCH
+- <strong>Headers</strong>: Metadata sent with requests
+- <strong>Body</strong>: Data sent with requests
+- <strong>Status Codes</strong>: Response status (200, 404, 500, etc.)
+- <strong>Authentication</strong>: API keys, JWT tokens</p>
+<h3 id="professional-explanation--9">Professional Explanation</h3>
+<p>In enterprise React applications, API integration involves:
+- <strong>Centralized API Client</strong>: Single source for API calls
+- <strong>Error Handling</strong>: Consistent error handling patterns
+- <strong>Loading States</strong>: UI feedback during requests
+- <strong>Caching</strong>: Reducing unnecessary requests
+- <strong>Retry Logic</strong>: Handling transient failures
+- <strong>Authentication</strong>: Secure token management
+- <strong>Interceptors</strong>: Request/Response middleware
+- <strong>Validation</strong>: Data validation before/after requests</p>
+<h2 id="92-fetch-api">9.2 Fetch API</h2>
+<h3 id="simple-explanation_1--5">Simple Explanation</h3>
+<p>Fetch is a native JavaScript API for making HTTP requests. It's built into modern browsers and uses Promises. While more low-level than Axios, it's lightweight and doesn't require external dependencies.</p>
+<p>Think of Fetch like sending a letter through the postal service - you address it (URL), include content (body), and wait for a response.</p>
+<h3 id="technical-explanation_1--5">Technical Explanation</h3>
+<p>The Fetch API provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline. It's based on Promises and provides a more powerful and flexible feature set.</p>
+<p>Key characteristics:
+- <strong>Promise-based</strong>: Uses async/await or .then
+- <strong>Response Object</strong>: Contains status, headers, body
+- <strong>Request Object</strong>: Configure request details
+- <strong>Headers Object</strong>: Manage request/response headers
+- <strong>AbortController</strong>: Cancel requests
+- <strong>Credentials</strong>: Handle cookies</p>
+<h3 id="professional-explanation_1--5">Professional Explanation</h3>
+<p>While Fetch is built-in, it has limitations:
+- <strong>No Timeouts</strong>: No built-in timeout mechanism
+- <strong>No Request Cancellation</strong>: Need AbortController
+- <strong>No Interceptors</strong>: Need to implement manually
+- <strong>Error Handling</strong>: Only rejects on network errors, not HTTP errors
+- <strong>Complex Cookies</strong>: Some cookie handling needs configuration</p>
+<h3 id="fetch-examples">Fetch Examples</h3>
+<pre><code class="language-jsx">// Basic GET request
+function fetchUsers() {
+    return fetch('https://api.example.com/users')
+        .then(response =&gt; {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data =&gt; {
+            console.log('Users:', data);
+            return data;
+        })
+        .catch(error =&gt; {
+            console.error('Error fetching users:', error);
+            throw error;
+        });
+}
+
+// Async/await with fetch
+async function fetchUser(id) {
+    try {
+        const response = await fetch(`https://api.example.com/users/${id}`);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const user = await response.json();
+        return user;
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        throw error;
+    }
+}
+
+// POST request with fetch
+async function createUser(userData) {
+    try {
+        const response = await fetch('https://api.example.com/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+            body: JSON.stringify(userData)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to create user');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+    }
+}
+
+// PUT request
+async function updateUser(id, userData) {
+    const response = await fetch(`https://api.example.com/users/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to update user: ${response.status}`);
+    }
+
+    return response.json();
+}
+
+// DELETE request
+async function deleteUser(id) {
+    const response = await fetch(`https://api.example.com/users/${id}`, {
+        method: 'DELETE'
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to delete user: ${response.status}`);
+    }
+
+    return response.status === 204 ? null : response.json();
+}
+
+// Fetch with AbortController (request cancellation)
+function useFetchWithCancel(url) {
+    useEffect(() =&gt; {
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
+        const fetchData = async () =&gt; {
+            try {
+                const response = await fetch(url, { signal });
+                const data = await response.json();
+                // Handle data
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Fetch error:', error);
+                }
+            }
+        };
+
+        fetchData();
+
+        return () =&gt; {
+            abortController.abort();
+        };
+    }, [url]);
+}
+
+// Fetch with timeout
+function fetchWithTimeout(url, options = {}, timeout = 5000) {
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() =&gt; {
+        abortController.abort();
+    }, timeout);
+
+    return fetch(url, {
+        ...options,
+        signal: abortController.signal
+    })
+        .then(response =&gt; {
+            clearTimeout(timeoutId);
+            return response;
+        })
+        .catch(error =&gt; {
+            clearTimeout(timeoutId);
+            if (error.name === 'AbortError') {
+                throw new Error('Request timed out');
+            }
+            throw error;
+        });
+}
+</code></pre>
+<h2 id="93-axios">9.3 Axios</h2>
+<h3 id="simple-explanation_2--5">Simple Explanation</h3>
+<p>Axios is a popular HTTP client library that works in both browsers and Node.js. It provides a more convenient and feature-rich API than Fetch. It automatically transforms JSON data, handles errors better, and supports request/response interceptors.</p>
+<p>Think of Axios like a premium courier service - it's more reliable, handles packaging and delivery automatically, and provides better tracking and error handling.</p>
+<h3 id="technical-explanation_2--5">Technical Explanation</h3>
+<p>Axios is a promise-based HTTP client with extensive features:</p>
+<p>Key characteristics:
+- <strong>Automatic JSON Transformation</strong>: Converts data to/from JSON
+- <strong>Interceptors</strong>: Request/Response interception
+- <strong>Cancellation</strong>: Request cancellation support
+- <strong>Timeouts</strong>: Built-in timeout handling
+- <strong>Progress Events</strong>: Upload/download progress
+- <strong>Multiple Environments</strong>: Browser and Node.js support
+- <strong>Error Handling</strong>: Better error handling than Fetch
+- <strong>Concurrent Requests</strong>: Multiple requests with Promise.all</p>
+<h3 id="professional-explanation_2--5">Professional Explanation</h3>
+<p>Axios is preferred in enterprise applications for:
+- <strong>Interceptors</strong>: Centralized logging, auth, error handling
+- <strong>Consistent API</strong>: Same API for browser and Node.js
+- <strong>Better Error Handling</strong>: More informative error objects
+- <strong>Backwards Compatibility</strong>: Works with older browsers
+- <strong>Configuration</strong>: Global defaults and instance creation
+- <strong>Testing</strong>: Easier to mock and test</p>
+<h3 id="axios-examples">Axios Examples</h3>
+<pre><code class="language-jsx">// Installation
+// npm install axios
+
+// Basic GET request
+import axios from 'axios';
+
+async function fetchUsers() {
+    try {
+        const response = await axios.get('https://api.example.com/users');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        throw error;
+    }
+}
+
+// POST request
+async function createUser(userData) {
+    try {
+        const response = await axios.post(
+            'https://api.example.com/users',
+            userData,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${getToken()}`
+                }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+    }
+}
+
+// Axios with interceptors
+// api/client.js
+import axios from 'axios';
+
+const apiClient = axios.create({
+    baseURL: 'https://api.example.com',
+    timeout: 10000,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
+
+// Request interceptor
+apiClient.interceptors.request.use(
+    (config) =&gt; {
+        // Add auth token
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        // Log request
+        console.log('Request:', config.method, config.url);
+
+        return config;
+    },
+    (error) =&gt; {
+        return Promise.reject(error);
+    }
+);
+
+// Response interceptor
+apiClient.interceptors.response.use(
+    (response) =&gt; {
+        // Log response
+        console.log('Response:', response.status, response.config.url);
+        return response;
+    },
+    (error) =&gt; {
+        // Handle errors globally
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            console.error('Response error:', error.response.status, error.response.data);
+
+            if (error.response.status === 401) {
+                // Unauthorized - redirect to login
+                localStorage.removeItem('authToken');
+                window.location.href = '/login';
+            }
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.error('No response received:', error.request);
+        } else {
+            // Something happened in setting up the request
+            console.error('Request error:', error.message);
+        }
+
+        return Promise.reject(error);
+    }
+);
+
+export default apiClient;
+
+// Using the API client
+import apiClient from './api/client';
+
+async function getUserProfile(userId) {
+    const response = await apiClient.get(`/users/${userId}`);
+    return response.data;
+}
+
+async function updateUserProfile(userId, userData) {
+    const response = await apiClient.put(`/users/${userId}`, userData);
+    return response.data;
+}
+
+// Concurrent requests
+async function getDashboardData(userId) {
+    try {
+        const [user, posts, notifications] = await Promise.all([
+            apiClient.get(`/users/${userId}`),
+            apiClient.get(`/users/${userId}/posts`),
+            apiClient.get(`/users/${userId}/notifications`)
+        ]);
+
+        return {
+            user: user.data,
+            posts: posts.data,
+            notifications: notifications.data
+        };
+    } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+        throw error;
+    }
+}
+
+// Axios with progress tracking
+async function uploadFile(file, onProgress) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await apiClient.post('/upload', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: (progressEvent) =&gt; {
+            const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+            );
+            onProgress(percentCompleted);
+        }
+    });
+
+    return response.data;
+}
+
+// Axios with cancellation
+function useCancelableRequest() {
+    const controllerRef = useRef(null);
+
+    const makeRequest = useCallback(async (url) =&gt; {
+        // Cancel previous request
+        if (controllerRef.current) {
+            controllerRef.current.abort();
+        }
+
+        controllerRef.current = new AbortController();
+
+        try {
+            const response = await apiClient.get(url, {
+                signal: controllerRef.current.signal
+            });
+            return response.data;
+        } catch (error) {
+            if (axios.isCancel(error)) {
+                console.log('Request canceled:', error.message);
+                return null;
+            }
+            throw error;
+        }
+    }, []);
+
+    const cancelRequest = useCallback(() =&gt; {
+        if (controllerRef.current) {
+            controllerRef.current.abort();
+            controllerRef.current = null;
+        }
+    }, []);
+
+    useEffect(() =&gt; {
+        return () =&gt; {
+            cancelRequest();
+        };
+    }, [cancelRequest]);
+
+    return { makeRequest, cancelRequest };
+}
+</code></pre>
+<h2 id="94-rest-api-integration">9.4 REST API Integration</h2>
+<h3 id="simple-explanation_3--5">Simple Explanation</h3>
+<p>REST (Representational State Transfer) is an architectural style for designing APIs. It uses HTTP methods (GET, POST, PUT, DELETE) to perform operations on resources. REST APIs are the most common type of API you'll integrate with in React applications.</p>
+<p>Think of REST like a library system - you can check out (GET) books, add new books (POST), update information (PUT), or remove books (DELETE).</p>
+<h3 id="technical-explanation_3--5">Technical Explanation</h3>
+<p>REST APIs are built around resources and HTTP verbs:
+- <strong>GET</strong>: Retrieve a resource
+- <strong>POST</strong>: Create a new resource
+- <strong>PUT</strong>: Update a resource
+- <strong>PATCH</strong>: Partial update of a resource
+- <strong>DELETE</strong>: Remove a resource</p>
+<p>Key concepts:
+- <strong>Resources</strong>: Represented by URLs (e.g., <code>/users</code>, <code>/posts/123</code>)
+- <strong>Methods</strong>: HTTP verbs for actions
+- <strong>Status Codes</strong>: 2xx success, 4xx client error, 5xx server error
+- <strong>Headers</strong>: Metadata like authentication, content type
+- <strong>Body</strong>: Data sent with POST, PUT, PATCH requests
+- <strong>Query Parameters</strong>: Filtering, sorting, pagination</p>
+<h3 id="professional-explanation_3--5">Professional Explanation</h3>
+<p>REST API best practices:
+- <strong>Versioning</strong>: <code>/api/v1/users</code>
+- <strong>Consistent Naming</strong>: Plural nouns for resources
+- <strong>Status Codes</strong>: Appropriate HTTP status codes
+- <strong>Error Handling</strong>: Consistent error responses
+- <strong>Pagination</strong>: <code>?page=1&amp;limit=10</code>
+- <strong>Filtering</strong>: <code>?status=active</code>
+- <strong>Sorting</strong>: <code>?sort=name&amp;order=asc</code>
+- <strong>Field Selection</strong>: <code>?fields=id,name,email</code></p>
+<h3 id="rest-api-examples">REST API Examples</h3>
+<pre><code class="language-jsx">// REST API service
+class UserService {
+    constructor(baseURL) {
+        this.baseURL = baseURL;
+    }
+
+    // GET /users
+    async getUsers(params = {}) {
+        const queryString = new URLSearchParams(params).toString();
+        const url = `${this.baseURL}/users${queryString ? `?${queryString}` : ''}`;
+        const response = await fetch(url);
+        return response.json();
+    }
+
+    // GET /users/:id
+    async getUser(id) {
+        const response = await fetch(`${this.baseURL}/users/${id}`);
+        return response.json();
+    }
+
+    // POST /users
+    async createUser(userData) {
+        const response = await fetch(`${this.baseURL}/users`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        });
+        return response.json();
+    }
+
+    // PUT /users/:id
+    async updateUser(id, userData) {
+        const response = await fetch(`${this.baseURL}/users/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        });
+        return response.json();
+    }
+
+    // DELETE /users/:id
+    async deleteUser(id) {
+        await fetch(`${this.baseURL}/users/${id}`, {
+            method: 'DELETE'
+        });
+    }
+}
+
+// Using the service
+function UserManagement() {
+    const userService = new UserService('https://api.example.com/v1');
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const fetchUsers = async (filters) =&gt; {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const data = await userService.getUsers(filters);
+            setUsers(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleCreateUser = async (userData) =&gt; {
+        try {
+            const newUser = await userService.createUser(userData);
+            setUsers(prev =&gt; [...prev, newUser]);
+        } catch (err) {
+            console.error('Error creating user:', err);
+        }
+    };
+
+    // ... other methods
+
+    useEffect(() =&gt; {
+        fetchUsers();
+    }, []);
+
+    // Render users...
+}
+
+// REST API with Axios
+class ProductAPI {
+    constructor() {
+        this.client = axios.create({
+            baseURL: process.env.REACT_APP_API_URL,
+            timeout: 10000
+        });
+    }
+
+    // GET with pagination and filters
+    async getProducts(params) {
+        const { page = 1, limit = 10, category, search, sort } = params;
+        const queryParams = new URLSearchParams({
+            page,
+            limit,
+            ...(category &amp;&amp; { category }),
+            ...(search &amp;&amp; { search }),
+            ...(sort &amp;&amp; { sort })
+        });
+
+        const response = await this.client.get(`/products?${queryParams}`);
+        return response.data;
+    }
+
+    async getProduct(id) {
+        const response = await this.client.get(`/products/${id}`);
+        return response.data;
+    }
+
+    async createProduct(productData) {
+        const response = await this.client.post('/products', productData);
+        return response.data;
+    }
+
+    async updateProduct(id, productData) {
+        const response = await this.client.put(`/products/${id}`, productData);
+        return response.data;
+    }
+
+    async deleteProduct(id) {
+        const response = await this.client.delete(`/products/${id}`);
+        return response.data;
+    }
+}
+
+// React component with REST API
+function ProductCatalog() {
+    const productAPI = new ProductAPI();
+    const [products, setProducts] = useState([]);
+    const [pagination, setPagination] = useState({ page: 1, limit: 10, total: 0 });
+    const [filters, setFilters] = useState({ category: '', search: '' });
+    const [loading, setLoading] = useState(false);
+
+    const fetchProducts = async (page = pagination.page) =&gt; {
+        setLoading(true);
+        try {
+            const data = await productAPI.getProducts({
+                page,
+                limit: pagination.limit,
+                ...filters
+            });
+
+            setProducts(data.products);
+            setPagination({
+                page: data.page,
+                limit: data.limit,
+                total: data.total
+            });
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() =&gt; {
+        fetchProducts();
+    }, [filters]);
+
+    const handleFilterChange = (newFilters) =&gt; {
+        setFilters(prev =&gt; ({ ...prev, ...newFilters }));
+        setPagination(prev =&gt; ({ ...prev, page: 1 }));
+    };
+
+    const handlePageChange = (newPage) =&gt; {
+        fetchProducts(newPage);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;div className="filters"&gt;
+                &lt;input
+                    placeholder="Search products..."
+                    value={filters.search}
+                    onChange={(e) =&gt; handleFilterChange({ search: e.target.value })}
+                /&gt;
+                &lt;select
+                    value={filters.category}
+                    onChange={(e) =&gt; handleFilterChange({ category: e.target.value })}
+                &gt;
+                    &lt;option value=""&gt;All Categories&lt;/option&gt;
+                    &lt;option value="electronics"&gt;Electronics&lt;/option&gt;
+                    &lt;option value="clothing"&gt;Clothing&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+
+            {loading ? (
+                &lt;div&gt;Loading...&lt;/div&gt;
+            ) : (
+                &lt;div className="product-grid"&gt;
+                    {products.map(product =&gt; (
+                        &lt;ProductCard key={product.id} product={product} /&gt;
+                    ))}
+                &lt;/div&gt;
+            )}
+
+            &lt;Pagination
+                currentPage={pagination.page}
+                totalPages={Math.ceil(pagination.total / pagination.limit)}
+                onPageChange={handlePageChange}
+            /&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="95-authentication-and-authorization">9.5 Authentication and Authorization</h2>
+<h3 id="simple-explanation_4--5">Simple Explanation</h3>
+<p>Authentication is verifying who a user is (login), while authorization is determining what they can do (permissions). In React applications, this typically involves sending credentials to an API, receiving a token, and including that token in subsequent requests.</p>
+<p>Think of authentication like showing your ID at a secure building - you prove who you are, and then you're given access based on your clearance level.</p>
+<h3 id="technical-explanation_4--5">Technical Explanation</h3>
+<p>Authentication in React applications typically uses:
+- <strong>JWT (JSON Web Tokens)</strong>: Stateless authentication tokens
+- <strong>Bearer Tokens</strong>: Sent in Authorization header
+- <strong>Refresh Tokens</strong>: Long-lived tokens for refreshing session
+- <strong>Session Cookies</strong>: Traditional session management
+- <strong>OAuth2/OpenID Connect</strong>: Third-party authentication</p>
+<p>Key concepts:
+- <strong>Login</strong>: User provides credentials
+- <strong>Token</strong>: Server returns authentication token
+- <strong>Storage</strong>: Token stored in localStorage or memory
+- <strong>Interceptors</strong>: Automatically add token to requests
+- <strong>Refresh</strong>: Obtain new token when expired</p>
+<h3 id="professional-explanation_4--5">Professional Explanation</h3>
+<p>Authentication best practices:
+- <strong>Secure Storage</strong>: Use httpOnly cookies for production
+- <strong>Token Expiration</strong>: Short-lived access tokens
+- <strong>Refresh Tokens</strong>: Secure refresh mechanism
+- <strong>CSRF Protection</strong>: Prevent cross-site request forgery
+- <strong>Logout</strong>: Clear tokens and redirect
+- <strong>Session Management</strong>: Handle concurrent sessions
+- <strong>Role-Based Access</strong>: Different permissions per role
+- <strong>Route Protection</strong>: Guard protected routes</p>
+<h3 id="authentication-examples">Authentication Examples</h3>
+<pre><code class="language-jsx">// Auth service
+class AuthService {
+    constructor() {
+        this.token = localStorage.getItem('authToken');
+        this.refreshToken = localStorage.getItem('refreshToken');
+        this.user = null;
+        this.onTokenRefresh = null;
+    }
+
+    async login(email, password) {
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+
+            const data = await response.json();
+
+            // Store tokens
+            this.token = data.accessToken;
+            this.refreshToken = data.refreshToken;
+            this.user = data.user;
+
+            localStorage.setItem('authToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
+            localStorage.setItem('user', JSON.stringify(data.user));
+
+            return data;
+        } catch (error) {
+            throw new Error('Invalid credentials');
+        }
+    }
+
+    async logout() {
+        try {
+            await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                }
+            });
+        } finally {
+            this.token = null;
+            this.refreshToken = null;
+            this.user = null;
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('user');
+        }
+    }
+
+    async refreshAuthToken() {
+        try {
+            const response = await fetch('/api/auth/refresh', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ refreshToken: this.refreshToken })
+            });
+
+            if (!response.ok) {
+                throw new Error('Refresh failed');
+            }
+
+            const data = await response.json();
+
+            this.token = data.accessToken;
+            localStorage.setItem('authToken', data.accessToken);
+
+            return data.accessToken;
+        } catch (error) {
+            await this.logout();
+            throw error;
+        }
+    }
+
+    isAuthenticated() {
+        return !!this.token;
+    }
+
+    getToken() {
+        return this.token;
+    }
+}
+
+// Auth context
+const AuthContext = React.createContext(null);
+
+function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const authService = useRef(new AuthService());
+
+    useEffect(() =&gt; {
+        // Check for existing session
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+        setLoading(false);
+    }, []);
+
+    const login = async (email, password) =&gt; {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const data = await authService.current.login(email, password);
+            setUser(data.user);
+            return data;
+        } catch (err) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const logout = async () =&gt; {
+        await authService.current.logout();
+        setUser(null);
+    };
+
+    const value = {
+        user,
+        loading,
+        error,
+        login,
+        logout,
+        isAuthenticated: !!user,
+        getToken: () =&gt; authService.current.getToken()
+    };
+
+    return (
+        &lt;AuthContext.Provider value={value}&gt;
+            {children}
+        &lt;/AuthContext.Provider&gt;
+    );
+}
+
+// Axios interceptor with token refresh
+function setupAxiosInterceptors(axiosInstance, authService) {
+    // Request interceptor
+    axiosInstance.interceptors.request.use(
+        (config) =&gt; {
+            const token = authService.getToken();
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+            return config;
+        },
+        (error) =&gt; Promise.reject(error)
+    );
+
+    // Response interceptor for token refresh
+    axiosInstance.interceptors.response.use(
+        (response) =&gt; response,
+        async (error) =&gt; {
+            const originalRequest = error.config;
+
+            // If error is 401 and not already retrying
+            if (error.response?.status === 401 &amp;&amp; !originalRequest._retry) {
+                originalRequest._retry = true;
+
+                try {
+                    const newToken = await authService.refreshAuthToken();
+                    originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                    return axiosInstance(originalRequest);
+                } catch (refreshError) {
+                    // Refresh failed - logout
+                    await authService.logout();
+                    window.location.href = '/login';
+                    return Promise.reject(refreshError);
+                }
+            }
+
+            return Promise.reject(error);
+        }
+    );
+}
+
+// Login component
+function LoginPage() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) =&gt; {
+        e.preventDefault();
+        setIsLoading(true);
+        setError('');
+
+        try {
+            await login(email, password);
+            navigate('/dashboard');
+        } catch (err) {
+            setError(err.message || 'Login failed');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input
+                type="email"
+                value={email}
+                onChange={(e) =&gt; setEmail(e.target.value)}
+                placeholder="Email"
+                disabled={isLoading}
+                required
+            /&gt;
+            &lt;input
+                type="password"
+                value={password}
+                onChange={(e) =&gt; setPassword(e.target.value)}
+                placeholder="Password"
+                disabled={isLoading}
+                required
+            /&gt;
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+            &lt;button type="submit" disabled={isLoading}&gt;
+                {isLoading ? 'Logging in...' : 'Login'}
+            &lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+
+// Protected route
+function ProtectedRoute({ children }) {
+    const { isAuthenticated, loading } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() =&gt; {
+        if (!loading &amp;&amp; !isAuthenticated) {
+            navigate('/login', { replace: true });
+        }
+    }, [isAuthenticated, loading, navigate]);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (!isAuthenticated) return null;
+
+    return children;
+}
+
+// Role-based authorization
+function RoleProtectedRoute({ children, allowedRoles }) {
+    const { user, loading } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() =&gt; {
+        if (!loading) {
+            if (!user) {
+                navigate('/login', { replace: true });
+            } else if (!allowedRoles.includes(user.role)) {
+                navigate('/unauthorized', { replace: true });
+            }
+        }
+    }, [user, loading, navigate, allowedRoles]);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (!user || !allowedRoles.includes(user.role)) return null;
+
+    return children;
+}
+
+// Using protected routes
+function App() {
+    return (
+        &lt;AuthProvider&gt;
+            &lt;BrowserRouter&gt;
+                &lt;Routes&gt;
+                    &lt;Route path="/login" element={&lt;LoginPage /&gt;} /&gt;
+                    &lt;Route path="/unauthorized" element={&lt;UnauthorizedPage /&gt;} /&gt;
+
+                    &lt;Route element={&lt;ProtectedRoute /&gt;}&gt;
+                        &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+
+                        &lt;Route element={&lt;RoleProtectedRoute allowedRoles={['admin']} /&gt;}&gt;
+                            &lt;Route path="/admin" element={&lt;AdminPanel /&gt;} /&gt;
+                            &lt;Route path="/users" element={&lt;UserManagement /&gt;} /&gt;
+                        &lt;/Route&gt;
+
+                        &lt;Route element={&lt;RoleProtectedRoute allowedRoles={['admin', 'manager']} /&gt;}&gt;
+                            &lt;Route path="/reports" element={&lt;Reports /&gt;} /&gt;
+                            &lt;Route path="/analytics" element={&lt;Analytics /&gt;} /&gt;
+                        &lt;/Route&gt;
+                    &lt;/Route&gt;
+                &lt;/Routes&gt;
+            &lt;/BrowserRouter&gt;
+        &lt;/AuthProvider&gt;
+    );
+}
+</code></pre>
+<h2 id="96-error-handling">9.6 Error Handling</h2>
+<h3 id="simple-explanation_5--5">Simple Explanation</h3>
+<p>Error handling is managing and displaying errors that occur during API requests. It involves catching errors, showing user-friendly messages, and implementing retry logic for transient failures.</p>
+<p>Think of error handling like a safety net - when something goes wrong, it catches the error and handles it gracefully instead of crashing your application.</p>
+<h3 id="technical-explanation_5--5">Technical Explanation</h3>
+<p>Error handling in API integration involves:
+- <strong>Network Errors</strong>: No internet connection, timeout
+- <strong>HTTP Errors</strong>: 4xx, 5xx status codes
+- <strong>Application Errors</strong>: Business logic errors
+- <strong>Validation Errors</strong>: Invalid input data</p>
+<p>Error handling strategies:
+- <strong>Try/Catch</strong>: Async/await error handling
+- <strong>Error Boundaries</strong>: Component-level error handling
+- <strong>Global Error Handlers</strong>: Centralized error handling
+- <strong>Retry Logic</strong>: Automatic retry for transient failures
+- <strong>User Feedback</strong>: Display error messages
+- <strong>Logging</strong>: Log errors for debugging</p>
+<h3 id="professional-explanation_5--5">Professional Explanation</h3>
+<p>Enterprise error handling:
+- <strong>Consistent Format</strong>: Standard error response structure
+- <strong>User-Friendly Messages</strong>: Avoid technical jargon
+- <strong>Error Logging</strong>: Send errors to monitoring service
+- <strong>Fallback UI</strong>: Show fallback content when errors occur
+- <strong>Retry Strategy</strong>: Exponential backoff
+- <strong>Error Recovery</strong>: Recover from errors gracefully
+- <strong>Error Monitoring</strong>: Track error rates and patterns</p>
+<h3 id="error-handling-examples">Error Handling Examples</h3>
+<pre><code class="language-jsx">// Error types
+class AppError extends Error {
+    constructor(message, code, status = 500) {
+        super(message);
+        this.name = 'AppError';
+        this.code = code;
+        this.status = status;
+    }
+}
+
+class NetworkError extends AppError {
+    constructor(message = 'Network connection failed') {
+        super(message, 'NETWORK_ERROR', 0);
+        this.name = 'NetworkError';
+    }
+}
+
+class ValidationError extends AppError {
+    constructor(message, errors) {
+        super(message, 'VALIDATION_ERROR', 400);
+        this.name = 'ValidationError';
+        this.errors = errors;
+    }
+}
+
+class AuthenticationError extends AppError {
+    constructor(message = 'Authentication required') {
+        super(message, 'AUTH_ERROR', 401);
+        this.name = 'AuthenticationError';
+    }
+}
+
+// Error handling service
+const errorService = {
+    handleError(error) {
+        console.error('Error:', error);
+
+        // User-friendly messages
+        if (error instanceof NetworkError) {
+            return 'Network error. Please check your internet connection.';
+        }
+
+        if (error instanceof AuthenticationError) {
+            return 'Please login to continue.';
+        }
+
+        if (error instanceof ValidationError) {
+            if (error.errors) {
+                return Object.values(error.errors).join('\n');
+            }
+            return error.message || 'Validation failed.';
+        }
+
+        if (error.response) {
+            const status = error.response.status;
+            const data = error.response.data;
+
+            switch (status) {
+                case 400:
+                    return data.message || 'Bad request. Please check your input.';
+                case 401:
+                    return 'Unauthorized. Please login again.';
+                case 403:
+                    return 'Forbidden. You don\'t have permission to access this.';
+                case 404:
+                    return 'Resource not found.';
+                case 500:
+                    return 'Server error. Please try again later.';
+                default:
+                    return data.message || 'An error occurred. Please try again.';
+            }
+        }
+
+        return error.message || 'An unexpected error occurred.';
+    },
+
+    logError(error, context = {}) {
+        // Log to monitoring service
+        console.error('Error logged:', {
+            message: error.message,
+            stack: error.stack,
+            context,
+            timestamp: new Date().toISOString()
+        });
+
+        // Send to error tracking service
+        // Sentry.captureException(error, { extra: context });
+    }
+};
+
+// Error handling in API calls
+class UserAPI {
+    constructor() {
+        this.client = axios.create({
+            baseURL: 'https://api.example.com'
+        });
+
+        // Add error interceptor
+        this.client.interceptors.response.use(
+            response =&gt; response,
+            error =&gt; this.handleError(error)
+        );
+    }
+
+    handleError(error) {
+        // Transform network errors
+        if (!error.response) {
+            return Promise.reject(new NetworkError());
+        }
+
+        // Transform HTTP errors
+        const status = error.response.status;
+        const data = error.response.data;
+
+        switch (status) {
+            case 400:
+                if (data.errors) {
+                    return Promise.reject(new ValidationError(data.message, data.errors));
+                }
+                return Promise.reject(new AppError(data.message || 'Bad request', 'BAD_REQUEST', status));
+
+            case 401:
+                return Promise.reject(new AuthenticationError(data.message));
+
+            case 403:
+                return Promise.reject(new AppError('Permission denied', 'FORBIDDEN', status));
+
+            default:
+                return Promise.reject(new AppError(
+                    data.message || 'Server error',
+                    'SERVER_ERROR',
+                    status
+                ));
+        }
+    }
+
+    async getUsers(params) {
+        try {
+            const response = await this.client.get('/users', { params });
+            return response.data;
+        } catch (error) {
+            errorService.logError(error, { action: 'getUsers', params });
+            throw error;
+        }
+    }
+
+    async createUser(userData) {
+        try {
+            const response = await this.client.post('/users', userData);
+            return response.data;
+        } catch (error) {
+            errorService.logError(error, { action: 'createUser', userData });
+            throw error;
+        }
+    }
+}
+
+// Error boundary component
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
+
+    componentDidCatch(error, errorInfo) {
+        errorService.logError(error, {
+            component: this.props.name,
+            errorInfo
+        });
+
+        if (this.props.onError) {
+            this.props.onError(error);
+        }
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return this.props.fallback || (
+                &lt;div className="error-boundary"&gt;
+                    &lt;h3&gt;Something went wrong&lt;/h3&gt;
+                    &lt;p&gt;{errorService.handleError(this.state.error)}&lt;/p&gt;
+                    &lt;button onClick={() =&gt; this.setState({ hasError: false })}&gt;
+                        Try again
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            );
+        }
+
+        return this.props.children;
+    }
+}
+
+// Using error boundary
+function AppWithErrorHandling() {
+    return (
+        &lt;ErrorBoundary name="App" fallback={&lt;GlobalErrorFallback /&gt;}&gt;
+            &lt;BrowserRouter&gt;
+                &lt;Routes&gt;
+                    &lt;Route path="/" element={
+                        &lt;ErrorBoundary name="Home"&gt;
+                            &lt;Home /&gt;
+                        &lt;/ErrorBoundary&gt;
+                    } /&gt;
+                    &lt;Route path="/users" element={
+                        &lt;ErrorBoundary name="UserList"&gt;
+                            &lt;UserList /&gt;
+                        &lt;/ErrorBoundary&gt;
+                    } /&gt;
+                &lt;/Routes&gt;
+            &lt;/BrowserRouter&gt;
+        &lt;/ErrorBoundary&gt;
+    );
+}
+
+// Retry logic
+function useRetryRequest(maxRetries = 3) {
+    const [retryCount, setRetryCount] = useState(0);
+    const [isRetrying, setIsRetrying] = useState(false);
+
+    const retry = useCallback(async (requestFn, options = {}) =&gt; {
+        setIsRetrying(true);
+
+        try {
+            const result = await requestFn();
+            setRetryCount(0);
+            return result;
+        } catch (error) {
+            if (retryCount &lt; maxRetries) {
+                setRetryCount(prev =&gt; prev + 1);
+
+                // Exponential backoff
+                const delay = Math.pow(2, retryCount) * 1000;
+                await new Promise(resolve =&gt; setTimeout(resolve, delay));
+
+                // Retry
+                return retry(requestFn, { ...options, retry: retryCount + 1 });
+            }
+
+            throw error;
+        } finally {
+            setIsRetrying(false);
+        }
+    }, [retryCount, maxRetries]);
+
+    return { retry, isRetrying, retryCount };
+}
+
+// Component with retry
+function DataFetcher() {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const { retry, isRetrying } = useRetryRequest(3);
+
+    const fetchData = useCallback(async () =&gt; {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const result = await retry(() =&gt; api.get('/data'));
+            setData(result);
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    }, [retry]);
+
+    useEffect(() =&gt; {
+        fetchData();
+    }, [fetchData]);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) {
+        return (
+            &lt;div&gt;
+                &lt;p&gt;Error: {errorService.handleError(error)}&lt;/p&gt;
+                &lt;button onClick={fetchData} disabled={isRetrying}&gt;
+                    {isRetrying ? 'Retrying...' : 'Retry'}
+                &lt;/button&gt;
+            &lt;/div&gt;
+        );
+    }
+
+    return &lt;div&gt;{/* Render data */}&lt;/div&gt;;
+}
+</code></pre>
+<h2 id="97-file-upload-and-download">9.7 File Upload and Download</h2>
+<h3 id="simple-explanation_6--5">Simple Explanation</h3>
+<p>File upload is sending files from the browser to the server, while file download is receiving files from the server. This is common for profile pictures, documents, and other media.</p>
+<p>Think of file upload like sending a package through the mail - you package it up (multipart form-data), address it (API endpoint), and the server receives and processes it.</p>
+<h3 id="technical-explanation_6--5">Technical Explanation</h3>
+<p>File upload uses:
+- <strong>multipart/form-data</strong>: Encoding for file uploads
+- <strong>FormData</strong>: JavaScript object for constructing form data
+- <strong>File API</strong>: Handling file inputs
+- <strong>Blob/File</strong>: File data representation
+- <strong>Progress Events</strong>: Upload progress tracking
+- <strong>File Download</strong>: Binary data from server</p>
+<h3 id="professional-explanation_6--5">Professional Explanation</h3>
+<p>File handling best practices:
+- <strong>File Validation</strong>: Validate file type, size, and dimensions
+- <strong>Progress Indication</strong>: Show upload progress
+- <strong>Drag-and-Drop</strong>: Enhanced user experience
+- <strong>Chunked Upload</strong>: Large file uploads
+- <strong>Preview</strong>: Show preview before upload
+- <strong>Error Handling</strong>: Handle upload failures gracefully
+- <strong>Security</strong>: Validate files on server</p>
+<h3 id="file-upload-examples">File Upload Examples</h3>
+<pre><code class="language-jsx">// Basic file upload
+function FileUpload() {
+    const [file, setFile] = useState(null);
+    const [uploading, setUploading] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
+
+    const handleFileChange = (e) =&gt; {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            // Validate file
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const maxSize = 5 * 1024 * 1024; // 5MB
+
+            if (!validTypes.includes(selectedFile.type)) {
+                setError('Invalid file type. Please upload a JPEG, PNG, or GIF image.');
+                return;
+            }
+
+            if (selectedFile.size &gt; maxSize) {
+                setError('File is too large. Maximum size is 5MB.');
+                return;
+            }
+
+            setFile(selectedFile);
+            setError(null);
+            setSuccess(false);
+        }
+    };
+
+    const handleUpload = async () =&gt; {
+        if (!file) return;
+
+        setUploading(true);
+        setProgress(0);
+        setError(null);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+                // For progress tracking, use Axios or XMLHttpRequest
+                // This example uses XMLHttpRequest
+                onProgress: (event) =&gt; {
+                    if (event.lengthComputable) {
+                        const percent = Math.round((event.loaded * 100) / event.total);
+                        setProgress(percent);
+                    }
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Upload failed');
+            }
+
+            const data = await response.json();
+            setSuccess(true);
+            setFile(null);
+            console.log('Upload success:', data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                disabled={uploading}
+            /&gt;
+            {file &amp;&amp; &lt;p&gt;Selected file: {file.name} ({file.size} bytes)&lt;/p&gt;}
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+            {uploading &amp;&amp; (
+                &lt;div&gt;
+                    &lt;progress value={progress} max="100" /&gt;
+                    &lt;span&gt;{progress}%&lt;/span&gt;
+                &lt;/div&gt;
+            )}
+            &lt;button
+                onClick={handleUpload}
+                disabled={!file || uploading}
+            &gt;
+                {uploading ? 'Uploading...' : 'Upload'}
+            &lt;/button&gt;
+            {success &amp;&amp; &lt;div className="success"&gt;Upload successful!&lt;/div&gt;}
+        &lt;/div&gt;
+    );
+}
+
+// Advanced file upload with Axios
+function FileUploadWithAxios() {
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [uploadProgress, setUploadProgress] = useState({});
+    const [uploading, setUploading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const handleFileSelect = (e) =&gt; {
+        const files = Array.from(e.target.files);
+        const validFiles = files.filter(file =&gt; {
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+            const maxSize = 10 * 1024 * 1024; // 10MB
+
+            if (!validTypes.includes(file.type)) {
+                setError(`Invalid file type: ${file.name}`);
+                return false;
+            }
+
+            if (file.size &gt; maxSize) {
+                setError(`File too large: ${file.name}`);
+                return false;
+            }
+
+            return true;
+        });
+
+        setSelectedFiles(validFiles);
+        setError(null);
+    };
+
+    const uploadFile = async (file) =&gt; {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await axios.post('/api/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: (progressEvent) =&gt; {
+                    const percentCompleted = Math.round(
+                        (progressEvent.loaded * 100) / progressEvent.total
+                    );
+                    setUploadProgress(prev =&gt; ({
+                        ...prev,
+                        [file.name]: percentCompleted
+                    }));
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            throw new Error(`Upload failed for ${file.name}`);
+        }
+    };
+
+    const handleUploadAll = async () =&gt; {
+        setUploading(true);
+        setError(null);
+        const results = [];
+
+        try {
+            for (const file of selectedFiles) {
+                const result = await uploadFile(file);
+                results.push(result);
+            }
+
+            console.log('All uploads successful:', results);
+            setSelectedFiles([]);
+            setUploadProgress({});
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const handleRemoveFile = (fileName) =&gt; {
+        setSelectedFiles(prev =&gt; prev.filter(f =&gt; f.name !== fileName));
+        const newProgress = { ...uploadProgress };
+        delete newProgress[fileName];
+        setUploadProgress(newProgress);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input
+                type="file"
+                multiple
+                onChange={handleFileSelect}
+                disabled={uploading}
+                accept=".jpg,.jpeg,.png,.gif,.pdf"
+            /&gt;
+
+            {selectedFiles.length &gt; 0 &amp;&amp; (
+                &lt;div&gt;
+                    &lt;h4&gt;Selected Files:&lt;/h4&gt;
+                    {selectedFiles.map(file =&gt; (
+                        &lt;div key={file.name}&gt;
+                            &lt;span&gt;{file.name} ({file.size} bytes)&lt;/span&gt;
+                            {uploadProgress[file.name] !== undefined &amp;&amp; (
+                                &lt;progress value={uploadProgress[file.name]} max="100" /&gt;
+                            )}
+                            {!uploading &amp;&amp; (
+                                &lt;button onClick={() =&gt; handleRemoveFile(file.name)}&gt;
+                                    Remove
+                                &lt;/button&gt;
+                            )}
+                        &lt;/div&gt;
+                    ))}
+                    &lt;button
+                        onClick={handleUploadAll}
+                        disabled={uploading}
+                    &gt;
+                        {uploading ? 'Uploading...' : 'Upload All'}
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            )}
+
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+        &lt;/div&gt;
+    );
+}
+
+// File download
+function FileDownload() {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [downloadUrl, setDownloadUrl] = useState(null);
+
+    const downloadFile = async (fileId) =&gt; {
+        setLoading(true);
+        setError(null);
+
+        try {
+            // Download file as blob
+            const response = await fetch(`/api/files/${fileId}`, {
+                headers: {
+                    'Authorization': `Bearer ${getToken()}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Download failed');
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            setDownloadUrl(url);
+
+            // Create download link and trigger download
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `file-${fileId}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Clean up URL
+            setTimeout(() =&gt; {
+                window.URL.revokeObjectURL(url);
+                setDownloadUrl(null);
+            }, 5000);
+        } catch (error) {
+            setError('Failed to download file. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;button
+                onClick={() =&gt; downloadFile(123)}
+                disabled={loading}
+            &gt;
+                {loading ? 'Downloading...' : 'Download File'}
+            &lt;/button&gt;
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+            {downloadUrl &amp;&amp; &lt;div&gt;Download complete!&lt;/div&gt;}
+        &lt;/div&gt;
+    );
+}
+
+// Drag and drop upload
+function DragAndDropUpload() {
+    const [isDragging, setIsDragging] = useState(false);
+    const [files, setFiles] = useState([]);
+    const [uploading, setUploading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState({});
+    const [error, setError] = useState(null);
+
+    const handleDragOver = (e) =&gt; {
+        e.preventDefault();
+        setIsDragging(true);
+    };
+
+    const handleDragLeave = (e) =&gt; {
+        e.preventDefault();
+        setIsDragging(false);
+    };
+
+    const handleDrop = (e) =&gt; {
+        e.preventDefault();
+        setIsDragging(false);
+
+        const droppedFiles = Array.from(e.dataTransfer.files);
+        const validFiles = droppedFiles.filter(file =&gt; {
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const maxSize = 5 * 1024 * 1024; // 5MB
+
+            if (!validTypes.includes(file.type)) {
+                setError(`Invalid file type: ${file.name}`);
+                return false;
+            }
+
+            if (file.size &gt; maxSize) {
+                setError(`File too large: ${file.name}`);
+                return false;
+            }
+
+            return true;
+        });
+
+        setFiles(prev =&gt; [...prev, ...validFiles]);
+        setError(null);
+    };
+
+    const handleUpload = async () =&gt; {
+        if (files.length === 0) return;
+
+        setUploading(true);
+        setError(null);
+        const formData = new FormData();
+        files.forEach(file =&gt; formData.append('files', file));
+
+        try {
+            const response = await axios.post('/api/uploads', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: (progressEvent) =&gt; {
+                    const percentCompleted = Math.round(
+                        (progressEvent.loaded * 100) / progressEvent.total
+                    );
+                    setUploadProgress({ total: percentCompleted });
+                }
+            });
+
+            console.log('Upload successful:', response.data);
+            setFiles([]);
+            setUploadProgress({});
+        } catch (error) {
+            setError('Upload failed. Please try again.');
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    return (
+        &lt;div
+            className={`drop-zone ${isDragging ? 'dragging' : ''}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+        &gt;
+            &lt;p&gt;Drag and drop files here, or click to select files&lt;/p&gt;
+            &lt;input
+                type="file"
+                multiple
+                onChange={(e) =&gt; {
+                    const selectedFiles = Array.from(e.target.files);
+                    setFiles(prev =&gt; [...prev, ...selectedFiles]);
+                }}
+                disabled={uploading}
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="fileInput"
+            /&gt;
+            &lt;label htmlFor="fileInput" className="button"&gt;
+                Select Files
+            &lt;/label&gt;
+
+            {files.length &gt; 0 &amp;&amp; (
+                &lt;div&gt;
+                    &lt;p&gt;Files to upload: {files.length}&lt;/p&gt;
+                    {uploadProgress.total !== undefined &amp;&amp; (
+                        &lt;progress value={uploadProgress.total} max="100" /&gt;
+                    )}
+                    &lt;button onClick={handleUpload} disabled={uploading}&gt;
+                        {uploading ? 'Uploading...' : 'Upload All'}
+                    &lt;/button&gt;
+                    &lt;button onClick={() =&gt; setFiles([])} disabled={uploading}&gt;
+                        Clear
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            )}
+
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="98-pagination-filtering-and-searching">9.8 Pagination, Filtering, and Searching</h2>
+<h3 id="simple-explanation_7--5">Simple Explanation</h3>
+<p>Pagination, filtering, and searching are essential for managing large datasets. They allow users to navigate through data, narrow down results, and find specific items efficiently.</p>
+<p>Think of pagination like flipping through pages of a catalog, filtering like using a sieve to separate items, and searching like using a magnifying glass to find something specific.</p>
+<h3 id="technical-explanation_7--5">Technical Explanation</h3>
+<p><strong>Pagination</strong>: Dividing data into pages
+- <strong>Page Number</strong>: Current page
+- <strong>Page Size</strong>: Items per page
+- <strong>Total Items</strong>: Total number of items
+- <strong>Total Pages</strong>: Calculated from total items / page size
+- <strong>Next/Previous</strong>: Navigation between pages
+- <strong>Skip/Offset</strong>: How many items to skip</p>
+<p><strong>Filtering</strong>: Narrowing down results
+- <strong>Server-side Filtering</strong>: Filter on server
+- <strong>Client-side Filtering</strong>: Filter on client
+- <strong>Multi-filter</strong>: Multiple filter criteria
+- <strong>Filter Operators</strong>: equals, contains, startsWith, etc.</p>
+<p><strong>Searching</strong>: Finding specific items
+- <strong>Text Search</strong>: Search in text fields
+- <strong>Debounce</strong>: Wait for user to stop typing
+- <strong>Empty State</strong>: Show when no results found
+- <strong>Highlighting</strong>: Highlight matching text</p>
+<h3 id="professional-explanation_7--5">Professional Explanation</h3>
+<p>Pagination and filtering best practices:
+- <strong>Consistent API</strong>: Standard query parameters
+- <strong>Caching</strong>: Cache results for performance
+- <strong>Infrastructure</strong>: Use React Query for caching
+- <strong>User Experience</strong>: Show loading states
+- <strong>Memory Usage</strong>: Limit in-memory data
+- <strong>Security</strong>: Validate parameters
+- <strong>Performance</strong>: Index database columns</p>
+<h3 id="pagination-examples">Pagination Examples</h3>
+<pre><code class="language-jsx">// Pagination component
+function Pagination({ 
+    currentPage, 
+    totalItems, 
+    pageSize, 
+    onPageChange 
+}) {
+    const totalPages = Math.ceil(totalItems / pageSize);
+    const maxVisible = 5;
+
+    const getPageNumbers = () =&gt; {
+        const pages = [];
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+
+        if (endPage - startPage &lt; maxVisible - 1) {
+            startPage = Math.max(1, endPage - maxVisible + 1);
+        }
+
+        for (let i = startPage; i &lt;= endPage; i++) {
+            pages.push(i);
+        }
+
+        return pages;
+    };
+
+    if (totalPages &lt;= 1) return null;
+
+    return (
+        &lt;div className="pagination"&gt;
+            &lt;button
+                onClick={() =&gt; onPageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+            &gt;
+                Previous
+            &lt;/button&gt;
+
+            {currentPage &gt; Math.floor(maxVisible / 2) + 1 &amp;&amp; (
+                &lt;&gt;
+                    &lt;button onClick={() =&gt; onPageChange(1)}&gt;1&lt;/button&gt;
+                    &lt;span&gt;...&lt;/span&gt;
+                &lt;/&gt;
+            )}
+
+            {getPageNumbers().map(page =&gt; (
+                &lt;button
+                    key={page}
+                    className={page === currentPage ? 'active' : ''}
+                    onClick={() =&gt; onPageChange(page)}
+                &gt;
+                    {page}
+                &lt;/button&gt;
+            ))}
+
+            {currentPage &lt; totalPages - Math.floor(maxVisible / 2) &amp;&amp; (
+                &lt;&gt;
+                    &lt;span&gt;...&lt;/span&gt;
+                    &lt;button onClick={() =&gt; onPageChange(totalPages)}&gt;
+                        {totalPages}
+                    &lt;/button&gt;
+                &lt;/&gt;
+            )}
+
+            &lt;button
+                onClick={() =&gt; onPageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+            &gt;
+                Next
+            &lt;/button&gt;
+
+            &lt;span className="pagination-info"&gt;
+                Page {currentPage} of {totalPages} ({totalItems} items)
+            &lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Paginated and filtered data fetch
+function usePaginatedData(initialParams = {}) {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [params, setParams] = useState({
+        page: 1,
+        limit: 10,
+        sort: 'createdAt',
+        order: 'desc',
+        ...initialParams
+    });
+    const [pagination, setPagination] = useState({
+        page: 1,
+        limit: 10,
+        total: 0,
+        totalPages: 0
+    });
+
+    const fetchData = useCallback(async (newParams = {}) =&gt; {
+        const mergedParams = { ...params, ...newParams };
+        setLoading(true);
+        setError(null);
+
+        try {
+            const queryString = new URLSearchParams(
+                Object.entries(mergedParams).reduce((acc, [key, value]) =&gt; {
+                    if (value !== undefined &amp;&amp; value !== null &amp;&amp; value !== '') {
+                        acc[key] = value;
+                    }
+                    return acc;
+                }, {})
+            ).toString();
+
+            const response = await fetch(`/api/data?${queryString}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+
+            const result = await response.json();
+
+            setData(result.items || result.data || []);
+            setPagination({
+                page: result.page || mergedParams.page,
+                limit: result.limit || mergedParams.limit,
+                total: result.total || 0,
+                totalPages: result.totalPages || Math.ceil((result.total || 0) / (result.limit || mergedParams.limit))
+            });
+
+            if (newParams.page !== undefined || newParams.limit !== undefined) {
+                setParams(prev =&gt; ({ ...prev, ...newParams }));
+            }
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    }, [params]);
+
+    const updateParams = (newParams) =&gt; {
+        setParams(prev =&gt; ({ ...prev, ...newParams }));
+        fetchData({ ...params, ...newParams });
+    };
+
+    const changePage = (page) =&gt; {
+        updateParams({ page });
+    };
+
+    const changeLimit = (limit) =&gt; {
+        updateParams({ page: 1, limit });
+    };
+
+    const changeSort = (sort, order = 'asc') =&gt; {
+        updateParams({ sort, order, page: 1 });
+    };
+
+    const changeFilter = (filters) =&gt; {
+        updateParams({ ...filters, page: 1 });
+    };
+
+    useEffect(() =&gt; {
+        fetchData();
+    }, []);
+
+    return {
+        data,
+        loading,
+        error,
+        pagination,
+        params,
+        fetchData,
+        updateParams,
+        changePage,
+        changeLimit,
+        changeSort,
+        changeFilter
+    };
+}
+
+// Component using paginated data
+function DataTable() {
+    const {
+        data,
+        loading,
+        error,
+        pagination,
+        params,
+        changePage,
+        changeLimit,
+        changeSort,
+        changeFilter
+    } = usePaginatedData();
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [debouncedSearch, setDebouncedSearch] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+
+    // Debounce search
+    useEffect(() =&gt; {
+        const timer = setTimeout(() =&gt; {
+            setDebouncedSearch(searchTerm);
+        }, 300);
+
+        return () =&gt; clearTimeout(timer);
+    }, [searchTerm]);
+
+    // Update filters when debounced search changes
+    useEffect(() =&gt; {
+        if (debouncedSearch !== undefined) {
+            changeFilter({ search: debouncedSearch, status: statusFilter });
+        }
+    }, [debouncedSearch, statusFilter]);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+
+    return (
+        &lt;div&gt;
+            &lt;div className="filters"&gt;
+                &lt;input
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) =&gt; setSearchTerm(e.target.value)}
+                /&gt;
+                &lt;select
+                    value={statusFilter}
+                    onChange={(e) =&gt; setStatusFilter(e.target.value)}
+                &gt;
+                    &lt;option value=""&gt;All Status&lt;/option&gt;
+                    &lt;option value="active"&gt;Active&lt;/option&gt;
+                    &lt;option value="inactive"&gt;Inactive&lt;/option&gt;
+                &lt;/select&gt;
+                &lt;select
+                    value={`${params.sort}-${params.order}`}
+                    onChange={(e) =&gt; {
+                        const [sort, order] = e.target.value.split('-');
+                        changeSort(sort, order);
+                    }}
+                &gt;
+                    &lt;option value="createdAt-desc"&gt;Newest&lt;/option&gt;
+                    &lt;option value="createdAt-asc"&gt;Oldest&lt;/option&gt;
+                    &lt;option value="name-asc"&gt;Name A-Z&lt;/option&gt;
+                    &lt;option value="name-desc"&gt;Name Z-A&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+
+            &lt;table&gt;
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;ID&lt;/th&gt;
+                        &lt;th&gt;Name&lt;/th&gt;
+                        &lt;th&gt;Status&lt;/th&gt;
+                        &lt;th&gt;Created At&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                    {data.map(item =&gt; (
+                        &lt;tr key={item.id}&gt;
+                            &lt;td&gt;{item.id}&lt;/td&gt;
+                            &lt;td&gt;{item.name}&lt;/td&gt;
+                            &lt;td&gt;{item.status}&lt;/td&gt;
+                            &lt;td&gt;{new Date(item.createdAt).toLocaleDateString()}&lt;/td&gt;
+                        &lt;/tr&gt;
+                    ))}
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+
+            &lt;Pagination
+                currentPage={pagination.page}
+                totalItems={pagination.total}
+                pageSize={pagination.limit}
+                onPageChange={changePage}
+            /&gt;
+
+            &lt;div className="page-size"&gt;
+                &lt;label&gt;Items per page:&lt;/label&gt;
+                &lt;select
+                    value={pagination.limit}
+                    onChange={(e) =&gt; changeLimit(Number(e.target.value))}
+                &gt;
+                    &lt;option value="5"&gt;5&lt;/option&gt;
+                    &lt;option value="10"&gt;10&lt;/option&gt;
+                    &lt;option value="25"&gt;25&lt;/option&gt;
+                    &lt;option value="50"&gt;50&lt;/option&gt;
+                    &lt;option value="100"&gt;100&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Infinite scroll pagination
+function InfiniteScroll() {
+    const [items, setItems] = useState([]);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+    const observerRef = useRef(null);
+
+    const loadMore = useCallback(async () =&gt; {
+        if (loading || !hasMore) return;
+
+        setLoading(true);
+        try {
+            const response = await fetch(`/api/items?page=${page}&amp;limit=20`);
+            const data = await response.json();
+
+            setItems(prev =&gt; [...prev, ...data.items]);
+            setHasMore(data.hasMore);
+            setPage(prev =&gt; prev + 1);
+        } catch (error) {
+            console.error('Error loading items:', error);
+        } finally {
+            setLoading(false);
+        }
+    }, [page, loading, hasMore]);
+
+    useEffect(() =&gt; {
+        const observer = new IntersectionObserver(
+            (entries) =&gt; {
+                if (entries[0].isIntersecting) {
+                    loadMore();
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (observerRef.current) {
+            observer.observe(observerRef.current);
+        }
+
+        return () =&gt; {
+            if (observerRef.current) {
+                observer.disconnect();
+            }
+        };
+    }, [loadMore]);
+
+    return (
+        &lt;div&gt;
+            {items.map(item =&gt; (
+                &lt;div key={item.id}&gt;
+                    &lt;h3&gt;{item.name}&lt;/h3&gt;
+                    &lt;p&gt;{item.description}&lt;/p&gt;
+                &lt;/div&gt;
+            ))}
+
+            {loading &amp;&amp; &lt;div&gt;Loading more items...&lt;/div&gt;}
+
+            &lt;div ref={observerRef}&gt;
+                {hasMore &amp;&amp; !loading &amp;&amp; &lt;div&gt;Load more&lt;/div&gt;}
+                {!hasMore &amp;&amp; &lt;div&gt;End of list&lt;/div&gt;}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="99-common-mistakes-and-best-practices">9.9 Common Mistakes and Best Practices</h2>
+<h3 id="991-common-mistakes">9.9.1 Common Mistakes</h3>
+<pre><code class="language-jsx">// ❌ Not handling loading states
+function BadComponent() {
+    const [data, setData] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchData().then(setData);
+    }, []);
+
+    // ❌ data might be null when rendering
+    return &lt;div&gt;{data.name}&lt;/div&gt;;
+}
+
+// ✅ Handle loading and error states
+function GoodComponent() {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchData()
+            .then(setData)
+            .catch(setError)
+            .finally(() =&gt; setLoading(false));
+    }, []);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+    if (!data) return &lt;div&gt;No data&lt;/div&gt;;
+
+    return &lt;div&gt;{data.name}&lt;/div&gt;;
+}
+
+// ❌ Not cleaning up requests
+function BadEffect({ userId }) {
+    const [user, setUser] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchUser(userId).then(setUser);
+        // ❌ No cleanup - memory leak
+    }, [userId]);
+}
+
+// ✅ Clean up requests
+function GoodEffect({ userId }) {
+    const [user, setUser] = useState(null);
+
+    useEffect(() =&gt; {
+        const abortController = new AbortController();
+
+        fetchUser(userId, { signal: abortController.signal })
+            .then(setUser)
+            .catch(error =&gt; {
+                if (error.name !== 'AbortError') {
+                    console.error('Error:', error);
+                }
+            });
+
+        return () =&gt; abortController.abort();
+    }, [userId]);
+}
+
+// ❌ Storing sensitive data in localStorage
+function BadAuth() {
+    const login = async (email, password) =&gt; {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+        });
+        const data = await response.json();
+        localStorage.setItem('token', data.token); // ❌ Not secure
+    };
+}
+
+// ✅ Use httpOnly cookies or secure storage
+function GoodAuth() {
+    const login = async (email, password) =&gt; {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+            credentials: 'include' // ✅ Send cookies
+        });
+        // Token stored in httpOnly cookie
+    };
+}
+</code></pre>
+<h3 id="992-best-practices">9.9.2 Best Practices</h3>
+<pre><code class="language-jsx">// ✅ Use centralized API client
+// api/client.js
+const client = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+    timeout: 10000,
+});
+
+// ✅ Add interceptors for auth and logging
+client.interceptors.request.use(config =&gt; {
+    const token = getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+// ✅ Use React Query for caching
+function DataFetching() {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['data'],
+        queryFn: fetchData,
+        staleTime: 5000,
+        cacheTime: 10000
+    });
+}
+
+// ✅ Implement retry logic
+const { data, error } = useQuery({
+    queryKey: ['data'],
+    queryFn: fetchData,
+    retry: 3,
+    retryDelay: attempt =&gt; Math.min(1000 * 2 ** attempt, 30000)
+});
+
+// ✅ Use debouncing for search
+function SearchInput() {
+    const [value, setValue] = useState('');
+    const debouncedValue = useDebounce(value, 300);
+
+    useEffect(() =&gt; {
+        if (debouncedValue) {
+            search(debouncedValue);
+        }
+    }, [debouncedValue]);
+}
+
+// ✅ Validate API responses
+function validateApiResponse(data) {
+    if (!data || typeof data !== 'object') {
+        throw new Error('Invalid response format');
+    }
+    // Additional validation
+    return data;
+}
+</code></pre>
+<h2 id="910-interview-questions">9.10 Interview Questions</h2>
+<h3 id="junior-level-questions--9">Junior Level Questions</h3>
+<p><strong>Q: What is the difference between Fetch and Axios?</strong></p>
+<p><strong>Answer</strong>:
+- <strong>Fetch</strong>: Native browser API, requires JSON parsing, no timeouts
+- <strong>Axios</strong>: Third-party library, automatic JSON parsing, interceptors, timeouts</p>
+<pre><code class="language-jsx">// Fetch
+fetch('/api/users')
+    .then(res =&gt; res.json())
+    .then(data =&gt; console.log(data));
+
+// Axios
+axios.get('/api/users')
+    .then(res =&gt; console.log(res.data));
+</code></pre>
+<p><strong>Q: How do you handle API errors in React?</strong></p>
+<p><strong>Answer</strong>: Use try/catch with async/await, check response status, show user-friendly error messages, and log errors for debugging.</p>
+<h3 id="mid-level-questions--9">Mid Level Questions</h3>
+<p><strong>Q: How do you implement token-based authentication?</strong></p>
+<p><strong>Answer</strong>:
+1. User logs in with credentials
+2. Server returns JWT token
+3. Store token securely
+4. Include token in Authorization header
+5. Handle token expiration with refresh tokens</p>
+<pre><code class="language-jsx">axios.interceptors.request.use(config =&gt; {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+</code></pre>
+<p><strong>Q: What is the purpose of React Query?</strong></p>
+<p><strong>Answer</strong>: React Query handles server state by providing:
+- Automatic caching
+- Background updates
+- Stale-while-revalidate
+- Pagination and infinite queries
+- Mutations with optimistic updates</p>
+<h3 id="senior-level-questions--9">Senior Level Questions</h3>
+<p><strong>Q: How do you handle API caching in React applications?</strong></p>
+<p><strong>Answer</strong>: Use React Query or SWR for server state caching with features like:
+- Cache invalidation
+- Stale-while-revalidate
+- Cache persistence
+- Selective caching</p>
+<pre><code class="language-jsx">const { data } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () =&gt; fetchUser(userId),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    cacheTime: 10 * 60 * 1000, // 10 minutes
+});
+</code></pre>
+<p><strong>Q: How do you implement optimistic updates?</strong></p>
+<p><strong>Answer</strong>: Update UI optimistically before server confirms, then rollback on error.</p>
+<pre><code class="language-jsx">const mutation = useMutation({
+    mutationFn: updateTodo,
+    onMutate: async (newTodo) =&gt; {
+        await queryClient.cancelQueries(['todos']);
+        const previous = queryClient.getQueryData(['todos']);
+        queryClient.setQueryData(['todos'], old =&gt; [...old, newTodo]);
+        return { previous };
+    },
+    onError: (err, newTodo, context) =&gt; {
+        queryClient.setQueryData(['todos'], context.previous);
+    }
+});
+</code></pre>
+<h2 id="911-summary">9.11 Summary</h2>
+<h3 id="api-integration-methods">API Integration Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fetch</strong></td>
+<td>Built-in, no dependencies</td>
+<td>No timeouts, less features</td>
+<td>Simple requests</td>
+</tr>
+<tr>
+<td><strong>Axios</strong></td>
+<td>Rich features, interceptors</td>
+<td>External dependency</td>
+<td>Enterprise apps</td>
+</tr>
+<tr>
+<td><strong>React Query</strong></td>
+<td>Caching, state management</td>
+<td>Learning curve</td>
+<td>Server state</td>
+</tr>
+</tbody>
+</table>
+<h3 id="http-methods">HTTP Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GET</strong></td>
+<td>Retrieve data</td>
+<td><code>GET /users</code></td>
+</tr>
+<tr>
+<td><strong>POST</strong></td>
+<td>Create data</td>
+<td><code>POST /users</code></td>
+</tr>
+<tr>
+<td><strong>PUT</strong></td>
+<td>Update data</td>
+<td><code>PUT /users/1</code></td>
+</tr>
+<tr>
+<td><strong>DELETE</strong></td>
+<td>Delete data</td>
+<td><code>DELETE /users/1</code></td>
+</tr>
+<tr>
+<td><strong>PATCH</strong></td>
+<td>Partial update</td>
+<td><code>PATCH /users/1</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="authentication-methods">Authentication Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th>Security</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JWT</strong></td>
+<td>Stateless tokens</td>
+<td>Good</td>
+</tr>
+<tr>
+<td><strong>OAuth2</strong></td>
+<td>Third-party auth</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td><strong>Session Cookies</strong></td>
+<td>Server-side sessions</td>
+<td>Good</td>
+</tr>
+<tr>
+<td><strong>API Keys</strong></td>
+<td>Simple auth</td>
+<td>Limited</td>
+</tr>
+</tbody>
+</table>
+<h3 id="best-practices-summary--7">Best Practices Summary</h3>
+<ol>
+<li><strong>Use a centralized API client</strong></li>
+<li><strong>Handle loading and error states</strong></li>
+<li><strong>Implement request cancellation</strong></li>
+<li><strong>Use interceptors for auth and logging</strong></li>
+<li><strong>Cache server state with React Query</strong></li>
+<li><strong>Debounce search inputs</strong></li>
+<li><strong>Implement retry logic</strong></li>
+<li><strong>Validate API responses</strong></li>
+<li><strong>Secure token storage</strong></li>
+<li><strong>Log errors for debugging</strong></li>
+</ol>
+<hr/>
+<p><em>End of Chapter 9</em></p>
+<p><strong>Next Chapter Preview</strong>: Chapter 10 will cover TypeScript in React, including types, interfaces, generics, utility types, and advanced TypeScript patterns for React.</p>
+<hr/>
+<p><em>This chapter provides comprehensive coverage of API integration in React. Master these concepts to build robust and scalable applications with reliable data fetching.</em></p>
+<h1 id="the-complete-react-developer-course--9">The Complete React Developer Course</h1>
+<h2 id="from-beginner-to-professional--9">From Beginner to Professional</h2>
+<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--9">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+<hr/>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-9" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-8"><span class="pager-label">← Previous chapter</span><strong>08 · Routing in React</strong></a><a class="pager-card pager-card--next" href="#chapter-10"><span class="pager-label">Next chapter →</span><strong>10 · TypeScript in React</strong></a></nav></section>

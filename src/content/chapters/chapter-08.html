@@ -1,0 +1,1623 @@
+<section class="chapter" id="chapter-8" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">08</span>
+<h1 class="chapter-title" id="routing-in-react">Routing in React</h1>
+</div>
+<h2 id="81-introduction-to-routing">8.1 Introduction to Routing</h2>
+<h3 id="simple-explanation--8">Simple Explanation</h3>
+<p>Routing is how you navigate between different pages or views in a React application. Just like a website has different pages (Home, About, Contact), a React app needs to show different components based on the URL. React Router is the most popular library for handling routing in React applications.</p>
+<p>Think of routing like a GPS navigation system - the URL is your current location, and React Router helps you determine which "screen" (component) to show based on that location.</p>
+<h3 id="technical-explanation--8">Technical Explanation</h3>
+<p>Routing in React involves mapping URLs to components. When a user navigates to a specific URL, the router renders the corresponding component. React Router provides declarative routing for React applications.</p>
+<p>Key concepts:
+- <strong>Routes</strong>: Mapping between URLs and components
+- <strong>Navigation</strong>: Programmatic and declarative navigation
+- <strong>Nested Routes</strong>: Routes within routes
+- <strong>Protected Routes</strong>: Routes that require authentication
+- <strong>Dynamic Routes</strong>: Routes with parameters
+- <strong>Lazy Loading</strong>: Loading routes only when needed</p>
+<h3 id="professional-explanation--8">Professional Explanation</h3>
+<p>In enterprise React applications, routing is crucial for:
+- <strong>User Experience</strong>: Smooth navigation between views
+- <strong>State Management</strong>: Preserving state during navigation
+- <strong>Code Splitting</strong>: Loading code on demand
+- <strong>Deep Linking</strong>: Sharing specific application states
+- <strong>SEO</strong>: Server-side rendering for search engines
+- <strong>Analytics</strong>: Tracking user navigation patterns</p>
+<h2 id="82-react-router-setup">8.2 React Router Setup</h2>
+<h3 id="simple-explanation_1--4">Simple Explanation</h3>
+<p>React Router is the standard routing library for React. Setting it up involves installing the package and wrapping your app with a router component. Then you define routes using Route components.</p>
+<p>Think of React Router like a traffic controller - you tell it which URL patterns should show which components, and it handles all the routing logic for you.</p>
+<h3 id="technical-explanation_1--4">Technical Explanation</h3>
+<p>React Router v6 is the latest version with significant improvements over previous versions. It provides a declarative API for routing.</p>
+<p>Core components:
+- <strong>BrowserRouter</strong>: The router implementation for web
+- <strong>Routes</strong>: Container for Route components
+- <strong>Route</strong>: Defines a mapping between URL and component
+- <strong>Link</strong>: Declarative navigation component
+- <strong>useNavigate</strong>: Hook for programmatic navigation</p>
+<h3 id="professional-explanation_1--4">Professional Explanation</h3>
+<p>React Router setup varies based on application needs:
+- <strong>BrowserRouter</strong>: Standard web applications
+- <strong>HashRouter</strong>: Static file hosting
+- <strong>StaticRouter</strong>: Server-side rendering
+- <strong>MemoryRouter</strong>: Testing environment</p>
+<h3 id="react-router-setup-examples">React Router Setup Examples</h3>
+<pre><code class="language-jsx">// Installation
+// npm install react-router-dom
+
+// Basic setup
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;nav&gt;
+                &lt;Link to="/"&gt;Home&lt;/Link&gt;
+                &lt;Link to="/about"&gt;About&lt;/Link&gt;
+                &lt;Link to="/contact"&gt;Contact&lt;/Link&gt;
+            &lt;/nav&gt;
+
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+function Home() {
+    return &lt;h1&gt;Home Page&lt;/h1&gt;;
+}
+
+function About() {
+    return &lt;h1&gt;About Page&lt;/h1&gt;;
+}
+
+function Contact() {
+    return &lt;h1&gt;Contact Page&lt;/h1&gt;;
+}
+
+// Setup with navigation component
+function Navigation() {
+    return (
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;Link to="/"&gt;Home&lt;/Link&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;Link to="/about"&gt;About&lt;/Link&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;Link to="/contact"&gt;Contact&lt;/Link&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    );
+}
+
+// App with custom navigation
+function AppWithNavigation() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Navigation /&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h2 id="83-basic-routes">8.3 Basic Routes</h2>
+<h3 id="simple-explanation_2--4">Simple Explanation</h3>
+<p>Routes are the building blocks of routing. Each Route component defines a path and the component to render when that path matches the current URL. The Routes component contains all the routes and decides which one to render.</p>
+<p>Think of Routes like a switch statement - it checks each route from top to bottom and renders the first one that matches the current URL.</p>
+<h3 id="technical-explanation_2--4">Technical Explanation</h3>
+<p>A Route component matches a path pattern and renders a component when the URL matches. The Routes component selects the best match among its children.</p>
+<p>Route types:
+- <strong>Exact routes</strong>: Match exactly (default in v6)
+- <strong>Nested routes</strong>: Routes within routes
+- <strong>Dynamic routes</strong>: Routes with parameters
+- <strong>Index routes</strong>: Default routes for parent paths
+- <strong>Fallback routes</strong>: Catch-all for unmatched paths</p>
+<h3 id="professional-explanation_2--4">Professional Explanation</h3>
+<p>Route matching in React Router v6:
+- Routes are matched by the best match, not by order
+- Nested routes are matched relative to their parent
+- Index routes render at parent paths
+- Wildcards for catch-all routes</p>
+<h3 id="basic-routes-examples">Basic Routes Examples</h3>
+<pre><code class="language-jsx">// Simple routes
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+                &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Routes with layout
+function AppWithLayout() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route element={&lt;Layout /&gt;}&gt;
+                    &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                    &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+function Layout() {
+    return (
+        &lt;div&gt;
+            &lt;header&gt;
+                &lt;nav&gt;
+                    &lt;Link to="/"&gt;Home&lt;/Link&gt;
+                    &lt;Link to="/about"&gt;About&lt;/Link&gt;
+                    &lt;Link to="/contact"&gt;Contact&lt;/Link&gt;
+                &lt;/nav&gt;
+            &lt;/header&gt;
+            &lt;main&gt;
+                &lt;Outlet /&gt;
+            &lt;/main&gt;
+            &lt;footer&gt;
+                &lt;p&gt;&amp;copy; 2024 My App&lt;/p&gt;
+            &lt;/footer&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Routes with index route
+function AppWithIndex() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Dashboard /&gt;}&gt;
+                    &lt;Route index element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+                    &lt;Route path="profile" element={&lt;Profile /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+function Dashboard() {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Dashboard&lt;/h2&gt;
+            &lt;nav&gt;
+                &lt;Link to="/"&gt;Home&lt;/Link&gt;
+                &lt;Link to="/settings"&gt;Settings&lt;/Link&gt;
+                &lt;Link to="/profile"&gt;Profile&lt;/Link&gt;
+            &lt;/nav&gt;
+            &lt;Outlet /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Routes with multiple layouts
+function AppWithMultipleLayouts() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route element={&lt;PublicLayout /&gt;}&gt;
+                    &lt;Route path="/login" element={&lt;Login /&gt;} /&gt;
+                    &lt;Route path="/register" element={&lt;Register /&gt;} /&gt;
+                &lt;/Route&gt;
+                &lt;Route element={&lt;PrivateLayout /&gt;}&gt;
+                    &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+                    &lt;Route path="/settings" element={&lt;Settings /&gt;} /&gt;
+                    &lt;Route path="/profile" element={&lt;Profile /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h2 id="84-dynamic-routes">8.4 Dynamic Routes</h2>
+<h3 id="simple-explanation_3--4">Simple Explanation</h3>
+<p>Dynamic routes allow you to capture URL parameters and use them in your components. This is useful for user profiles, blog posts, product pages, and other pages where the content depends on an ID or slug.</p>
+<p>Think of dynamic routes like templates - the route pattern defines the structure, and the actual value in the URL determines what content to show.</p>
+<h3 id="technical-explanation_3--4">Technical Explanation</h3>
+<p>Dynamic routes use parameters that are captured from the URL. These parameters can be accessed using the useParams hook or the useMatches hook.</p>
+<p>Features:
+- <strong>Path parameters</strong>: URL segments like <code>/users/:id</code>
+- <strong>Optional parameters</strong>: Optional segments
+- <strong>Wildcards</strong>: Catch-all routes
+- <strong>Nested routes</strong>: Routes with dynamic segments</p>
+<h3 id="professional-explanation_3--4">Professional Explanation</h3>
+<p>Dynamic routes are essential for:
+- <strong>CRUD Operations</strong>: Managing resources
+- <strong>User Profiles</strong>: Displaying user-specific content
+- <strong>Blog/Content</strong>: Showing articles
+- <strong>E-commerce</strong>: Product pages
+- <strong>SEO</strong>: Clean, descriptive URLs</p>
+<h3 id="dynamic-routes-examples">Dynamic Routes Examples</h3>
+<pre><code class="language-jsx">// Basic dynamic route
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/users/:id" element={&lt;UserProfile /&gt;} /&gt;
+                &lt;Route path="/posts/:postId/comments/:commentId" element={&lt;CommentDetail /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Using useParams
+function UserProfile() {
+    const { id } = useParams();
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() =&gt; {
+        const fetchUser = async () =&gt; {
+            try {
+                const response = await fetch(`/api/users/${id}`);
+                const data = await response.json();
+                setUser(data);
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, [id]);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (!user) return &lt;div&gt;User not found&lt;/div&gt;;
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;p&gt;{user.email}&lt;/p&gt;
+            &lt;p&gt;{user.bio}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Nested dynamic routes
+function AppWithNestedDynamic() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/users/:userId" element={&lt;UserLayout /&gt;}&gt;
+                    &lt;Route index element={&lt;UserProfile /&gt;} /&gt;
+                    &lt;Route path="posts" element={&lt;UserPosts /&gt;} /&gt;
+                    &lt;Route path="posts/:postId" element={&lt;UserPostDetail /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+function UserLayout() {
+    const { userId } = useParams();
+    const [user, setUser] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchUser(userId).then(setUser);
+    }, [userId]);
+
+    if (!user) return &lt;div&gt;Loading...&lt;/div&gt;;
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;nav&gt;
+                &lt;Link to={`/users/${userId}`}&gt;Profile&lt;/Link&gt;
+                &lt;Link to={`/users/${userId}/posts`}&gt;Posts&lt;/Link&gt;
+            &lt;/nav&gt;
+            &lt;Outlet /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Multiple parameters
+function CommentDetail() {
+    const { postId, commentId } = useParams();
+    const [data, setData] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchComment(postId, commentId).then(setData);
+    }, [postId, commentId]);
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Post: {postId}&lt;/h3&gt;
+            &lt;h4&gt;Comment: {commentId}&lt;/h4&gt;
+            &lt;p&gt;{data?.text}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Optional parameters
+function ProductPage() {
+    const { category, productId } = useParams();
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Products&lt;/h1&gt;
+            {category &amp;&amp; &lt;p&gt;Category: {category}&lt;/p&gt;}
+            {productId &amp;&amp; &lt;p&gt;Product ID: {productId}&lt;/p&gt;}
+            {!category &amp;&amp; &lt;p&gt;Showing all products&lt;/p&gt;}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="85-nested-routes">8.5 Nested Routes</h2>
+<h3 id="simple-explanation_4--4">Simple Explanation</h3>
+<p>Nested routes are routes within other routes. They allow you to create complex layouts where different parts of the page change independently. The Outlet component is used to render nested routes.</p>
+<p>Think of nested routes like nesting dolls - each route can contain other routes, and the Outlet component marks where the nested routes should appear.</p>
+<h3 id="technical-explanation_4--4">Technical Explanation</h3>
+<p>Nested routes allow you to compose UI layouts and keep related routes together. The Outlet component is a placeholder that renders the matched child route.</p>
+<p>Key concepts:
+- <strong>Outlet</strong>: Renders the matched child route
+- <strong>Relative routes</strong>: Routes inherit parent path
+- <strong>Layout routes</strong>: Routes that provide a layout
+- <strong>Index routes</strong>: Default child routes
+- <strong>Nested routing</strong>: Routes can be nested infinitely</p>
+<h3 id="professional-explanation_4--4">Professional Explanation</h3>
+<p>Nested routes are powerful for:
+- <strong>Complex layouts</strong>: Different sections with their own routing
+- <strong>Feature modules</strong>: Self-contained routing
+- <strong>Code organization</strong>: Keeping routes close to components
+- <strong>State preservation</strong>: Maintaining state in parent layouts
+- <strong>User experience</strong>: Smooth transitions between sections</p>
+<h3 id="nested-routes-examples">Nested Routes Examples</h3>
+<pre><code class="language-jsx">// Basic nested routes
+function AppWithNestedRoutes() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;}&gt;
+                    &lt;Route index element={&lt;DashboardHome /&gt;} /&gt;
+                    &lt;Route path="analytics" element={&lt;Analytics /&gt;} /&gt;
+                    &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+                    &lt;Route path="settings/:tab" element={&lt;SettingsTab /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Dashboard component with Outlet
+function Dashboard() {
+    return (
+        &lt;div className="dashboard"&gt;
+            &lt;aside className="sidebar"&gt;
+                &lt;nav&gt;
+                    &lt;Link to="/dashboard"&gt;Home&lt;/Link&gt;
+                    &lt;Link to="/dashboard/analytics"&gt;Analytics&lt;/Link&gt;
+                    &lt;Link to="/dashboard/settings"&gt;Settings&lt;/Link&gt;
+                &lt;/nav&gt;
+            &lt;/aside&gt;
+            &lt;main className="content"&gt;
+                &lt;Outlet /&gt;
+            &lt;/main&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Nested routes with layout
+function AppWithLayoutAndNested() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route element={&lt;RootLayout /&gt;}&gt;
+                    &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+
+                    &lt;Route path="/products" element={&lt;ProductsLayout /&gt;}&gt;
+                        &lt;Route index element={&lt;ProductsList /&gt;} /&gt;
+                        &lt;Route path=":productId" element={&lt;ProductDetail /&gt;}&gt;
+                            &lt;Route index element={&lt;ProductOverview /&gt;} /&gt;
+                            &lt;Route path="reviews" element={&lt;ProductReviews /&gt;} /&gt;
+                            &lt;Route path="specs" element={&lt;ProductSpecs /&gt;} /&gt;
+                        &lt;/Route&gt;
+                        &lt;Route path="category/:categoryId" element={&lt;CategoryProducts /&gt;} /&gt;
+                    &lt;/Route&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// ProductsLayout with nested routes
+function ProductsLayout() {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Products&lt;/h2&gt;
+            &lt;div className="products-layout"&gt;
+                &lt;aside className="filters"&gt;
+                    &lt;Link to="/products"&gt;All Products&lt;/Link&gt;
+                    &lt;Link to="/products/category/electronics"&gt;Electronics&lt;/Link&gt;
+                    &lt;Link to="/products/category/clothing"&gt;Clothing&lt;/Link&gt;
+                &lt;/aside&gt;
+                &lt;div className="products-content"&gt;
+                    &lt;Outlet /&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// ProductDetail with nested routes
+function ProductDetail() {
+    const { productId } = useParams();
+    const [product, setProduct] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchProduct(productId).then(setProduct);
+    }, [productId]);
+
+    if (!product) return &lt;div&gt;Loading...&lt;/div&gt;;
+
+    return (
+        &lt;div className="product-detail"&gt;
+            &lt;h3&gt;{product.name}&lt;/h3&gt;
+            &lt;p&gt;{product.description}&lt;/p&gt;
+            &lt;p&gt;Price: ${product.price}&lt;/p&gt;
+
+            &lt;nav className="product-nav"&gt;
+                &lt;Link to={`/products/${productId}`}&gt;Overview&lt;/Link&gt;
+                &lt;Link to={`/products/${productId}/reviews`}&gt;Reviews&lt;/Link&gt;
+                &lt;Link to={`/products/${productId}/specs`}&gt;Specifications&lt;/Link&gt;
+            &lt;/nav&gt;
+
+            &lt;div className="product-content"&gt;
+                &lt;Outlet /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Deeply nested routes
+function AppWithDeepNesting() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;AppLayout /&gt;}&gt;
+                    &lt;Route path="admin" element={&lt;AdminLayout /&gt;}&gt;
+                        &lt;Route path="users" element={&lt;UserManagement /&gt;}&gt;
+                            &lt;Route index element={&lt;UserList /&gt;} /&gt;
+                            &lt;Route path=":userId" element={&lt;UserDetail /&gt;}&gt;
+                                &lt;Route index element={&lt;UserProfile /&gt;} /&gt;
+                                &lt;Route path="orders" element={&lt;UserOrders /&gt;} /&gt;
+                                &lt;Route path="settings" element={&lt;UserSettings /&gt;} /&gt;
+                            &lt;/Route&gt;
+                        &lt;/Route&gt;
+                        &lt;Route path="settings" element={&lt;AdminSettings /&gt;} /&gt;
+                    &lt;/Route&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h2 id="86-protected-routes">8.6 Protected Routes</h2>
+<h3 id="simple-explanation_5--4">Simple Explanation</h3>
+<p>Protected routes are routes that require the user to be authenticated before accessing them. If the user is not authenticated, they are redirected to the login page. This is essential for applications with private content.</p>
+<p>Think of protected routes like a VIP section at a club - only authorized people (authenticated users) can enter. If you're not on the list, you're redirected to the entrance (login page).</p>
+<h3 id="technical-explanation_5--4">Technical Explanation</h3>
+<p>Protected routes are implemented by checking authentication status before rendering the route. If the user is not authenticated, they are redirected to the login page or shown an unauthorized message.</p>
+<p>Implementation approaches:
+- <strong>Layout wrapper</strong>: Wrap protected routes in a layout that checks auth
+- <strong>Route guard</strong>: Create a component that checks auth before rendering
+- <strong>Conditional rendering</strong>: Show different content based on auth status
+- <strong>Redirect component</strong>: Redirect to login if not authenticated</p>
+<h3 id="professional-explanation_5--4">Professional Explanation</h3>
+<p>Protected routes are essential for:
+- <strong>User authentication</strong>: Restricting access to logged-in users
+- <strong>Authorization</strong>: Different access levels for different users
+- <strong>Security</strong>: Protecting sensitive data
+- <strong>User experience</strong>: Guiding users through authentication flow
+- <strong>Analytics</strong>: Tracking authenticated user behavior</p>
+<h3 id="protected-routes-examples">Protected Routes Examples</h3>
+<pre><code class="language-jsx">// Protected route component
+function ProtectedRoute({ children }) {
+    const { user, loading } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() =&gt; {
+        if (!loading &amp;&amp; !user) {
+            navigate('/login', { replace: true });
+        }
+    }, [user, loading, navigate]);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (!user) return null;
+
+    return children;
+}
+
+// Using ProtectedRoute
+function AppWithProtectedRoutes() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/login" element={&lt;Login /&gt;} /&gt;
+                &lt;Route path="/register" element={&lt;Register /&gt;} /&gt;
+                &lt;Route element={&lt;ProtectedRoute /&gt;}&gt;
+                    &lt;Route path="/" element={&lt;Dashboard /&gt;}&gt;
+                        &lt;Route index element={&lt;Home /&gt;} /&gt;
+                        &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+                        &lt;Route path="profile" element={&lt;Profile /&gt;} /&gt;
+                    &lt;/Route&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Role-based access control
+function RoleProtectedRoute({ children, allowedRoles }) {
+    const { user, loading } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() =&gt; {
+        if (!loading) {
+            if (!user) {
+                navigate('/login', { replace: true });
+            } else if (!allowedRoles.includes(user.role)) {
+                navigate('/unauthorized', { replace: true });
+            }
+        }
+    }, [user, loading, navigate, allowedRoles]);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (!user) return null;
+    if (!allowedRoles.includes(user.role)) return null;
+
+    return children;
+}
+
+// App with role-based routes
+function AppWithRoles() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/login" element={&lt;Login /&gt;} /&gt;
+                &lt;Route path="/unauthorized" element={&lt;Unauthorized /&gt;} /&gt;
+
+                &lt;Route element={&lt;ProtectedRoute /&gt;}&gt;
+                    &lt;Route path="/" element={&lt;Dashboard /&gt;}&gt;
+                        &lt;Route index element={&lt;Home /&gt;} /&gt;
+
+                        &lt;Route element={&lt;RoleProtectedRoute allowedRoles={['admin']} /&gt;}&gt;
+                            &lt;Route path="admin" element={&lt;AdminPanel /&gt;}&gt;
+                                &lt;Route index element={&lt;AdminHome /&gt;} /&gt;
+                                &lt;Route path="users" element={&lt;UserManagement /&gt;} /&gt;
+                                &lt;Route path="settings" element={&lt;SystemSettings /&gt;} /&gt;
+                            &lt;/Route&gt;
+                        &lt;/Route&gt;
+
+                        &lt;Route element={&lt;RoleProtectedRoute allowedRoles={['admin', 'manager']} /&gt;}&gt;
+                            &lt;Route path="reports" element={&lt;Reports /&gt;} /&gt;
+                            &lt;Route path="analytics" element={&lt;Analytics /&gt;} /&gt;
+                        &lt;/Route&gt;
+
+                        &lt;Route path="profile" element={&lt;Profile /&gt;} /&gt;
+                        &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+                    &lt;/Route&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Custom auth hook with redirect
+function useAuthRedirect() {
+    const { user, loading } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() =&gt; {
+        if (!loading &amp;&amp; user) {
+            navigate('/dashboard');
+        }
+    }, [user, loading, navigate]);
+}
+
+function LoginPage() {
+    const { login, error } = useContext(AuthContext);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Redirect if already authenticated
+    useAuthRedirect();
+
+    const handleSubmit = async (e) =&gt; {
+        e.preventDefault();
+        setIsLoading(true);
+        try {
+            await login(email, password);
+        } catch (error) {
+            console.error('Login failed:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input
+                type="email"
+                value={email}
+                onChange={(e) =&gt; setEmail(e.target.value)}
+                placeholder="Email"
+                disabled={isLoading}
+            /&gt;
+            &lt;input
+                type="password"
+                value={password}
+                onChange={(e) =&gt; setPassword(e.target.value)}
+                placeholder="Password"
+                disabled={isLoading}
+            /&gt;
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+            &lt;button type="submit" disabled={isLoading}&gt;
+                {isLoading ? 'Logging in...' : 'Login'}
+            &lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+
+// Auth provider setup
+function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+        // Check for existing session
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            validateToken(token)
+                .then(setUser)
+                .catch(() =&gt; {
+                    localStorage.removeItem('authToken');
+                })
+                .finally(() =&gt; setLoading(false));
+        } else {
+            setLoading(false);
+        }
+    }, []);
+
+    const login = async (email, password) =&gt; {
+        setError(null);
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+
+            if (data.token) {
+                localStorage.setItem('authToken', data.token);
+                setUser(data.user);
+            } else {
+                throw new Error('Invalid credentials');
+            }
+        } catch (err) {
+            setError(err.message);
+            throw err;
+        }
+    };
+
+    const logout = () =&gt; {
+        localStorage.removeItem('authToken');
+        setUser(null);
+    };
+
+    const value = {
+        user,
+        loading,
+        error,
+        login,
+        logout,
+        isAuthenticated: !!user
+    };
+
+    return (
+        &lt;AuthContext.Provider value={value}&gt;
+            {children}
+        &lt;/AuthContext.Provider&gt;
+    );
+}
+</code></pre>
+<h2 id="87-lazy-loading-and-code-splitting">8.7 Lazy Loading and Code Splitting</h2>
+<h3 id="simple-explanation_6--4">Simple Explanation</h3>
+<p>Lazy loading means loading components only when they're needed, rather than loading everything upfront. This makes your application load faster initially. React.lazy and Suspense make this easy.</p>
+<p>Think of lazy loading like a buffet - instead of putting all the food out at once, you put out the main dishes first and bring out specialty items when someone asks for them.</p>
+<h3 id="technical-explanation_6--4">Technical Explanation</h3>
+<p>Lazy loading allows you to split your code into chunks that are loaded on demand. React.lazy is a function that lets you load components dynamically. Suspense is a component that shows a fallback while loading.</p>
+<p>Key concepts:
+- <strong>React.lazy</strong>: Dynamic import for components
+- <strong>Suspense</strong>: Fallback UI while loading
+- <strong>Code splitting</strong>: Breaking bundle into smaller chunks
+- <strong>Chunk loading</strong>: Loading chunks on demand
+- <strong>Route-based splitting</strong>: Splitting by routes</p>
+<h3 id="professional-explanation_6--4">Professional Explanation</h3>
+<p>Lazy loading is essential for:
+- <strong>Performance</strong>: Faster initial load times
+- <strong>User experience</strong>: Progressive loading
+- <strong>Bandwidth</strong>: Less data transferred initially
+- <strong>SEO</strong>: Better Core Web Vitals
+- <strong>Maintainability</strong>: Smaller, focused bundles</p>
+<h3 id="lazy-loading-examples">Lazy Loading Examples</h3>
+<pre><code class="language-jsx">// Basic lazy loading
+import { lazy, Suspense } from 'react';
+
+const Home = lazy(() =&gt; import('./pages/Home'));
+const About = lazy(() =&gt; import('./pages/About'));
+const Contact = lazy(() =&gt; import('./pages/Contact'));
+const Dashboard = lazy(() =&gt; import('./pages/Dashboard'));
+
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+                &lt;Routes&gt;
+                    &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                    &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+                    &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+                &lt;/Routes&gt;
+            &lt;/Suspense&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Lazy loading with fallback component
+const LoadingFallback = () =&gt; (
+    &lt;div className="loading-container"&gt;
+        &lt;div className="spinner"&gt;&lt;/div&gt;
+        &lt;p&gt;Loading page...&lt;/p&gt;
+    &lt;/div&gt;
+);
+
+function AppWithCustomFallback() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Suspense fallback={&lt;LoadingFallback /&gt;}&gt;
+                &lt;Routes&gt;
+                    &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                    &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+                &lt;/Routes&gt;
+            &lt;/Suspense&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Lazy loading with nested routes
+const DashboardLayout = lazy(() =&gt; import('./layouts/DashboardLayout'));
+const Analytics = lazy(() =&gt; import('./pages/Analytics'));
+const Settings = lazy(() =&gt; import('./pages/Settings'));
+const Profile = lazy(() =&gt; import('./pages/Profile'));
+
+function AppWithNestedLazy() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+                &lt;Routes&gt;
+                    &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                    &lt;Route element={&lt;DashboardLayout /&gt;}&gt;
+                        &lt;Route path="/analytics" element={&lt;Analytics /&gt;} /&gt;
+                        &lt;Route path="/settings" element={&lt;Settings /&gt;} /&gt;
+                        &lt;Route path="/profile" element={&lt;Profile /&gt;} /&gt;
+                    &lt;/Route&gt;
+                &lt;/Routes&gt;
+            &lt;/Suspense&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Prefetching lazy components
+function PrefetchComponent() {
+    const [isPrefetching, setIsPrefetching] = useState(false);
+    const navigate = useNavigate();
+
+    const prefetchDashboard = () =&gt; {
+        setIsPrefetching(true);
+        // Prefetch the component
+        import('./pages/Dashboard').then(() =&gt; {
+            setIsPrefetching(false);
+            navigate('/dashboard');
+        });
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;button 
+                onClick={prefetchDashboard}
+                disabled={isPrefetching}
+            &gt;
+                {isPrefetching ? 'Loading...' : 'Go to Dashboard'}
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Error handling in lazy loading
+function AppWithErrorHandling() {
+    return (
+        &lt;ErrorBoundary fallback={&lt;div&gt;Something went wrong loading the page.&lt;/div&gt;}&gt;
+            &lt;BrowserRouter&gt;
+                &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+                    &lt;Routes&gt;
+                        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                        &lt;Route path="/dashboard" element={
+                            &lt;ErrorBoundary fallback={&lt;div&gt;Failed to load dashboard.&lt;/div&gt;}&gt;
+                                &lt;Dashboard /&gt;
+                            &lt;/ErrorBoundary&gt;
+                        } /&gt;
+                    &lt;/Routes&gt;
+                &lt;/Suspense&gt;
+            &lt;/BrowserRouter&gt;
+        &lt;/ErrorBoundary&gt;
+    );
+}
+
+// Component-level lazy loading
+const HeavyComponent = lazy(() =&gt; import('./components/HeavyComponent'));
+const ExpensiveChart = lazy(() =&gt; import('./components/ExpensiveChart'));
+
+function FeaturePage() {
+    const [showChart, setShowChart] = useState(false);
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Feature Page&lt;/h1&gt;
+            &lt;Suspense fallback={&lt;div&gt;Loading heavy component...&lt;/div&gt;}&gt;
+                &lt;HeavyComponent /&gt;
+            &lt;/Suspense&gt;
+
+            &lt;button onClick={() =&gt; setShowChart(!showChart)}&gt;
+                {showChart ? 'Hide' : 'Show'} Chart
+            &lt;/button&gt;
+
+            {showChart &amp;&amp; (
+                &lt;Suspense fallback={&lt;div&gt;Loading chart...&lt;/div&gt;}&gt;
+                    &lt;ExpensiveChart /&gt;
+                &lt;/Suspense&gt;
+            )}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="88-navigation">8.8 Navigation</h2>
+<h3 id="simple-explanation_7--4">Simple Explanation</h3>
+<p>Navigation in React Router can be done in two ways: declaratively (with the Link component) or programmatically (with the useNavigate hook). Links are like regular HTML links but they handle routing without page reloads.</p>
+<p>Think of Link like a navigation button that changes the URL without refreshing the page. useNavigate is like a remote control that lets you navigate programmatically.</p>
+<h3 id="technical-explanation_7--4">Technical Explanation</h3>
+<p>Navigation in React Router is handled through:
+- <strong>Link</strong>: Declarative navigation component
+- <strong>NavLink</strong>: Enhanced link with active state
+- <strong>useNavigate</strong>: Programmatic navigation hook
+- <strong>useLocation</strong>: Access current location
+- <strong>useHistory</strong>: Navigate in history (legacy)</p>
+<h3 id="professional-explanation_7--4">Professional Explanation</h3>
+<p>Navigation patterns:
+- <strong>Declarative</strong>: Using Link and NavLink
+- <strong>Programmatic</strong>: Using useNavigate
+- <strong>Redirects</strong>: Redirecting after actions
+- <strong>History</strong>: Navigating backward/forward
+- <strong>State</strong>: Passing state during navigation</p>
+<h3 id="navigation-examples">Navigation Examples</h3>
+<pre><code class="language-jsx">// Basic navigation with Link
+function Navigation() {
+    return (
+        &lt;nav&gt;
+            &lt;Link to="/"&gt;Home&lt;/Link&gt;
+            &lt;Link to="/about"&gt;About&lt;/Link&gt;
+            &lt;Link to="/contact"&gt;Contact&lt;/Link&gt;
+            &lt;Link to="/products"&gt;Products&lt;/Link&gt;
+        &lt;/nav&gt;
+    );
+}
+
+// NavLink with active states
+function ActiveNavigation() {
+    return (
+        &lt;nav&gt;
+            &lt;NavLink 
+                to="/" 
+                className={({ isActive }) =&gt; isActive ? 'active-link' : 'link'}
+            &gt;
+                Home
+            &lt;/NavLink&gt;
+            &lt;NavLink 
+                to="/about"
+                style={({ isActive }) =&gt; ({
+                    fontWeight: isActive ? 'bold' : 'normal',
+                    color: isActive ? 'blue' : 'black'
+                })}
+            &gt;
+                About
+            &lt;/NavLink&gt;
+            &lt;NavLink 
+                to="/products"
+                end
+                className={({ isActive }) =&gt; `nav-link ${isActive ? 'active' : ''}`}
+            &gt;
+                Products
+            &lt;/NavLink&gt;
+        &lt;/nav&gt;
+    );
+}
+
+// Programmatic navigation with useNavigate
+function LoginForm() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
+    const handleSubmit = async (e) =&gt; {
+        e.preventDefault();
+        try {
+            await login(email, password);
+            navigate(from, { replace: true });
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input
+                type="email"
+                value={email}
+                onChange={(e) =&gt; setEmail(e.target.value)}
+                placeholder="Email"
+            /&gt;
+            &lt;input
+                type="password"
+                value={password}
+                onChange={(e) =&gt; setPassword(e.target.value)}
+                placeholder="Password"
+            /&gt;
+            &lt;button type="submit"&gt;Login&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+
+// Navigation with state
+function ProductCard({ product }) {
+    const navigate = useNavigate();
+
+    const handleClick = () =&gt; {
+        navigate(`/products/${product.id}`, {
+            state: {
+                from: 'product-list',
+                product: product
+            }
+        });
+    };
+
+    return (
+        &lt;div className="product-card" onClick={handleClick}&gt;
+            &lt;h3&gt;{product.name}&lt;/h3&gt;
+            &lt;p&gt;${product.price}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Accessing location state
+function ProductDetail() {
+    const location = useLocation();
+    const { state } = location;
+    const [product, setProduct] = useState(state?.product || null);
+    const { id } = useParams();
+
+    useEffect(() =&gt; {
+        if (!product) {
+            fetchProduct(id).then(setProduct);
+        }
+    }, [id, product]);
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{product?.name}&lt;/h2&gt;
+            &lt;p&gt;{product?.description}&lt;/p&gt;
+            &lt;p&gt;From: {state?.from || 'unknown'}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Navigation with query parameters
+function SearchPage() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get('q') || '';
+    const [results, setResults] = useState([]);
+
+    const handleSearch = (value) =&gt; {
+        setSearchParams({ q: value });
+    };
+
+    useEffect(() =&gt; {
+        if (query) {
+            searchItems(query).then(setResults);
+        }
+    }, [query]);
+
+    return (
+        &lt;div&gt;
+            &lt;input
+                value={query}
+                onChange={(e) =&gt; handleSearch(e.target.value)}
+                placeholder="Search..."
+            /&gt;
+            &lt;div&gt;
+                {results.map(result =&gt; (
+                    &lt;div key={result.id}&gt;{result.title}&lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Navigation with confirm
+function UnsavedChangesGuard({ isDirty }) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [nextLocation, setNextLocation] = useState(null);
+
+    useEffect(() =&gt; {
+        if (isDirty &amp;&amp; location.pathname !== nextLocation?.pathname) {
+            if (window.confirm('You have unsaved changes. Are you sure you want to leave?')) {
+                navigate(nextLocation);
+            }
+        }
+    }, [isDirty, location, navigate, nextLocation]);
+
+    const handleNavigate = (to) =&gt; {
+        if (isDirty) {
+            setNextLocation(to);
+            setShowConfirm(true);
+        } else {
+            navigate(to);
+        }
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={() =&gt; handleNavigate('/')}&gt;Home&lt;/button&gt;
+            &lt;button onClick={() =&gt; handleNavigate('/about')}&gt;About&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="89-scroll-management">8.9 Scroll Management</h2>
+<h3 id="simple-explanation_8--4">Simple Explanation</h3>
+<p>Scroll management controls where the page scrolls to when navigating between routes. By default, React Router doesn't automatically scroll to the top when navigating, which can be confusing for users.</p>
+<p>Think of scroll management like bookmarks - when you change pages, you want to start at the top of the new page, not where you were on the previous page.</p>
+<h3 id="technical-explanation_8--4">Technical Explanation</h3>
+<p>Scroll management involves controlling the scroll position during navigation. React Router v6 provides a ScrollRestoration component for this, or you can implement custom scroll management.</p>
+<p>Key concepts:
+- <strong>Scroll restoration</strong>: Remembering scroll position when going back
+- <strong>Scroll to top</strong>: Scrolling to top on navigation
+- <strong>Hash scrolling</strong>: Scrolling to elements with IDs
+- <strong>Custom scroll</strong>: Implementing custom scroll behavior</p>
+<h3 id="professional-explanation_8--4">Professional Explanation</h3>
+<p>Scroll management is important for:
+- <strong>User experience</strong>: Consistent navigation behavior
+- <strong>Accessibility</strong>: Keyboard navigation
+- <strong>Single-page apps</strong>: Handling scroll like traditional pages
+- <strong>Hash links</strong>: Navigating to specific content
+- <strong>History</strong>: Maintaining scroll position in history</p>
+<h3 id="scroll-management-examples">Scroll Management Examples</h3>
+<pre><code class="language-jsx">// Basic scroll to top with useEffect
+function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() =&gt; {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+}
+
+// Using in app
+function AppWithScrollToTop() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;ScrollToTop /&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// React Router v6 ScrollRestoration
+function AppWithScrollRestoration() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;ScrollRestoration /&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                &lt;Route path="/products" element={&lt;Products /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Custom scroll management
+function CustomScrollManager() {
+    const { pathname } = useLocation();
+    const location = useLocation();
+
+    useEffect(() =&gt; {
+        // Smooth scroll to top
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [pathname]);
+
+    // Handle hash scrolling
+    useEffect(() =&gt; {
+        if (location.hash) {
+            const element = document.getElementById(location.hash.slice(1));
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    }, [location]);
+
+    return null;
+}
+
+// Scroll to top with exceptions
+function ScrollToTopWithExceptions({ excludePaths = [] }) {
+    const { pathname } = useLocation();
+
+    useEffect(() =&gt; {
+        if (!excludePaths.includes(pathname)) {
+            window.scrollTo(0, 0);
+        }
+    }, [pathname, excludePaths]);
+
+    return null;
+}
+
+// App with scroll exceptions
+function AppWithScrollExceptions() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;ScrollToTopWithExceptions 
+                excludePaths={['/products', '/search']}
+            /&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/products" element={&lt;ProductList /&gt;} /&gt;
+                &lt;Route path="/search" element={&lt;SearchResults /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// Scroll restoration with hash
+function ArticlePage() {
+    const location = useLocation();
+    const [scrollY, setScrollY] = useState(0);
+
+    useEffect(() =&gt; {
+        const handleScroll = () =&gt; {
+            setScrollY(window.scrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () =&gt; window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() =&gt; {
+        if (location.hash) {
+            const element = document.getElementById(location.hash.slice(1));
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else if (scrollY &gt; 0) {
+            window.scrollTo(0, scrollY);
+        }
+    }, [location, scrollY]);
+
+    return &lt;div&gt;{/* Article content */}&lt;/div&gt;;
+}
+</code></pre>
+<h2 id="810-common-mistakes-and-best-practices">8.10 Common Mistakes and Best Practices</h2>
+<h3 id="8101-common-mistakes">8.10.1 Common Mistakes</h3>
+<pre><code class="language-jsx">// ❌ Not wrapping app with Router
+function BadApp() {
+    return (
+        &lt;Routes&gt;
+            &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;/Routes&gt;
+    );
+}
+
+// ✅ Wrap with Router
+function GoodApp() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// ❌ Incorrect route ordering
+function BadRoutes() {
+    return (
+        &lt;Routes&gt;
+            &lt;Route path="/products/:id" element={&lt;ProductDetail /&gt;} /&gt;
+            &lt;Route path="/products" element={&lt;ProductList /&gt;} /&gt;
+        &lt;/Routes&gt;
+    );
+}
+
+// ✅ Correct route ordering (specific before general)
+function GoodRoutes() {
+    return (
+        &lt;Routes&gt;
+            &lt;Route path="/products" element={&lt;ProductList /&gt;} /&gt;
+            &lt;Route path="/products/:id" element={&lt;ProductDetail /&gt;} /&gt;
+        &lt;/Routes&gt;
+    );
+}
+
+// ❌ Missing key in route list
+function BadRouteList({ routes }) {
+    return (
+        &lt;Routes&gt;
+            {routes.map(route =&gt; (
+                &lt;Route path={route.path} element={route.component} /&gt;
+            ))}
+        &lt;/Routes&gt;
+    );
+}
+
+// ✅ Adding key
+function GoodRouteList({ routes }) {
+    return (
+        &lt;Routes&gt;
+            {routes.map((route, index) =&gt; (
+                &lt;Route key={index} path={route.path} element={route.component} /&gt;
+            ))}
+        &lt;/Routes&gt;
+    );
+}
+
+// ❌ Not handling 404
+function BadAppWith404() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// ✅ Always include a catch-all route
+function GoodAppWith404() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h3 id="8102-best-practices">8.10.2 Best Practices</h3>
+<pre><code class="language-jsx">// ✅ Organize routes in a separate file
+// routes.js
+import { lazy } from 'react';
+
+const Home = lazy(() =&gt; import('./pages/Home'));
+const About = lazy(() =&gt; import('./pages/About'));
+const Contact = lazy(() =&gt; import('./pages/Contact'));
+
+export const routes = [
+    { path: '/', element: &lt;Home /&gt;, exact: true },
+    { path: '/about', element: &lt;About /&gt; },
+    { path: '/contact', element: &lt;Contact /&gt; }
+];
+
+// ✅ Use route configuration
+function AppWithRouteConfig() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                {routes.map(route =&gt; (
+                    &lt;Route
+                        key={route.path}
+                        path={route.path}
+                        element={route.element}
+                        exact={route.exact}
+                    /&gt;
+                ))}
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+// ✅ Use constants for route paths
+// constants/routes.js
+export const ROUTES = {
+    HOME: '/',
+    ABOUT: '/about',
+    CONTACT: '/contact',
+    PRODUCTS: '/products',
+    PRODUCT_DETAIL: '/products/:id',
+    DASHBOARD: '/dashboard',
+    SETTINGS: '/dashboard/settings'
+};
+
+// ✅ Use route constants
+function NavigationWithConstants() {
+    return (
+        &lt;nav&gt;
+            &lt;Link to={ROUTES.HOME}&gt;Home&lt;/Link&gt;
+            &lt;Link to={ROUTES.ABOUT}&gt;About&lt;/Link&gt;
+            &lt;Link to={ROUTES.CONTACT}&gt;Contact&lt;/Link&gt;
+            &lt;Link to={ROUTES.PRODUCTS}&gt;Products&lt;/Link&gt;
+        &lt;/nav&gt;
+    );
+}
+
+// ✅ Lazy load routes
+function AppWithLazyRoutes() {
+    const routes = [
+        { path: '/', element: lazy(() =&gt; import('./pages/Home')) },
+        { path: '/about', element: lazy(() =&gt; import('./pages/About')) },
+        { path: '/contact', element: lazy(() =&gt; import('./pages/Contact')) }
+    ];
+
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+                &lt;Routes&gt;
+                    {routes.map(route =&gt; (
+                        &lt;Route
+                            key={route.path}
+                            path={route.path}
+                            element={&lt;route.element /&gt;}
+                        /&gt;
+                    ))}
+                &lt;/Routes&gt;
+            &lt;/Suspense&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h2 id="811-interview-questions">8.11 Interview Questions</h2>
+<h3 id="junior-level-questions--8">Junior Level Questions</h3>
+<p><strong>Q: What is React Router and why use it?</strong></p>
+<p><strong>Answer</strong>: React Router is the standard routing library for React. It enables navigation between different views/components in a React application. Benefits include:
+- Declarative routing
+- Nested routes
+- Dynamic routes
+- URL parameters
+- Programmatic navigation
+- Lazy loading support</p>
+<pre><code class="language-jsx">// Basic React Router setup
+&lt;BrowserRouter&gt;
+    &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+    &lt;/Routes&gt;
+&lt;/BrowserRouter&gt;
+</code></pre>
+<p><strong>Q: What is the difference between Link and NavLink?</strong></p>
+<p><strong>Answer</strong>:
+- <strong>Link</strong>: Basic navigation component
+- <strong>NavLink</strong>: Enhanced Link with active state styling</p>
+<pre><code class="language-jsx">&lt;Link to="/about"&gt;About&lt;/Link&gt;
+&lt;NavLink 
+    to="/about"
+    className={({ isActive }) =&gt; isActive ? 'active' : ''}
+&gt;
+    About
+&lt;/NavLink&gt;
+</code></pre>
+<h3 id="mid-level-questions--8">Mid Level Questions</h3>
+<p><strong>Q: How do you handle protected routes in React Router?</strong></p>
+<p><strong>Answer</strong>: Protected routes are implemented by checking authentication status before rendering the route. If not authenticated, redirect to login.</p>
+<pre><code class="language-jsx">function ProtectedRoute({ children }) {
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() =&gt; {
+        if (!user) {
+            navigate('/login', { replace: true });
+        }
+    }, [user, navigate]);
+
+    return user ? children : null;
+}
+</code></pre>
+<p><strong>Q: What are nested routes and when would you use them?</strong></p>
+<p><strong>Answer</strong>: Nested routes allow you to have routes within routes, creating complex layouts where different parts of the page change independently.</p>
+<pre><code class="language-jsx">&lt;Route path="/dashboard" element={&lt;Dashboard /&gt;}&gt;
+    &lt;Route index element={&lt;Home /&gt;} /&gt;
+    &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+    &lt;Route path="profile" element={&lt;Profile /&gt;} /&gt;
+&lt;/Route&gt;
+</code></pre>
+<h3 id="senior-level-questions--8">Senior Level Questions</h3>
+<p><strong>Q: How do you implement lazy loading with React Router?</strong></p>
+<p><strong>Answer</strong>: Use React.lazy with dynamic imports and wrap with Suspense.</p>
+<pre><code class="language-jsx">const Dashboard = lazy(() =&gt; import('./pages/Dashboard'));
+
+function App() {
+    return (
+        &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/Suspense&gt;
+    );
+}
+</code></pre>
+<p><strong>Q: How do you handle scroll restoration in React Router?</strong></p>
+<p><strong>Answer</strong>: React Router v6 provides ScrollRestoration, or you can implement custom scroll management.</p>
+<pre><code class="language-jsx">import { ScrollRestoration } from 'react-router-dom';
+
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;ScrollRestoration /&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h2 id="812-summary">8.12 Summary</h2>
+<h3 id="react-router-components">React Router Components</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BrowserRouter</strong></td>
+<td>Router implementation</td>
+<td><code>&lt;BrowserRouter&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Routes</strong></td>
+<td>Container for routes</td>
+<td><code>&lt;Routes&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Route</strong></td>
+<td>Defines route mapping</td>
+<td><code>&lt;Route path="/" element={&lt;Home /&gt;} /&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Link</strong></td>
+<td>Navigation link</td>
+<td><code>&lt;Link to="/about"&gt;About&lt;/Link&gt;</code></td>
+</tr>
+<tr>
+<td><strong>NavLink</strong></td>
+<td>Navigation with active state</td>
+<td><code>&lt;NavLink to="/about"&gt;About&lt;/NavLink&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Outlet</strong></td>
+<td>Nested route placeholder</td>
+<td><code>&lt;Outlet /&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Suspense</strong></td>
+<td>Fallback for lazy loading</td>
+<td><code>&lt;Suspense fallback={&lt;Loading /&gt;}&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="react-router-hooks">React Router Hooks</h3>
+<table>
+<thead>
+<tr>
+<th>Hook</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>useNavigate</strong></td>
+<td>Programmatic navigation</td>
+<td><code>const navigate = useNavigate()</code></td>
+</tr>
+<tr>
+<td><strong>useParams</strong></td>
+<td>Access URL parameters</td>
+<td><code>const { id } = useParams()</code></td>
+</tr>
+<tr>
+<td><strong>useLocation</strong></td>
+<td>Access location object</td>
+<td><code>const location = useLocation()</code></td>
+</tr>
+<tr>
+<td><strong>useSearchParams</strong></td>
+<td>Access query parameters</td>
+<td><code>const [params] = useSearchParams()</code></td>
+</tr>
+<tr>
+<td><strong>useMatches</strong></td>
+<td>Access matched routes</td>
+<td><code>const matches = useMatches()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="routing-patterns">Routing Patterns</h3>
+<ol>
+<li><strong>Basic Routes</strong>: Simple route mapping</li>
+<li><strong>Nested Routes</strong>: Routes within routes</li>
+<li><strong>Dynamic Routes</strong>: URL parameters</li>
+<li><strong>Protected Routes</strong>: Authentication guard</li>
+<li><strong>Lazy Loading</strong>: Code splitting</li>
+<li><strong>Programmatic Navigation</strong>: useNavigate</li>
+<li><strong>Query Parameters</strong>: useSearchParams</li>
+<li><strong>Scroll Management</strong>: ScrollRestoration</li>
+</ol>
+<h3 id="best-practices-summary--6">Best Practices Summary</h3>
+<ol>
+<li><strong>Wrap app with Router</strong> - Always use BrowserRouter</li>
+<li><strong>Order routes correctly</strong> - Specific routes before general</li>
+<li><strong>Handle 404</strong> - Include catch-all route</li>
+<li><strong>Lazy load routes</strong> - Use React.lazy and Suspense</li>
+<li><strong>Use constants</strong> - For route paths</li>
+<li><strong>Implement protected routes</strong> - For authentication</li>
+<li><strong>Use NavLink for active states</strong> - For navigation</li>
+<li><strong>Handle scroll restoration</strong> - For good UX</li>
+<li><strong>Organize routes</strong> - Keep routes organized</li>
+<li><strong>Test routes</strong> - Ensure all routes work correctly</li>
+</ol>
+<hr/>
+<p><em>End of Chapter 8</em></p>
+<p><strong>Next Chapter Preview</strong>: Chapter 9 will cover API Integration including Axios, Fetch, REST, JSON, JWT, Authentication, Authorization, and Error Handling.</p>
+<hr/>
+<p><em>This chapter provides comprehensive coverage of routing in React. Master these concepts to build navigable and well-structured React applications.</em></p>
+<h1 id="the-complete-react-developer-course--8">The Complete React Developer Course</h1>
+<h2 id="from-beginner-to-professional--8">From Beginner to Professional</h2>
+<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--8">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+<hr/>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-8" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-7"><span class="pager-label">← Previous chapter</span><strong>07 · State Management in React</strong></a><a class="pager-card pager-card--next" href="#chapter-9"><span class="pager-label">Next chapter →</span><strong>09 · API Integration in React</strong></a></nav></section>

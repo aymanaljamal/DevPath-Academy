@@ -1,0 +1,516 @@
+<section class="chapter" id="chapter-16" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">16</span>
+<h1 class="chapter-title" id="deployment-and-devops-for-react-applications">Deployment and DevOps for React Applications</h1>
+</div>
+<hr/>
+<h2 id="introduction--6">Introduction</h2>
+<p>Building a React application is only the first step.</p>
+<p>A completed application must eventually be deployed so that users can access it over the Internet.</p>
+<p>This chapter explains how professional React applications move from a developer's computer to production servers using modern deployment techniques.</p>
+<p>By the end of this chapter, you will understand:</p>
+<ul>
+<li>Development vs Production</li>
+<li>Vite Build Process</li>
+<li>Environment Variables</li>
+<li>Static Hosting</li>
+<li>Reverse Proxy</li>
+<li>Docker</li>
+<li>Docker Compose</li>
+<li>CI/CD</li>
+<li>GitHub Actions</li>
+<li>Nginx</li>
+<li>Production Best Practices</li>
+</ul>
+<hr/>
+<h2 id="what-is-deployment">What is Deployment?</h2>
+<p>Deployment is the process of making an application available to users.</p>
+<p>Development Environment</p>
+<pre><code class="language-text">Developer Computer → localhost:5173
+</code></pre>
+<p>Production Environment</p>
+<pre><code class="language-text">Internet → https://mycompany.com
+</code></pre>
+<p>Instead of running on your computer, the application runs on a production server.</p>
+<hr/>
+<h2 id="development-vs-production">Development vs Production</h2>
+<h3 id="development">Development</h3>
+<p>Characteristics:</p>
+<ul>
+<li>Fast Refresh</li>
+<li>Source Maps</li>
+<li>Error Overlay</li>
+<li>Debugging</li>
+<li>Development Server</li>
+</ul>
+<p>Command</p>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<p>Example</p>
+<pre><code>http://localhost:5173
+</code></pre>
+<hr/>
+<h3 id="production">Production</h3>
+<p>Characteristics</p>
+<ul>
+<li>Minified JavaScript</li>
+<li>Optimized CSS</li>
+<li>Compressed Assets</li>
+<li>Tree Shaking</li>
+<li>Fast Loading</li>
+</ul>
+<p>Command</p>
+<pre><code class="language-bash">npm run build
+</code></pre>
+<p>Result</p>
+<pre><code class="language-text">dist/
+</code></pre>
+<p>The <code>dist</code> folder is the application that gets deployed.</p>
+<hr/>
+<h2 id="how-vite-works">How Vite Works</h2>
+<p>When you run:</p>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<p>Vite starts a development server.</p>
+<pre><code class="language-text">Browser → Vite Dev Server → Source Files
+</code></pre>
+<p>No production build is created.</p>
+<hr/>
+<p>When you run:</p>
+<pre><code class="language-bash">npm run build
+</code></pre>
+<p>Flow:</p>
+<pre><code class="language-text">TypeScript → Compile → Bundle → Optimize → Minify → Generate dist/
+</code></pre>
+<hr/>
+<h2 id="the-build-process">The Build Process</h2>
+<p>Example project</p>
+<pre><code class="language-text">src/ → Vite → Rollup → Optimization → dist/
+</code></pre>
+<p>The output may look like:</p>
+<pre><code class="language-text">dist
+│
+├── assets
+├── index.html
+├── logo.svg
+└── favicon.ico
+</code></pre>
+<p>Everything inside <code>dist</code> is production-ready.</p>
+<hr/>
+<h2 id="what-happens-during-build">What Happens During Build?</h2>
+<p>Vite performs many optimizations.</p>
+<h4 id="minification">Minification</h4>
+<p>Before</p>
+<pre><code class="language-javascript">function calculatePrice(price) {
+
+    return price * 0.16;
+
+}
+</code></pre>
+<p>After</p>
+<pre><code class="language-javascript">function a(b){return.16*b}
+</code></pre>
+<p>Smaller files download faster.</p>
+<hr/>
+<h4 id="tree-shaking">Tree Shaking</h4>
+<p>Unused code is removed.</p>
+<p>Example</p>
+<p>Imported:</p>
+<pre><code>100 Functions
+</code></pre>
+<p>Used:</p>
+<pre><code>5 Functions
+</code></pre>
+<p>Output:</p>
+<pre><code>Only 5 Functions
+</code></pre>
+<hr/>
+<h4 id="code-splitting--2">Code Splitting</h4>
+<p>Instead of</p>
+<ul>
+<li>app.js</li>
+<li>15 MB</li>
+</ul>
+<p>React generates</p>
+<ul>
+<li>login.js</li>
+<li>dashboard.js</li>
+<li>customers.js</li>
+<li>orders.js</li>
+</ul>
+<p>Each page loads independently.</p>
+<hr/>
+<h4 id="asset-optimization">Asset Optimization</h4>
+<p>Images</p>
+<p>Fonts</p>
+<p>CSS</p>
+<p>JavaScript</p>
+<p>All optimized for production.</p>
+<hr/>
+<h2 id="environment-variables">Environment Variables</h2>
+<p>Applications should never hardcode:</p>
+<ul>
+<li>API URLs</li>
+<li>Secrets</li>
+<li>API Keys</li>
+<li>Tokens</li>
+</ul>
+<p>Instead use environment variables.</p>
+<p>Example:</p>
+<pre><code class="language-env">VITE_API_URL=http://localhost:8080
+</code></pre>
+<p>Access inside React:</p>
+<pre><code class="language-ts">const url = import.meta.env.VITE_API_URL;
+</code></pre>
+<hr/>
+<h2 id="common-environment-files">Common Environment Files</h2>
+<ul>
+<li>.env</li>
+<li>.env.local</li>
+<li>.env.development</li>
+<li>.env.production</li>
+</ul>
+<hr/>
+<h3 id="env--2">.env</h3>
+<p>Shared variables.</p>
+<p>Example</p>
+<pre><code class="language-env">VITE_APP_NAME=Laundry Management
+</code></pre>
+<hr/>
+<h3 id="envdevelopment">.env.development</h3>
+<p>Development only.</p>
+<p>Example</p>
+<pre><code class="language-env">VITE_API_URL=http://localhost:8080
+</code></pre>
+<hr/>
+<h3 id="envproduction">.env.production</h3>
+<p>Production only.</p>
+<p>Example</p>
+<pre><code class="language-env">VITE_API_URL=https://api.company.com
+</code></pre>
+<hr/>
+<h3 id="envlocal--2">.env.local</h3>
+<p>Personal settings.</p>
+<p>Ignored by Git.</p>
+<p>Useful for:</p>
+<ul>
+<li>Local API URLs</li>
+<li>Personal tokens</li>
+<li>Developer-specific configuration</li>
+</ul>
+<hr/>
+<h2 id="never-store-secrets">Never Store Secrets</h2>
+<p>Bad</p>
+<pre><code class="language-env">DATABASE_PASSWORD=123456
+</code></pre>
+<p>React runs in the browser.</p>
+<p>Users can inspect JavaScript.</p>
+<p>Frontend secrets are <strong>not secret</strong>.</p>
+<p>Only public values belong in React environment variables.</p>
+<hr/>
+<h2 id="static-hosting">Static Hosting</h2>
+<p>React produces static files.</p>
+<p>Meaning:</p>
+<ul>
+<li>HTML</li>
+<li>CSS</li>
+<li>JavaScript</li>
+</ul>
+<p>These files can be served by:</p>
+<ul>
+<li>Nginx</li>
+<li>Apache</li>
+<li>GitHub Pages</li>
+<li>Netlify</li>
+<li>Vercel</li>
+<li>Firebase Hosting</li>
+</ul>
+<hr/>
+<h2 id="nginx">Nginx</h2>
+<p>Nginx is a web server.</p>
+<p>Architecture</p>
+<pre><code class="language-text">Browser → Nginx → React Files
+</code></pre>
+<p>Nginx serves the generated <code>dist</code> folder.</p>
+<hr/>
+<h2 id="why-use-nginx">Why Use Nginx?</h2>
+<p>Advantages</p>
+<ul>
+<li>Very fast</li>
+<li>Lightweight</li>
+<li>HTTPS support</li>
+<li>Compression</li>
+<li>Reverse Proxy</li>
+<li>Static file serving</li>
+<li>Load balancing</li>
+</ul>
+<hr/>
+<h2 id="reverse-proxy">Reverse Proxy</h2>
+<p>React</p>
+<pre><code>https://company.com
+</code></pre>
+<p>Backend</p>
+<pre><code>http://localhost:8080
+</code></pre>
+<p>Instead of exposing Spring Boot directly:</p>
+<pre><code class="language-text">Browser → Nginx → Spring Boot
+</code></pre>
+<p>Benefits:</p>
+<ul>
+<li>Security</li>
+<li>SSL termination</li>
+<li>Centralized routing</li>
+<li>Better performance</li>
+</ul>
+<hr/>
+<h2 id="docker">Docker</h2>
+<p>Docker packages an application with everything it needs.</p>
+<p>Without Docker</p>
+<pre><code>Works On My Machine
+</code></pre>
+<p>Problem:</p>
+<p>Different computers</p>
+<p>Different Node versions</p>
+<p>Different operating systems</p>
+<p>Different dependencies</p>
+<hr/>
+<p>With Docker</p>
+<ul>
+<li>Application</li>
+<li>+</li>
+<li>Node</li>
+<li>+</li>
+<li>Dependencies</li>
+<li>+</li>
+<li>Configuration</li>
+<li>=</li>
+<li>Container</li>
+</ul>
+<p>Runs the same everywhere.</p>
+<hr/>
+<h2 id="dockerfile">Dockerfile</h2>
+<p>Example structure</p>
+<pre><code class="language-text">Project
+│
+├── Dockerfile
+├── package.json
+└── src
+</code></pre>
+<p>Dockerfile defines:</p>
+<ul>
+<li>Base image</li>
+<li>Install dependencies</li>
+<li>Build application</li>
+<li>Serve production files</li>
+</ul>
+<hr/>
+<h2 id="multi-stage-docker-build">Multi-Stage Docker Build</h2>
+<p>Professional projects use multiple stages.</p>
+<p>Flow</p>
+<pre><code class="language-text">Node Image → Install Packages → Build React → Generate dist/ → Copy dist → Nginx Image → Production Container
+</code></pre>
+<p>Smaller and faster images.</p>
+<hr/>
+<h2 id="docker-compose">Docker Compose</h2>
+<p>Applications often have multiple services.</p>
+<p>Example</p>
+<ul>
+<li>React</li>
+<li>Spring Boot</li>
+<li>MySQL</li>
+<li>Redis</li>
+<li>Nginx</li>
+</ul>
+<p>Docker Compose starts them together.</p>
+<p>Architecture</p>
+<pre><code class="language-text">Docker Compose
+│
+├── frontend
+├── backend
+├── mysql
+├── redis
+└── nginx
+</code></pre>
+<p>One command starts everything.</p>
+<hr/>
+<h2 id="deployment-pipeline">Deployment Pipeline</h2>
+<p>Professional deployment usually follows this workflow.</p>
+<pre><code class="language-text">Developer → Git Commit → Git Push → GitHub → GitHub Actions → Build → Tests → Docker Image → Docker Registry → Production Server → Users
+</code></pre>
+<p>Everything is automated.</p>
+<hr/>
+<h2 id="continuous-integration-ci">Continuous Integration (CI)</h2>
+<p>CI means every code change is automatically verified.</p>
+<p>Example</p>
+<pre><code class="language-text">Push Code → Install Dependencies → Run Tests → Build → Success
+</code></pre>
+<p>No manual verification required.</p>
+<hr/>
+<h2 id="continuous-deployment-cd">Continuous Deployment (CD)</h2>
+<p>CD automatically publishes successful builds.</p>
+<p>Example</p>
+<pre><code class="language-text">Build → Docker Image → Production → Application Updated
+</code></pre>
+<hr/>
+<h2 id="github-actions">GitHub Actions</h2>
+<p>GitHub Actions automates workflows.</p>
+<p>Example</p>
+<pre><code class="language-text">Push → Workflow → Install Node → Install Packages → Run Tests → Build → Deploy
+</code></pre>
+<hr/>
+<h2 id="typical-github-actions-workflow">Typical GitHub Actions Workflow</h2>
+<pre><code class="language-text">Developer Pushes Code → Checkout Repository → Setup Node.js → Install Dependencies → Run ESLint → Run Tests → Build React → Create Docker Image → Push Docker Image → Deploy
+</code></pre>
+<hr/>
+<h2 id="hosting-platforms">Hosting Platforms</h2>
+<p>Popular React hosting providers</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vercel</td>
+<td>Optimized for React and Next.js</td>
+</tr>
+<tr>
+<td>Netlify</td>
+<td>Static hosting with CI/CD</td>
+</tr>
+<tr>
+<td>GitHub Pages</td>
+<td>Free hosting for static sites</td>
+</tr>
+<tr>
+<td>Firebase Hosting</td>
+<td>Google's hosting solution</td>
+</tr>
+<tr>
+<td>AWS S3 + CloudFront</td>
+<td>Enterprise-grade hosting</td>
+</tr>
+<tr>
+<td>Azure Static Web Apps</td>
+<td>Microsoft cloud hosting</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="production-folder-structure">Production Folder Structure</h2>
+<p>Example</p>
+<pre><code class="language-text">Production Server
+│
+├── nginx
+├── frontend
+├── backend
+├── docker-compose.yml
+├── logs
+└── ssl
+</code></pre>
+<hr/>
+<h2 id="logging">Logging</h2>
+<p>Applications should log important events.</p>
+<p>Examples</p>
+<ul>
+<li>User Login</li>
+<li>Application Error</li>
+<li>API Failure</li>
+<li>Deployment</li>
+<li>Authentication Error</li>
+</ul>
+<p>Logs help diagnose production issues.</p>
+<hr/>
+<h2 id="monitoring">Monitoring</h2>
+<p>Production applications should be monitored.</p>
+<p>Common metrics:</p>
+<ul>
+<li>CPU Usage</li>
+<li>Memory Usage</li>
+<li>Response Time</li>
+<li>Error Rate</li>
+<li>Active Users</li>
+<li>API Latency</li>
+</ul>
+<p>Popular tools:</p>
+<ul>
+<li>Grafana</li>
+<li>Prometheus</li>
+<li>Datadog</li>
+<li>New Relic</li>
+</ul>
+<hr/>
+<h2 id="deployment-checklist">Deployment Checklist</h2>
+<p>Before deployment:</p>
+<p>✅ Run tests</p>
+<p>✅ Remove console logs</p>
+<p>✅ Build successfully</p>
+<p>✅ Verify environment variables</p>
+<p>✅ Optimize images</p>
+<p>✅ Check API URLs</p>
+<p>✅ Enable HTTPS</p>
+<p>✅ Configure caching</p>
+<p>✅ Enable compression</p>
+<p>✅ Verify routing</p>
+<hr/>
+<h2 id="common-deployment-mistakes">Common Deployment Mistakes</h2>
+<p>❌ Hardcoding API URLs.</p>
+<p>❌ Committing <code>.env.local</code>.</p>
+<p>❌ Storing secrets in frontend code.</p>
+<p>❌ Deploying without tests.</p>
+<p>❌ Ignoring HTTPS.</p>
+<p>❌ Serving development builds.</p>
+<p>❌ Forgetting SPA routing configuration in Nginx.</p>
+<p>❌ Large unoptimized bundles.</p>
+<p>❌ Missing caching headers.</p>
+<hr/>
+<h2 id="complete-enterprise-deployment-flow">Complete Enterprise Deployment Flow</h2>
+<pre><code class="language-text">Developer → Write Code → Git Commit → Git Push → GitHub Repository → GitHub Actions → Install Dependencies → Run Tests → Run Build → Create Docker Image → Push Docker Image → Production Server → Docker Compose → Nginx → Spring Boot → MySQL → Users Access Website
+</code></pre>
+<hr/>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<pre><code class="language-text">                Internet
+                    │
+                    ▼
+               HTTPS Request
+                    │
+                    ▼
+                 Nginx
+          ┌─────────┴─────────┐
+          ▼                   ▼
+     React Frontend     Spring Boot API
+          │                   │
+          ▼                   ▼
+     Static Files         Business Logic
+                              │
+                              ▼
+                           MySQL
+</code></pre>
+<hr/>
+<h2 id="best-practices--4">Best Practices</h2>
+<p>✅ Use Vite for modern React applications.</p>
+<p>✅ Keep development and production environments separate.</p>
+<p>✅ Store configuration in environment variables.</p>
+<p>✅ Never expose secrets in frontend code.</p>
+<p>✅ Use Docker for consistent deployments.</p>
+<p>✅ Serve React with Nginx in production.</p>
+<p>✅ Automate builds using GitHub Actions.</p>
+<p>✅ Run automated tests before deployment.</p>
+<p>✅ Enable HTTPS and compression.</p>
+<p>✅ Monitor production systems continuously.</p>
+<hr/>
+<h2 id="chapter-summary--5">Chapter Summary</h2>
+<p>Deployment transforms a React application from local development into a production-ready system accessible to users worldwide.</p>
+<p>Modern React applications typically follow this lifecycle:</p>
+<ol>
+<li>Develop locally with Vite.</li>
+<li>Build optimized static files.</li>
+<li>Configure environment variables.</li>
+<li>Package the application with Docker.</li>
+<li>Serve it using Nginx.</li>
+<li>Automate testing and deployment with GitHub Actions.</li>
+<li>Monitor the application in production.</li>
+</ol>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-16" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-15"><span class="pager-label">← Previous chapter</span><strong>15 · Testing React Applications</strong></a><a class="pager-card pager-card--next" href="#chapter-17"><span class="pager-label">Next chapter →</span><strong>17 · React Security Best Practices</strong></a></nav></section>

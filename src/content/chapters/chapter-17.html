@@ -1,0 +1,518 @@
+<section class="chapter" id="chapter-17" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">17</span>
+<h1 class="chapter-title" id="react-security-best-practices">React Security Best Practices</h1>
+</div>
+<hr/>
+<h2 id="introduction--7">Introduction</h2>
+<p>Security is one of the most important parts of modern web development.</p>
+<p>A React application is not only a user interface. It communicates with:</p>
+<ul>
+<li>Backend APIs</li>
+<li>Databases</li>
+<li>Authentication systems</li>
+<li>File storage</li>
+<li>Third-party services</li>
+</ul>
+<p>A security mistake in the frontend can expose:</p>
+<ul>
+<li>User information</li>
+<li>Authentication tokens</li>
+<li>Business data</li>
+<li>Application functionality</li>
+</ul>
+<p>Professional React developers must understand common security risks and how to protect applications.</p>
+<hr/>
+<h2 id="the-security-model-of-a-react-application">The Security Model of a React Application</h2>
+<p>A React application usually follows this architecture:</p>
+<pre><code class="language-text">User Browser → React Application → HTTPS Request → Spring Boot Backend → Database
+</code></pre>
+<p>Important rule:</p>
+<blockquote>
+<p>The frontend is never trusted.</p>
+</blockquote>
+<p>Everything important must be verified by the backend.</p>
+<hr/>
+<h2 id="frontend-security-vs-backend-security">Frontend Security vs Backend Security</h2>
+<h3 id="frontend-security">Frontend Security</h3>
+<p>Responsible for:</p>
+<ul>
+<li>User experience</li>
+<li>Hiding unavailable UI</li>
+<li>Input validation</li>
+<li>Preventing accidental mistakes</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>Disable button</li>
+<li>Show error message</li>
+<li>Validate form</li>
+</ul>
+<hr/>
+<h3 id="backend-security">Backend Security</h3>
+<p>Responsible for:</p>
+<ul>
+<li>Real authorization</li>
+<li>Data protection</li>
+<li>Permissions</li>
+<li>Authentication</li>
+<li>Business rules</li>
+</ul>
+<p>Example:</p>
+<p>Even if a user modifies JavaScript:</p>
+<pre><code>isAdmin = true
+</code></pre>
+<p>The backend must reject unauthorized requests.</p>
+<hr/>
+<h2 id="authentication-vs-authorization">Authentication vs Authorization</h2>
+<p>These concepts are different.</p>
+<hr/>
+<h2 id="authentication">Authentication</h2>
+<p>Authentication answers:</p>
+<blockquote>
+<p>Who are you?</p>
+</blockquote>
+<p>Example:</p>
+<pre><code class="language-text">Username + Password → JWT Token → User Logged In
+</code></pre>
+<hr/>
+<h2 id="authorization">Authorization</h2>
+<p>Authorization answers:</p>
+<blockquote>
+<p>What are you allowed to do?</p>
+</blockquote>
+<p>Example:</p>
+<ul>
+<li>Admin</li>
+<li>Can delete users</li>
+<li>Employee</li>
+<li>Cannot delete users</li>
+</ul>
+<hr/>
+<h2 id="jwt-authentication-flow">JWT Authentication Flow</h2>
+<p>Modern React + Spring Boot applications commonly use JWT.</p>
+<p>Flow:</p>
+<pre><code class="language-text">User → Login Form → auth.api.ts → POST /login → Spring Security → Generate JWT → Return Token → React Stores Token → Future Requests Include Token → Backend Validates Token
+</code></pre>
+<hr/>
+<h2 id="jwt-structure">JWT Structure</h2>
+<p>A JWT contains three parts:</p>
+<pre><code>Header.Payload.Signature
+</code></pre>
+<p>Example:</p>
+<pre><code>xxxxx.yyyyy.zzzzz
+</code></pre>
+<hr/>
+<h2 id="header">Header</h2>
+<p>Contains information about the token.</p>
+<p>Example:</p>
+<pre><code class="language-json">{
+"type":"JWT",
+"algorithm":"HS256"
+}
+</code></pre>
+<hr/>
+<h2 id="payload">Payload</h2>
+<p>Contains user information.</p>
+<p>Example:</p>
+<pre><code class="language-json">{
+"id":10,
+"role":"ADMIN"
+}
+</code></pre>
+<p>Important:</p>
+<p>The payload is encoded, not encrypted.</p>
+<p>Do not store secrets inside JWT.</p>
+<hr/>
+<h2 id="signature">Signature</h2>
+<p>Used to verify that the token was not modified.</p>
+<hr/>
+<h2 id="where-should-we-store-jwt">Where Should We Store JWT?</h2>
+<p>Common options:</p>
+<hr/>
+<h2 id="localstorage">localStorage</h2>
+<p>Example:</p>
+<pre><code class="language-javascript">localStorage.setItem(
+"token",
+jwt
+);
+</code></pre>
+<p>Advantages:</p>
+<ul>
+<li>Simple</li>
+<li>Easy access</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Vulnerable to XSS attacks</li>
+</ul>
+<hr/>
+<h2 id="cookies">Cookies</h2>
+<p>HttpOnly Secure Cookies are often safer.</p>
+<p>Advantages:</p>
+<ul>
+<li>JavaScript cannot access token</li>
+<li>Better protection against XSS</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Requires CSRF protection</li>
+</ul>
+<hr/>
+<h2 id="enterprise-recommendation">Enterprise Recommendation</h2>
+<p>For sensitive applications:</p>
+<ul>
+<li>HttpOnly Cookie</li>
+<li>+</li>
+<li>Secure Flag</li>
+<li>+</li>
+<li>SameSite Policy</li>
+</ul>
+<p>is usually preferred.</p>
+<hr/>
+<h2 id="axios-interceptors">Axios Interceptors</h2>
+<p>Axios interceptors automatically attach tokens.</p>
+<p>Example:</p>
+<pre><code class="language-text">Request → Axios Interceptor → Add Authorization Header → Backend
+</code></pre>
+<p>Header:</p>
+<ul>
+<li>Authorization:</li>
+<li>Bearer TOKEN</li>
+</ul>
+<hr/>
+<h2 id="protected-routes">Protected Routes</h2>
+<p>React can protect pages visually.</p>
+<p>Example:</p>
+<ul>
+<li>Dashboard</li>
+<li>↓</li>
+<li>Check User</li>
+<li>↓</li>
+<li>Logged In?</li>
+<li>Yes → Show Page</li>
+<li>No → Login</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-tsx">&lt;ProtectedRoute&gt;
+
+&lt;Dashboard /&gt;
+
+&lt;/ProtectedRoute&gt;
+</code></pre>
+<hr/>
+<h2 id="important-security-rule">Important Security Rule</h2>
+<p>Protected routes in React are NOT real security.</p>
+<p>Why?</p>
+<p>Because users can modify frontend code.</p>
+<p>Real protection:</p>
+<ul>
+<li>React Protection</li>
+<li>+</li>
+<li>Spring Security Authorization</li>
+</ul>
+<hr/>
+<h2 id="role-based-access-control-rbac">Role-Based Access Control (RBAC)</h2>
+<p>Applications usually have roles.</p>
+<p>Example:</p>
+<ul>
+<li>ADMIN</li>
+<li>MANAGER</li>
+<li>EMPLOYEE</li>
+<li>CUSTOMER</li>
+</ul>
+<hr/>
+<h2 id="permission-example">Permission Example</h2>
+<ul>
+<li>ADMIN</li>
+<li>✓ Create Employee</li>
+<li>✓ Delete Customer</li>
+<li>✓ View Reports</li>
+<li>EMPLOYEE</li>
+<li>✓ Update Order Status</li>
+<li>✗ Delete Customer</li>
+</ul>
+<hr/>
+<h2 id="xss-attack">XSS Attack</h2>
+<h3 id="cross-site-scripting">Cross-Site Scripting</h3>
+<p>XSS happens when attackers inject malicious JavaScript.</p>
+<p>Example:</p>
+<p>User enters:</p>
+<pre><code class="language-html">&lt;script&gt;
+alert("Hacked")
+&lt;/script&gt;
+</code></pre>
+<p>If displayed incorrectly:</p>
+<pre><code>Browser Executes Script
+</code></pre>
+<hr/>
+<h2 id="react-protection-against-xss">React Protection Against XSS</h2>
+<p>React escapes content automatically.</p>
+<p>Example:</p>
+<pre><code class="language-tsx">&lt;div&gt;
+
+{username}
+
+&lt;/div&gt;
+</code></pre>
+<p>React converts:</p>
+<pre><code class="language-html">&lt;script&gt;
+</code></pre>
+<p>into safe text.</p>
+<hr/>
+<h2 id="dangerous-html">Dangerous HTML</h2>
+<p>Avoid:</p>
+<pre><code class="language-tsx">dangerouslySetInnerHTML
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-tsx">&lt;div
+dangerouslySetInnerHTML={{
+__html:data
+}}
+/&gt;
+</code></pre>
+<p>This bypasses React protection.</p>
+<p>Only use with trusted content.</p>
+<hr/>
+<h2 id="sanitization">Sanitization</h2>
+<p>If HTML must be displayed:</p>
+<p>Use sanitizers.</p>
+<p>Example:</p>
+<pre><code class="language-text">User Input → Sanitize → Safe HTML → Display
+</code></pre>
+<p>Libraries:</p>
+<ul>
+<li>DOMPurify</li>
+</ul>
+<hr/>
+<h2 id="csrf-attack">CSRF Attack</h2>
+<h3 id="cross-site-request-forgery">Cross-Site Request Forgery</h3>
+<p>An attacker tricks a logged-in user into sending unwanted requests.</p>
+<p>Example:</p>
+<p>User is logged in.</p>
+<p>Attacker creates:</p>
+<pre><code class="language-text">Fake Website → Send Delete Request → User Account
+</code></pre>
+<hr/>
+<h2 id="csrf-protection">CSRF Protection</h2>
+<p>Solutions:</p>
+<ul>
+<li>SameSite Cookies</li>
+<li>CSRF Tokens</li>
+<li>Backend Validation</li>
+</ul>
+<hr/>
+<h2 id="sql-injection">SQL Injection</h2>
+<p>This happens on the backend.</p>
+<p>Example:</p>
+<p>Bad query:</p>
+<pre><code class="language-sql">SELECT *
+FROM users
+WHERE name='input'
+</code></pre>
+<p>Attack:</p>
+<pre><code class="language-sql">' OR 1=1
+</code></pre>
+<p>Protection:</p>
+<ul>
+<li>Prepared Statements</li>
+<li>JPA</li>
+<li>Hibernate</li>
+<li>Validation</li>
+</ul>
+<hr/>
+<h2 id="react-responsibility">React Responsibility</h2>
+<p>React should:</p>
+<ul>
+<li>Validate input</li>
+<li>Avoid unsafe HTML</li>
+<li>Send correct data</li>
+</ul>
+<p>Backend must:</p>
+<ul>
+<li>Validate again</li>
+<li>Protect database</li>
+</ul>
+<hr/>
+<h2 id="input-validation">Input Validation</h2>
+<p>Never trust user input.</p>
+<p>Examples:</p>
+<p>Email:</p>
+<pre><code>test@gmail.com
+</code></pre>
+<p>Password:</p>
+<pre><code>Minimum 8 characters
+</code></pre>
+<p>Phone:</p>
+<pre><code>Correct format
+</code></pre>
+<hr/>
+<h2 id="validation-layers">Validation Layers</h2>
+<p>Professional applications validate at multiple levels.</p>
+<pre><code class="language-text">React Validation → API Validation → Spring Validation → Database Constraints
+</code></pre>
+<hr/>
+<h2 id="file-upload-security">File Upload Security</h2>
+<p>File uploads are dangerous.</p>
+<p>Attack examples:</p>
+<ul>
+<li>Malicious files</li>
+<li>Huge files</li>
+<li>Wrong file types</li>
+</ul>
+<hr/>
+<h2 id="safe-upload-process">Safe Upload Process</h2>
+<pre><code class="language-text">User Selects File → Check Size → Check Extension → Check MIME Type → Upload → Store Securely
+</code></pre>
+<hr/>
+<h2 id="example-restrictions">Example Restrictions</h2>
+<p>Images:</p>
+<p>Allowed:</p>
+<ul>
+<li>jpg</li>
+<li>png</li>
+<li>webp</li>
+</ul>
+<p>Maximum:</p>
+<pre><code>5 MB
+</code></pre>
+<hr/>
+<h2 id="environment-security">Environment Security</h2>
+<p>Never expose:</p>
+<ul>
+<li>DATABASE_PASSWORD</li>
+<li>SECRET_KEY</li>
+<li>PRIVATE_API_KEY</li>
+</ul>
+<p>inside React.</p>
+<p>Bad:</p>
+<pre><code class="language-env">VITE_SECRET_PASSWORD=123
+</code></pre>
+<p>Anyone can see it.</p>
+<hr/>
+<h2 id="https">HTTPS</h2>
+<p>Production applications must use HTTPS.</p>
+<p>Without HTTPS:</p>
+<pre><code class="language-text">Browser → Network → Attacker Can Read Data
+</code></pre>
+<p>With HTTPS:</p>
+<pre><code>Encrypted Connection
+</code></pre>
+<hr/>
+<h2 id="content-security-policy-csp">Content Security Policy (CSP)</h2>
+<p>CSP controls what resources the browser can load.</p>
+<p>Example:</p>
+<p>Allow:</p>
+<ul>
+<li>Company Domain</li>
+<li>Trusted CDN</li>
+</ul>
+<p>Block:</p>
+<pre><code>Unknown Scripts
+</code></pre>
+<hr/>
+<h2 id="security-headers">Security Headers</h2>
+<p>Important headers:</p>
+<ul>
+<li>Content-Security-Policy</li>
+<li>X-Frame-Options</li>
+<li>X-Content-Type-Options</li>
+<li>Strict-Transport-Security</li>
+</ul>
+<p>Usually configured in Nginx or backend.</p>
+<hr/>
+<h2 id="dependency-security">Dependency Security</h2>
+<p>React projects use many packages.</p>
+<p>Example:</p>
+<pre><code>npm install package
+</code></pre>
+<p>A package may contain vulnerabilities.</p>
+<p>Check:</p>
+<pre><code class="language-bash">npm audit
+</code></pre>
+<p>Fix:</p>
+<pre><code class="language-bash">npm audit fix
+</code></pre>
+<hr/>
+<h2 id="keeping-dependencies-updated">Keeping Dependencies Updated</h2>
+<p>Old packages may contain:</p>
+<ul>
+<li>Security vulnerabilities</li>
+<li>Bugs</li>
+<li>Performance issues</li>
+</ul>
+<p>Regular updates are important.</p>
+<hr/>
+<h2 id="error-handling-security">Error Handling Security</h2>
+<p>Never expose internal errors.</p>
+<p>Bad:</p>
+<ul>
+<li>Database connection failed:</li>
+<li>password=123456</li>
+</ul>
+<p>Good:</p>
+<pre><code>Something went wrong.
+Please try again.
+</code></pre>
+<hr/>
+<h2 id="logging-security">Logging Security</h2>
+<p>Never log:</p>
+<ul>
+<li>Passwords</li>
+<li>Tokens</li>
+<li>Credit cards</li>
+<li>Private information</li>
+</ul>
+<p>Bad:</p>
+<pre><code class="language-javascript">console.log(userToken);
+</code></pre>
+<hr/>
+<h2 id="security-checklist">Security Checklist</h2>
+<p>Before production:</p>
+<p>✅ Use HTTPS</p>
+<p>✅ Validate user input</p>
+<p>✅ Protect routes</p>
+<p>✅ Use backend authorization</p>
+<p>✅ Avoid dangerous HTML rendering</p>
+<p>✅ Protect JWT tokens</p>
+<p>✅ Secure file uploads</p>
+<p>✅ Remove sensitive logs</p>
+<p>✅ Audit dependencies</p>
+<p>✅ Configure security headers</p>
+<p>✅ Keep packages updated</p>
+<hr/>
+<h2 id="enterprise-security-flow">Enterprise Security Flow</h2>
+<pre><code class="language-text">User → React Application → Input Validation → HTTPS → Axios → JWT Authentication → Spring Security → Authorization Check → Business Logic → Database → Response → Safe UI Update
+</code></pre>
+<hr/>
+<h2 id="common-security-mistakes">Common Security Mistakes</h2>
+<p>❌ Trusting frontend permissions.</p>
+<p>❌ Storing secrets in React.</p>
+<p>❌ Using localStorage without understanding risks.</p>
+<p>❌ Using dangerouslySetInnerHTML with user data.</p>
+<p>❌ Skipping backend validation.</p>
+<p>❌ Uploading files without restrictions.</p>
+<p>❌ Exposing error details.</p>
+<p>❌ Ignoring dependency vulnerabilities.</p>
+<p>❌ Using HTTP in production.</p>
+<hr/>
+<h2 id="chapter-summary--6">Chapter Summary</h2>
+<p>Security in React applications is based on one main principle:</p>
+<blockquote>
+<p>Never trust the client.</p>
+</blockquote>
+<p>React is responsible for creating a secure user experience, but the backend is responsible for enforcing security.</p>
+<p>A professional React application should combine:</p>
+<ul>
+<li>Secure authentication</li>
+<li>Proper authorization</li>
+<li>Safe data handling</li>
+<li>Input validation</li>
+<li>HTTPS</li>
+<li>Secure token management</li>
+<li>Dependency monitoring</li>
+<li>Protected backend APIs</li>
+</ul>
+<p>When React and Spring Boot security practices work together, the application becomes safer, more reliable, and ready for enterprise production environments.
+Understanding deployment and DevOps practices is essential for building enterprise-grade React applications that are reliable, scalable, and maintainable.</p>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-17" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-16"><span class="pager-label">← Previous chapter</span><strong>16 · Deployment and DevOps for React Applications</strong></a><a class="pager-card pager-card--next" href="#chapter-18"><span class="pager-label">Next chapter →</span><strong>18 · State Management in React Applications</strong></a></nav></section>

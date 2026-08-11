@@ -1,0 +1,2686 @@
+<section class="chapter" id="chapter-3" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">03</span>
+<h1 class="chapter-title" id="html-required-for-react">HTML Required for React</h1>
+</div>
+<h2 id="31-introduction-to-html-for-react-developers">3.1 Introduction to HTML for React Developers</h2>
+<h3 id="simple-explanation--3">Simple Explanation</h3>
+<p>HTML (HyperText Markup Language) is the skeleton of every webpage. In React, you'll write HTML-like code called JSX that gets transformed into real HTML. Understanding HTML thoroughly is essential because React components ultimately render HTML elements in the browser.</p>
+<p>Think of HTML as the structure of a house - the walls, doors, windows, and rooms. React helps you build these structures dynamically, but you still need to know what each building block does and how to use it properly.</p>
+<h3 id="technical-explanation--3">Technical Explanation</h3>
+<p>HTML provides the structural foundation for web applications. In React, JSX is a syntax extension that allows you to write HTML-like code within JavaScript. This JSX gets compiled to <code>React.createElement()</code> calls, which produce virtual DOM elements that are eventually rendered as real HTML elements.</p>
+<p>Key concepts for React developers:
+- <strong>Semantic HTML</strong>: Using appropriate elements for meaning
+- <strong>Accessibility</strong>: ARIA attributes and proper semantics
+- <strong>Forms</strong>: Controlled vs uncontrolled components
+- <strong>Events</strong>: Synthetic event system
+- <strong>Attributes</strong>: React-specific vs HTML attributes</p>
+<h3 id="professional-explanation--3">Professional Explanation</h3>
+<p>In enterprise React development, HTML knowledge extends beyond basic markup. You need to understand:</p>
+<ul>
+<li><strong>Document Structure</strong>: DOCTYPE, meta tags, semantic elements</li>
+<li><strong>Accessibility</strong>: WCAG compliance, ARIA roles, keyboard navigation</li>
+<li><strong>SEO</strong>: Meta tags, semantic structure, Open Graph</li>
+<li><strong>Performance</strong>: Resource loading, prefetching, preloading</li>
+<li><strong>Security</strong>: CSP, XSS prevention, input sanitization</li>
+<li><strong>Internationalization</strong>: lang attributes, dir attributes</li>
+<li><strong>Progressive Enhancement</strong>: Graceful degradation</li>
+</ul>
+<h2 id="32-document-structure">3.2 Document Structure</h2>
+<h3 id="321-doctype-and-basic-structure">3.2.1 DOCTYPE and Basic Structure</h3>
+<pre><code class="language-html">&lt;!-- HTML5 DOCTYPE --&gt;
+&lt;!DOCTYPE html&gt;
+
+&lt;!-- HTML Document Structure --&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;!-- Character Encoding --&gt;
+    &lt;meta charset="UTF-8"&gt;
+
+    &lt;!-- Viewport for Responsive Design --&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+    &lt;!-- Page Title --&gt;
+    &lt;title&gt;My React Application&lt;/title&gt;
+
+    &lt;!-- Meta Description for SEO --&gt;
+    &lt;meta name="description" content="A professional React application"&gt;
+
+    &lt;!-- Favicon --&gt;
+    &lt;link rel="icon" type="image/x-icon" href="/favicon.ico"&gt;
+
+    &lt;!-- Stylesheets --&gt;
+    &lt;link rel="stylesheet" href="/styles.css"&gt;
+
+    &lt;!-- Preconnect for Performance --&gt;
+    &lt;link rel="preconnect" href="https://api.example.com"&gt;
+
+    &lt;!-- Preload Critical Resources --&gt;
+    &lt;link rel="preload" href="/critical.css" as="style"&gt;
+
+    &lt;!-- Open Graph Meta Tags --&gt;
+    &lt;meta property="og:title" content="My React App"&gt;
+    &lt;meta property="og:description" content="Professional React application"&gt;
+    &lt;meta property="og:image" content="https://example.com/og-image.jpg"&gt;
+
+    &lt;!-- Theme Color --&gt;
+    &lt;meta name="theme-color" content="#ffffff"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- React Mounting Point --&gt;
+    &lt;div id="root"&gt;&lt;/div&gt;
+
+    &lt;!-- Non-React Content (for SEO or fallback) --&gt;
+    &lt;noscript&gt;
+        &lt;div class="no-javascript"&gt;
+            &lt;h1&gt;JavaScript is required&lt;/h1&gt;
+            &lt;p&gt;Please enable JavaScript to use this application.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/noscript&gt;
+
+    &lt;!-- Scripts --&gt;
+    &lt;script src="/bundle.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="322-react-integration-points">3.2.2 React Integration Points</h3>
+<pre><code class="language-javascript">// React mounting in index.js
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+
+// Get the root element from HTML
+const rootElement = document.getElementById('root');
+
+// Create React root and render
+const root = ReactDOM.createRoot(rootElement);
+root.render(
+    &lt;React.StrictMode&gt;
+        &lt;App /&gt;
+    &lt;/React.StrictMode&gt;
+);
+
+// React component rendering to HTML
+function App() {
+    return (
+        &lt;html lang="en"&gt;
+            &lt;head&gt;
+                &lt;title&gt;React Application&lt;/title&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                &lt;div id="root"&gt;
+                    &lt;h1&gt;Hello World&lt;/h1&gt;
+                &lt;/div&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;
+    );
+}
+</code></pre>
+<h2 id="33-semantic-html-elements">3.3 Semantic HTML Elements</h2>
+<h3 id="331-structural-elements">3.3.1 Structural Elements</h3>
+<h4 id="header-header-section"><code>&lt;header&gt;</code> - Header Section</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;header&gt;
+    &lt;h1&gt;My Website&lt;/h1&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;!-- React Component --&gt;
+function Header() {
+    return (
+        &lt;header className="site-header"&gt;
+            &lt;h1&gt;My Website&lt;/h1&gt;
+            &lt;nav&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;Link to="/"&gt;Home&lt;/Link&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;Link to="/about"&gt;About&lt;/Link&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+        &lt;/header&gt;
+    );
+}
+</code></pre>
+<h4 id="nav-navigation"><code>&lt;nav&gt;</code> - Navigation</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;nav aria-label="Main Navigation"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#services"&gt;Services&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- React Component --&gt;
+function Navigation({ links }) {
+    return (
+        &lt;nav aria-label="Main Navigation"&gt;
+            &lt;ul&gt;
+                {links.map(link =&gt; (
+                    &lt;li key={link.path}&gt;
+                        &lt;Link to={link.path}&gt;{link.label}&lt;/Link&gt;
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    );
+}
+</code></pre>
+<h4 id="main-main-content"><code>&lt;main&gt;</code> - Main Content</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h2&gt;Article Title&lt;/h2&gt;
+        &lt;p&gt;Article content...&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;aside&gt;
+        &lt;h3&gt;Related Content&lt;/h3&gt;
+        &lt;p&gt;Sidebar content...&lt;/p&gt;
+    &lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;!-- React Component --&gt;
+function MainContent({ article, related }) {
+    return (
+        &lt;main&gt;
+            &lt;Article article={article} /&gt;
+            &lt;Sidebar items={related} /&gt;
+        &lt;/main&gt;
+    );
+}
+</code></pre>
+<h4 id="section-content-section"><code>&lt;section&gt;</code> - Content Section</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;section aria-labelledby="features-title"&gt;
+    &lt;h2 id="features-title"&gt;Features&lt;/h2&gt;
+    &lt;div class="features-grid"&gt;
+        &lt;div class="feature"&gt;
+            &lt;h3&gt;Feature 1&lt;/h3&gt;
+            &lt;p&gt;Description of feature 1&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="feature"&gt;
+            &lt;h3&gt;Feature 2&lt;/h3&gt;
+            &lt;p&gt;Description of feature 2&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- React Component --&gt;
+function Features({ features }) {
+    return (
+        &lt;section aria-labelledby="features-title"&gt;
+            &lt;h2 id="features-title"&gt;Features&lt;/h2&gt;
+            &lt;div className="features-grid"&gt;
+                {features.map(feature =&gt; (
+                    &lt;div key={feature.id} className="feature"&gt;
+                        &lt;h3&gt;{feature.title}&lt;/h3&gt;
+                        &lt;p&gt;{feature.description}&lt;/p&gt;
+                    &lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/section&gt;
+    );
+}
+</code></pre>
+<h4 id="article-self-contained-content"><code>&lt;article&gt;</code> - Self-Contained Content</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;article&gt;
+    &lt;header&gt;
+        &lt;h2&gt;Blog Post Title&lt;/h2&gt;
+        &lt;time datetime="2024-01-15"&gt;January 15, 2024&lt;/time&gt;
+        &lt;address&gt;By John Doe&lt;/address&gt;
+    &lt;/header&gt;
+    &lt;div class="content"&gt;
+        &lt;p&gt;Blog post content...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;footer&gt;
+        &lt;p&gt;Tags: React, JavaScript&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/article&gt;
+
+&lt;!-- React Component --&gt;
+function BlogPost({ post }) {
+    return (
+        &lt;article&gt;
+            &lt;header&gt;
+                &lt;h2&gt;{post.title}&lt;/h2&gt;
+                &lt;time dateTime={post.date}&gt;{formatDate(post.date)}&lt;/time&gt;
+                &lt;address&gt;By {post.author}&lt;/address&gt;
+            &lt;/header&gt;
+            &lt;div className="content"&gt;
+                &lt;p&gt;{post.content}&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;footer&gt;
+                &lt;p&gt;Tags: {post.tags.join(', ')}&lt;/p&gt;
+            &lt;/footer&gt;
+        &lt;/article&gt;
+    );
+}
+</code></pre>
+<h4 id="aside-sidebar-content"><code>&lt;aside&gt;</code> - Sidebar Content</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;aside&gt;
+    &lt;h3&gt;Related Articles&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="/article1"&gt;Article 1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/article2"&gt;Article 2&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/aside&gt;
+
+&lt;!-- React Component --&gt;
+function Sidebar({ related }) {
+    return (
+        &lt;aside&gt;
+            &lt;h3&gt;Related Articles&lt;/h3&gt;
+            &lt;ul&gt;
+                {related.map(article =&gt; (
+                    &lt;li key={article.id}&gt;
+                        &lt;Link to={article.path}&gt;{article.title}&lt;/Link&gt;
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/aside&gt;
+    );
+}
+</code></pre>
+<h4 id="footer-footer-section"><code>&lt;footer&gt;</code> - Footer Section</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;footer&gt;
+    &lt;div class="footer-content"&gt;
+        &lt;p&gt;&amp;copy; 2024 My Company&lt;/p&gt;
+        &lt;nav aria-label="Footer Navigation"&gt;
+            &lt;a href="/privacy"&gt;Privacy&lt;/a&gt;
+            &lt;a href="/terms"&gt;Terms&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/div&gt;
+&lt;/footer&gt;
+
+&lt;!-- React Component --&gt;
+function Footer() {
+    const currentYear = new Date().getFullYear();
+
+    return (
+        &lt;footer&gt;
+            &lt;div className="footer-content"&gt;
+                &lt;p&gt;&amp;copy; {currentYear} My Company&lt;/p&gt;
+                &lt;nav aria-label="Footer Navigation"&gt;
+                    &lt;Link to="/privacy"&gt;Privacy&lt;/Link&gt;
+                    &lt;Link to="/terms"&gt;Terms&lt;/Link&gt;
+                &lt;/nav&gt;
+            &lt;/div&gt;
+        &lt;/footer&gt;
+    );
+}
+</code></pre>
+<h3 id="332-content-elements">3.3.2 Content Elements</h3>
+<h4 id="div-generic-container"><code>&lt;div&gt;</code> - Generic Container</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-6"&gt;
+            &lt;p&gt;Left column content&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="col-6"&gt;
+            &lt;p&gt;Right column content&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- React Component --&gt;
+function Grid({ columns }) {
+    return (
+        &lt;div className="container"&gt;
+            &lt;div className="row"&gt;
+                {columns.map((column, index) =&gt; (
+                    &lt;div key={index} className="col-6"&gt;
+                        {column.content}
+                    &lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="span-inline-container"><code>&lt;span&gt;</code> - Inline Container</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;p&gt;Welcome, &lt;span class="highlight"&gt;John Doe&lt;/span&gt;!&lt;/p&gt;
+&lt;p&gt;Price: &lt;span class="currency"&gt;$&lt;/span&gt;&lt;span class="amount"&gt;99.99&lt;/span&gt;&lt;/p&gt;
+
+&lt;!-- React Component --&gt;
+function UserGreeting({ user, price }) {
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Welcome, &lt;span className="highlight"&gt;{user.name}&lt;/span&gt;!&lt;/p&gt;
+            &lt;p&gt;
+                Price: &lt;span className="currency"&gt;$&lt;/span&gt;
+                &lt;span className="amount"&gt;{price}&lt;/span&gt;
+            &lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="p-paragraph"><code>&lt;p&gt;</code> - Paragraph</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;p&gt;This is a paragraph of text. It contains multiple sentences and provides information about a topic.&lt;/p&gt;
+&lt;p&gt;This is another paragraph with &lt;strong&gt;important&lt;/strong&gt; information.&lt;/p&gt;
+
+&lt;!-- React Component --&gt;
+function Description({ text, highlight }) {
+    return (
+        &lt;div&gt;
+            &lt;p&gt;{text}&lt;/p&gt;
+            {highlight &amp;&amp; &lt;p&gt;&lt;strong&gt;{highlight}&lt;/strong&gt;&lt;/p&gt;}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="h1-to-h6-headings"><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> - Headings</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;h1&gt;Main Page Title&lt;/h1&gt;
+&lt;h2&gt;Section Title&lt;/h2&gt;
+&lt;h3&gt;Subsection Title&lt;/h3&gt;
+&lt;h4&gt;Sub-subsection Title&lt;/h4&gt;
+&lt;h5&gt;Minor Heading&lt;/h5&gt;
+&lt;h6&gt;Lowest Level Heading&lt;/h6&gt;
+
+&lt;!-- React Component --&gt;
+function Headings({ title, sections }) {
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;{title}&lt;/h1&gt;
+            {sections.map(section =&gt; (
+                &lt;div key={section.id}&gt;
+                    &lt;h2&gt;{section.title}&lt;/h2&gt;
+                    {section.subsections.map(sub =&gt; (
+                        &lt;h3 key={sub.id}&gt;{sub.title}&lt;/h3&gt;
+                    ))}
+                &lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="ul-ol-li-lists"><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code> - Lists</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;!-- Unordered List --&gt;
+&lt;ul&gt;
+    &lt;li&gt;First item&lt;/li&gt;
+    &lt;li&gt;Second item&lt;/li&gt;
+    &lt;li&gt;Third item&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Ordered List --&gt;
+&lt;ol&gt;
+    &lt;li&gt;First step&lt;/li&gt;
+    &lt;li&gt;Second step&lt;/li&gt;
+    &lt;li&gt;Third step&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Nested List --&gt;
+&lt;ul&gt;
+    &lt;li&gt;
+        Category 1
+        &lt;ul&gt;
+            &lt;li&gt;Sub-item 1.1&lt;/li&gt;
+            &lt;li&gt;Sub-item 1.2&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Category 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- React Component --&gt;
+function List({ items, ordered = false }) {
+    const ListTag = ordered ? 'ol' : 'ul';
+
+    return (
+        &lt;ListTag&gt;
+            {items.map(item =&gt; (
+                &lt;li key={item.id}&gt;
+                    {item.label}
+                    {item.children &amp;&amp; &lt;List items={item.children} /&gt;}
+                &lt;/li&gt;
+            ))}
+        &lt;/ListTag&gt;
+    );
+}
+</code></pre>
+<h3 id="333-text-formatting-elements">3.3.3 Text Formatting Elements</h3>
+<h4 id="strong-and-b-bold-text"><code>&lt;strong&gt;</code> and <code>&lt;b&gt;</code> - Bold Text</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;p&gt;
+    &lt;strong&gt;Important:&lt;/strong&gt; This is critical information.
+    &lt;b&gt;Note:&lt;/b&gt; This is highlighted for attention.
+&lt;/p&gt;
+
+&lt;!-- React Component --&gt;
+function ImportantText({ children, importance }) {
+    return (
+        &lt;p&gt;
+            &lt;strong&gt;Important:&lt;/strong&gt; {children}
+            {importance &amp;&amp; &lt;b&gt;Note:&lt;/b&gt; {importance}}
+        &lt;/p&gt;
+    );
+}
+</code></pre>
+<h4 id="em-and-i-italic-text"><code>&lt;em&gt;</code> and <code>&lt;i&gt;</code> - Italic Text</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;p&gt;
+    &lt;em&gt;Emphasized text&lt;/em&gt; for stress.
+    &lt;i&gt;Italic text&lt;/i&gt; for foreign words or technical terms.
+&lt;/p&gt;
+
+&lt;!-- React Component --&gt;
+function EmphasizedText({ text, isTechnical }) {
+    return (
+        &lt;p&gt;
+            &lt;em&gt;{text}&lt;/em&gt;
+            {isTechnical &amp;&amp; &lt;i&gt; (technical term)&lt;/i&gt;}
+        &lt;/p&gt;
+    );
+}
+</code></pre>
+<h4 id="pre-and-code-code-display"><code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> - Code Display</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;pre&gt;
+    &lt;code&gt;
+        function greet(name) {
+            return `Hello, ${name}!`;
+        }
+    &lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;!-- React Component --&gt;
+function CodeBlock({ code, language }) {
+    return (
+        &lt;pre&gt;
+            &lt;code className={`language-${language}`}&gt;
+                {code}
+            &lt;/code&gt;
+        &lt;/pre&gt;
+    );
+}
+</code></pre>
+<h3 id="334-media-elements">3.3.4 Media Elements</h3>
+<h4 id="img-images"><code>&lt;img&gt;</code> - Images</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;img 
+    src="/images/avatar.jpg" 
+    alt="User avatar showing John Doe"
+    width="100" 
+    height="100"
+    loading="lazy"
+&gt;
+
+&lt;!-- React Component --&gt;
+function UserAvatar({ user, size = 100 }) {
+    return (
+        &lt;img 
+            src={user.avatarUrl} 
+            alt={`${user.name}'s avatar`}
+            width={size} 
+            height={size}
+            loading="lazy"
+            className="avatar"
+        /&gt;
+    );
+}
+
+// Handling image errors
+function ImageWithFallback({ src, fallback, alt, ...props }) {
+    const [error, setError] = useState(false);
+
+    return (
+        &lt;img 
+            src={error ? fallback : src}
+            alt={alt}
+            onError={() =&gt; setError(true)}
+            {...props}
+        /&gt;
+    );
+}
+</code></pre>
+<h4 id="video-video"><code>&lt;video&gt;</code> - Video</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;video controls width="640" height="360"&gt;
+    &lt;source src="/video.mp4" type="video/mp4"&gt;
+    &lt;source src="/video.webm" type="video/webm"&gt;
+    &lt;track kind="captions" src="/captions.vtt" label="English"&gt;
+    &lt;p&gt;Your browser doesn't support HTML5 video.&lt;/p&gt;
+&lt;/video&gt;
+
+&lt;!-- React Component --&gt;
+function VideoPlayer({ src, poster, captions }) {
+    return (
+        &lt;video controls width="640" height="360" poster={poster}&gt;
+            &lt;source src={src.mp4} type="video/mp4" /&gt;
+            &lt;source src={src.webm} type="video/webm" /&gt;
+            {captions &amp;&amp; (
+                &lt;track 
+                    kind="captions" 
+                    src={captions} 
+                    label="English" 
+                    default 
+                /&gt;
+            )}
+            &lt;p&gt;Your browser doesn't support HTML5 video.&lt;/p&gt;
+        &lt;/video&gt;
+    );
+}
+</code></pre>
+<h4 id="audio-audio"><code>&lt;audio&gt;</code> - Audio</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;audio controls&gt;
+    &lt;source src="/audio.mp3" type="audio/mpeg"&gt;
+    &lt;source src="/audio.ogg" type="audio/ogg"&gt;
+    &lt;p&gt;Your browser doesn't support HTML5 audio.&lt;/p&gt;
+&lt;/audio&gt;
+
+&lt;!-- React Component --&gt;
+function AudioPlayer({ src, autoPlay = false }) {
+    return (
+        &lt;audio controls autoPlay={autoPlay}&gt;
+            &lt;source src={src.mp3} type="audio/mpeg" /&gt;
+            &lt;source src={src.ogg} type="audio/ogg" /&gt;
+            &lt;p&gt;Your browser doesn't support HTML5 audio.&lt;/p&gt;
+        &lt;/audio&gt;
+    );
+}
+</code></pre>
+<h3 id="335-interactive-elements">3.3.5 Interactive Elements</h3>
+<h4 id="button-buttons"><code>&lt;button&gt;</code> - Buttons</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;button type="button" onclick="handleClick()"&gt;Click Me&lt;/button&gt;
+&lt;button type="submit"&gt;Submit Form&lt;/button&gt;
+&lt;button type="reset"&gt;Reset Form&lt;/button&gt;
+&lt;button disabled&gt;Disabled Button&lt;/button&gt;
+&lt;button aria-label="Close dialog"&gt;×&lt;/button&gt;
+
+&lt;!-- React Component --&gt;
+function Button({ 
+    children, 
+    type = 'button', 
+    disabled = false, 
+    onClick, 
+    variant = 'primary' 
+}) {
+    const classes = {
+        primary: 'bg-blue-500 text-white',
+        secondary: 'bg-gray-500 text-white',
+        danger: 'bg-red-500 text-white'
+    };
+
+    return (
+        &lt;button 
+            type={type}
+            disabled={disabled}
+            onClick={onClick}
+            className={`px-4 py-2 rounded ${classes[variant]}`}
+        &gt;
+            {children}
+        &lt;/button&gt;
+    );
+}
+
+// Usage
+function Form() {
+    const handleSubmit = (e) =&gt; {
+        e.preventDefault();
+        // Submit logic
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;Button type="submit" variant="primary"&gt;
+                Submit
+            &lt;/Button&gt;
+            &lt;Button type="reset" variant="secondary"&gt;
+                Reset
+            &lt;/Button&gt;
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h4 id="input-input-fields"><code>&lt;input&gt;</code> - Input Fields</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;!-- Text Input --&gt;
+&lt;input type="text" name="username" placeholder="Enter username"&gt;
+
+&lt;!-- Email Input --&gt;
+&lt;input type="email" name="email" placeholder="Enter email" required&gt;
+
+&lt;!-- Password Input --&gt;
+&lt;input type="password" name="password" minlength="8"&gt;
+
+&lt;!-- Number Input --&gt;
+&lt;input type="number" name="age" min="0" max="150" step="1"&gt;
+
+&lt;!-- Date Input --&gt;
+&lt;input type="date" name="birthday"&gt;
+
+&lt;!-- Checkbox --&gt;
+&lt;input type="checkbox" name="terms" value="accepted"&gt;
+
+&lt;!-- Radio Button --&gt;
+&lt;input type="radio" name="gender" value="male"&gt;
+&lt;input type="radio" name="gender" value="female"&gt;
+
+&lt;!-- Color Input --&gt;
+&lt;input type="color" name="theme"&gt;
+
+&lt;!-- Range Input --&gt;
+&lt;input type="range" name="volume" min="0" max="100"&gt;
+
+&lt;!-- Search Input --&gt;
+&lt;input type="search" name="search" placeholder="Search..."&gt;
+
+&lt;!-- File Input --&gt;
+&lt;input type="file" name="avatar" accept="image/*"&gt;
+
+&lt;!-- React Component --&gt;
+function TextInput({ 
+    label, 
+    name, 
+    type = 'text', 
+    value, 
+    onChange, 
+    error, 
+    ...props 
+}) {
+    return (
+        &lt;div className="form-group"&gt;
+            {label &amp;&amp; &lt;label htmlFor={name}&gt;{label}&lt;/label&gt;}
+            &lt;input
+                id={name}
+                name={name}
+                type={type}
+                value={value}
+                onChange={onChange}
+                className={error ? 'error' : ''}
+                {...props}
+            /&gt;
+            {error &amp;&amp; &lt;span className="error-message"&gt;{error}&lt;/span&gt;}
+        &lt;/div&gt;
+    );
+}
+
+// Controlled Input with validation
+function ControlledForm() {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        age: 18,
+        terms: false
+    });
+
+    const [errors, setErrors] = useState({});
+
+    const handleChange = (e) =&gt; {
+        const { name, value, type, checked } = e.target;
+        const val = type === 'checkbox' ? checked : value;
+
+        setFormData(prev =&gt; ({
+            ...prev,
+            [name]: val
+        }));
+
+        // Validate on change
+        validateField(name, val);
+    };
+
+    const validateField = (name, value) =&gt; {
+        let error = '';
+        switch (name) {
+            case 'email':
+                if (!value || !value.includes('@')) {
+                    error = 'Valid email is required';
+                }
+                break;
+            case 'password':
+                if (value.length &lt; 8) {
+                    error = 'Password must be at least 8 characters';
+                }
+                break;
+            // ... more validations
+        }
+
+        setErrors(prev =&gt; ({
+            ...prev,
+            [name]: error
+        }));
+    };
+
+    return (
+        &lt;form&gt;
+            &lt;TextInput
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
+                placeholder="Enter email"
+                required
+            /&gt;
+            &lt;TextInput
+                label="Password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                error={errors.password}
+                minLength={8}
+            /&gt;
+            &lt;TextInput
+                label="Age"
+                name="age"
+                type="number"
+                value={formData.age}
+                onChange={handleChange}
+                min={0}
+                max={150}
+            /&gt;
+            &lt;div&gt;
+                &lt;label&gt;
+                    &lt;input
+                        type="checkbox"
+                        name="terms"
+                        checked={formData.terms}
+                        onChange={handleChange}
+                    /&gt;
+                    Accept Terms
+                &lt;/label&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h4 id="textarea-text-area"><code>&lt;textarea&gt;</code> - Text Area</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;textarea 
+    name="description" 
+    rows="4" 
+    cols="50" 
+    placeholder="Enter description..."
+    maxlength="500"
+&gt;&lt;/textarea&gt;
+
+&lt;!-- React Component --&gt;
+function TextArea({ 
+    label, 
+    name, 
+    value, 
+    onChange, 
+    rows = 4, 
+    maxLength,
+    error 
+}) {
+    return (
+        &lt;div className="form-group"&gt;
+            {label &amp;&amp; &lt;label htmlFor={name}&gt;{label}&lt;/label&gt;}
+            &lt;textarea
+                id={name}
+                name={name}
+                value={value}
+                onChange={onChange}
+                rows={rows}
+                maxLength={maxLength}
+                className={error ? 'error' : ''}
+            /&gt;
+            {maxLength &amp;&amp; (
+                &lt;span className="char-count"&gt;
+                    {value.length}/{maxLength}
+                &lt;/span&gt;
+            )}
+            {error &amp;&amp; &lt;span className="error-message"&gt;{error}&lt;/span&gt;}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="select-and-option-dropdown"><code>&lt;select&gt;</code> and <code>&lt;option&gt;</code> - Dropdown</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;select name="country"&gt;
+    &lt;option value=""&gt;Select a country&lt;/option&gt;
+    &lt;option value="us"&gt;United States&lt;/option&gt;
+    &lt;option value="ca"&gt;Canada&lt;/option&gt;
+    &lt;option value="uk"&gt;United Kingdom&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- React Component --&gt;
+function Select({ 
+    label, 
+    name, 
+    value, 
+    onChange, 
+    options, 
+    placeholder, 
+    error 
+}) {
+    return (
+        &lt;div className="form-group"&gt;
+            {label &amp;&amp; &lt;label htmlFor={name}&gt;{label}&lt;/label&gt;}
+            &lt;select
+                id={name}
+                name={name}
+                value={value}
+                onChange={onChange}
+                className={error ? 'error' : ''}
+            &gt;
+                {placeholder &amp;&amp; (
+                    &lt;option value=""&gt;{placeholder}&lt;/option&gt;
+                )}
+                {options.map(option =&gt; (
+                    &lt;option key={option.value} value={option.value}&gt;
+                        {option.label}
+                    &lt;/option&gt;
+                ))}
+            &lt;/select&gt;
+            {error &amp;&amp; &lt;span className="error-message"&gt;{error}&lt;/span&gt;}
+        &lt;/div&gt;
+    );
+}
+
+// Usage with dynamic options
+function CountrySelect() {
+    const [selected, setSelected] = useState('');
+    const [countries, setCountries] = useState([]);
+
+    useEffect(() =&gt; {
+        fetchCountries().then(setCountries);
+    }, []);
+
+    return (
+        &lt;Select
+            label="Country"
+            name="country"
+            value={selected}
+            onChange={e =&gt; setSelected(e.target.value)}
+            options={countries}
+            placeholder="Select a country"
+        /&gt;
+    );
+}
+</code></pre>
+<h4 id="label-labels"><code>&lt;label&gt;</code> - Labels</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;!-- Implicit label (wrapping) --&gt;
+&lt;label&gt;
+    &lt;input type="checkbox" name="agree"&gt;
+    I agree to the terms
+&lt;/label&gt;
+
+&lt;!-- Explicit label (using for/id) --&gt;
+&lt;label for="username"&gt;Username:&lt;/label&gt;
+&lt;input type="text" id="username" name="username"&gt;
+
+&lt;!-- React Component --&gt;
+function Label({ htmlFor, children, required = false }) {
+    return (
+        &lt;label htmlFor={htmlFor}&gt;
+            {children}
+            {required &amp;&amp; &lt;span className="required"&gt;*&lt;/span&gt;}
+        &lt;/label&gt;
+    );
+}
+
+// Usage in form
+function FormField({ label, htmlFor, children, required }) {
+    return (
+        &lt;div className="form-group"&gt;
+            &lt;Label htmlFor={htmlFor} required={required}&gt;
+                {label}
+            &lt;/Label&gt;
+            {children}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="form-forms"><code>&lt;form&gt;</code> - Forms</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;form action="/submit" method="POST" novalidate&gt;
+    &lt;div class="form-group"&gt;
+        &lt;label for="name"&gt;Name:&lt;/label&gt;
+        &lt;input type="text" id="name" name="name" required&gt;
+    &lt;/div&gt;
+    &lt;div class="form-group"&gt;
+        &lt;label for="email"&gt;Email:&lt;/label&gt;
+        &lt;input type="email" id="email" name="email" required&gt;
+    &lt;/div&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- React Component --&gt;
+function RegistrationForm() {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    });
+    const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const validate = (data) =&gt; {
+        const errors = {};
+        if (!data.name) errors.name = 'Name is required';
+        if (!data.email) errors.email = 'Email is required';
+        if (data.email &amp;&amp; !data.email.includes('@')) {
+            errors.email = 'Email is invalid';
+        }
+        if (data.password &amp;&amp; data.password.length &lt; 8) {
+            errors.password = 'Password must be at least 8 characters';
+        }
+        return errors;
+    };
+
+    const handleChange = (e) =&gt; {
+        const { name, value } = e.target;
+        setFormData(prev =&gt; ({ ...prev, [name]: value }));
+
+        // Clear error for field being typed
+        if (errors[name]) {
+            setErrors(prev =&gt; ({ ...prev, [name]: '' }));
+        }
+    };
+
+    const handleSubmit = async (e) =&gt; {
+        e.preventDefault();
+
+        const validationErrors = validate(formData);
+        if (Object.keys(validationErrors).length &gt; 0) {
+            setErrors(validationErrors);
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            await submitForm(formData);
+            // Handle success
+            console.log('Form submitted successfully');
+        } catch (error) {
+            // Handle error
+            setErrors({ submit: error.message });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit} noValidate&gt;
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="name"&gt;Name:&lt;/label&gt;
+                &lt;input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className={errors.name ? 'error' : ''}
+                /&gt;
+                {errors.name &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.name}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="email"&gt;Email:&lt;/label&gt;
+                &lt;input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={errors.email ? 'error' : ''}
+                /&gt;
+                {errors.email &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.email}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="password"&gt;Password:&lt;/label&gt;
+                &lt;input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={errors.password ? 'error' : ''}
+                /&gt;
+                {errors.password &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.password}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            {errors.submit &amp;&amp; (
+                &lt;div className="error-message"&gt;{errors.submit}&lt;/div&gt;
+            )}
+
+            &lt;button type="submit" disabled={isSubmitting}&gt;
+                {isSubmitting ? 'Submitting...' : 'Register'}
+            &lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h3 id="336-table-elements">3.3.6 Table Elements</h3>
+<h4 id="table-thead-tbody-tfoot-tables"><code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code> - Tables</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;table&gt;
+    &lt;caption&gt;User Information&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;ID&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Email&lt;/th&gt;
+            &lt;th&gt;Status&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;John Doe&lt;/td&gt;
+            &lt;td&gt;john@example.com&lt;/td&gt;
+            &lt;td&gt;Active&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;Jane Smith&lt;/td&gt;
+            &lt;td&gt;jane@example.com&lt;/td&gt;
+            &lt;td&gt;Inactive&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td colspan="4"&gt;Total: 2 users&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+
+&lt;!-- React Component --&gt;
+function DataTable({ 
+    columns, 
+    data, 
+    caption,
+    onRowClick,
+    loading = false 
+}) {
+    if (loading) {
+        return &lt;div className="loading"&gt;Loading...&lt;/div&gt;;
+    }
+
+    return (
+        &lt;table className="data-table"&gt;
+            {caption &amp;&amp; &lt;caption&gt;{caption}&lt;/caption&gt;}
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    {columns.map(col =&gt; (
+                        &lt;th key={col.key}&gt;{col.label}&lt;/th&gt;
+                    ))}
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                {data.map((row, index) =&gt; (
+                    &lt;tr 
+                        key={row.id || index}
+                        onClick={() =&gt; onRowClick?.(row)}
+                        className={onRowClick ? 'clickable' : ''}
+                    &gt;
+                        {columns.map(col =&gt; (
+                            &lt;td key={col.key}&gt;
+                                {col.render ? col.render(row[col.key], row) : row[col.key]}
+                            &lt;/td&gt;
+                        ))}
+                    &lt;/tr&gt;
+                ))}
+            &lt;/tbody&gt;
+            &lt;tfoot&gt;
+                &lt;tr&gt;
+                    &lt;td colSpan={columns.length}&gt;
+                        Total: {data.length} items
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tfoot&gt;
+        &lt;/table&gt;
+    );
+}
+
+// Usage
+function UserTable() {
+    const columns = [
+        { key: 'id', label: 'ID' },
+        { key: 'name', label: 'Name' },
+        { key: 'email', label: 'Email' },
+        { 
+            key: 'status', 
+            label: 'Status',
+            render: (status) =&gt; (
+                &lt;span className={`status-badge ${status.toLowerCase()}`}&gt;
+                    {status}
+                &lt;/span&gt;
+            )
+        }
+    ];
+
+    const data = [
+        { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive' }
+    ];
+
+    const handleRowClick = (row) =&gt; {
+        console.log('Selected:', row);
+    };
+
+    return (
+        &lt;DataTable
+            columns={columns}
+            data={data}
+            caption="User Information"
+            onRowClick={handleRowClick}
+        /&gt;
+    );
+}
+</code></pre>
+<h3 id="337-link-and-navigation-elements">3.3.7 Link and Navigation Elements</h3>
+<h4 id="a-anchorlink"><code>&lt;a&gt;</code> - Anchor/Link</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;!-- Regular link --&gt;
+&lt;a href="/about"&gt;About Us&lt;/a&gt;
+
+&lt;!-- External link --&gt;
+&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;
+    External Site
+&lt;/a&gt;
+
+&lt;!-- Email link --&gt;
+&lt;a href="mailto:info@example.com"&gt;Send Email&lt;/a&gt;
+
+&lt;!-- Phone link --&gt;
+&lt;a href="tel:+1234567890"&gt;Call Us&lt;/a&gt;
+
+&lt;!-- Anchor link --&gt;
+&lt;a href="#section"&gt;Jump to Section&lt;/a&gt;
+
+&lt;!-- React Component --&gt;
+function Link({ 
+    to, 
+    children, 
+    external = false, 
+    className, 
+    onClick 
+}) {
+    const props = { className };
+
+    if (external) {
+        props.href = to;
+        props.target = '_blank';
+        props.rel = 'noopener noreferrer';
+    } else {
+        props.href = to;
+    }
+
+    if (onClick) props.onClick = onClick;
+
+    return &lt;a {...props}&gt;{children}&lt;/a&gt;;
+}
+
+// React Router link
+import { Link as RouterLink } from 'react-router-dom';
+
+function Navigation() {
+    return (
+        &lt;nav&gt;
+            &lt;RouterLink to="/"&gt;Home&lt;/RouterLink&gt;
+            &lt;RouterLink to="/about"&gt;About&lt;/RouterLink&gt;
+            &lt;RouterLink to="/contact"&gt;Contact&lt;/RouterLink&gt;
+            &lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;
+                External
+            &lt;/a&gt;
+        &lt;/nav&gt;
+    );
+}
+</code></pre>
+<h3 id="338-multimedia-elements">3.3.8 Multimedia Elements</h3>
+<h4 id="svg-scalable-vector-graphics"><code>&lt;svg&gt;</code> - Scalable Vector Graphics</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;svg width="100" height="100" viewBox="0 0 100 100"&gt;
+    &lt;circle cx="50" cy="50" r="40" fill="blue" /&gt;
+    &lt;rect x="10" y="10" width="80" height="80" fill="transparent" stroke="red" /&gt;
+&lt;/svg&gt;
+
+&lt;!-- React Component --&gt;
+function Icon({ name, size = 24, color = 'currentColor' }) {
+    const icons = {
+        user: (
+            &lt;path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/&gt;
+        ),
+        search: (
+            &lt;path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/&gt;
+        ),
+        settings: (
+            &lt;path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/&gt;
+        )
+    };
+
+    return (
+        &lt;svg 
+            width={size} 
+            height={size} 
+            viewBox="0 0 24 24"
+            fill={color}
+            className="icon"
+        &gt;
+            {icons[name]}
+        &lt;/svg&gt;
+    );
+}
+</code></pre>
+<h4 id="canvas-dynamic-graphics"><code>&lt;canvas&gt;</code> - Dynamic Graphics</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;canvas id="chart" width="400" height="300"&gt;
+    Your browser doesn't support canvas.
+&lt;/canvas&gt;
+
+&lt;!-- React Component --&gt;
+function Chart({ data, type = 'bar' }) {
+    const canvasRef = useRef(null);
+
+    useEffect(() =&gt; {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw chart based on type
+        if (type === 'bar') {
+            drawBarChart(ctx, data, canvas);
+        } else if (type === 'line') {
+            drawLineChart(ctx, data, canvas);
+        }
+    }, [data, type]);
+
+    const drawBarChart = (ctx, data, canvas) =&gt; {
+        const barWidth = 60;
+        const gap = 20;
+        const startX = 50;
+        const maxHeight = 200;
+
+        data.forEach((item, index) =&gt; {
+            const height = (item.value / Math.max(...data.map(d =&gt; d.value))) * maxHeight;
+            const x = startX + (barWidth + gap) * index;
+            const y = canvas.height - height - 50;
+
+            ctx.fillStyle = item.color || '#3498db';
+            ctx.fillRect(x, y, barWidth, height);
+
+            // Add label
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(item.label, x + barWidth / 2, canvas.height - 20);
+
+            // Add value
+            ctx.fillStyle = '#555';
+            ctx.fillText(item.value, x + barWidth / 2, y - 10);
+        });
+    };
+
+    return (
+        &lt;canvas 
+            ref={canvasRef}
+            width={400}
+            height={300}
+            className="chart"
+        &gt;
+            Your browser doesn't support canvas.
+        &lt;/canvas&gt;
+    );
+}
+</code></pre>
+<h3 id="339-interactive-elements">3.3.9 Interactive Elements</h3>
+<h4 id="details-and-summary-collapsible-content"><code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> - Collapsible Content</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;details&gt;
+    &lt;summary&gt;Click to expand&lt;/summary&gt;
+    &lt;div class="content"&gt;
+        &lt;p&gt;Hidden content that appears when expanded.&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Item 1&lt;/li&gt;
+            &lt;li&gt;Item 2&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/details&gt;
+
+&lt;!-- React Component --&gt;
+function Accordion({ title, children, defaultOpen = false }) {
+    const [isOpen, setIsOpen] = useState(defaultOpen);
+
+    return (
+        &lt;details open={isOpen}&gt;
+            &lt;summary onClick={() =&gt; setIsOpen(!isOpen)}&gt;
+                {title}
+            &lt;/summary&gt;
+            &lt;div className="accordion-content"&gt;
+                {children}
+            &lt;/div&gt;
+        &lt;/details&gt;
+    );
+}
+
+// Usage
+function FAQ() {
+    return (
+        &lt;div className="faq"&gt;
+            &lt;Accordion title="What is React?"&gt;
+                &lt;p&gt;React is a JavaScript library for building user interfaces.&lt;/p&gt;
+            &lt;/Accordion&gt;
+            &lt;Accordion title="Why use React?" defaultOpen&gt;
+                &lt;p&gt;React offers component-based architecture, virtual DOM, and unidirectional data flow.&lt;/p&gt;
+            &lt;/Accordion&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="dialog-modal-dialog"><code>&lt;dialog&gt;</code> - Modal Dialog</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;dialog id="modal"&gt;
+    &lt;h2&gt;Modal Title&lt;/h2&gt;
+    &lt;p&gt;Modal content goes here.&lt;/p&gt;
+    &lt;button onclick="closeModal()"&gt;Close&lt;/button&gt;
+&lt;/dialog&gt;
+
+&lt;!-- React Component --&gt;
+function Modal({ isOpen, onClose, title, children }) {
+    const dialogRef = useRef(null);
+
+    useEffect(() =&gt; {
+        if (isOpen) {
+            dialogRef.current.showModal();
+        } else {
+            dialogRef.current.close();
+        }
+    }, [isOpen]);
+
+    // Close on backdrop click
+    const handleBackdropClick = (e) =&gt; {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    };
+
+    return (
+        &lt;dialog 
+            ref={dialogRef}
+            onClick={handleBackdropClick}
+            className="modal"
+        &gt;
+            &lt;div className="modal-content"&gt;
+                &lt;header&gt;
+                    &lt;h2&gt;{title}&lt;/h2&gt;
+                    &lt;button 
+                        className="close-btn" 
+                        onClick={onClose}
+                        aria-label="Close dialog"
+                    &gt;
+                        ×
+                    &lt;/button&gt;
+                &lt;/header&gt;
+                &lt;div className="modal-body"&gt;
+                    {children}
+                &lt;/div&gt;
+                &lt;footer&gt;
+                    &lt;button onClick={onClose}&gt;Close&lt;/button&gt;
+                &lt;/footer&gt;
+            &lt;/div&gt;
+        &lt;/dialog&gt;
+    );
+}
+
+// Usage
+function App() {
+    const [modalOpen, setModalOpen] = useState(false);
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={() =&gt; setModalOpen(true)}&gt;
+                Open Modal
+            &lt;/button&gt;
+            &lt;Modal 
+                isOpen={modalOpen}
+                onClose={() =&gt; setModalOpen(false)}
+                title="Welcome!"
+            &gt;
+                &lt;p&gt;This is a modal dialog.&lt;/p&gt;
+                &lt;p&gt;It's accessible and uses the native HTML dialog element.&lt;/p&gt;
+            &lt;/Modal&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h3 id="3310-progress-and-meter">3.3.10 Progress and Meter</h3>
+<h4 id="progress-progress-bar"><code>&lt;progress&gt;</code> - Progress Bar</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+
+&lt;!-- React Component --&gt;
+function ProgressBar({ value, max = 100, showLabel = true }) {
+    const percentage = Math.min((value / max) * 100, 100);
+    const isComplete = percentage &gt;= 100;
+
+    return (
+        &lt;div className="progress-container"&gt;
+            &lt;progress 
+                value={value} 
+                max={max}
+                className={isComplete ? 'complete' : ''}
+            &gt;
+                {percentage}%
+            &lt;/progress&gt;
+            {showLabel &amp;&amp; (
+                &lt;span className="progress-label"&gt;
+                    {percentage.toFixed(1)}%
+                &lt;/span&gt;
+            )}
+        &lt;/div&gt;
+    );
+}
+
+// Usage in upload
+function FileUpload() {
+    const [progress, setProgress] = useState(0);
+    const [uploading, setUploading] = useState(false);
+
+    const handleUpload = async (file) =&gt; {
+        setUploading(true);
+        setProgress(0);
+
+        // Simulate upload progress
+        const interval = setInterval(() =&gt; {
+            setProgress(prev =&gt; {
+                const newProgress = prev + 10;
+                if (newProgress &gt;= 100) {
+                    clearInterval(interval);
+                    setUploading(false);
+                }
+                return Math.min(newProgress, 100);
+            });
+        }, 300);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input 
+                type="file" 
+                onChange={(e) =&gt; handleUpload(e.target.files[0])}
+                disabled={uploading}
+            /&gt;
+            {uploading &amp;&amp; &lt;ProgressBar value={progress} /&gt;}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="meter-gaugemeter"><code>&lt;meter&gt;</code> - Gauge/Meter</h4>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;meter value="70" min="0" max="100"&gt;70%&lt;/meter&gt;
+&lt;meter value="0.6"&gt;60%&lt;/meter&gt;
+
+&lt;!-- React Component --&gt;
+function Gauge({ value, min = 0, max = 100, label }) {
+    const percentage = ((value - min) / (max - min)) * 100;
+
+    const getColor = () =&gt; {
+        if (percentage &lt; 30) return '#e74c3c'; // Red
+        if (percentage &lt; 60) return '#f39c12'; // Yellow
+        if (percentage &lt; 80) return '#2ecc71'; // Green
+        return '#27ae60'; // Dark green
+    };
+
+    return (
+        &lt;div className="gauge-container"&gt;
+            {label &amp;&amp; &lt;label&gt;{label}&lt;/label&gt;}
+            &lt;meter 
+                value={value} 
+                min={min} 
+                max={max}
+                style={{ '--meter-color': getColor() }}
+            &gt;
+                {percentage}%
+            &lt;/meter&gt;
+            &lt;span className="gauge-value"&gt;{value}&lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Usage in dashboard
+function Dashboard() {
+    const metrics = [
+        { id: 1, label: 'CPU Usage', value: 72, min: 0, max: 100 },
+        { id: 2, label: 'Memory', value: 45, min: 0, max: 100 },
+        { id: 3, label: 'Disk Space', value: 88, min: 0, max: 100 }
+    ];
+
+    return (
+        &lt;div&gt;
+            {metrics.map(metric =&gt; (
+                &lt;Gauge
+                    key={metric.id}
+                    label={metric.label}
+                    value={metric.value}
+                    min={metric.min}
+                    max={metric.max}
+                /&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="34-html-attributes">3.4 HTML Attributes</h2>
+<h3 id="341-global-attributes">3.4.1 Global Attributes</h3>
+<pre><code class="language-javascript">// Global attributes available on all HTML elements
+function GlobalAttributesDemo() {
+    return (
+        &lt;div
+            id="main-container"
+            className="container"
+            style={{ padding: '20px', backgroundColor: '#f0f0f0' }}
+            title="This is a tooltip"
+            lang="en"
+            dir="ltr"
+            hidden={false}
+            tabIndex={0}
+            accessKey="m"
+            draggable={true}
+            spellCheck={true}
+            data-user-id="12345"
+            aria-label="Main container"
+            role="main"
+        &gt;
+            &lt;p&gt;This element has many global attributes.&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h3 id="342-data-attributes">3.4.2 Data Attributes</h3>
+<pre><code class="language-javascript">// Data attributes for storing custom data
+function DataAttributesDemo() {
+    const [user, setUser] = useState(null);
+
+    const handleClick = (e) =&gt; {
+        // Access data attributes
+        const userId = e.target.dataset.userId;
+        const userRole = e.target.dataset.role;
+        console.log(`User ${userId} has role ${userRole}`);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;button
+                data-user-id="123"
+                data-role="admin"
+                data-status="active"
+                onClick={handleClick}
+            &gt;
+                Click me
+            &lt;/button&gt;
+
+            {/* React component with data attributes */}
+            {user &amp;&amp; (
+                &lt;div data-user={JSON.stringify(user)}&gt;
+                    &lt;h3&gt;{user.name}&lt;/h3&gt;
+                    &lt;p data-testid="user-email"&gt;{user.email}&lt;/p&gt;
+                &lt;/div&gt;
+            )}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h3 id="343-aria-attributes-accessibility">3.4.3 ARIA Attributes (Accessibility)</h3>
+<pre><code class="language-javascript">// ARIA attributes for accessibility
+function AccessibleComponent({ isOpen, onClose, items }) {
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
+    return (
+        &lt;div role="dialog" aria-modal="true" aria-labelledby="dialog-title"&gt;
+            &lt;h2 id="dialog-title"&gt;Dialog Title&lt;/h2&gt;
+
+            &lt;div role="tablist" aria-label="Tabs"&gt;
+                {items.map((item, index) =&gt; (
+                    &lt;button
+                        key={index}
+                        role="tab"
+                        aria-selected={selectedIndex === index}
+                        aria-controls={`panel-${index}`}
+                        id={`tab-${index}`}
+                        onClick={() =&gt; setSelectedIndex(index)}
+                    &gt;
+                        {item.label}
+                    &lt;/button&gt;
+                ))}
+            &lt;/div&gt;
+
+            &lt;div
+                role="tabpanel"
+                id="panel-0"
+                aria-labelledby="tab-0"
+                hidden={selectedIndex !== 0}
+            &gt;
+                {items[0].content}
+            &lt;/div&gt;
+
+            &lt;button
+                aria-label="Close dialog"
+                onClick={onClose}
+            &gt;
+                Close
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="35-forms-and-validation">3.5 Forms and Validation</h2>
+<h3 id="351-form-validation">3.5.1 Form Validation</h3>
+<pre><code class="language-javascript">// Advanced form validation with HTML5 attributes
+function ValidatedForm() {
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        age: '',
+        website: '',
+        birthDate: ''
+    });
+
+    const [touched, setTouched] = useState({});
+    const [errors, setErrors] = useState({});
+
+    const validators = {
+        username: (value) =&gt; {
+            if (!value) return 'Username is required';
+            if (value.length &lt; 3) return 'Username must be at least 3 characters';
+            if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+                return 'Username can only contain letters, numbers, and underscores';
+            }
+            return '';
+        },
+        email: (value) =&gt; {
+            if (!value) return 'Email is required';
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                return 'Please enter a valid email address';
+            }
+            return '';
+        },
+        password: (value) =&gt; {
+            if (!value) return 'Password is required';
+            if (value.length &lt; 8) return 'Password must be at least 8 characters';
+            if (!/[A-Z]/.test(value)) {
+                return 'Password must contain at least one uppercase letter';
+            }
+            if (!/[a-z]/.test(value)) {
+                return 'Password must contain at least one lowercase letter';
+            }
+            if (!/[0-9]/.test(value)) {
+                return 'Password must contain at least one number';
+            }
+            if (!/[!@#$%^&amp;*]/.test(value)) {
+                return 'Password must contain at least one special character';
+            }
+            return '';
+        },
+        confirmPassword: (value) =&gt; {
+            if (!value) return 'Please confirm your password';
+            if (value !== formData.password) return 'Passwords do not match';
+            return '';
+        },
+        age: (value) =&gt; {
+            const num = Number(value);
+            if (!value) return 'Age is required';
+            if (isNaN(num)) return 'Please enter a valid number';
+            if (num &lt; 13) return 'You must be at least 13 years old';
+            if (num &gt; 120) return 'Please enter a valid age';
+            return '';
+        },
+        website: (value) =&gt; {
+            if (!value) return '';
+            try {
+                new URL(value);
+                return '';
+            } catch {
+                return 'Please enter a valid URL';
+            }
+        },
+        birthDate: (value) =&gt; {
+            if (!value) return 'Birth date is required';
+            const date = new Date(value);
+            const today = new Date();
+            let age = today.getFullYear() - date.getFullYear();
+            const monthDiff = today.getMonth() - date.getMonth();
+            if (monthDiff &lt; 0 || (monthDiff === 0 &amp;&amp; today.getDate() &lt; date.getDate())) {
+                age--;
+            }
+            if (age &lt; 13) return 'You must be at least 13 years old';
+            return '';
+        }
+    };
+
+    const validate = (name, value) =&gt; {
+        return validators[name] ? validators[name](value) : '';
+    };
+
+    const handleChange = (e) =&gt; {
+        const { name, value, type, checked } = e.target;
+        const val = type === 'checkbox' ? checked : value;
+
+        setFormData(prev =&gt; ({ ...prev, [name]: val }));
+
+        // Validate on change
+        const error = validate(name, val);
+        setErrors(prev =&gt; ({ ...prev, [name]: error }));
+    };
+
+    const handleBlur = (e) =&gt; {
+        const { name } = e.target;
+        setTouched(prev =&gt; ({ ...prev, [name]: true }));
+    };
+
+    const handleSubmit = (e) =&gt; {
+        e.preventDefault();
+
+        // Validate all fields
+        const newErrors = {};
+        Object.keys(validators).forEach(key =&gt; {
+            const error = validate(key, formData[key]);
+            if (error) newErrors[key] = error;
+        });
+
+        setErrors(newErrors);
+        setTouched(Object.keys(formData).reduce((acc, key) =&gt; ({ ...acc, [key]: true }), {}));
+
+        if (Object.keys(newErrors).length === 0) {
+            // Form is valid
+            console.log('Form submitted:', formData);
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit} noValidate&gt;
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="username"&gt;
+                    Username &lt;span className="required"&gt;*&lt;/span&gt;
+                &lt;/label&gt;
+                &lt;input
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={touched.username &amp;&amp; errors.username ? 'error' : ''}
+                    aria-describedby={errors.username ? 'username-error' : undefined}
+                    required
+                    pattern="[a-zA-Z0-9_]{3,20}"
+                    title="3-20 characters, letters, numbers, and underscores only"
+                /&gt;
+                {touched.username &amp;&amp; errors.username &amp;&amp; (
+                    &lt;span id="username-error" className="error-message" role="alert"&gt;
+                        {errors.username}
+                    &lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="email"&gt;Email &lt;span className="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+                &lt;input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={touched.email &amp;&amp; errors.email ? 'error' : ''}
+                    required
+                /&gt;
+                {touched.email &amp;&amp; errors.email &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.email}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="password"&gt;Password &lt;span className="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+                &lt;input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={touched.password &amp;&amp; errors.password ? 'error' : ''}
+                    minLength={8}
+                    required
+                /&gt;
+                &lt;div className="password-strength"&gt;
+                    &lt;span className="strength-label"&gt;Password strength: &lt;/span&gt;
+                    &lt;span className={`strength-${getPasswordStrength(formData.password)}`}&gt;
+                        {getPasswordStrength(formData.password)}
+                    &lt;/span&gt;
+                &lt;/div&gt;
+                {touched.password &amp;&amp; errors.password &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.password}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="confirmPassword"&gt;Confirm Password &lt;span className="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+                &lt;input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={touched.confirmPassword &amp;&amp; errors.confirmPassword ? 'error' : ''}
+                    required
+                /&gt;
+                {touched.confirmPassword &amp;&amp; errors.confirmPassword &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.confirmPassword}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="age"&gt;Age &lt;span className="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+                &lt;input
+                    type="number"
+                    id="age"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={touched.age &amp;&amp; errors.age ? 'error' : ''}
+                    min="13"
+                    max="120"
+                    required
+                /&gt;
+                {touched.age &amp;&amp; errors.age &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.age}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="website"&gt;Website&lt;/label&gt;
+                &lt;input
+                    type="url"
+                    id="website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={touched.website &amp;&amp; errors.website ? 'error' : ''}
+                    placeholder="https://example.com"
+                /&gt;
+                {touched.website &amp;&amp; errors.website &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.website}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;div className="form-group"&gt;
+                &lt;label htmlFor="birthDate"&gt;Birth Date &lt;span className="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+                &lt;input
+                    type="date"
+                    id="birthDate"
+                    name="birthDate"
+                    value={formData.birthDate}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={touched.birthDate &amp;&amp; errors.birthDate ? 'error' : ''}
+                    required
+                /&gt;
+                {touched.birthDate &amp;&amp; errors.birthDate &amp;&amp; (
+                    &lt;span className="error-message"&gt;{errors.birthDate}&lt;/span&gt;
+                )}
+            &lt;/div&gt;
+
+            &lt;button type="submit"&gt;Submit&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+
+// Password strength helper
+function getPasswordStrength(password) {
+    let score = 0;
+    if (password.length &gt;= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[!@#$%^&amp;*]/.test(password)) score++;
+
+    switch (score) {
+        case 0:
+        case 1: return 'weak';
+        case 2:
+        case 3: return 'medium';
+        case 4:
+        case 5: return 'strong';
+        default: return 'weak';
+    }
+}
+</code></pre>
+<h2 id="36-semantic-html-and-accessibility">3.6 Semantic HTML and Accessibility</h2>
+<h3 id="361-semantic-html-in-react">3.6.1 Semantic HTML in React</h3>
+<pre><code class="language-javascript">// Building accessible React components with semantic HTML
+function AccessibleArticle({ article }) {
+    return (
+        &lt;article aria-labelledby={`article-title-${article.id}`}&gt;
+            &lt;header&gt;
+                &lt;h2 id={`article-title-${article.id}`}&gt;{article.title}&lt;/h2&gt;
+                &lt;div className="article-meta"&gt;
+                    &lt;time dateTime={article.date}&gt;{formatDate(article.date)}&lt;/time&gt;
+                    &lt;address&gt;
+                        &lt;a href={`/authors/${article.author.id}`}&gt;
+                            {article.author.name}
+                        &lt;/a&gt;
+                    &lt;/address&gt;
+                &lt;/div&gt;
+            &lt;/header&gt;
+
+            &lt;div className="article-content"&gt;
+                &lt;p&gt;{article.excerpt}&lt;/p&gt;
+                &lt;figure&gt;
+                    &lt;img 
+                        src={article.image} 
+                        alt={article.imageAlt || 'Article image'}
+                        loading="lazy"
+                    /&gt;
+                    {article.caption &amp;&amp; (
+                        &lt;figcaption&gt;{article.caption}&lt;/figcaption&gt;
+                    )}
+                &lt;/figure&gt;
+                &lt;div dangerouslySetInnerHTML={{ __html: article.content }} /&gt;
+            &lt;/div&gt;
+
+            &lt;footer&gt;
+                &lt;nav aria-label="Article navigation"&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;Link to={`/articles/${article.id}/share`}&gt;
+                                Share
+                            &lt;/Link&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;Link to={`/articles/${article.id}/comments`}&gt;
+                                Comments ({article.comments.length})
+                            &lt;/Link&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/nav&gt;
+            &lt;/footer&gt;
+        &lt;/article&gt;
+    );
+}
+</code></pre>
+<h3 id="362-aria-implementation">3.6.2 ARIA Implementation</h3>
+<pre><code class="language-javascript">// Comprehensive ARIA implementation
+function AccessibleMenu({ items, onSelect }) {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const menuRef = useRef(null);
+
+    useEffect(() =&gt; {
+        if (menuRef.current) {
+            const firstItem = menuRef.current.querySelector('[role="menuitem"]');
+            if (firstItem) {
+                firstItem.focus();
+            }
+        }
+    }, []);
+
+    const handleKeyDown = (e) =&gt; {
+        let newIndex = activeIndex;
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                newIndex = (activeIndex + 1) % items.length;
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                newIndex = (activeIndex - 1 + items.length) % items.length;
+                break;
+            case 'Home':
+                e.preventDefault();
+                newIndex = 0;
+                break;
+            case 'End':
+                e.preventDefault();
+                newIndex = items.length - 1;
+                break;
+            case 'Enter':
+            case ' ':
+                e.preventDefault();
+                onSelect(items[activeIndex]);
+                break;
+            default:
+                return;
+        }
+
+        setActiveIndex(newIndex);
+        const menuItems = menuRef.current.querySelectorAll('[role="menuitem"]');
+        menuItems[newIndex]?.focus();
+    };
+
+    return (
+        &lt;div
+            ref={menuRef}
+            role="menu"
+            aria-label="Navigation menu"
+            onKeyDown={handleKeyDown}
+        &gt;
+            {items.map((item, index) =&gt; (
+                &lt;div
+                    key={item.id}
+                    role="menuitem"
+                    tabIndex={index === activeIndex ? 0 : -1}
+                    aria-current={index === activeIndex ? 'true' : 'false'}
+                    onClick={() =&gt; onSelect(item)}
+                    onMouseEnter={() =&gt; setActiveIndex(index)}
+                    className={`menu-item ${index === activeIndex ? 'active' : ''}`}
+                &gt;
+                    {item.icon &amp;&amp; &lt;span aria-hidden="true"&gt;{item.icon}&lt;/span&gt;}
+                    {item.label}
+                    {item.shortcut &amp;&amp; (
+                        &lt;span className="shortcut"&gt;{item.shortcut}&lt;/span&gt;
+                    )}
+                &lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="37-seo-in-react">3.7 SEO in React</h2>
+<h3 id="371-meta-tags-and-seo">3.7.1 Meta Tags and SEO</h3>
+<pre><code class="language-javascript">// SEO component with React Helmet
+import { Helmet } from 'react-helmet';
+
+function SEO({ 
+    title, 
+    description, 
+    keywords, 
+    image, 
+    url, 
+    type = 'website',
+    author = 'Your Company'
+}) {
+    return (
+        &lt;Helmet&gt;
+            {/* Basic Meta Tags */}
+            &lt;title&gt;{title}&lt;/title&gt;
+            &lt;meta name="description" content={description} /&gt;
+            &lt;meta name="keywords" content={keywords} /&gt;
+            &lt;meta name="author" content={author} /&gt;
+
+            {/* Open Graph Meta Tags */}
+            &lt;meta property="og:title" content={title} /&gt;
+            &lt;meta property="og:description" content={description} /&gt;
+            &lt;meta property="og:image" content={image} /&gt;
+            &lt;meta property="og:url" content={url} /&gt;
+            &lt;meta property="og:type" content={type} /&gt;
+
+            {/* Twitter Card */}
+            &lt;meta name="twitter:card" content="summary_large_image" /&gt;
+            &lt;meta name="twitter:title" content={title} /&gt;
+            &lt;meta name="twitter:description" content={description} /&gt;
+            &lt;meta name="twitter:image" content={image} /&gt;
+
+            {/* JSON-LD Structured Data */}
+            &lt;script type="application/ld+json"&gt;
+                {JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'WebPage',
+                    'name': title,
+                    'description': description,
+                    'url': url,
+                    'author': {
+                        '@type': 'Organization',
+                        'name': author
+                    }
+                })}
+            &lt;/script&gt;
+        &lt;/Helmet&gt;
+    );
+}
+
+// Usage in page component
+function BlogPostPage({ post }) {
+    return (
+        &lt;&gt;
+            &lt;SEO
+                title={post.title}
+                description={post.excerpt}
+                keywords={post.tags.join(', ')}
+                image={post.featuredImage}
+                url={`https://example.com/posts/${post.slug}`}
+                type="article"
+            /&gt;
+
+            &lt;article&gt;
+                &lt;h1&gt;{post.title}&lt;/h1&gt;
+                {/* Blog content */}
+            &lt;/article&gt;
+        &lt;/&gt;
+    );
+}
+</code></pre>
+<h3 id="372-sitemaps-and-robots">3.7.2 Sitemaps and Robots</h3>
+<pre><code class="language-javascript">// Sitemap generation configuration
+function generateSitemap() {
+    const baseUrl = 'https://example.com';
+    const routes = [
+        { path: '/', priority: 1.0, changefreq: 'daily' },
+        { path: '/about', priority: 0.8, changefreq: 'monthly' },
+        { path: '/blog', priority: 0.9, changefreq: 'weekly' },
+        { path: '/contact', priority: 0.7, changefreq: 'monthly' }
+    ];
+
+    const sitemap = `&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+        ${routes.map(route =&gt; `
+            &lt;url&gt;
+                &lt;loc&gt;${baseUrl}${route.path}&lt;/loc&gt;
+                &lt;lastmod&gt;${new Date().toISOString().split('T')[0]}&lt;/lastmod&gt;
+                &lt;changefreq&gt;${route.changefreq}&lt;/changefreq&gt;
+                &lt;priority&gt;${route.priority}&lt;/priority&gt;
+            &lt;/url&gt;
+        `).join('')}
+    &lt;/urlset&gt;`;
+
+    return sitemap;
+}
+
+// robots.txt
+const robotsTxt = `
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Sitemap: https://example.com/sitemap.xml
+`;
+</code></pre>
+<h2 id="38-performance-and-optimization">3.8 Performance and Optimization</h2>
+<h3 id="381-resource-loading">3.8.1 Resource Loading</h3>
+<pre><code class="language-javascript">// Optimized resource loading
+function OptimizedResourceLoading() {
+    return (
+        &lt;&gt;
+            {/* Preconnect to critical origins */}
+            &lt;link rel="preconnect" href="https://api.example.com" /&gt;
+            &lt;link rel="preconnect" href="https://cdn.example.com" /&gt;
+
+            {/* Preload critical resources */}
+            &lt;link 
+                rel="preload" 
+                href="/fonts/main-font.woff2" 
+                as="font" 
+                type="font/woff2"
+                crossOrigin="anonymous"
+            /&gt;
+            &lt;link 
+                rel="preload" 
+                href="/images/hero.webp" 
+                as="image"
+                type="image/webp"
+            /&gt;
+
+            {/* Prefetch for navigation */}
+            &lt;link rel="prefetch" href="/pages/dashboard.js" /&gt;
+            &lt;link rel="prefetch" href="/pages/settings.js" /&gt;
+
+            {/* DNS prefetch */}
+            &lt;link rel="dns-prefetch" href="//api.example.com" /&gt;
+
+            {/* Lazy load images */}
+            &lt;img 
+                src="/images/placeholder.png"
+                data-src="/images/actual-image.jpg"
+                loading="lazy"
+                className="lazy-image"
+                alt="Lazy loaded image"
+            /&gt;
+
+            {/* Defer non-critical scripts */}
+            &lt;script 
+                src="/analytics.js" 
+                defer 
+                async={false}
+            /&gt;
+
+            {/* Module scripts */}
+            &lt;script type="module" src="/app.js" /&gt;
+        &lt;/&gt;
+    );
+}
+</code></pre>
+<h3 id="382-progressive-enhancement">3.8.2 Progressive Enhancement</h3>
+<pre><code class="language-javascript">// Progressive enhancement in React
+function ProgressiveComponent({ children, fallback }) {
+    const [isSupported, setIsSupported] = useState(true);
+
+    useEffect(() =&gt; {
+        // Check if feature is supported
+        const supportsFeature = 'IntersectionObserver' in window;
+        setIsSupported(supportsFeature);
+    }, []);
+
+    if (!isSupported) {
+        return fallback || &lt;div&gt;Browser not supported&lt;/div&gt;;
+    }
+
+    return children;
+}
+
+// Component with progressive enhancement
+function EnhancedFeature() {
+    return (
+        &lt;ProgressiveComponent 
+            fallback={
+                &lt;div className="fallback"&gt;
+                    &lt;h3&gt;Basic Version&lt;/h3&gt;
+                    &lt;p&gt;Your browser doesn't support this feature.&lt;/p&gt;
+                &lt;/div&gt;
+            }
+        &gt;
+            &lt;div className="enhanced"&gt;
+                &lt;h3&gt;Enhanced Version&lt;/h3&gt;
+                &lt;p&gt;Using modern browser features for better experience.&lt;/p&gt;
+                &lt;button 
+                    ref={(ref) =&gt; {
+                        if (ref &amp;&amp; 'IntersectionObserver' in window) {
+                            // Use IntersectionObserver
+                        }
+                    }}
+                &gt;
+                    Enhanced Button
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/ProgressiveComponent&gt;
+    );
+}
+</code></pre>
+<h2 id="39-common-mistakes-and-best-practices">3.9 Common Mistakes and Best Practices</h2>
+<h3 id="391-common-html-mistakes-in-react">3.9.1 Common HTML Mistakes in React</h3>
+<pre><code class="language-javascript">// ❌ Incorrect HTML practices in React
+function BadComponent() {
+    return (
+        &lt;&gt;
+            {/* ❌ Div soup - too many unnecessary divs */}
+            &lt;div&gt;
+                &lt;div&gt;
+                    &lt;div&gt;
+                        &lt;h1&gt;Hello&lt;/h1&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            {/* ❌ Using inline styles over CSS */}
+            &lt;div style={{ color: 'red', fontSize: '16px' }}&gt;
+                Inline styles everywhere
+            &lt;/div&gt;
+
+            {/* ❌ Non-semantic elements */}
+            &lt;div className="article"&gt;
+                &lt;div className="title"&gt;Title&lt;/div&gt;
+                &lt;div className="content"&gt;Content&lt;/div&gt;
+            &lt;/div&gt;
+
+            {/* ❌ Missing alt text on images */}
+            &lt;img src="image.jpg" /&gt;
+
+            {/* ❌ Missing form labels */}
+            &lt;input type="text" placeholder="Name" /&gt;
+
+            {/* ❌ Improper heading hierarchy */}
+            &lt;h3&gt;Section&lt;/h3&gt;
+            &lt;h1&gt;Subsection&lt;/h1&gt;
+        &lt;/&gt;
+    );
+}
+
+// ✅ Correct HTML practices in React
+function GoodComponent() {
+    return (
+        &lt;&gt;
+            {/* ✅ Minimal, semantic structure */}
+            &lt;header&gt;
+                &lt;h1&gt;Hello&lt;/h1&gt;
+            &lt;/header&gt;
+
+            {/* ✅ CSS modules or styled-components */}
+            &lt;div className={styles.container}&gt;
+                &lt;p className={styles.text}&gt;Styled with CSS modules&lt;/p&gt;
+            &lt;/div&gt;
+
+            {/* ✅ Semantic elements */}
+            &lt;article&gt;
+                &lt;h2&gt;Title&lt;/h2&gt;
+                &lt;p&gt;Content&lt;/p&gt;
+            &lt;/article&gt;
+
+            {/* ✅ Alt text on images */}
+            &lt;img 
+                src="image.jpg" 
+                alt="Description of the image" 
+            /&gt;
+
+            {/* ✅ Proper form labels */}
+            &lt;label htmlFor="name"&gt;Name&lt;/label&gt;
+            &lt;input 
+                type="text" 
+                id="name" 
+                placeholder="Enter your name" 
+            /&gt;
+
+            {/* ✅ Proper heading hierarchy */}
+            &lt;h1&gt;Page Title&lt;/h1&gt;
+            &lt;h2&gt;Section&lt;/h2&gt;
+            &lt;h3&gt;Subsection&lt;/h3&gt;
+        &lt;/&gt;
+    );
+}
+</code></pre>
+<h3 id="392-html-best-practices-in-react">3.9.2 HTML Best Practices in React</h3>
+<pre><code class="language-javascript">// HTML best practices in React
+function BestPracticesComponent() {
+    return (
+        &lt;&gt;
+            {/* ✅ Use semantic HTML */}
+            &lt;header className="site-header"&gt;
+                &lt;nav aria-label="Main navigation"&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;Link to="/"&gt;Home&lt;/Link&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;Link to="/about"&gt;About&lt;/Link&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/nav&gt;
+            &lt;/header&gt;
+
+            &lt;main&gt;
+                &lt;article&gt;
+                    &lt;h2&gt;Article Title&lt;/h2&gt;
+                    &lt;p&gt;Content goes here...&lt;/p&gt;
+
+                    {/* ✅ Proper figure with figcaption */}
+                    &lt;figure&gt;
+                        &lt;img 
+                            src="/chart.png" 
+                            alt="Chart showing data trends"
+                            loading="lazy"
+                        /&gt;
+                        &lt;figcaption&gt;Figure 1: Data trends over time&lt;/figcaption&gt;
+                    &lt;/figure&gt;
+
+                    {/* ✅ Proper table structure */}
+                    &lt;table&gt;
+                        &lt;caption&gt;User Statistics&lt;/caption&gt;
+                        &lt;thead&gt;
+                            &lt;tr&gt;
+                                &lt;th scope="col"&gt;Month&lt;/th&gt;
+                                &lt;th scope="col"&gt;Users&lt;/th&gt;
+                            &lt;/tr&gt;
+                        &lt;/thead&gt;
+                        &lt;tbody&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;January&lt;/td&gt;
+                                &lt;td&gt;1,000&lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/tbody&gt;
+                    &lt;/table&gt;
+
+                    {/* ✅ Proper lists */}
+                    &lt;ul&gt;
+                        &lt;li&gt;Item 1&lt;/li&gt;
+                        &lt;li&gt;Item 2&lt;/li&gt;
+                    &lt;/ul&gt;
+
+                    &lt;ol&gt;
+                        &lt;li&gt;Step 1&lt;/li&gt;
+                        &lt;li&gt;Step 2&lt;/li&gt;
+                    &lt;/ol&gt;
+
+                    {/* ✅ Proper form with validation */}
+                    &lt;form onSubmit={handleSubmit}&gt;
+                        &lt;div className="form-group"&gt;
+                            &lt;label htmlFor="username"&gt;Username&lt;/label&gt;
+                            &lt;input 
+                                id="username"
+                                type="text" 
+                                required
+                                aria-describedby="username-help"
+                            /&gt;
+                            &lt;div id="username-help" className="help-text"&gt;
+                                Username must be 3-20 characters
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/form&gt;
+                &lt;/article&gt;
+
+                {/* ✅ Proper aside for related content */}
+                &lt;aside aria-labelledby="related-title"&gt;
+                    &lt;h3 id="related-title"&gt;Related Articles&lt;/h3&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;Link to="/article1"&gt;Article 1&lt;/Link&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;Link to="/article2"&gt;Article 2&lt;/Link&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/aside&gt;
+            &lt;/main&gt;
+
+            &lt;footer&gt;
+                &lt;p&gt;&amp;copy; 2024 Company&lt;/p&gt;
+                &lt;nav aria-label="Footer navigation"&gt;
+                    &lt;Link to="/privacy"&gt;Privacy&lt;/Link&gt;
+                    &lt;Link to="/terms"&gt;Terms&lt;/Link&gt;
+                &lt;/nav&gt;
+            &lt;/footer&gt;
+        &lt;/&gt;
+    );
+}
+</code></pre>
+<h2 id="310-interview-questions">3.10 Interview Questions</h2>
+<h3 id="junior-level-questions--3">Junior Level Questions</h3>
+<p><strong>Q: What is the difference between <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code>?</strong></p>
+<p><strong>Answer</strong>: 
+- <code>&lt;div&gt;</code> is a block-level element that creates a new line and takes full width
+- <code>&lt;span&gt;</code> is an inline element that stays in the line with other elements</p>
+<pre><code class="language-html">&lt;div class="container"&gt;
+    This is a block element
+&lt;/div&gt;
+&lt;p&gt;This is &lt;span class="highlight"&gt;inline&lt;/span&gt; text&lt;/p&gt;
+</code></pre>
+<h3 id="mid-level-questions--3">Mid Level Questions</h3>
+<p><strong>Q: What are semantic HTML elements and why are they important?</strong></p>
+<p><strong>Answer</strong>:
+Semantic HTML elements describe their meaning to both browsers and developers. They're important for:
+1. Accessibility - Screen readers understand the structure
+2. SEO - Search engines understand content hierarchy
+3. Maintainability - Code is more readable
+4. Developer experience - Clear intent of code</p>
+<pre><code class="language-html">&lt;!-- Non-semantic --&gt;
+&lt;div class="header"&gt;Header&lt;/div&gt;
+&lt;div class="nav"&gt;Navigation&lt;/div&gt;
+&lt;div class="main"&gt;Content&lt;/div&gt;
+
+&lt;!-- Semantic --&gt;
+&lt;header&gt;Header&lt;/header&gt;
+&lt;nav&gt;Navigation&lt;/nav&gt;
+&lt;main&gt;Content&lt;/main&gt;
+</code></pre>
+<h3 id="senior-level-questions--3">Senior Level Questions</h3>
+<p><strong>Q: How do you handle accessibility in React applications?</strong></p>
+<p><strong>Answer</strong>:
+1. Use semantic HTML elements
+2. Implement ARIA attributes properly
+3. Ensure keyboard navigation
+4. Manage focus programmatically
+5. Provide proper labels for form elements
+6. Use proper heading hierarchy
+7. Implement proper roles for custom components</p>
+<pre><code class="language-javascript">function AccessibleModal({ isOpen, onClose, title, children }) {
+    const modalRef = useRef(null);
+
+    useEffect(() =&gt; {
+        if (isOpen) {
+            // Focus trap
+            modalRef.current?.focus();
+            // Prevent background scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        return () =&gt; {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    return (
+        &lt;div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            className="modal-overlay"
+            onClick={(e) =&gt; {
+                if (e.target === e.currentTarget) onClose();
+            }}
+        &gt;
+            &lt;div className="modal-content"&gt;
+                &lt;header&gt;
+                    &lt;h2 id="modal-title"&gt;{title}&lt;/h2&gt;
+                    &lt;button
+                        onClick={onClose}
+                        aria-label="Close dialog"
+                        className="close-button"
+                    &gt;
+                        ×
+                    &lt;/button&gt;
+                &lt;/header&gt;
+                &lt;div className="modal-body"&gt;
+                    {children}
+                &lt;/div&gt;
+                &lt;footer&gt;
+                    &lt;button onClick={onClose}&gt;Close&lt;/button&gt;
+                &lt;/footer&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="311-summary">3.11 Summary</h2>
+<h3 id="key-html-concepts-for-react">Key HTML Concepts for React</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Purpose</th>
+<th>React Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;div&gt;</code></td>
+<td>Generic block container</td>
+<td>Layout, grouping</td>
+</tr>
+<tr>
+<td><code>&lt;span&gt;</code></td>
+<td>Generic inline container</td>
+<td>Text styling, inline elements</td>
+</tr>
+<tr>
+<td><code>&lt;header&gt;</code></td>
+<td>Page/Article header</td>
+<td>Site header, article header</td>
+</tr>
+<tr>
+<td><code>&lt;nav&gt;</code></td>
+<td>Navigation</td>
+<td>Menus, navigation bars</td>
+</tr>
+<tr>
+<td><code>&lt;main&gt;</code></td>
+<td>Main content</td>
+<td>Primary page content</td>
+</tr>
+<tr>
+<td><code>&lt;section&gt;</code></td>
+<td>Content section</td>
+<td>Logical grouping</td>
+</tr>
+<tr>
+<td><code>&lt;article&gt;</code></td>
+<td>Self-contained content</td>
+<td>Blog posts, news items</td>
+</tr>
+<tr>
+<td><code>&lt;aside&gt;</code></td>
+<td>Sidebar content</td>
+<td>Related information</td>
+</tr>
+<tr>
+<td><code>&lt;footer&gt;</code></td>
+<td>Footer</td>
+<td>Page footer, article footer</td>
+</tr>
+<tr>
+<td><code>&lt;form&gt;</code></td>
+<td>Form</td>
+<td>User input, data submission</td>
+</tr>
+<tr>
+<td><code>&lt;input&gt;</code></td>
+<td>Input field</td>
+<td>User input, forms</td>
+</tr>
+<tr>
+<td><code>&lt;button&gt;</code></td>
+<td>Clickable button</td>
+<td>Actions, events</td>
+</tr>
+<tr>
+<td><code>&lt;table&gt;</code></td>
+<td>Tabular data</td>
+<td>Data display</td>
+</tr>
+<tr>
+<td><code>&lt;img&gt;</code></td>
+<td>Image</td>
+<td>Visual content</td>
+</tr>
+<tr>
+<td><code>&lt;a&gt;</code></td>
+<td>Hyperlink</td>
+<td>Navigation, links</td>
+</tr>
+</tbody>
+</table>
+<h3 id="html-best-practices-summary">HTML Best Practices Summary</h3>
+<ol>
+<li><strong>Use semantic HTML elements</strong> for better accessibility and SEO</li>
+<li><strong>Always include alt text</strong> for images</li>
+<li><strong>Use proper heading hierarchy</strong> (h1 to h6)</li>
+<li><strong>Implement proper form labels</strong> and validation</li>
+<li><strong>Use ARIA attributes</strong> when semantic HTML isn't enough</li>
+<li><strong>Consider accessibility</strong> from the start</li>
+<li><strong>Use lists</strong> for list items</li>
+<li><strong>Provide fallback content</strong> for media elements</li>
+<li><strong>Use proper structure</strong> for tables</li>
+<li><strong>Implement proper focus management</strong> for interactive elements</li>
+</ol>
+<hr/>
+<p><em>End of Chapter 3</em></p>
+<p><strong>Next Chapter Preview</strong>: Chapter 4 will cover CSS Required for React, including selectors, specificity, layouts, responsive design, and CSS-in-JS solutions like CSS Modules and Styled Components.</p>
+<hr/>
+<p><em>This chapter provides the HTML foundation needed for React development. Master these concepts to create accessible, semantic, and well-structured React applications.</em></p>
+<h1 id="the-complete-react-developer-course--3">The Complete React Developer Course</h1>
+<h2 id="from-beginner-to-professional--3">From Beginner to Professional</h2>
+<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--3">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+<hr/>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-3" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-2"><span class="pager-label">← Previous chapter</span><strong>02 · JavaScript Required for React</strong></a><a class="pager-card pager-card--next" href="#chapter-4"><span class="pager-label">Next chapter →</span><strong>04 · CSS Required for React</strong></a></nav></section>

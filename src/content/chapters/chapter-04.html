@@ -1,0 +1,2334 @@
+<section class="chapter" id="chapter-4" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">04</span>
+<h1 class="chapter-title" id="css-required-for-react">CSS Required for React</h1>
+</div>
+<h2 id="41-introduction-to-css-for-react-developers">4.1 Introduction to CSS for React Developers</h2>
+<h3 id="simple-explanation--4">Simple Explanation</h3>
+<p>CSS (Cascading Style Sheets) is what makes websites beautiful. If HTML is the skeleton of a webpage, CSS is the skin, clothing, and makeup. In React, you have multiple ways to style your components, from traditional CSS files to modern CSS-in-JS solutions. Understanding CSS thoroughly is essential because React components need to look good and respond to user interactions.</p>
+<p>Think of CSS as the interior design of a house - you can paint walls, arrange furniture, and decorate rooms. React helps you build dynamic rooms, but you still need to know how to style them properly for different devices and user preferences.</p>
+<h3 id="technical-explanation--4">Technical Explanation</h3>
+<p>CSS is a style sheet language used to describe the presentation of a document written in HTML. In React applications, CSS can be applied through various approaches:</p>
+<ol>
+<li><strong>Traditional CSS</strong>: External stylesheets, inline styles</li>
+<li><strong>CSS Modules</strong>: Locally scoped CSS</li>
+<li><strong>CSS-in-JS</strong>: Styled-components, Emotion</li>
+<li><strong>Utility-first</strong>: Tailwind CSS</li>
+<li><strong>Preprocessors</strong>: SASS/SCSS</li>
+</ol>
+<p>Key concepts for React developers:
+- <strong>Scoping</strong>: Preventing style conflicts
+- <strong>Dynamic Styles</strong>: Conditional and computed styles
+- <strong>Performance</strong>: Critical CSS, code splitting
+- <strong>Responsive Design</strong>: Mobile-first, responsive breakpoints
+- <strong>Theming</strong>: Light/dark modes, dynamic themes</p>
+<h3 id="professional-explanation--4">Professional Explanation</h3>
+<p>In enterprise React development, CSS goes beyond basic styling. You need to understand:</p>
+<ul>
+<li><strong>Architecture</strong>: Scalable CSS patterns (BEM, ITCSS, SMACSS)</li>
+<li><strong>Performance</strong>: CSS optimization, critical path rendering</li>
+<li><strong>Maintainability</strong>: Reusable components, design systems</li>
+<li><strong>Accessibility</strong>: Color contrast, focus states, reduced motion</li>
+<li><strong>Cross-browser</strong>: Vendor prefixes, compatibility</li>
+<li><strong>Animation</strong>: GPU-accelerated animations</li>
+<li><strong>Theming</strong>: CSS custom properties, theme providers</li>
+<li><strong>Testing</strong>: Visual regression testing</li>
+</ul>
+<h2 id="42-css-selectors">4.2 CSS Selectors</h2>
+<h3 id="421-basic-selectors">4.2.1 Basic Selectors</h3>
+<pre><code class="language-css">/* Universal Selector */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Type Selector (Element) */
+h1 {
+    color: #333;
+    font-size: 2rem;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* Class Selector */
+.button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+}
+
+.button-primary {
+    background: #007bff;
+}
+
+.button-secondary {
+    background: #6c757d;
+}
+
+/* ID Selector */
+#header {
+    background: #f8f9fa;
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Attribute Selector */
+[type="text"] {
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
+}
+
+[data-status="active"] {
+    background: #d4edda;
+}
+
+[data-status="inactive"] {
+    background: #f8d7da;
+}
+
+/* React Component Example */
+function Button({ variant, children }) {
+    return (
+        &lt;button className={`button button-${variant}`}&gt;
+            {children}
+        &lt;/button&gt;
+    );
+}
+</code></pre>
+<h3 id="422-combinator-selectors">4.2.2 Combinator Selectors</h3>
+<pre><code class="language-css">/* Descendant Selector (space) */
+.nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nav li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+/* Child Selector (&gt;) */
+.nav &gt; ul &gt; li {
+    /* Only direct children */
+}
+
+/* Adjacent Sibling Selector (+) */
+h2 + p {
+    margin-top: 0;
+}
+
+/* General Sibling Selector (~) */
+h2 ~ p {
+    color: #666;
+}
+
+/* React Example */
+function Navigation({ items }) {
+    return (
+        &lt;nav className="nav"&gt;
+            &lt;ul&gt;
+                {items.map(item =&gt; (
+                    &lt;li key={item.id}&gt;
+                        &lt;a href={item.path}&gt;{item.label}&lt;/a&gt;
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    );
+}
+</code></pre>
+<h3 id="423-pseudo-classes-and-pseudo-elements">4.2.3 Pseudo-Classes and Pseudo-Elements</h3>
+<pre><code class="language-css">/* Pseudo-Classes */
+.button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+input:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+input:invalid {
+    border-color: #dc3545;
+}
+
+/* First/last child */
+.nav li:first-child {
+    margin-left: 0;
+}
+
+.nav li:last-child {
+    margin-right: 0;
+}
+
+/* nth-child */
+.table-row:nth-child(even) {
+    background: #f8f9fa;
+}
+
+/* Pseudo-Elements */
+h1::before {
+    content: "★ ";
+    color: #ffc107;
+}
+
+.quote::before {
+    content: '"';
+    font-size: 2em;
+    color: #6c757d;
+}
+
+.quote::after {
+    content: '"';
+    font-size: 2em;
+    color: #6c757d;
+}
+
+/* First letter/line */
+.article::first-letter {
+    font-size: 3em;
+    color: #007bff;
+}
+
+.article::first-line {
+    font-weight: bold;
+}
+
+/* React Component */
+function Article({ title, content }) {
+    return (
+        &lt;div className="article"&gt;
+            &lt;h1&gt;{title}&lt;/h1&gt;
+            &lt;p&gt;{content}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="43-css-specificity">4.3 CSS Specificity</h2>
+<h3 id="431-specificity-hierarchy">4.3.1 Specificity Hierarchy</h3>
+<pre><code class="language-css">/* Specificity Calculation */
+/* Inline styles: 1,0,0,0 */
+/* ID selector: 0,1,0,0 */
+/* Class, pseudo-class, attribute selector: 0,0,1,0 */
+/* Type selector, pseudo-element: 0,0,0,1 */
+
+/* Example: Specificity values */
+#header { /* 0,1,0,0 */
+    background: blue;
+}
+
+.header { /* 0,0,1,0 */
+    background: red;
+}
+
+div { /* 0,0,0,1 */
+    background: green;
+}
+
+/* Combined selectors */
+#header .nav .button { /* 0,1,2,0 */
+    color: white;
+}
+
+.header .nav .button { /* 0,0,3,0 */
+    color: black;
+}
+
+/* Important note: !important overrides everything */
+.important {
+    color: red !important;
+}
+
+/* React Best Practice: Avoid !important */
+/* Use more specific selectors instead */
+</code></pre>
+<h3 id="432-managing-specificity-in-react">4.3.2 Managing Specificity in React</h3>
+<pre><code class="language-css">/* BEM Methodology in CSS */
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card__header {
+    margin-bottom: 16px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card__body {
+    flex: 1;
+}
+
+.card__footer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e9ecef;
+}
+
+.card--primary {
+    border-left: 4px solid #007bff;
+}
+
+.card--warning {
+    border-left: 4px solid #ffc107;
+}
+
+.card--danger {
+    border-left: 4px solid #dc3545;
+}
+
+/* React Component with BEM */
+function Card({ title, children, variant, footer }) {
+    const className = `card card--${variant}`;
+
+    return (
+        &lt;div className={className}&gt;
+            {title &amp;&amp; &lt;div className="card__header"&gt;{title}&lt;/div&gt;}
+            &lt;div className="card__body"&gt;{children}&lt;/div&gt;
+            {footer &amp;&amp; &lt;div className="card__footer"&gt;{footer}&lt;/div&gt;}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="44-box-model">4.4 Box Model</h2>
+<h3 id="441-box-model-components">4.4.1 Box Model Components</h3>
+<pre><code class="language-css">/* Box Model Components */
+.box {
+    /* Content */
+    width: 200px;
+    height: 100px;
+
+    /* Padding */
+    padding: 20px;
+
+    /* Border */
+    border: 2px solid #333;
+
+    /* Margin */
+    margin: 20px;
+}
+
+/* Box Sizing */
+* {
+    box-sizing: border-box; /* Recommended */
+}
+
+/* Content-box (default) */
+.content-box {
+    box-sizing: content-box;
+    width: 200px; /* Width excludes padding and border */
+    padding: 20px; /* Total width = 200 + 40 + 4 = 244px */
+    border: 2px solid #333;
+}
+
+/* Border-box */
+.border-box {
+    box-sizing: border-box;
+    width: 200px; /* Width includes padding and border */
+    padding: 20px;
+    border: 2px solid #333; /* Total width = 200px */
+}
+
+/* React Component with Box Model */
+function Box({ children, padding, margin, border, width }) {
+    return (
+        &lt;div style={{
+            width: width || 'auto',
+            padding: padding || '20px',
+            margin: margin || '20px',
+            border: border || '2px solid #333',
+            boxSizing: 'border-box'
+        }}&gt;
+            {children}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h3 id="442-margins-and-collapsing">4.4.2 Margins and Collapsing</h3>
+<pre><code class="language-css">/* Margin Collapsing */
+.adjacent-elements {
+    margin: 20px;
+}
+/* Adjacent elements share margin: 20px, not 40px */
+
+/* Block formatting context prevents collapse */
+.block-context {
+    overflow: auto; /* Creates new block formatting context */
+    margin: 20px;
+}
+
+/* Negative Margins */
+.overlap {
+    margin-top: -10px;
+}
+
+/* Auto margins for centering */
+.center-horizontal {
+    margin: 0 auto;
+    width: 80%;
+}
+
+/* React Component with Margin System */
+function Spacing({ children, m, mt, mb, ml, mr }) {
+    const style = {
+        marginTop: mt || m || 0,
+        marginBottom: mb || m || 0,
+        marginLeft: ml || m || 0,
+        marginRight: mr || m || 0
+    };
+
+    return &lt;div style={style}&gt;{children}&lt;/div&gt;;
+}
+
+// Usage
+&lt;Spacing m={20}&gt;
+    &lt;p&gt;This has 20px margin on all sides&lt;/p&gt;
+&lt;/Spacing&gt;
+&lt;Spacing mt={10} mb={20}&gt;
+    &lt;p&gt;Different vertical margins&lt;/p&gt;
+&lt;/Spacing&gt;
+</code></pre>
+<h2 id="45-flexbox">4.5 Flexbox</h2>
+<h3 id="451-flex-container">4.5.1 Flex Container</h3>
+<pre><code class="language-css">/* Flex Container Properties */
+.flex-container {
+    display: flex;
+
+    /* Direction */
+    flex-direction: row; /* row | column | row-reverse | column-reverse */
+
+    /* Wrap */
+    flex-wrap: wrap; /* nowrap | wrap | wrap-reverse */
+    flex-flow: row wrap; /* Shorthand */
+
+    /* Alignment on main axis */
+    justify-content: center; /* flex-start | flex-end | center | space-between | space-around | space-evenly */
+
+    /* Alignment on cross axis */
+    align-items: center; /* flex-start | flex-end | center | stretch | baseline */
+
+    /* Alignment on multiple lines */
+    align-content: center; /* flex-start | flex-end | center | space-between | space-around | stretch */
+}
+
+/* React Component with Flex */
+function FlexContainer({ 
+    children, 
+    direction = 'row', 
+    wrap = 'wrap',
+    justify = 'flex-start',
+    align = 'stretch',
+    gap = 0,
+    className
+}) {
+    return (
+        &lt;div 
+            className={className}
+            style={{
+                display: 'flex',
+                flexDirection: direction,
+                flexWrap: wrap,
+                justifyContent: justify,
+                alignItems: align,
+                gap: gap
+            }}
+        &gt;
+            {children}
+        &lt;/div&gt;
+    );
+}
+
+// Usage
+function Layout() {
+    return (
+        &lt;FlexContainer direction="column" align="center" gap={20}&gt;
+            &lt;header&gt;Header&lt;/header&gt;
+            &lt;FlexContainer justify="space-between" gap={10}&gt;
+                &lt;main style={{ flex: 3 }}&gt;Content&lt;/main&gt;
+                &lt;aside style={{ flex: 1 }}&gt;Sidebar&lt;/aside&gt;
+            &lt;/FlexContainer&gt;
+            &lt;footer&gt;Footer&lt;/footer&gt;
+        &lt;/FlexContainer&gt;
+    );
+}
+</code></pre>
+<h3 id="452-flex-items">4.5.2 Flex Items</h3>
+<pre><code class="language-css">/* Flex Item Properties */
+.flex-item {
+    /* Order */
+    order: 0;
+
+    /* Grow */
+    flex-grow: 1; /* 0 | positive number */
+
+    /* Shrink */
+    flex-shrink: 1; /* 0 | positive number */
+
+    /* Basis */
+    flex-basis: auto; /* length | % | auto */
+
+    /* Shorthand */
+    flex: 1 1 auto; /* flex-grow flex-shrink flex-basis */
+
+    /* Self alignment */
+    align-self: auto; /* flex-start | flex-end | center | stretch */
+}
+
+/* Common Flex Patterns */
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.equal-width {
+    display: flex;
+}
+
+.equal-width &gt; * {
+    flex: 1; /* Equal width columns */
+}
+
+.sidebar-layout {
+    display: flex;
+}
+
+.sidebar-layout .sidebar {
+    flex: 0 0 250px; /* Fixed width sidebar */
+}
+
+.sidebar-layout .content {
+    flex: 1; /* Takes remaining space */
+}
+
+/* React Component with Flex Items */
+function SidebarLayout({ sidebar, children }) {
+    return (
+        &lt;div className="sidebar-layout"&gt;
+            &lt;aside className="sidebar"&gt;{sidebar}&lt;/aside&gt;
+            &lt;main className="content"&gt;{children}&lt;/main&gt;
+        &lt;/div&gt;
+    );
+}
+
+function NavBar({ children }) {
+    return (
+        &lt;nav className="space-between"&gt;
+            &lt;div className="brand"&gt;Logo&lt;/div&gt;
+            &lt;div className="nav-links"&gt;{children}&lt;/div&gt;
+            &lt;div className="user-menu"&gt;User&lt;/div&gt;
+        &lt;/nav&gt;
+    );
+}
+</code></pre>
+<h2 id="46-css-grid">4.6 CSS Grid</h2>
+<h3 id="461-grid-container">4.6.1 Grid Container</h3>
+<pre><code class="language-css">/* Grid Container Properties */
+.grid-container {
+    display: grid;
+
+    /* Columns and Rows */
+    grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns */
+    grid-template-rows: auto 200px auto;
+
+    /* Grid gap */
+    gap: 20px; /* row-gap column-gap */
+
+    /* Auto columns */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+    /* Areas */
+    grid-template-areas:
+        "header header header"
+        "sidebar main main"
+        "footer footer footer";
+
+    /* Alignment */
+    justify-items: stretch; /* start | end | center | stretch */
+    align-items: stretch; /* start | end | center | stretch */
+
+    /* Content alignment */
+    justify-content: center; /* start | end | center | stretch | space-around | space-between | space-evenly */
+    align-content: center; /* start | end | center | stretch | space-around | space-between | space-evenly */
+}
+
+/* React Component with Grid */
+function GridContainer({ 
+    children, 
+    columns = 3, 
+    gap = 20,
+    templateAreas,
+    className
+}) {
+    const style = {
+        display: 'grid',
+        gridTemplateColumns: typeof columns === 'number' 
+            ? `repeat(${columns}, 1fr)` 
+            : columns,
+        gap: gap,
+        ...(templateAreas &amp;&amp; { gridTemplateAreas: templateAreas })
+    };
+
+    return (
+        &lt;div className={className} style={style}&gt;
+            {children}
+        &lt;/div&gt;
+    );
+}
+
+// Usage
+function Dashboard() {
+    return (
+        &lt;GridContainer 
+            templateAreas={`
+                "header header header"
+                "sidebar main main"
+                "footer footer footer"
+            `}
+        &gt;
+            &lt;div className="header" style={{ gridArea: 'header' }}&gt;Header&lt;/div&gt;
+            &lt;div className="sidebar" style={{ gridArea: 'sidebar' }}&gt;Sidebar&lt;/div&gt;
+            &lt;div className="main" style={{ gridArea: 'main' }}&gt;Main&lt;/div&gt;
+            &lt;div className="footer" style={{ gridArea: 'footer' }}&gt;Footer&lt;/div&gt;
+        &lt;/GridContainer&gt;
+    );
+}
+</code></pre>
+<h3 id="462-grid-items">4.6.2 Grid Items</h3>
+<pre><code class="language-css">/* Grid Item Properties */
+.grid-item {
+    /* Span */
+    grid-column: 1 / 3; /* Start at column 1, end at 3 */
+    grid-row: 1 / 2;
+
+    /* Shorthand */
+    grid-area: 1 / 1 / 2 / 3; /* row-start / col-start / row-end / col-end */
+
+    /* Named areas */
+    grid-area: header;
+
+    /* Self alignment */
+    justify-self: center; /* start | end | center | stretch */
+    align-self: center; /* start | end | center | stretch */
+}
+
+/* Grid Patterns */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.photo-grid .large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.photo-grid .tall {
+    grid-row: span 2;
+}
+
+.photo-grid .wide {
+    grid-column: span 2;
+}
+
+/* React Component with Grid Items */
+function PhotoGrid({ photos }) {
+    return (
+        &lt;div className="photo-grid"&gt;
+            {photos.map((photo, index) =&gt; (
+                &lt;div 
+                    key={photo.id}
+                    className={`
+                        ${index === 0 ? 'large' : ''}
+                        ${index % 3 === 1 ? 'tall' : ''}
+                        ${index % 4 === 2 ? 'wide' : ''}
+                    `}
+                &gt;
+                    &lt;img src={photo.url} alt={photo.title} /&gt;
+                &lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="47-positioning">4.7 Positioning</h2>
+<h3 id="471-position-types">4.7.1 Position Types</h3>
+<pre><code class="language-css">/* Static (default) */
+.static {
+    position: static;
+}
+
+/* Relative */
+.relative {
+    position: relative;
+    top: 10px;
+    left: 20px;
+    /* Stays in document flow */
+}
+
+/* Absolute */
+.absolute {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* Removed from document flow */
+    /* Positioned relative to nearest positioned ancestor */
+}
+
+/* Fixed */
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Removed from document flow */
+    /* Positioned relative to viewport */
+}
+
+/* Sticky */
+.sticky {
+    position: sticky;
+    top: 0;
+    /* Hybrid of relative and fixed */
+}
+
+/* React Component with Positioning */
+function Modal({ isOpen, onClose, children }) {
+    if (!isOpen) return null;
+
+    return (
+        &lt;div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1000
+        }} onClick={onClose}&gt;
+            &lt;div style={{
+                position: 'relative',
+                background: 'white',
+                padding: '20px',
+                borderRadius: '8px',
+                maxWidth: '500px',
+                width: '100%',
+                maxHeight: '80vh',
+                overflow: 'auto'
+            }} onClick={e =&gt; e.stopPropagation()}&gt;
+                &lt;button style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '10px',
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '24px',
+                    cursor: 'pointer'
+                }} onClick={onClose}&gt;×&lt;/button&gt;
+                {children}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+function StickyHeader() {
+    return (
+        &lt;header style={{
+            position: 'sticky',
+            top: 0,
+            background: 'white',
+            padding: '16px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            zIndex: 100
+        }}&gt;
+            &lt;h1&gt;Sticky Header&lt;/h1&gt;
+        &lt;/header&gt;
+    );
+}
+</code></pre>
+<h3 id="472-z-index-and-stacking-context">4.7.2 Z-Index and Stacking Context</h3>
+<pre><code class="language-css">/* Z-Index */
+.layer-1 { z-index: 1; }
+.layer-2 { z-index: 2; }
+.layer-3 { z-index: 3; }
+
+/* Creating stacking context */
+.stacking-context {
+    position: relative;
+    z-index: 1;
+}
+
+/* React Component with Layer Management */
+function LayerSystem({ children }) {
+    const layers = {
+        modal: 1000,
+        overlay: 999,
+        header: 100,
+        dropdown: 200,
+        tooltip: 300
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;Header style={{ zIndex: layers.header }} /&gt;
+            &lt;main&gt;{children}&lt;/main&gt;
+            &lt;Dropdown style={{ zIndex: layers.dropdown }} /&gt;
+            &lt;Tooltip style={{ zIndex: layers.tooltip }} /&gt;
+            &lt;ModalOverlay style={{ zIndex: layers.overlay }} /&gt;
+            &lt;Modal style={{ zIndex: layers.modal }} /&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="48-responsive-design">4.8 Responsive Design</h2>
+<h3 id="481-media-queries">4.8.1 Media Queries</h3>
+<pre><code class="language-css">/* Mobile First Approach */
+.container {
+    padding: 16px;
+    max-width: 100%;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .container {
+        padding: 24px;
+        max-width: 720px;
+        margin: 0 auto;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .container {
+        padding: 32px;
+        max-width: 960px;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* Breakpoints System */
+:root {
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+}
+
+/* React Responsive Hook */
+function useMediaQuery(query) {
+    const [matches, setMatches] = useState(false);
+
+    useEffect(() =&gt; {
+        const media = window.matchMedia(query);
+        setMatches(media.matches);
+
+        const listener = (e) =&gt; setMatches(e.matches);
+        media.addEventListener('change', listener);
+
+        return () =&gt; media.removeEventListener('change', listener);
+    }, [query]);
+
+    return matches;
+}
+
+// Usage
+function ResponsiveComponent() {
+    const isMobile = useMediaQuery('(max-width: 640px)');
+    const isTablet = useMediaQuery('(min-width: 641px) and (max-width: 1024px)');
+    const isDesktop = useMediaQuery('(min-width: 1025px)');
+
+    return (
+        &lt;div&gt;
+            {isMobile &amp;&amp; &lt;MobileLayout /&gt;}
+            {isTablet &amp;&amp; &lt;TabletLayout /&gt;}
+            {isDesktop &amp;&amp; &lt;DesktopLayout /&gt;}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h3 id="482-responsive-layout-patterns">4.8.2 Responsive Layout Patterns</h3>
+<pre><code class="language-css">/* Responsive Grid */
+.responsive-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .responsive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .responsive-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Responsive Flex */
+.responsive-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .responsive-flex {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .responsive-flex &gt; * {
+        flex: 1 1 calc(50% - 8px);
+    }
+}
+
+@media (min-width: 1024px) {
+    .responsive-flex &gt; * {
+        flex: 1 1 calc(33.333% - 11px);
+    }
+}
+
+/* Responsive Component */
+function ResponsiveGrid({ items, columns }) {
+    const getColumns = () =&gt; {
+        if (columns) return columns;
+        if (window.innerWidth &lt; 640) return 1;
+        if (window.innerWidth &lt; 1024) return 2;
+        return 3;
+    };
+
+    const [cols, setCols] = useState(getColumns());
+
+    useEffect(() =&gt; {
+        const handleResize = () =&gt; setCols(getColumns());
+        window.addEventListener('resize', handleResize);
+        return () =&gt; window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return (
+        &lt;div style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${cols}, 1fr)`,
+            gap: '16px'
+        }}&gt;
+            {items.map(item =&gt; (
+                &lt;div key={item.id}&gt;{item.content}&lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="49-css-variables-custom-properties">4.9 CSS Variables (Custom Properties)</h2>
+<h3 id="491-defining-and-using-variables">4.9.1 Defining and Using Variables</h3>
+<pre><code class="language-css">/* Root Level Variables */
+:root {
+    /* Colors */
+    --color-primary: #007bff;
+    --color-secondary: #6c757d;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-info: #17a2b8;
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* Borders */
+    --border-radius-sm: 4px;
+    --border-radius-base: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --border-radius-full: 9999px;
+}
+
+/* Using Variables */
+.button {
+    background: var(--color-primary);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius-base);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    box-shadow: var(--shadow-sm);
+}
+
+.button:hover {
+    box-shadow: var(--shadow-md);
+    background: color-mix(in srgb, var(--color-primary) 90%, black);
+}
+
+/* Component-based variables */
+.card {
+    --card-padding: var(--spacing-lg);
+    --card-background: white;
+    --card-shadow: var(--shadow-md);
+
+    background: var(--card-background);
+    padding: var(--card-padding);
+    box-shadow: var(--card-shadow);
+}
+
+.card--dark {
+    --card-background: #333;
+    --card-shadow: var(--shadow-lg);
+
+    color: white;
+}
+
+/* React Theme Provider with CSS Variables */
+function ThemeProvider({ children, theme }) {
+    const themeStyles = {
+        '--color-primary': theme.primary,
+        '--color-secondary': theme.secondary,
+        '--background': theme.background,
+        '--text-color': theme.textColor
+    };
+
+    return (
+        &lt;div style={themeStyles}&gt;
+            {children}
+        &lt;/div&gt;
+    );
+}
+
+// Usage
+function App() {
+    const lightTheme = {
+        primary: '#007bff',
+        secondary: '#6c757d',
+        background: '#ffffff',
+        textColor: '#333333'
+    };
+
+    const darkTheme = {
+        primary: '#4a9eff',
+        secondary: '#8a959e',
+        background: '#1a1a1a',
+        textColor: '#f0f0f0'
+    };
+
+    const [theme, setTheme] = useState(lightTheme);
+
+    return (
+        &lt;ThemeProvider theme={theme}&gt;
+            &lt;button onClick={() =&gt; setTheme(lightTheme)}&gt;Light&lt;/button&gt;
+            &lt;button onClick={() =&gt; setTheme(darkTheme)}&gt;Dark&lt;/button&gt;
+            &lt;Content /&gt;
+        &lt;/ThemeProvider&gt;
+    );
+}
+</code></pre>
+<h2 id="410-animations-and-transitions">4.10 Animations and Transitions</h2>
+<h3 id="4101-css-transitions">4.10.1 CSS Transitions</h3>
+<pre><code class="language-css">/* Basic Transitions */
+.transition-button {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.transition-button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Multiple Properties */
+.transition-box {
+    width: 100px;
+    height: 100px;
+    background: #007bff;
+    transition: 
+        width 0.5s ease,
+        height 0.5s ease,
+        background 0.3s ease,
+        transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.transition-box:hover {
+    width: 150px;
+    height: 150px;
+    background: #dc3545;
+    transform: rotate(45deg);
+}
+
+/* React Transition Component */
+function AnimatedBox({ 
+    isOpen, 
+    duration = 300, 
+    children 
+}) {
+    const [shouldRender, setShouldRender] = useState(isOpen);
+
+    useEffect(() =&gt; {
+        if (isOpen) {
+            setShouldRender(true);
+        } else {
+            const timer = setTimeout(() =&gt; setShouldRender(false), duration);
+            return () =&gt; clearTimeout(timer);
+        }
+    }, [isOpen, duration]);
+
+    if (!shouldRender) return null;
+
+    return (
+        &lt;div style={{
+            transition: `all ${duration}ms ease-in-out`,
+            opacity: isOpen ? 1 : 0,
+            transform: isOpen ? 'translateY(0)' : 'translateY(-20px)',
+            maxHeight: isOpen ? '500px' : '0',
+            overflow: 'hidden'
+        }}&gt;
+            {children}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h3 id="4102-keyframe-animations">4.10.2 Keyframe Animations</h3>
+<pre><code class="language-css">/* Keyframe Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Using Animations */
+.slide-in {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.bounce {
+    animation: bounce 1s ease infinite;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* React Component with Animation */
+function AnimatedComponent({ 
+    children, 
+    animation = 'slideIn',
+    duration = 500,
+    delay = 0,
+    className 
+}) {
+    const animations = {
+        slideIn: {
+            keyframes: '@keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }',
+            styles: {
+                animation: `slideIn ${duration}ms ease-out forwards`,
+                animationDelay: `${delay}ms`
+            }
+        },
+        fadeIn: {
+            styles: {
+                animation: `fadeIn ${duration}ms ease-out forwards`,
+                animationDelay: `${delay}ms`
+            }
+        },
+        bounce: {
+            styles: {
+                animation: `bounce 1s ease infinite`,
+                animationDelay: `${delay}ms`
+            }
+        }
+    };
+
+    const animationData = animations[animation] || animations.slideIn;
+
+    return (
+        &lt;&gt;
+            &lt;style&gt;{animationData.keyframes}&lt;/style&gt;
+            &lt;div 
+                className={className}
+                style={animationData.styles}
+            &gt;
+                {children}
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+}
+
+// Usage
+function LoadingSpinner() {
+    return (
+        &lt;AnimatedComponent animation="bounce"&gt;
+            &lt;div className="spinner"&gt;Loading...&lt;/div&gt;
+        &lt;/AnimatedComponent&gt;
+    );
+}
+
+function SlideInContent({ isVisible, children }) {
+    return (
+        &lt;AnimatedComponent 
+            animation="slideIn" 
+            duration={300}
+            delay={isVisible ? 0 : 300}
+        &gt;
+            {children}
+        &lt;/AnimatedComponent&gt;
+    );
+}
+</code></pre>
+<h2 id="411-css-in-react-different-approaches">4.11 CSS in React: Different Approaches</h2>
+<h3 id="4111-css-modules">4.11.1 CSS Modules</h3>
+<pre><code class="language-css">/* Button.module.css */
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primary {
+    background: #007bff;
+    color: white;
+}
+
+.primary:hover {
+    background: #0056b3;
+}
+
+.secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.secondary:hover {
+    background: #5a6268;
+}
+
+.danger {
+    background: #dc3545;
+    color: white;
+}
+
+.danger:hover {
+    background: #c82333;
+}
+
+.small {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.large {
+    padding: 12px 24px;
+    font-size: 18px;
+}
+
+/* React Component with CSS Modules */
+import styles from './Button.module.css';
+
+function Button({ 
+    children, 
+    variant = 'primary',
+    size = 'medium',
+    disabled = false,
+    onClick 
+}) {
+    const className = `
+        ${styles.button}
+        ${styles[variant]}
+        ${styles[size]}
+        ${disabled ? styles.disabled : ''}
+    `.trim();
+
+    return (
+        &lt;button 
+            className={className}
+            disabled={disabled}
+            onClick={onClick}
+        &gt;
+            {children}
+        &lt;/button&gt;
+    );
+}
+</code></pre>
+<h3 id="4112-styled-components">4.11.2 Styled Components</h3>
+<pre><code class="language-javascript">// Styled Components Setup
+import styled, { css, ThemeProvider } from 'styled-components';
+
+// Basic Styled Component
+const Button = styled.button`
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    /* Props-based styling */
+    background: ${props =&gt; props.variant === 'primary' ? '#007bff' : 
+                           props.variant === 'secondary' ? '#6c757d' : 
+                           props.variant === 'danger' ? '#dc3545' : '#007bff'};
+    color: white;
+
+    /* Conditional styling */
+    ${props =&gt; props.size === 'small' &amp;&amp; css`
+        padding: 6px 12px;
+        font-size: 14px;
+    `}
+
+    ${props =&gt; props.size === 'large' &amp;&amp; css`
+        padding: 12px 24px;
+        font-size: 18px;
+    `}
+
+    /* Hover states */
+    &amp;:hover {
+        background: ${props =&gt; props.variant === 'primary' ? '#0056b3' : 
+                               props.variant === 'secondary' ? '#5a6268' : 
+                               props.variant === 'danger' ? '#c82333' : '#0056b3'};
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Disabled state */
+    &amp;:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+`;
+
+// Extending Styles
+const IconButton = styled(Button)`
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ${props =&gt; props.size === 'small' &amp;&amp; css`
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    `}
+
+    ${props =&gt; props.size === 'large' &amp;&amp; css`
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    `}
+`;
+
+// Styled Component with Animation
+const AnimatedDiv = styled.div`
+    transition: all 0.3s ease;
+
+    ${props =&gt; props.isOpen &amp;&amp; css`
+        max-height: 500px;
+        opacity: 1;
+    `}
+
+    ${props =&gt; !props.isOpen &amp;&amp; css`
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+    `}
+`;
+
+// Theme Provider
+const theme = {
+    colors: {
+        primary: '#007bff',
+        secondary: '#6c757d',
+        success: '#28a745',
+        danger: '#dc3545',
+        warning: '#ffc107',
+        info: '#17a2b8'
+    },
+    spacing: {
+        xs: '4px',
+        sm: '8px',
+        md: '16px',
+        lg: '24px',
+        xl: '32px',
+        xxl: '48px'
+    },
+    fontSizes: {
+        sm: '0.875rem',
+        base: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        xxl: '1.5rem',
+        xxxl: '2rem'
+    },
+    breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        xxl: '1536px'
+    }
+};
+
+// Themed Component
+const ThemedButton = styled.button`
+    background: ${props =&gt; props.theme.colors.primary};
+    color: white;
+    padding: ${props =&gt; props.theme.spacing.sm} ${props =&gt; props.theme.spacing.lg};
+    border: none;
+    border-radius: 4px;
+    font-size: ${props =&gt; props.theme.fontSizes.base};
+    cursor: pointer;
+
+    &amp;:hover {
+        background: ${props =&gt; colorDarken(props.theme.colors.primary, 0.1)};
+    }
+`;
+
+// Usage
+function App() {
+    return (
+        &lt;ThemeProvider theme={theme}&gt;
+            &lt;Button variant="primary" size="large"&gt;
+                Primary Button
+            &lt;/Button&gt;
+            &lt;Button variant="secondary" size="small"&gt;
+                Secondary Button
+            &lt;/Button&gt;
+            &lt;IconButton variant="danger" size="small"&gt;
+                ×
+            &lt;/IconButton&gt;
+            &lt;ThemedButton&gt;
+                Themed Button
+            &lt;/ThemedButton&gt;
+        &lt;/ThemeProvider&gt;
+    );
+}
+</code></pre>
+<h3 id="4113-tailwind-css">4.11.3 Tailwind CSS</h3>
+<pre><code class="language-jsx">// Tailwind CSS Setup
+// tailwind.config.js
+module.exports = {
+    content: [
+        "./src/**/*.{js,jsx,ts,tsx}",
+    ],
+    theme: {
+        extend: {
+            colors: {
+                primary: '#007bff',
+                secondary: '#6c757d',
+                success: '#28a745',
+                danger: '#dc3545',
+                warning: '#ffc107',
+                info: '#17a2b8'
+            },
+            spacing: {
+                '18': '4.5rem',
+                '88': '22rem',
+                '128': '32rem'
+            }
+        }
+    }
+};
+
+// React Component with Tailwind
+function Button({ 
+    children, 
+    variant = 'primary', 
+    size = 'md', 
+    disabled = false,
+    onClick,
+    className = ''
+}) {
+    const variants = {
+        primary: 'bg-blue-500 hover:bg-blue-600 text-white',
+        secondary: 'bg-gray-500 hover:bg-gray-600 text-white',
+        danger: 'bg-red-500 hover:bg-red-600 text-white',
+        success: 'bg-green-500 hover:bg-green-600 text-white'
+    };
+
+    const sizes = {
+        sm: 'px-3 py-1.5 text-sm',
+        md: 'px-4 py-2 text-base',
+        lg: 'px-6 py-3 text-lg'
+    };
+
+    const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
+
+    return (
+        &lt;button
+            className={`
+                ${variants[variant]} 
+                ${sizes[size]} 
+                rounded 
+                font-medium 
+                transition-all 
+                duration-300
+                hover:shadow-lg
+                focus:outline-none 
+                focus:ring-2 
+                focus:ring-blue-400 
+                focus:ring-opacity-50
+                ${disabledClasses}
+                ${className}
+            `.trim()}
+            disabled={disabled}
+            onClick={onClick}
+        &gt;
+            {children}
+        &lt;/button&gt;
+    );
+}
+
+// Complex Component with Tailwind
+function Card({ 
+    title, 
+    children, 
+    footer, 
+    className = '' 
+}) {
+    return (
+        &lt;div className={`
+            bg-white 
+            rounded-lg 
+            shadow-md 
+            overflow-hidden
+            ${className}
+        `.trim()}&gt;
+            {title &amp;&amp; (
+                &lt;div className="px-6 py-4 border-b border-gray-200"&gt;
+                    &lt;h3 className="text-lg font-semibold text-gray-900"&gt;
+                        {title}
+                    &lt;/h3&gt;
+                &lt;/div&gt;
+            )}
+            &lt;div className="px-6 py-4"&gt;
+                {children}
+            &lt;/div&gt;
+            {footer &amp;&amp; (
+                &lt;div className="px-6 py-4 bg-gray-50 border-t border-gray-200"&gt;
+                    {footer}
+                &lt;/div&gt;
+            )}
+        &lt;/div&gt;
+    );
+}
+
+// Layout Component with Tailwind
+function DashboardLayout({ children }) {
+    return (
+        &lt;div className="min-h-screen bg-gray-100"&gt;
+            &lt;nav className="bg-white shadow"&gt;
+                &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;
+                    &lt;div className="flex justify-between h-16"&gt;
+                        &lt;div className="flex items-center"&gt;
+                            &lt;h1 className="text-xl font-bold text-gray-800"&gt;
+                                Dashboard
+                            &lt;/h1&gt;
+                        &lt;/div&gt;
+                        &lt;div className="flex items-center space-x-4"&gt;
+                            &lt;Button variant="primary" size="sm"&gt;
+                                New
+                            &lt;/Button&gt;
+                            &lt;Button variant="secondary" size="sm"&gt;
+                                Settings
+                            &lt;/Button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/nav&gt;
+
+            &lt;main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8"&gt;
+                {children}
+            &lt;/main&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Responsive with Tailwind
+function ResponsiveGrid({ items }) {
+    return (
+        &lt;div className="
+            grid 
+            grid-cols-1 
+            sm:grid-cols-2 
+            lg:grid-cols-3 
+            xl:grid-cols-4 
+            gap-4 
+            md:gap-6
+        "&gt;
+            {items.map(item =&gt; (
+                &lt;Card key={item.id} title={item.title}&gt;
+                    {item.content}
+                &lt;/Card&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h3 id="4114-css-in-js-comparison">4.11.4 CSS-in-JS Comparison</h3>
+<pre><code class="language-jsx">// Emotion.js
+import { css, cx } from '@emotion/css';
+import styled from '@emotion/styled';
+
+const buttonStyle = css`
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background: #007bff;
+    color: white;
+`;
+
+function EmotionButton({ children }) {
+    return &lt;button className={buttonStyle}&gt;{children}&lt;/button&gt;;
+}
+
+// Stitches (modern CSS-in-JS)
+import { styled, css, globalCss } from '@stitches/react';
+
+const Button = styled('button', {
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    variants: {
+        variant: {
+            primary: { backgroundColor: '#007bff' },
+            secondary: { backgroundColor: '#6c757d' },
+            danger: { backgroundColor: '#dc3545' }
+        },
+        size: {
+            sm: { padding: '6px 12px', fontSize: '14px' },
+            md: { padding: '10px 20px', fontSize: '16px' },
+            lg: { padding: '12px 24px', fontSize: '18px' }
+        }
+    }
+});
+
+// Material-UI (MUI)
+import { Button, ThemeProvider, createTheme } from '@mui/material';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#007bff'
+        },
+        secondary: {
+            main: '#6c757d'
+        }
+    }
+});
+
+function MUIButton() {
+    return (
+        &lt;ThemeProvider theme={theme}&gt;
+            &lt;Button variant="contained" color="primary"&gt;
+                Material-UI Button
+            &lt;/Button&gt;
+        &lt;/ThemeProvider&gt;
+    );
+}
+</code></pre>
+<h2 id="412-enterprise-css-practices">4.12 Enterprise CSS Practices</h2>
+<h3 id="4121-design-system">4.12.1 Design System</h3>
+<pre><code class="language-javascript">// Design System Configuration
+const designSystem = {
+    // Colors
+    colors: {
+        // Primary palette
+        primary: {
+            50: '#e6f0ff',
+            100: '#b3d1ff',
+            200: '#80b3ff',
+            300: '#4d94ff',
+            400: '#1a75ff',
+            500: '#007bff', // Primary
+            600: '#0066d9',
+            700: '#0052b3',
+            800: '#003d8c',
+            900: '#002966'
+        },
+        // Neutral palette
+        neutral: {
+            50: '#f8f9fa',
+            100: '#e9ecef',
+            200: '#dee2e6',
+            300: '#ced4da',
+            400: '#adb5bd',
+            500: '#6c757d',
+            600: '#495057',
+            700: '#343a40',
+            800: '#212529',
+            900: '#16181a'
+        }
+    },
+
+    // Typography
+    typography: {
+        fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'].join(','),
+            mono: ['JetBrains Mono', 'monospace'].join(',')
+        },
+        fontSize: {
+            xs: '0.75rem',    // 12px
+            sm: '0.875rem',   // 14px
+            base: '1rem',     // 16px
+            lg: '1.125rem',   // 18px
+            xl: '1.25rem',    // 20px
+            '2xl': '1.5rem',  // 24px
+            '3xl': '1.875rem',// 30px
+            '4xl': '2.25rem', // 36px
+            '5xl': '3rem'     // 48px
+        },
+        fontWeight: {
+            light: 300,
+            normal: 400,
+            medium: 500,
+            semibold: 600,
+            bold: 700
+        },
+        lineHeight: {
+            none: 1,
+            tight: 1.25,
+            normal: 1.5,
+            relaxed: 1.75,
+            loose: 2
+        }
+    },
+
+    // Spacing
+    spacing: {
+        px: '1px',
+        0: '0',
+        0.5: '0.125rem',
+        1: '0.25rem',
+        1.5: '0.375rem',
+        2: '0.5rem',
+        2.5: '0.625rem',
+        3: '0.75rem',
+        3.5: '0.875rem',
+        4: '1rem',
+        5: '1.25rem',
+        6: '1.5rem',
+        7: '1.75rem',
+        8: '2rem',
+        9: '2.25rem',
+        10: '2.5rem',
+        11: '2.75rem',
+        12: '3rem',
+        14: '3.5rem',
+        16: '4rem',
+        20: '5rem',
+        24: '6rem',
+        28: '7rem',
+        32: '8rem',
+        36: '9rem',
+        40: '10rem',
+        44: '11rem',
+        48: '12rem',
+        52: '13rem',
+        56: '14rem',
+        60: '15rem',
+        64: '16rem',
+        72: '18rem',
+        80: '20rem',
+        96: '24rem'
+    },
+
+    // Breakpoints
+    breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px'
+    },
+
+    // Shadows
+    shadows: {
+        sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        base: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+        md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)'
+    },
+
+    // Border Radius
+    borderRadius: {
+        none: '0',
+        sm: '0.125rem',
+        base: '0.25rem',
+        md: '0.375rem',
+        lg: '0.5rem',
+        xl: '0.75rem',
+        '2xl': '1rem',
+        '3xl': '1.5rem',
+        full: '9999px'
+    }
+};
+
+// Design System Provider
+function DesignSystemProvider({ children }) {
+    return (
+        &lt;ThemeProvider theme={designSystem}&gt;
+            {children}
+        &lt;/ThemeProvider&gt;
+    );
+}
+
+// Design System Components
+const DSButton = styled.button`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: ${props =&gt; props.theme.spacing[2]} ${props =&gt; props.theme.spacing[4]};
+    font-family: ${props =&gt; props.theme.typography.fontFamily.sans};
+    font-weight: ${props =&gt; props.theme.typography.fontWeight.medium};
+    font-size: ${props =&gt; props.theme.typography.fontSize.base};
+    line-height: ${props =&gt; props.theme.typography.lineHeight.normal};
+    border-radius: ${props =&gt; props.theme.borderRadius.md};
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &amp;:focus-visible {
+        outline: 2px solid ${props =&gt; props.theme.colors.primary[500]};
+        outline-offset: 2px;
+    }
+`;
+
+const DSPrimaryButton = styled(DSButton)`
+    background: ${props =&gt; props.theme.colors.primary[500]};
+    color: white;
+    border: 1px solid transparent;
+
+    &amp;:hover {
+        background: ${props =&gt; props.theme.colors.primary[600]};
+        box-shadow: ${props =&gt; props.theme.shadows.md};
+    }
+
+    &amp;:active {
+        background: ${props =&gt; props.theme.colors.primary[700]};
+    }
+`;
+</code></pre>
+<h3 id="4122-css-architecture">4.12.2 CSS Architecture</h3>
+<pre><code class="language-css">/* ITCSS - Inverted Triangle CSS */
+/* 1. Settings - Global variables, config */
+@import 'settings/variables';
+@import 'settings/breakpoints';
+@import 'settings/colors';
+
+/* 2. Tools - Mixins, functions */
+@import 'tools/mixins';
+@import 'tools/functions';
+
+/* 3. Generic - Reset, normalize */
+@import 'generic/reset';
+@import 'generic/normalize';
+
+/* 4. Elements - Bare HTML elements */
+@import 'elements/headings';
+@import 'elements/links';
+@import 'elements/forms';
+
+/* 5. Objects - Reusable patterns */
+@import 'objects/container';
+@import 'objects/grid';
+@import 'objects/layout';
+
+/* 6. Components - UI Components */
+@import 'components/button';
+@import 'components/card';
+@import 'components/modal';
+
+/* 7. Utilities - Helper classes */
+@import 'utilities/display';
+@import 'utilities/spacing';
+@import 'utilities/typography';
+
+/* BEM Naming Convention */
+.block {}
+.block__element {}
+.block--modifier {}
+
+/* Example: Button Component */
+.button {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-medium);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-base);
+    cursor: pointer;
+    transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.button--primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.button--primary:hover {
+    background: var(--color-primary-dark);
+}
+
+.button--secondary {
+    background: var(--color-secondary);
+    color: white;
+}
+
+.button--secondary:hover {
+    background: var(--color-secondary-dark);
+}
+
+.button--small {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+}
+
+.button--large {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+}
+
+.button--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.button__icon {
+    margin-right: var(--spacing-sm);
+}
+
+.button__text {
+    vertical-align: middle;
+}
+</code></pre>
+<h2 id="413-common-mistakes-and-best-practices">4.13 Common Mistakes and Best Practices</h2>
+<h3 id="4131-common-css-mistakes">4.13.1 Common CSS Mistakes</h3>
+<pre><code class="language-css">/* ❌ Using !important */
+.inline-style {
+    color: red !important; /* Bad practice */
+}
+
+/* ✅ Increase specificity instead */
+.button.button-primary {
+    color: red;
+}
+
+/* ❌ Overly specific selectors */
+#sidebar .widget .widget-body .widget-content .text p {
+    color: blue;
+}
+
+/* ✅ Keep selectors minimal */
+.widget-content p {
+    color: blue;
+}
+
+/* ❌ Magic numbers */
+.element {
+    margin-top: 17px; /* Why 17px? */
+    padding: 23px 15px; /* Why these numbers? */
+}
+
+/* ✅ Use variables or consistent spacing */
+.element {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+}
+
+/* ❌ Not using shorthand */
+.element {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* ✅ Use shorthand */
+.element {
+    margin: 10px;
+    padding: 10px 0;
+}
+
+/* ❌ Inline styles in React components */
+&lt;div style={{ color: 'red', fontSize: '16px', marginTop: '10px' }}&gt;
+    Inline styles
+&lt;/div&gt;
+
+/* ✅ Use CSS modules or styled-components */
+&lt;div className={styles.text}&gt;
+    Better approach
+&lt;/div&gt;
+</code></pre>
+<h3 id="4132-css-best-practices-in-react">4.13.2 CSS Best Practices in React</h3>
+<pre><code class="language-css">/* ✅ Use CSS Variables for theming */
+:root {
+    --primary-color: #007bff;
+    --text-color: #333;
+    --background-color: #fff;
+}
+
+/* ✅ Mobile-first responsive design */
+.container {
+    padding: 16px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 24px;
+    }
+}
+
+/* ✅ Flexbox for layout */
+.layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* ✅ CSS Modules for scoping */
+/* Button.module.css */
+.button {
+    /* Styles are scoped */
+}
+
+/* ✅ Use CSS-in-JS for dynamic styles */
+const StyledButton = styled.button`
+    background: ${props =&gt; props.primary ? 'blue' : 'gray'};
+`;
+
+/* ✅ Consistent naming convention */
+/* BEM is recommended */
+.card {}
+.card__header {}
+.card__body {}
+.card--featured {}
+
+/* ✅ Performance optimization */
+/* Avoid expensive properties */
+.expensive {
+    /* box-shadow, border-radius, filter */
+    /* Use sparingly and test performance */
+}
+
+/* ✅ GPU-accelerated animations */
+.gpu-animated {
+    transform: translateX(100px); /* Use transform instead of left/right */
+    opacity: 0.5; /* Opacity is GPU-accelerated */
+}
+</code></pre>
+<h2 id="414-interview-questions">4.14 Interview Questions</h2>
+<h3 id="junior-level-questions--4">Junior Level Questions</h3>
+<p><strong>Q: What's the difference between <code>display: none</code> and <code>visibility: hidden</code>?</strong></p>
+<p><strong>Answer</strong>:
+- <code>display: none</code>: Element is completely removed from the document flow
+- <code>visibility: hidden</code>: Element is invisible but still takes up space</p>
+<pre><code class="language-css">.hidden {
+    display: none; /* Removed from layout */
+}
+
+.invisible {
+    visibility: hidden; /* Still takes space */
+}
+</code></pre>
+<h3 id="mid-level-questions--4">Mid Level Questions</h3>
+<p><strong>Q: Explain the CSS Box Model and how <code>box-sizing</code> affects it.</strong></p>
+<p><strong>Answer</strong>:
+The Box Model consists of:
+1. Content
+2. Padding
+3. Border
+4. Margin</p>
+<p><code>box-sizing</code> controls how width/height is calculated:
+- <code>content-box</code> (default): Width = content width
+- <code>border-box</code>: Width = content + padding + border</p>
+<pre><code class="language-css">/* content-box */
+.box1 {
+    box-sizing: content-box;
+    width: 200px; /* Total width = 200px + padding + border */
+}
+
+/* border-box (recommended) */
+.box2 {
+    box-sizing: border-box;
+    width: 200px; /* Total width = 200px (includes padding and border) */
+}
+</code></pre>
+<h3 id="senior-level-questions--4">Senior Level Questions</h3>
+<p><strong>Q: How do you approach CSS architecture in a large React application?</strong></p>
+<p><strong>Answer</strong>:
+1. <strong>Use a design system</strong>: Centralize colors, spacing, typography
+2. <strong>Choose a methodology</strong>: BEM, ITCSS, or Atomic CSS
+3. <strong>Component-scoped styles</strong>: CSS Modules or CSS-in-JS
+4. <strong>Theming</strong>: CSS Variables for light/dark mode
+5. <strong>Performance</strong>: Critical CSS, code splitting
+6. <strong>Responsive</strong>: Mobile-first with breakpoints
+7. <strong>Testing</strong>: Visual regression tests
+8. <strong>Documentation</strong>: Document components and usage</p>
+<pre><code class="language-javascript">// Example of scalable CSS architecture
+src/
+├── styles/
+│   ├── tokens/
+│   │   ├── colors.css
+│   │   ├── spacing.css
+│   │   └── typography.css
+│   ├── global/
+│   │   ├── reset.css
+│   │   └── base.css
+│   └── utils/
+│       ├── display.css
+│       └── spacing.css
+├── components/
+│   ├── Button/
+│   │   ├── Button.jsx
+│   │   ├── Button.module.css
+│   │   └── Button.test.js
+│   └── Card/
+│       ├── Card.jsx
+│       ├── Card.module.css
+│       └── Card.test.js
+└── pages/
+    ├── Home/
+    │   └── Home.jsx
+    └── Dashboard/
+        └── Dashboard.jsx
+</code></pre>
+<h2 id="415-summary">4.15 Summary</h2>
+<h3 id="key-css-concepts-for-react">Key CSS Concepts for React</h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+<th>React Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Selectors</strong></td>
+<td>Targeting elements</td>
+<td>Component styling</td>
+</tr>
+<tr>
+<td><strong>Specificity</strong></td>
+<td>Conflict resolution</td>
+<td>Avoiding overrides</td>
+</tr>
+<tr>
+<td><strong>Box Model</strong></td>
+<td>Layout calculations</td>
+<td>Spacing, sizing</td>
+</tr>
+<tr>
+<td><strong>Flexbox</strong></td>
+<td>One-dimensional layout</td>
+<td>Layouts, alignments</td>
+</tr>
+<tr>
+<td><strong>Grid</strong></td>
+<td>Two-dimensional layout</td>
+<td>Complex layouts</td>
+</tr>
+<tr>
+<td><strong>Positioning</strong></td>
+<td>Element placement</td>
+<td>Modals, tooltips</td>
+</tr>
+<tr>
+<td><strong>Responsive</strong></td>
+<td>Adapting to devices</td>
+<td>Mobile-first design</td>
+</tr>
+<tr>
+<td><strong>Variables</strong></td>
+<td>Reusable values</td>
+<td>Theming, consistency</td>
+</tr>
+<tr>
+<td><strong>Animations</strong></td>
+<td>Motion and transitions</td>
+<td>User feedback</td>
+</tr>
+<tr>
+<td><strong>CSS Modules</strong></td>
+<td>Scoped styling</td>
+<td>Component encapsulation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="best-practices-summary--2">Best Practices Summary</h3>
+<ol>
+<li><strong>Use semantic class names</strong> (BEM methodology)</li>
+<li><strong>Avoid !important</strong> and overly specific selectors</li>
+<li><strong>Use CSS variables</strong> for theming and consistency</li>
+<li><strong>Mobile-first responsive design</strong></li>
+<li><strong>Component-scoped styles</strong> (CSS Modules or CSS-in-JS)</li>
+<li><strong>Optimize for performance</strong> (minimize repaints)</li>
+<li><strong>Use flexbox/grid</strong> for modern layouts</li>
+<li><strong>Document your CSS</strong> architecture</li>
+<li><strong>Test visual components</strong> thoroughly</li>
+<li><strong>Follow accessibility guidelines</strong> (color contrast, focus states)</li>
+</ol>
+<h3 id="styling-options-comparison">Styling Options Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CSS Modules</strong></td>
+<td>Scoped, familiar</td>
+<td>Setup required</td>
+<td>Medium-large apps</td>
+</tr>
+<tr>
+<td><strong>Styled Components</strong></td>
+<td>Dynamic, themable</td>
+<td>Runtime overhead</td>
+<td>Dynamic styling</td>
+</tr>
+<tr>
+<td><strong>Tailwind</strong></td>
+<td>Rapid development</td>
+<td>Learning curve</td>
+<td>Fast prototyping</td>
+</tr>
+<tr>
+<td><strong>SASS/SCSS</strong></td>
+<td>Powerful features</td>
+<td>Build process</td>
+<td>Large teams</td>
+</tr>
+<tr>
+<td><strong>CSS-in-JS</strong></td>
+<td>Dynamic, type-safe</td>
+<td>Performance impact</td>
+<td>Component libraries</td>
+</tr>
+<tr>
+<td><strong>Plain CSS</strong></td>
+<td>Universal, simple</td>
+<td>Global scope</td>
+<td>Small projects</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<p><em>End of Chapter 4</em></p>
+<p><strong>Next Chapter Preview</strong>: Chapter 5 will cover React Fundamentals including JSX, Components, Props, State, Lifecycle, and Rendering concepts that form the core of React development.</p>
+<hr/>
+<p><em>This chapter provides the CSS foundation needed for React development. Master these concepts to create beautiful, responsive, and maintainable React applications.</em></p>
+<h1 id="the-complete-react-developer-course--4">The Complete React Developer Course</h1>
+<h2 id="from-beginner-to-professional--4">From Beginner to Professional</h2>
+<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--4">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+<hr/>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-4" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-3"><span class="pager-label">← Previous chapter</span><strong>03 · HTML Required for React</strong></a><a class="pager-card pager-card--next" href="#chapter-5"><span class="pager-label">Next chapter →</span><strong>05 · React Fundamentals</strong></a></nav></section>

@@ -1,0 +1,18 @@
+{
+  "name": "The Complete React Developer Course",
+  "short_name": "React Course",
+  "description": "An interactive React learning platform by Ayman Aljamal.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#B91C1C",
+  "icons": [
+    {
+      "src": "assets/course-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,2870 @@
+<section class="chapter" id="chapter-2" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">02</span>
+<h1 class="chapter-title" id="javascript-required-for-react">JavaScript Required for React</h1>
+</div>
+<h2 id="21-introduction-to-javascript-for-react">2.1 Introduction to JavaScript for React</h2>
+<h3 id="simple-explanation--2">Simple Explanation</h3>
+<p>JavaScript is the foundation of React. Before learning React, you need to understand JavaScript well, just like you need to know how to read and write before writing a book. This chapter covers all the JavaScript concepts you'll need to build professional React applications.</p>
+<p>Think of JavaScript as the engine that powers your React application. Every React component, every interaction, every data fetch - it all relies on JavaScript.</p>
+<h3 id="technical-explanation--2">Technical Explanation</h3>
+<p>React is built on modern JavaScript (ES6+). Understanding JavaScript thoroughly is essential because:</p>
+<ol>
+<li><strong>React Components</strong> are JavaScript functions or classes</li>
+<li><strong>JSX</strong> is transformed into JavaScript function calls</li>
+<li><strong>State Management</strong> relies on JavaScript objects and functions</li>
+<li><strong>Event Handling</strong> uses JavaScript event system</li>
+<li><strong>Data Flow</strong> is managed through JavaScript data structures</li>
+</ol>
+<h3 id="professional-explanation--2">Professional Explanation</h3>
+<p>In enterprise React development, JavaScript proficiency is non-negotiable. You'll need to understand:</p>
+<ul>
+<li><strong>Functional Programming Concepts</strong>: Immutability, pure functions, composition</li>
+<li><strong>Asynchronous Programming</strong>: Promises, async/await, event loop</li>
+<li><strong>Memory Management</strong>: Garbage collection, memory leaks prevention</li>
+<li><strong>Type Systems</strong>: TypeScript interfaces, generics, utility types</li>
+<li><strong>Module Systems</strong>: ES modules, dynamic imports, code splitting</li>
+</ul>
+<h2 id="22-variables-and-scope">2.2 Variables and Scope</h2>
+<h3 id="221-variable-declarations">2.2.1 Variable Declarations</h3>
+<pre><code class="language-javascript">// var - Function-scoped (Legacy, avoid using)
+var oldWay = "I'm function scoped";
+console.log(oldWay); // Works
+
+// let - Block-scoped, can be reassigned
+let age = 25;
+age = 26; // ✅ Can reassign
+console.log(age); // 26
+
+// const - Block-scoped, cannot be reassigned
+const birthYear = 1998;
+// birthYear = 1999; // ❌ TypeError: Assignment to constant variable
+
+// const with objects - Properties can be changed
+const person = {
+    name: "John",
+    age: 25
+};
+person.age = 26; // ✅ Allowed
+person.city = "New York"; // ✅ Allowed
+// person = {}; // ❌ Cannot reassign
+
+// Block scope example
+if (true) {
+    let blockScoped = "Inside block";
+    var functionScoped = "Inside block";
+    console.log(blockScoped); // ✅ Works
+}
+console.log(functionScoped); // ✅ Works
+// console.log(blockScoped); // ❌ ReferenceError
+</code></pre>
+<h3 id="222-scope-types">2.2.2 Scope Types</h3>
+<p><strong>Global Scope</strong>:</p>
+<pre><code class="language-javascript">// Variables declared outside any function
+const globalVar = "I'm global";
+
+function showGlobal() {
+    console.log(globalVar); // ✅ Accessible
+}
+
+// In React, avoid polluting global scope
+// Instead, use modules and imports
+</code></pre>
+<p><strong>Function Scope</strong>:</p>
+<pre><code class="language-javascript">function createUser() {
+    // Function-scoped variables
+    const username = "john_doe";
+    const password = "secret123";
+
+    function validate() {
+        // Can access parent's variables
+        console.log(username); // ✅ Accessible
+        const isValid = password.length &gt; 6;
+        return isValid;
+    }
+
+    return validate();
+}
+</code></pre>
+<p><strong>Block Scope</strong>:</p>
+<pre><code class="language-javascript">// Variables declared with let and const are block-scoped
+if (true) {
+    let blockVar = "I'm in a block";
+    const anotherBlockVar = "Me too";
+    console.log(blockVar); // ✅ Works
+}
+// console.log(blockVar); // ❌ ReferenceError
+
+// For loop block scope
+for (let i = 0; i &lt; 5; i++) {
+    console.log(i); // ✅ Works
+}
+// console.log(i); // ❌ ReferenceError
+</code></pre>
+<h3 id="223-hoisting">2.2.3 Hoisting</h3>
+<pre><code class="language-javascript">// Hoisting with var
+console.log(hoistedVar); // undefined (not ReferenceError)
+var hoistedVar = "I'm hoisted";
+
+// What actually happens:
+// var hoistedVar;
+// console.log(hoistedVar);
+// hoistedVar = "I'm hoisted";
+
+// Hoisting with let and const
+// console.log(notHoisted); // ❌ ReferenceError: Cannot access before initialization
+let notHoisted = "I'm not hoisted";
+
+// Function declarations are hoisted
+sayHello(); // ✅ Works
+function sayHello() {
+    console.log("Hello!");
+}
+
+// Function expressions are NOT hoisted
+// sayGoodbye(); // ❌ TypeError: sayGoodbye is not a function
+const sayGoodbye = function() {
+    console.log("Goodbye!");
+};
+
+// Arrow functions are NOT hoisted
+// sayHi(); // ❌ ReferenceError
+const sayHi = () =&gt; console.log("Hi!");
+</code></pre>
+<h2 id="23-functions">2.3 Functions</h2>
+<h3 id="231-function-declarations">2.3.1 Function Declarations</h3>
+<pre><code class="language-javascript">// Traditional function declaration
+function calculateTotal(items) {
+    let total = 0;
+    for (let i = 0; i &lt; items.length; i++) {
+        total += items[i].price * items[i].quantity;
+    }
+    return total;
+}
+
+// Example usage in React
+function ShoppingCart({ items }) {
+    const total = calculateTotal(items);
+    return &lt;div&gt;Total: ${total}&lt;/div&gt;;
+}
+</code></pre>
+<h3 id="232-function-expressions">2.3.2 Function Expressions</h3>
+<pre><code class="language-javascript">// Function expression
+const greet = function(name) {
+    return `Hello, ${name}!`;
+};
+
+// Function expression with React
+const UserGreeting = function({ user }) {
+    return &lt;h1&gt;{greet(user.name)}&lt;/h1&gt;;
+};
+
+// Named function expression (useful for debugging)
+const calculateDiscount = function discount(price, percentage) {
+    return price * (1 - percentage / 100);
+};
+</code></pre>
+<h3 id="233-arrow-functions">2.3.3 Arrow Functions</h3>
+<pre><code class="language-javascript">// Basic arrow function
+const add = (a, b) =&gt; {
+    return a + b;
+};
+
+// Implicit return (no curly braces)
+const multiply = (a, b) =&gt; a * b;
+
+// Single parameter, no parentheses needed
+const double = x =&gt; x * 2;
+
+// No parameters
+const getRandom = () =&gt; Math.random();
+
+// Arrow functions in React components
+const UserCard = ({ user }) =&gt; (
+    &lt;div className="user-card"&gt;
+        &lt;h2&gt;{user.name}&lt;/h2&gt;
+        &lt;p&gt;{user.email}&lt;/p&gt;
+    &lt;/div&gt;
+);
+
+// Arrow functions with complex logic
+const formatUserData = (user) =&gt; {
+    const fullName = `${user.firstName} ${user.lastName}`;
+    const age = new Date().getFullYear() - user.birthYear;
+    return { ...user, fullName, age };
+};
+
+// Arrow functions for event handlers
+function SearchBar() {
+    const handleSearch = (event) =&gt; {
+        const query = event.target.value;
+        // Search logic here
+    };
+
+    return &lt;input onChange={handleSearch} /&gt;;
+}
+</code></pre>
+<h3 id="234-functions-vs-arrow-functions-this-binding">2.3.4 Functions vs Arrow Functions - <code>this</code> Binding</h3>
+<pre><code class="language-javascript">// Traditional function - has its own 'this'
+function User(name) {
+    this.name = name;
+    this.greet = function() {
+        console.log(`Hello, ${this.name}`); // 'this' refers to User instance
+    };
+}
+
+// Arrow function - uses parent's 'this'
+function UserArrow(name) {
+    this.name = name;
+    this.greet = () =&gt; {
+        console.log(`Hello, ${this.name}`); // 'this' from parent scope
+    };
+}
+
+// React example - Arrow functions preserve 'this'
+class Counter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { count: 0 };
+    }
+
+    // Arrow function - no need to bind
+    handleClick = () =&gt; {
+        this.setState({ count: this.state.count + 1 });
+    };
+
+    // Regular function - needs binding
+    handleClick2() {
+        this.setState({ count: this.state.count + 1 });
+    }
+
+    render() {
+        return (
+            &lt;button onClick={this.handleClick}&gt;
+                Count: {this.state.count}
+            &lt;/button&gt;
+        );
+    }
+}
+</code></pre>
+<h2 id="24-objects">2.4 Objects</h2>
+<h3 id="241-object-creation">2.4.1 Object Creation</h3>
+<pre><code class="language-javascript">// Object literal
+const user = {
+    name: "John Doe",
+    email: "john@example.com",
+    age: 30,
+    isActive: true
+};
+
+// Object constructor
+const car = new Object();
+car.make = "Toyota";
+car.model = "Camry";
+car.year = 2022;
+
+// Using Object.create
+const prototype = {
+    greet() {
+        console.log(`Hello, ${this.name}`);
+    }
+};
+const person = Object.create(prototype);
+person.name = "Alice";
+person.greet(); // Hello, Alice
+
+// Class-based (ES6)
+class Product {
+    constructor(name, price, category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.createdAt = new Date();
+    }
+
+    getInfo() {
+        return `${this.name} - $${this.price} (${this.category})`;
+    }
+}
+
+const laptop = new Product("Laptop", 999, "Electronics");
+</code></pre>
+<h3 id="242-object-methods-and-properties">2.4.2 Object Methods and Properties</h3>
+<pre><code class="language-javascript">const user = {
+    firstName: "John",
+    lastName: "Doe",
+    email: "john@example.com",
+
+    // Method shorthand
+    getFullName() {
+        return `${this.firstName} ${this.lastName}`;
+    },
+
+    // Computed property names
+    ['user_' + Date.now()]: "ID",
+
+    // Getters and setters
+    get emailDomain() {
+        return this.email.split('@')[1];
+    },
+    set emailDomain(domain) {
+        const username = this.email.split('@')[0];
+        this.email = `${username}@${domain}`;
+    }
+};
+
+console.log(user.getFullName()); // John Doe
+console.log(user.emailDomain); // example.com
+user.emailDomain = "newdomain.com";
+console.log(user.email); // john@newdomain.com
+
+// Property descriptors
+const config = {
+    apiUrl: 'https://api.example.com',
+    timeout: 5000,
+    retries: 3
+};
+
+Object.defineProperty(config, 'maxRetries', {
+    value: 5,
+    writable: false, // Can't change
+    enumerable: true,
+    configurable: true
+});
+</code></pre>
+<h3 id="243-object-manipulation">2.4.3 Object Manipulation</h3>
+<pre><code class="language-javascript">const user = {
+    name: "John",
+    age: 30,
+    city: "New York"
+};
+
+// Adding properties
+user.email = "john@example.com";
+user['phone'] = "123-456-7890";
+
+// Deleting properties
+delete user.age;
+
+// Object.keys, Object.values, Object.entries
+const keys = Object.keys(user); // ['name', 'city', 'email', 'phone']
+const values = Object.values(user); // ['John', 'New York', 'john@example.com', '123-456-7890']
+const entries = Object.entries(user);
+// [['name', 'John'], ['city', 'New York'], ...]
+
+// Object destructuring
+const { name, city, email } = user;
+console.log(name, city, email);
+
+// Object spreading
+const userWithId = {
+    id: 1,
+    ...user // Spread operator
+};
+// Result: { id: 1, name: 'John', city: 'New York', email: 'john@example.com', phone: '123-456-7890' }
+
+// Object merging
+const userData = {
+    ...user,
+    isActive: true,
+    role: 'admin'
+};
+
+// Object freezing
+const frozenUser = Object.freeze(user);
+// frozenUser.name = 'Jane'; // ❌ Cannot modify
+</code></pre>
+<h2 id="25-arrays">2.5 Arrays</h2>
+<h3 id="251-array-creation-and-methods">2.5.1 Array Creation and Methods</h3>
+<pre><code class="language-javascript">// Array creation
+const numbers = [1, 2, 3, 4, 5];
+const mixed = [1, 'two', { three: 3 }, [4, 5]];
+
+// Using Array constructor
+const emptyArray = new Array(5); // Creates array with 5 empty slots
+const filledArray = new Array(1, 2, 3); // [1, 2, 3]
+
+// Array.from
+const fromString = Array.from('hello'); // ['h', 'e', 'l', 'l', 'o']
+const fromSet = Array.from(new Set([1, 2, 3, 2, 1])); // [1, 2, 3]
+
+// Array.of
+const ofArray = Array.of(5); // [5] (not new Array(5) which creates empty slots)
+
+// Common methods
+const arr = [1, 2, 3, 4, 5];
+arr.push(6); // Adds to end
+arr.pop(); // Removes from end
+arr.unshift(0); // Adds to beginning
+arr.shift(); // Removes from beginning
+arr.splice(2, 1, 10); // Replaces element at index 2
+arr.slice(1, 3); // Returns new array [2, 3]
+
+// Finding elements
+const index = arr.indexOf(3); // 2
+const lastIndex = arr.lastIndexOf(3);
+const includes = arr.includes(3); // true
+const found = arr.find(x =&gt; x &gt; 3); // 4
+const foundIndex = arr.findIndex(x =&gt; x &gt; 3); // 3
+
+// Checking array type
+console.log(Array.isArray(arr)); // true
+</code></pre>
+<h3 id="252-array-iteration-methods">2.5.2 Array Iteration Methods</h3>
+<pre><code class="language-javascript">const users = [
+    { id: 1, name: 'John', age: 25 },
+    { id: 2, name: 'Jane', age: 30 },
+    { id: 3, name: 'Bob', age: 35 }
+];
+
+// forEach - Iterate over array
+users.forEach(user =&gt; {
+    console.log(`${user.name} is ${user.age} years old`);
+});
+
+// map - Transform array
+const userNames = users.map(user =&gt; user.name);
+// ['John', 'Jane', 'Bob']
+
+const userCards = users.map(user =&gt; ({
+    ...user,
+    fullName: user.name.toUpperCase()
+}));
+
+// React example: Rendering list with map
+function UserList({ users }) {
+    return (
+        &lt;ul&gt;
+            {users.map((user, index) =&gt; (
+                &lt;li key={user.id || index}&gt;
+                    {user.name} - {user.age}
+                &lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}
+
+// filter - Filter array
+const adults = users.filter(user =&gt; user.age &gt;= 18);
+const youngUsers = users.filter(user =&gt; user.age &lt; 30);
+
+// reduce - Reduce array to single value
+const totalAge = users.reduce((sum, user) =&gt; sum + user.age, 0);
+const userMap = users.reduce((map, user) =&gt; {
+    map[user.id] = user;
+    return map;
+}, {});
+
+// some - Check if any element passes condition
+const hasAdult = users.some(user =&gt; user.age &gt;= 18);
+
+// every - Check if all elements pass condition
+const allAdults = users.every(user =&gt; user.age &gt;= 18);
+
+// find - Find first element matching condition
+const firstAdult = users.find(user =&gt; user.age &gt;= 18);
+
+// findIndex - Find index of first matching element
+const adultIndex = users.findIndex(user =&gt; user.age &gt;= 18);
+</code></pre>
+<h3 id="253-array-sorting-and-combining">2.5.3 Array Sorting and Combining</h3>
+<pre><code class="language-javascript">const numbers = [3, 1, 4, 1, 5, 9, 2, 6];
+const words = ['apple', 'banana', 'cherry', 'date'];
+
+// Sorting
+numbers.sort((a, b) =&gt; a - b); // Ascending: [1, 1, 2, 3, 4, 5, 6, 9]
+numbers.sort((a, b) =&gt; b - a); // Descending: [9, 6, 5, 4, 3, 2, 1, 1]
+
+words.sort(); // Alphabetical: ['apple', 'banana', 'cherry', 'date']
+words.sort((a, b) =&gt; b.localeCompare(a)); // Reverse alphabetical
+
+// Sorting objects
+const users = [
+    { name: 'John', age: 25 },
+    { name: 'Jane', age: 30 },
+    { name: 'Bob', age: 20 }
+];
+
+users.sort((a, b) =&gt; a.age - b.age); // Sort by age
+
+// Combining arrays
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combined = [...arr1, ...arr2]; // [1, 2, 3, 4, 5, 6]
+
+// concat method
+const combined2 = arr1.concat(arr2); // [1, 2, 3, 4, 5, 6]
+
+// flat - Flatten nested arrays
+const nested = [1, [2, 3], [4, [5, 6]]];
+const flattened = nested.flat(2); // [1, 2, 3, 4, 5, 6]
+
+// flatMap - Map then flat
+const phrases = ['hello world', 'good morning'];
+const words2 = phrases.flatMap(phrase =&gt; phrase.split(' '));
+// ['hello', 'world', 'good', 'morning']
+</code></pre>
+<h2 id="26-destructuring">2.6 Destructuring</h2>
+<h3 id="261-object-destructuring">2.6.1 Object Destructuring</h3>
+<pre><code class="language-javascript">// Basic object destructuring
+const user = {
+    name: 'John Doe',
+    email: 'john@example.com',
+    age: 30,
+    address: {
+        city: 'New York',
+        country: 'USA'
+    }
+};
+
+// Destructure properties
+const { name, email } = user;
+console.log(name, email); // John Doe john@example.com
+
+// Destructure with different variable names
+const { name: userName, email: userEmail } = user;
+console.log(userName, userEmail);
+
+// Destructure nested objects
+const { address: { city, country } } = user;
+console.log(city, country); // New York USA
+
+// Destructure with default values
+const { role = 'user', isActive = true } = user;
+console.log(role, isActive); // user true
+
+// React Props destructuring
+function UserProfile({ user, onEdit, onDelete }) {
+    // Instead of props.user, props.onEdit
+    const { name, email, age } = user;
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{name}&lt;/h2&gt;
+            &lt;p&gt;{email}&lt;/p&gt;
+            &lt;p&gt;Age: {age}&lt;/p&gt;
+            &lt;button onClick={() =&gt; onEdit(user)}&gt;Edit&lt;/button&gt;
+            &lt;button onClick={() =&gt; onDelete(user.id)}&gt;Delete&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Destructuring in function parameters
+function createUser({ name, email, age = 18 }) {
+    return {
+        id: Date.now(),
+        name,
+        email,
+        age,
+        createdAt: new Date()
+    };
+}
+</code></pre>
+<h3 id="262-array-destructuring">2.6.2 Array Destructuring</h3>
+<pre><code class="language-javascript">// Basic array destructuring
+const colors = ['red', 'green', 'blue'];
+const [first, second, third] = colors;
+console.log(first, second, third); // red green blue
+
+// Skip elements
+const [, , thirdColor] = colors;
+console.log(thirdColor); // blue
+
+// Rest operator with arrays
+const [head, ...tail] = colors;
+console.log(head); // red
+console.log(tail); // ['green', 'blue']
+
+// Default values
+const [a = 1, b = 2, c = 3] = [10];
+console.log(a, b, c); // 10 2 3
+
+// Swapping variables
+let x = 10, y = 20;
+[x, y] = [y, x];
+console.log(x, y); // 20 10
+
+// React useState destructuring
+const [state, setState] = useState(initialState);
+const [count, setCount] = useState(0);
+const [user, setUser] = useState(null);
+const [loading, setLoading] = useState(false);
+
+// Multiple values from useState
+const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    rememberMe: false
+});
+</code></pre>
+<h3 id="263-advanced-destructuring">2.6.3 Advanced Destructuring</h3>
+<pre><code class="language-javascript">// Destructuring with rest operator
+const user = {
+    id: 1,
+    name: 'John',
+    email: 'john@example.com',
+    role: 'admin',
+    permissions: ['read', 'write']
+};
+
+const { id, name, ...rest } = user;
+console.log(id, name); // 1 John
+console.log(rest); // { email: 'john@example.com', role: 'admin', permissions: ['read', 'write'] }
+
+// Nested array destructuring
+const matrix = [[1, 2], [3, 4]];
+const [[a, b], [c, d]] = matrix;
+console.log(a, b, c, d); // 1 2 3 4
+
+// Destructuring with mixed types
+const data = {
+    users: [
+        { id: 1, name: 'John' },
+        { id: 2, name: 'Jane' }
+    ],
+    total: 2
+};
+
+const { users: [firstUser, secondUser], total } = data;
+console.log(firstUser, secondUser, total);
+
+// Destructuring in React Hooks
+function useCounter(initialValue = 0) {
+    const [count, setCount] = useState(initialValue);
+
+    const increment = () =&gt; setCount(c =&gt; c + 1);
+    const decrement = () =&gt; setCount(c =&gt; c - 1);
+    const reset = () =&gt; setCount(initialValue);
+
+    return { count, increment, decrement, reset };
+}
+
+// In component
+const { count, increment, decrement, reset } = useCounter(10);
+</code></pre>
+<h2 id="27-spread-and-rest-operators">2.7 Spread and Rest Operators</h2>
+<h3 id="271-spread-operator">2.7.1 Spread Operator (...)</h3>
+<p><strong>Spread with Arrays</strong>:</p>
+<pre><code class="language-javascript">// Copy arrays
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1]; // [1, 2, 3]
+console.log(arr1 === arr2); // false (different reference)
+
+// Merge arrays
+const merged = [...arr1, ...arr2]; // [1, 2, 3, 1, 2, 3]
+
+// Adding elements
+const withNewElement = [...arr1, 4, 5]; // [1, 2, 3, 4, 5]
+
+// Math functions with arrays
+const numbers = [5, 2, 9, 1, 7];
+const max = Math.max(...numbers); // 9
+const min = Math.min(...numbers); // 1
+
+// React: Adding items to state
+function TodoList() {
+    const [todos, setTodos] = useState(['Task 1', 'Task 2']);
+
+    const addTodo = (newTodo) =&gt; {
+        setTodos([...todos, newTodo]); // Add new todo
+    };
+
+    return (
+        &lt;ul&gt;
+            {todos.map(todo =&gt; &lt;li key={todo}&gt;{todo}&lt;/li&gt;)}
+            &lt;button onClick={() =&gt; addTodo('New Task')}&gt;Add&lt;/button&gt;
+        &lt;/ul&gt;
+    );
+}
+</code></pre>
+<p><strong>Spread with Objects</strong>:</p>
+<pre><code class="language-javascript">// Copy objects
+const user = { name: 'John', age: 30 };
+const userCopy = { ...user }; // { name: 'John', age: 30 }
+
+// Merge objects
+const address = { city: 'New York', country: 'USA' };
+const userWithAddress = { ...user, ...address };
+// { name: 'John', age: 30, city: 'New York', country: 'USA' }
+
+// Override properties
+const updatedUser = { ...user, age: 31 };
+// { name: 'John', age: 31 }
+
+// React: Updating state with spread
+function UserProfile() {
+    const [user, setUser] = useState({
+        name: 'John',
+        email: 'john@example.com',
+        preferences: {
+            theme: 'dark',
+            notifications: true
+        }
+    });
+
+    const updateUser = (field, value) =&gt; {
+        setUser({
+            ...user,
+            [field]: value
+        });
+    };
+
+    const updateNested = (field, value) =&gt; {
+        setUser({
+            ...user,
+            preferences: {
+                ...user.preferences,
+                [field]: value
+            }
+        });
+    };
+
+    // Usage
+    updateUser('name', 'Jane');
+    updateNested('theme', 'light');
+}
+</code></pre>
+<h3 id="272-rest-operator">2.7.2 Rest Operator (...)</h3>
+<p><strong>Rest with Arrays</strong>:</p>
+<pre><code class="language-javascript">// Collect remaining elements
+const [first, second, ...rest] = [1, 2, 3, 4, 5];
+console.log(first); // 1
+console.log(second); // 2
+console.log(rest); // [3, 4, 5]
+
+// Function with rest parameters
+function sum(...numbers) {
+    return numbers.reduce((total, n) =&gt; total + n, 0);
+}
+console.log(sum(1, 2, 3, 4, 5)); // 15
+
+// React: Custom hook with rest parameters
+function useFetch(url, ...dependencies) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() =&gt; {
+        fetch(url)
+            .then(res =&gt; res.json())
+            .then(setData)
+            .finally(() =&gt; setLoading(false));
+    }, [url, ...dependencies]); // Multiple dependencies
+
+    return { data, loading };
+}
+
+// Usage
+const { data: posts } = useFetch('/api/posts');
+const { data: users } = useFetch('/api/users', userId, active);
+</code></pre>
+<p><strong>Rest with Objects</strong>:</p>
+<pre><code class="language-javascript">// Destructure and collect remaining properties
+const user = {
+    id: 1,
+    name: 'John',
+    email: 'john@example.com',
+    role: 'admin',
+    isActive: true
+};
+
+const { id, name, ...restProps } = user;
+console.log(id, name); // 1 John
+console.log(restProps); // { email: 'john@example.com', role: 'admin', isActive: true }
+
+// React: Spread props
+function Input({ type = 'text', placeholder, ...props }) {
+    return &lt;input type={type} placeholder={placeholder} {...props} /&gt;;
+}
+
+// Usage
+&lt;Input 
+    type="email"
+    placeholder="Enter email"
+    className="input-field"
+    disabled={false}
+    onChange={() =&gt; {}}
+/&gt;
+</code></pre>
+<h2 id="28-map-filter-reduce">2.8 Map, Filter, Reduce</h2>
+<h3 id="281-map-transform-arrays">2.8.1 Map - Transform Arrays</h3>
+<pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5];
+
+// Basic map
+const doubled = numbers.map(n =&gt; n * 2);
+// [2, 4, 6, 8, 10]
+
+// Map with objects
+const users = [
+    { id: 1, name: 'John', age: 25 },
+    { id: 2, name: 'Jane', age: 30 },
+    { id: 3, name: 'Bob', age: 35 }
+];
+
+const userNames = users.map(user =&gt; user.name);
+// ['John', 'Jane', 'Bob']
+
+const userCards = users.map(user =&gt; ({
+    ...user,
+    fullName: `${user.name} Doe`,
+    isAdult: user.age &gt;= 18
+}));
+
+// React: Rendering lists with map
+function UserList({ users }) {
+    return (
+        &lt;div&gt;
+            {users.map((user) =&gt; (
+                &lt;UserCard 
+                    key={user.id}
+                    user={user}
+                    onEdit={() =&gt; handleEdit(user.id)}
+                    onDelete={() =&gt; handleDelete(user.id)}
+                /&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+
+// Chaining map
+const transformed = numbers
+    .map(n =&gt; n * 2)
+    .map(n =&gt; n + 1);
+// [3, 5, 7, 9, 11]
+</code></pre>
+<h3 id="282-filter-select-array-elements">2.8.2 Filter - Select Array Elements</h3>
+<pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Basic filter
+const evens = numbers.filter(n =&gt; n % 2 === 0);
+// [2, 4, 6, 8, 10]
+
+const odds = numbers.filter(n =&gt; n % 2 !== 0);
+// [1, 3, 5, 7, 9]
+
+// Filter with objects
+const users = [
+    { id: 1, name: 'John', age: 25, active: true },
+    { id: 2, name: 'Jane', age: 30, active: false },
+    { id: 3, name: 'Bob', age: 35, active: true },
+    { id: 4, name: 'Alice', age: 20, active: true }
+];
+
+const activeUsers = users.filter(user =&gt; user.active);
+// [{ id: 1, ... }, { id: 3, ... }, { id: 4, ... }]
+
+const adults = users.filter(user =&gt; user.age &gt;= 18);
+const youngAdults = users.filter(user =&gt; user.age &gt;= 18 &amp;&amp; user.age &lt; 30);
+
+// React: Filtering list
+function UserList({ users, filter }) {
+    const filteredUsers = users.filter(user =&gt; {
+        if (filter === 'active') return user.active;
+        if (filter === 'inactive') return !user.active;
+        return true;
+    });
+
+    return (
+        &lt;div&gt;
+            {filteredUsers.map(user =&gt; (
+                &lt;UserCard key={user.id} user={user} /&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+
+// Combining filter with map
+const activeUserNames = users
+    .filter(user =&gt; user.active)
+    .map(user =&gt; user.name.toUpperCase());
+// ['JOHN', 'BOB', 'ALICE']
+</code></pre>
+<h3 id="283-reduce-accumulate-values">2.8.3 Reduce - Accumulate Values</h3>
+<pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5];
+
+// Sum of numbers
+const sum = numbers.reduce((acc, curr) =&gt; acc + curr, 0);
+// 15
+
+// Product of numbers
+const product = numbers.reduce((acc, curr) =&gt; acc * curr, 1);
+// 120
+
+// Find maximum
+const max = numbers.reduce((max, curr) =&gt; curr &gt; max ? curr : max, numbers[0]);
+// 5
+
+// Concatenate strings
+const words = ['Hello', 'World', 'From', 'React'];
+const sentence = words.reduce((acc, word) =&gt; acc + ' ' + word);
+// 'Hello World From React'
+
+// React: Grouping and reducing data
+const orders = [
+    { id: 1, product: 'Laptop', amount: 1000, status: 'completed' },
+    { id: 2, product: 'Phone', amount: 500, status: 'pending' },
+    { id: 3, product: 'Tablet', amount: 750, status: 'completed' },
+    { id: 4, product: 'Headphones', amount: 200, status: 'shipped' }
+];
+
+// Total sales by status
+const salesByStatus = orders.reduce((acc, order) =&gt; {
+    acc[order.status] = (acc[order.status] || 0) + order.amount;
+    return acc;
+}, {});
+// { completed: 1750, pending: 500, shipped: 200 }
+
+// Group by category
+const groupByCategory = orders.reduce((acc, order) =&gt; {
+    if (!acc[order.status]) acc[order.status] = [];
+    acc[order.status].push(order);
+    return acc;
+}, {});
+
+// React: Statistics with reduce
+function OrderStats({ orders }) {
+    const stats = orders.reduce((acc, order) =&gt; ({
+        total: acc.total + order.amount,
+        average: (acc.total + order.amount) / (acc.count + 1),
+        count: acc.count + 1,
+        maxAmount: Math.max(acc.maxAmount, order.amount),
+        minAmount: Math.min(acc.minAmount || order.amount, order.amount)
+    }), { total: 0, count: 0, maxAmount: 0, minAmount: 0 });
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Total: ${stats.total}&lt;/p&gt;
+            &lt;p&gt;Average: ${stats.average.toFixed(2)}&lt;/p&gt;
+            &lt;p&gt;Count: {stats.count}&lt;/p&gt;
+            &lt;p&gt;Min: ${stats.minAmount}&lt;/p&gt;
+            &lt;p&gt;Max: ${stats.maxAmount}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Building objects from arrays
+const userArray = [
+    ['id', 1],
+    ['name', 'John'],
+    ['email', 'john@example.com']
+];
+
+const userObject = userArray.reduce((obj, [key, value]) =&gt; {
+    obj[key] = value;
+    return obj;
+}, {});
+// { id: 1, name: 'John', email: 'john@example.com' }
+</code></pre>
+<h3 id="284-practical-examples">2.8.4 Practical Examples</h3>
+<pre><code class="language-javascript">// Product catalog example
+const products = [
+    { id: 1, name: 'Laptop', price: 999, category: 'Electronics', stock: 5 },
+    { id: 2, name: 'Shirt', price: 29, category: 'Clothing', stock: 10 },
+    { id: 3, name: 'Book', price: 19, category: 'Books', stock: 3 },
+    { id: 4, name: 'Phone', price: 699, category: 'Electronics', stock: 7 },
+    { id: 5, name: 'Jeans', price: 59, category: 'Clothing', stock: 8 }
+];
+
+// Filter electronics, double price, calculate total
+const electronicTotal = products
+    .filter(p =&gt; p.category === 'Electronics')
+    .map(p =&gt; p.price * 2)
+    .reduce((sum, price) =&gt; sum + price, 0);
+
+// Group by category with stock counts
+const categorySummary = products.reduce((acc, product) =&gt; {
+    if (!acc[product.category]) {
+        acc[product.category] = {
+            totalProducts: 0,
+            totalStock: 0,
+            totalValue: 0,
+            products: []
+        };
+    }
+    acc[product.category].totalProducts++;
+    acc[product.category].totalStock += product.stock;
+    acc[product.category].totalValue += product.price * product.stock;
+    acc[product.category].products.push(product.name);
+    return acc;
+}, {});
+
+// React component using these operations
+function ProductDashboard({ products }) {
+    const categories = products.reduce((acc, product) =&gt; {
+        if (!acc[product.category]) acc[product.category] = [];
+        acc[product.category].push(product);
+        return acc;
+    }, {});
+
+    const lowStock = products.filter(product =&gt; product.stock &lt; 5);
+    const topProducts = [...products]
+        .sort((a, b) =&gt; b.price - a.price)
+        .slice(0, 3);
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Product Dashboard&lt;/h2&gt;
+
+            &lt;div className="stats"&gt;
+                &lt;p&gt;Total Products: {products.length}&lt;/p&gt;
+                &lt;p&gt;Average Price: ${(products.reduce((sum, p) =&gt; sum + p.price, 0) / products.length).toFixed(2)}&lt;/p&gt;
+                &lt;p&gt;Total Value: ${products.reduce((sum, p) =&gt; sum + p.price * p.stock, 0)}&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div className="categories"&gt;
+                &lt;h3&gt;Categories&lt;/h3&gt;
+                {Object.entries(categories).map(([category, items]) =&gt; (
+                    &lt;div key={category}&gt;
+                        &lt;h4&gt;{category}&lt;/h4&gt;
+                        &lt;ul&gt;
+                            {items.map(item =&gt; (
+                                &lt;li key={item.id}&gt;
+                                    {item.name} - ${item.price} (Stock: {item.stock})
+                                &lt;/li&gt;
+                            ))}
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+
+            &lt;div className="low-stock"&gt;
+                &lt;h3&gt;Low Stock Items&lt;/h3&gt;
+                &lt;ul&gt;
+                    {lowStock.map(item =&gt; (
+                        &lt;li key={item.id} className="warning"&gt;
+                            {item.name}: {item.stock} units remaining
+                        &lt;/li&gt;
+                    ))}
+                &lt;/ul&gt;
+            &lt;/div&gt;
+
+            &lt;div className="top-products"&gt;
+                &lt;h3&gt;Top Products by Price&lt;/h3&gt;
+                &lt;ul&gt;
+                    {topProducts.map(product =&gt; (
+                        &lt;li key={product.id}&gt;
+                            {product.name} - ${product.price}
+                        &lt;/li&gt;
+                    ))}
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="29-promises">2.9 Promises</h2>
+<h3 id="291-understanding-promises">2.9.1 Understanding Promises</h3>
+<pre><code class="language-javascript">// Creating a Promise
+const myPromise = new Promise((resolve, reject) =&gt; {
+    // Async operation
+    setTimeout(() =&gt; {
+        const success = true;
+        if (success) {
+            resolve('Operation successful!');
+        } else {
+            reject('Operation failed!');
+        }
+    }, 1000);
+});
+
+// Using a Promise
+myPromise
+    .then(result =&gt; {
+        console.log(result); // 'Operation successful!'
+    })
+    .catch(error =&gt; {
+        console.error(error); // 'Operation failed!'
+    })
+    .finally(() =&gt; {
+        console.log('Promise completed'); // Always runs
+    });
+
+// Promise states
+const pendingPromise = new Promise(() =&gt; {}); // Pending
+const resolvedPromise = Promise.resolve('Resolved'); // Fulfilled
+const rejectedPromise = Promise.reject('Rejected'); // Rejected
+
+// Checking promise state
+console.log(Promise.resolve() instanceof Promise); // true
+</code></pre>
+<h3 id="292-promise-chaining">2.9.2 Promise Chaining</h3>
+<pre><code class="language-javascript">// Chaining promises
+function getUser(id) {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve({ id, name: 'John Doe' });
+        }, 1000);
+    });
+}
+
+function getUserPosts(user) {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve([
+                { id: 1, title: 'Post 1', userId: user.id },
+                { id: 2, title: 'Post 2', userId: user.id }
+            ]);
+        }, 1000);
+    });
+}
+
+function getPostComments(post) {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve([
+                { id: 1, text: 'Great post!', postId: post.id },
+                { id: 2, text: 'Thanks!', postId: post.id }
+            ]);
+        }, 1000);
+    });
+}
+
+// Chaining with data transformation
+getUser(1)
+    .then(user =&gt; {
+        console.log('Got user:', user);
+        return getUserPosts(user);
+    })
+    .then(posts =&gt; {
+        console.log('Got posts:', posts);
+        // Process posts
+        const firstPost = posts[0];
+        return getPostComments(firstPost);
+    })
+    .then(comments =&gt; {
+        console.log('Got comments:', comments);
+        return comments.map(c =&gt; c.text);
+    })
+    .then(commentTexts =&gt; {
+        console.log('Comment texts:', commentTexts);
+        return commentTexts.join(', ');
+    })
+    .then(result =&gt; {
+        console.log('Final result:', result);
+    })
+    .catch(error =&gt; {
+        console.error('Error:', error);
+    });
+
+// React: Fetching data with promises
+function UserProfile({ userId }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+        setLoading(true);
+        setError(null);
+
+        fetch(`/api/users/${userId}`)
+            .then(response =&gt; {
+                if (!response.ok) {
+                    throw new Error('User not found');
+                }
+                return response.json();
+            })
+            .then(data =&gt; {
+                setUser(data);
+                setLoading(false);
+            })
+            .catch(err =&gt; {
+                setError(err.message);
+                setLoading(false);
+            });
+    }, [userId]);
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+    return &lt;div&gt;{user.name}&lt;/div&gt;;
+}
+</code></pre>
+<h3 id="293-promise-methods">2.9.3 Promise Methods</h3>
+<pre><code class="language-javascript">// Promise.all - Wait for all promises to resolve
+const promise1 = Promise.resolve(1);
+const promise2 = Promise.resolve(2);
+const promise3 = Promise.resolve(3);
+
+Promise.all([promise1, promise2, promise3])
+    .then(results =&gt; {
+        console.log(results); // [1, 2, 3]
+    });
+
+// React: Loading multiple resources
+function Dashboard() {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() =&gt; {
+        const userPromise = fetch('/api/user');
+        const postsPromise = fetch('/api/posts');
+        const notificationsPromise = fetch('/api/notifications');
+
+        Promise.all([userPromise, postsPromise, notificationsPromise])
+            .then(responses =&gt; Promise.all(responses.map(r =&gt; r.json())))
+            .then(([user, posts, notifications]) =&gt; {
+                setData({ user, posts, notifications });
+                setLoading(false);
+            })
+            .catch(error =&gt; {
+                console.error('Error loading dashboard:', error);
+                setLoading(false);
+            });
+    }, []);
+
+    // Render dashboard...
+}
+
+// Promise.allSettled - Wait for all promises to settle (resolve or reject)
+const promises = [
+    Promise.resolve('Success'),
+    Promise.reject('Error'),
+    Promise.resolve('Another success')
+];
+
+Promise.allSettled(promises)
+    .then(results =&gt; {
+        results.forEach(result =&gt; {
+            if (result.status === 'fulfilled') {
+                console.log('Success:', result.value);
+            } else {
+                console.log('Error:', result.reason);
+            }
+        });
+    });
+
+// Promise.race - First promise to settle
+const racePromises = [
+    new Promise(resolve =&gt; setTimeout(() =&gt; resolve('First'), 100)),
+    new Promise(resolve =&gt; setTimeout(() =&gt; resolve('Second'), 200))
+];
+
+Promise.race(racePromises)
+    .then(result =&gt; console.log(result)); // 'First'
+
+// Promise.any - First promise to resolve
+const anyPromises = [
+    new Promise((resolve, reject) =&gt; setTimeout(() =&gt; reject('Error 1'), 100)),
+    new Promise(resolve =&gt; setTimeout(() =&gt; resolve('Success'), 200)),
+    new Promise(resolve =&gt; setTimeout(() =&gt; resolve('Another success'), 150))
+];
+
+Promise.any(anyPromises)
+    .then(result =&gt; console.log(result)); // 'Another success' (first to resolve)
+</code></pre>
+<h2 id="210-asyncawait">2.10 Async/Await</h2>
+<h3 id="2101-basic-asyncawait">2.10.1 Basic Async/Await</h3>
+<pre><code class="language-javascript">// Async function declaration
+async function fetchData() {
+    // Always returns a Promise
+    return 'Data fetched';
+}
+
+// Arrow function async
+const fetchDataArrow = async () =&gt; {
+    return 'Data fetched';
+};
+
+// Using await
+async function getUserData(userId) {
+    try {
+        // Wait for promise to resolve
+        const response = await fetch(`/api/users/${userId}`);
+        const user = await response.json();
+        return user;
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        throw error; // Re-throw for error handling
+    }
+}
+
+// Using async/await in React
+function UserProfile({ userId }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+        const fetchUser = async () =&gt; {
+            try {
+                setLoading(true);
+                setError(null);
+
+                const response = await fetch(`/api/users/${userId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user');
+                }
+                const data = await response.json();
+                setUser(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, [userId]);
+
+    // Render logic...
+}
+</code></pre>
+<h3 id="2102-advanced-asyncawait-patterns">2.10.2 Advanced Async/Await Patterns</h3>
+<pre><code class="language-javascript">// Parallel requests with async/await
+async function fetchDashboardData() {
+    try {
+        // Start all requests in parallel
+        const userPromise = fetch('/api/user');
+        const postsPromise = fetch('/api/posts');
+        const notificationsPromise = fetch('/api/notifications');
+
+        // Wait for all to complete
+        const [userResponse, postsResponse, notificationsResponse] = await Promise.all([
+            userPromise,
+            postsPromise,
+            notificationsPromise
+        ]);
+
+        const user = await userResponse.json();
+        const posts = await postsResponse.json();
+        const notifications = await notificationsResponse.json();
+
+        return { user, posts, notifications };
+    } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+        throw error;
+    }
+}
+
+// Sequential vs parallel
+async function fetchUserWithPosts(userId) {
+    // Sequential (slower but dependent)
+    const user = await getUser(userId);
+    const posts = await getUserPosts(user);
+    return { user, posts };
+}
+
+async function fetchUserAndPostsParallel(userId) {
+    // Parallel (faster)
+    const [user, posts] = await Promise.all([
+        getUser(userId),
+        getUserPosts(userId)
+    ]);
+    return { user, posts };
+}
+
+// Retry logic with async/await
+async function fetchWithRetry(url, maxRetries = 3) {
+    let lastError;
+
+    for (let attempt = 1; attempt &lt;= maxRetries; attempt++) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            lastError = error;
+            console.log(`Attempt ${attempt} failed: ${error.message}`);
+
+            if (attempt &lt; maxRetries) {
+                // Exponential backoff
+                const delay = Math.pow(2, attempt) * 1000;
+                await new Promise(resolve =&gt; setTimeout(resolve, delay));
+            }
+        }
+    }
+
+    throw new Error(`Failed after ${maxRetries} attempts: ${lastError.message}`);
+}
+
+// React: Fetch with retry and loading state
+function DataFetcher({ url }) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+        const fetchData = async () =&gt; {
+            try {
+                setLoading(true);
+                setError(null);
+
+                const result = await fetchWithRetry(url, 5);
+                setData(result);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [url]);
+
+    if (loading) return &lt;Spinner /&gt;;
+    if (error) return &lt;ErrorDisplay error={error} /&gt;;
+    return &lt;DataDisplay data={data} /&gt;;
+}
+</code></pre>
+<h3 id="2103-error-handling-in-asyncawait">2.10.3 Error Handling in Async/Await</h3>
+<pre><code class="language-javascript">// Try-catch with specific error types
+class NetworkError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'NetworkError';
+    }
+}
+
+class ValidationError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'ValidationError';
+    }
+}
+
+async function handleUserOperation(userData) {
+    try {
+        if (!userData.name) {
+            throw new ValidationError('Name is required');
+        }
+
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        });
+
+        if (!response.ok) {
+            throw new NetworkError(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // Handle different error types
+        if (error instanceof ValidationError) {
+            console.error('Validation error:', error.message);
+            // Return validation error to user
+        } else if (error instanceof NetworkError) {
+            console.error('Network error:', error.message);
+            // Retry or show network error
+        } else {
+            console.error('Unknown error:', error);
+            // Generic error handling
+        }
+
+        throw error; // Re-throw if needed
+    }
+}
+
+// React: Error handling with async/await
+function AsyncExample() {
+    const [state, setState] = useState({ data: null, loading: false, error: null });
+
+    const fetchData = async () =&gt; {
+        setState(prev =&gt; ({ ...prev, loading: true, error: null }));
+
+        try {
+            const data = await fetchWithRetry('/api/data');
+            setState({ data, loading: false, error: null });
+        } catch (error) {
+            setState({ data: null, loading: false, error: error.message });
+        }
+    };
+
+    useEffect(() =&gt; {
+        fetchData();
+    }, []);
+
+    // Render logic...
+}
+
+// Async/await with forms
+function LoginForm() {
+    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const handleSubmit = async (e) =&gt; {
+        e.preventDefault();
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+
+            const data = await response.json();
+            // Handle successful login
+            console.log('Login successful:', data);
+        } catch (err) {
+            setError('Invalid email or password');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input
+                type="email"
+                value={formData.email}
+                onChange={e =&gt; setFormData({ ...formData, email: e.target.value })}
+                disabled={loading}
+            /&gt;
+            &lt;input
+                type="password"
+                value={formData.password}
+                onChange={e =&gt; setFormData({ ...formData, password: e.target.value })}
+                disabled={loading}
+            /&gt;
+            &lt;button type="submit" disabled={loading}&gt;
+                {loading ? 'Logging in...' : 'Login'}
+            &lt;/button&gt;
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h2 id="211-modules-and-importsexports">2.11 Modules and Imports/Exports</h2>
+<h3 id="2111-export-types">2.11.1 Export Types</h3>
+<pre><code class="language-javascript">// Named exports (components/api.js)
+export const API_BASE_URL = 'https://api.example.com';
+
+export function fetchUsers() {
+    return fetch(`${API_BASE_URL}/users`);
+}
+
+export class UserService {
+    static async getUser(id) {
+        const response = await fetch(`${API_BASE_URL}/users/${id}`);
+        return response.json();
+    }
+}
+
+// Default export (components/UserCard.jsx)
+export default function UserCard({ user }) {
+    return (
+        &lt;div className="user-card"&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;p&gt;{user.email}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Combined exports (components/index.js)
+export { default as UserCard } from './UserCard';
+export { default as UserList } from './UserList';
+export * from './api';
+</code></pre>
+<h3 id="2112-import-types">2.11.2 Import Types</h3>
+<pre><code class="language-javascript">// Named imports
+import { API_BASE_URL, fetchUsers, UserService } from './api';
+
+// Default import
+import UserCard from './components/UserCard';
+
+// Default + named imports
+import UserCard, { UserList } from './components';
+
+// Aliasing imports
+import { fetchUsers as getUsers } from './api';
+
+// Namespace imports
+import * as API from './api';
+API.fetchUsers();
+API.UserService.getUser(1);
+
+// Dynamic imports (code splitting)
+const UserProfile = React.lazy(() =&gt; import('./pages/UserProfile'));
+
+// Import with paths
+import '../styles/global.css';
+import logo from '../assets/logo.svg';
+
+// Import JSON
+import data from '../data/config.json';
+
+// Import images
+import profilePic from '../assets/profile.jpg';
+
+function Avatar() {
+    return &lt;img src={profilePic} alt="Profile" /&gt;;
+}
+</code></pre>
+<h3 id="2113-module-patterns">2.11.3 Module Patterns</h3>
+<pre><code class="language-javascript">// Configuration module (config/index.js)
+export const config = {
+    apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:3000',
+    timeout: 5000,
+    retryAttempts: 3
+};
+
+// Service module (services/auth.js)
+const TOKEN_KEY = 'auth_token';
+
+export const AuthService = {
+    login: async (credentials) =&gt; {
+        try {
+            const response = await fetch(`${config.apiUrl}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credentials)
+            });
+
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+
+            const data = await response.json();
+            localStorage.setItem(TOKEN_KEY, data.token);
+            return data;
+        } catch (error) {
+            console.error('Login error:', error);
+            throw error;
+        }
+    },
+
+    logout: () =&gt; {
+        localStorage.removeItem(TOKEN_KEY);
+    },
+
+    getToken: () =&gt; localStorage.getItem(TOKEN_KEY),
+
+    isAuthenticated: () =&gt; !!localStorage.getItem(TOKEN_KEY)
+};
+
+// Constants module (constants/index.js)
+export const ROUTES = {
+    HOME: '/',
+    LOGIN: '/login',
+    DASHBOARD: '/dashboard',
+    USERS: '/users',
+    SETTINGS: '/settings'
+};
+
+export const API = {
+    USERS: '/api/users',
+    AUTH: '/api/auth',
+    POSTS: '/api/posts'
+};
+
+// Utility module (utils/formatters.js)
+export const formatters = {
+    formatDate: (date) =&gt; {
+        return new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    },
+
+    formatCurrency: (amount) =&gt; {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        }).format(amount);
+    },
+
+    formatPhone: (phone) =&gt; {
+        return phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+    }
+};
+
+// API module with error handling (api/client.js)
+import { AuthService } from '../services/auth';
+import { config } from '../config';
+
+export const apiClient = {
+    async request(endpoint, options = {}) {
+        const token = AuthService.getToken();
+        const headers = {
+            'Content-Type': 'application/json',
+            ...(token &amp;&amp; { 'Authorization': `Bearer ${token}` }),
+            ...options.headers
+        };
+
+        try {
+            const response = await fetch(`${config.apiUrl}${endpoint}`, {
+                ...options,
+                headers
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('API request error:', error);
+            throw error;
+        }
+    },
+
+    get: (endpoint) =&gt; this.request(endpoint),
+    post: (endpoint, data) =&gt; this.request(endpoint, { method: 'POST', body: JSON.stringify(data) }),
+    put: (endpoint, data) =&gt; this.request(endpoint, { method: 'PUT', body: JSON.stringify(data) }),
+    delete: (endpoint) =&gt; this.request(endpoint, { method: 'DELETE' })
+};
+</code></pre>
+<h2 id="212-closures">2.12 Closures</h2>
+<h3 id="2121-understanding-closures">2.12.1 Understanding Closures</h3>
+<pre><code class="language-javascript">// Basic closure
+function outerFunction(outerVariable) {
+    // Inner function has access to outerVariable
+    function innerFunction(innerVariable) {
+        return outerVariable + innerVariable;
+    }
+    return innerFunction;
+}
+
+const closure = outerFunction(10);
+console.log(closure(5)); // 15
+
+// Closures in React
+function Counter() {
+    // Closure captures state and handlers
+    const [count, setCount] = useState(0);
+
+    const increment = () =&gt; {
+        setCount(prev =&gt; prev + 1);
+    };
+
+    const decrement = () =&gt; {
+        setCount(prev =&gt; prev - 1);
+    };
+
+    // These functions form closures around count and setCount
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={increment}&gt;+&lt;/button&gt;
+            &lt;button onClick={decrement}&gt;-&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Closure for private variables
+function createCounter() {
+    let count = 0; // Private variable
+
+    return {
+        increment: function() {
+            count++;
+            return count;
+        },
+        decrement: function() {
+            count--;
+            return count;
+        },
+        getValue: function() {
+            return count;
+        }
+    };
+}
+
+const counter = createCounter();
+console.log(counter.increment()); // 1
+console.log(counter.increment()); // 2
+console.log(counter.getValue()); // 2
+// console.log(counter.count); // undefined (private)
+</code></pre>
+<h3 id="2122-closure-in-react-hooks">2.12.2 Closure in React Hooks</h3>
+<pre><code class="language-javascript">// UseState uses closures
+function ComponentWithClosure() {
+    const [value, setValue] = useState(0);
+
+    // This handler forms a closure around value
+    const handleClick = () =&gt; {
+        setValue(value + 1);
+    };
+
+    // This handler captures the current value
+    const handleLog = () =&gt; {
+        console.log('Current value:', value);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Value: {value}&lt;/p&gt;
+            &lt;button onClick={handleClick}&gt;Increment&lt;/button&gt;
+            &lt;button onClick={handleLog}&gt;Log Value&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Closure with useEffect - stale closure problem
+function StaleClosure() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() =&gt; {
+        // This closure captures the initial count (0)
+        const interval = setInterval(() =&gt; {
+            console.log('Count:', count); // Always logs initial count
+        }, 1000);
+
+        return () =&gt; clearInterval(interval);
+    }, []); // Empty dependency array
+
+    return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;;
+}
+
+// Fixing stale closure
+function FixedClosure() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() =&gt; {
+        // Use functional update to get current value
+        const interval = setInterval(() =&gt; {
+            setCount(prev =&gt; {
+                console.log('Count:', prev);
+                return prev;
+            });
+        }, 1000);
+
+        return () =&gt; clearInterval(interval);
+    }, []);
+
+    return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;;
+}
+
+// Closures in custom hooks
+function useCounter(initialValue = 0) {
+    const [count, setCount] = useState(initialValue);
+
+    // These functions close over count and setCount
+    const increment = useCallback(() =&gt; {
+        setCount(c =&gt; c + 1);
+    }, []);
+
+    const decrement = useCallback(() =&gt; {
+        setCount(c =&gt; c - 1);
+    }, []);
+
+    const reset = useCallback(() =&gt; {
+        setCount(initialValue);
+    }, [initialValue]);
+
+    return { count, increment, decrement, reset };
+}
+</code></pre>
+<h2 id="213-event-loop-and-execution-context">2.13 Event Loop and Execution Context</h2>
+<h3 id="2131-understanding-the-event-loop">2.13.1 Understanding the Event Loop</h3>
+<pre><code class="language-javascript">// Visualizing the event loop
+console.log('1: Start');
+
+setTimeout(() =&gt; {
+    console.log('2: Timeout callback');
+}, 0);
+
+Promise.resolve().then(() =&gt; {
+    console.log('3: Promise resolved');
+});
+
+console.log('4: End');
+
+// Output:
+// 1: Start
+// 4: End
+// 3: Promise resolved
+// 2: Timeout callback
+
+// Event Loop Phases
+// 1. Call Stack - Synchronous code
+// 2. Microtasks - Promises, process.nextTick
+// 3. Macrotasks - setTimeout, setInterval, I/O
+
+// Microtask vs Macrotask priority
+setTimeout(() =&gt; {
+    console.log('Macrotask');
+}, 0);
+
+Promise.resolve().then(() =&gt; {
+    console.log('Microtask 1');
+}).then(() =&gt; {
+    console.log('Microtask 2');
+});
+
+// Output:
+// Microtask 1
+// Microtask 2
+// Macrotask
+
+// Event loop in React
+function EventLoopExample() {
+    const [data, setData] = useState(null);
+
+    useEffect(() =&gt; {
+        console.log('1: Effect start');
+
+        // Async operation - scheduled in event loop
+        fetch('https://api.example.com/data')
+            .then(response =&gt; {
+                console.log('3: Promise resolved');
+                return response.json();
+            })
+            .then(json =&gt; {
+                console.log('4: Data processed');
+                setData(json);
+            });
+
+        console.log('2: Effect end');
+
+        // Output order:
+        // 1: Effect start
+        // 2: Effect end
+        // 3: Promise resolved
+        // 4: Data processed
+    }, []);
+
+    return &lt;div&gt;{data}&lt;/div&gt;;
+}
+</code></pre>
+<h3 id="2132-execution-context-and-this">2.13.2 Execution Context and This</h3>
+<pre><code class="language-javascript">// Execution Context
+function example() {
+    // Function execution context
+    let x = 10;
+
+    function inner() {
+        // Inner execution context
+        let y = 20;
+        console.log(x + y); // 30 (accesses outer scope)
+    }
+
+    inner();
+}
+
+// 'this' binding
+// 1. Default binding (global)
+function showThis() {
+    console.log(this); // global object (window in browser)
+}
+
+// 2. Implicit binding (object method)
+const obj = {
+    name: 'John',
+    greet: function() {
+        console.log(`Hello, ${this.name}`);
+    }
+};
+obj.greet(); // Hello, John
+
+// 3. Explicit binding (call, apply, bind)
+function greet(greeting) {
+    console.log(`${greeting}, ${this.name}`);
+}
+
+const person = { name: 'Jane' };
+greet.call(person, 'Hello'); // Hello, Jane
+greet.apply(person, ['Hi']); // Hi, Jane
+const boundGreet = greet.bind(person, 'Hey');
+boundGreet(); // Hey, Jane
+
+// 4. Arrow function binding (lexical)
+const arrowObj = {
+    name: 'Bob',
+    greet: () =&gt; {
+        console.log(`Hello, ${this.name}`); // this refers to outer scope
+    }
+};
+arrowObj.greet(); // Hello, undefined (if global)
+
+// 'this' in React
+class ReactComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { count: 0 };
+        this.handleClick = this.handleClick.bind(this); // Manual binding
+    }
+
+    // Arrow function - automatically bound
+    handleClickArrow = () =&gt; {
+        this.setState({ count: this.state.count + 1 });
+    };
+
+    // Regular function - needs binding
+    handleClick() {
+        this.setState({ count: this.state.count + 1 });
+    }
+
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;button onClick={this.handleClick}&gt;Count: {this.state.count}&lt;/button&gt;
+            &lt;/div&gt;
+        );
+    }
+}
+</code></pre>
+<h2 id="214-memory-and-garbage-collection">2.14 Memory and Garbage Collection</h2>
+<h3 id="2141-memory-management">2.14.1 Memory Management</h3>
+<pre><code class="language-javascript">// Memory allocation
+let number = 10; // Allocates memory for number
+let string = 'Hello'; // Allocates memory for string
+let object = { name: 'John' }; // Allocates memory for object
+let array = [1, 2, 3]; // Allocates memory for array
+
+// Memory references
+let user = { name: 'John' };
+let userRef = user; // Both reference the same object
+userRef.name = 'Jane';
+console.log(user.name); // 'Jane' (same object)
+
+// Memory cleanup with closures
+function createClosure() {
+    let largeData = new Array(1000000).fill('data');
+
+    return function() {
+        console.log(largeData.length);
+    };
+}
+
+// The closure holds reference to largeData
+const closure = createClosure();
+// Memory for largeData is not freed until closure is garbage collected
+
+// React: Cleanup with useEffect
+function MemoryLeakExample() {
+    useEffect(() =&gt; {
+        // Subscriptions, event listeners
+        const subscription = someEventSource.subscribe();
+        const handler = () =&gt; console.log('Event');
+        window.addEventListener('resize', handler);
+
+        // Cleanup - prevents memory leaks
+        return () =&gt; {
+            subscription.unsubscribe();
+            window.removeEventListener('resize', handler);
+        };
+    }, []);
+
+    return &lt;div&gt;Memory Leak Example&lt;/div&gt;;
+}
+
+// Avoiding memory leaks with useRef
+function ImageLoader({ src }) {
+    const [image, setImage] = useState(null);
+    const abortController = useRef(null);
+
+    useEffect(() =&gt; {
+        // Create new AbortController for each request
+        abortController.current = new AbortController();
+
+        fetch(src, { signal: abortController.current.signal })
+            .then(response =&gt; response.blob())
+            .then(blob =&gt; {
+                const imageUrl = URL.createObjectURL(blob);
+                setImage(imageUrl);
+            })
+            .catch(error =&gt; {
+                if (error.name !== 'AbortError') {
+                    console.error('Error loading image:', error);
+                }
+            });
+
+        // Cleanup
+        return () =&gt; {
+            abortController.current.abort();
+            if (image) {
+                URL.revokeObjectURL(image); // Clean up URL
+            }
+        };
+    }, [src]);
+
+    return image ? &lt;img src={image} alt="Loaded" /&gt; : &lt;div&gt;Loading...&lt;/div&gt;;
+}
+</code></pre>
+<h3 id="2142-garbage-collection">2.14.2 Garbage Collection</h3>
+<pre><code class="language-javascript">// Garbage collection basics
+function createObject() {
+    let obj = { data: 'some data' };
+    return obj;
+}
+
+// Object is eligible for garbage collection when no references exist
+let myObj = createObject();
+myObj = null; // Object can be garbage collected now
+
+// Garbage collection in React components
+function ComponentWithLargeData() {
+    const [data, setData] = useState(null);
+
+    useEffect(() =&gt; {
+        let largeData = new Array(1000000);
+        setData(largeData);
+
+        // When component unmounts, data will be garbage collected
+        // if no other references exist
+    }, []);
+
+    return &lt;div&gt;Component&lt;/div&gt;;
+}
+
+// WeakMap and WeakSet - allow garbage collection
+let weakMap = new WeakMap();
+let obj = {};
+weakMap.set(obj, 'some data');
+obj = null; // obj can be garbage collected
+
+// WeakRef - weak reference to object
+let weakRef = new WeakRef({ data: 'data' });
+// Use deref to get the object
+let objRef = weakRef.deref();
+if (objRef) {
+    console.log(objRef.data);
+}
+
+// Memory leak detection in React
+function useLeakDetection(componentName) {
+    useEffect(() =&gt; {
+        console.log(`${componentName} mounted`);
+        return () =&gt; {
+            console.log(`${componentName} unmounted`);
+            // Check for leaks
+            if (typeof window !== 'undefined') {
+                // Check for event listeners
+                // Check for subscriptions
+                // Check for references
+            }
+        };
+    }, [componentName]);
+}
+
+// Using the hook
+function MyComponent() {
+    useLeakDetection('MyComponent');
+    return &lt;div&gt;My Component&lt;/div&gt;;
+}
+</code></pre>
+<h2 id="215-es6-features-for-react">2.15 ES6+ Features for React</h2>
+<h3 id="2151-template-literals">2.15.1 Template Literals</h3>
+<pre><code class="language-javascript">// Basic template literals
+const name = 'John';
+const age = 30;
+const greeting = `Hello, ${name}! You are ${age} years old.`;
+
+// Multi-line strings
+const html = `
+    &lt;div class="user-card"&gt;
+        &lt;h2&gt;${name}&lt;/h2&gt;
+        &lt;p&gt;Age: ${age}&lt;/p&gt;
+    &lt;/div&gt;
+`;
+
+// Expression evaluation
+const price = 100;
+const tax = 0.08;
+const total = `Total: $${price * (1 + tax)}`;
+
+// Tagged template literals
+function highlight(strings, ...values) {
+    return strings.reduce((result, str, i) =&gt; {
+        return result + str + (values[i] ? `&lt;strong&gt;${values[i]}&lt;/strong&gt;` : '');
+    }, '');
+}
+
+const highlighted = highlight`Hello ${name}, your total is $${total}`;
+
+// React: Template literals in CSS
+function StyledComponent() {
+    const theme = 'dark';
+    const styles = `
+        .container {
+            background: ${theme === 'dark' ? '#333' : '#fff'};
+            color: ${theme === 'dark' ? '#fff' : '#333'};
+        }
+    `;
+
+    return &lt;div className="container"&gt;Content&lt;/div&gt;;
+}
+</code></pre>
+<h3 id="2152-optional-chaining">2.15.2 Optional Chaining (?.)</h3>
+<pre><code class="language-javascript">// Accessing nested properties safely
+const user = {
+    name: 'John',
+    address: {
+        city: 'New York',
+        street: '5th Ave'
+    }
+};
+
+// Without optional chaining
+const city = user &amp;&amp; user.address &amp;&amp; user.address.city;
+
+// With optional chaining
+const city = user?.address?.city;
+
+// Optional chaining with arrays
+const users = [
+    { name: 'John' },
+    { name: 'Jane' }
+];
+const firstUserName = users[0]?.name;
+
+// Optional chaining with function calls
+const result = user.getFullName?.();
+
+// React: Optional chaining in components
+function UserProfile({ user }) {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user?.name ?? 'Unknown'}&lt;/h2&gt;
+            &lt;p&gt;{user?.address?.city ?? 'No city'}&lt;/p&gt;
+            &lt;p&gt;Email: {user?.email || 'Not provided'}&lt;/p&gt;
+            &lt;span&gt;Phone: {user?.phone?.number || 'N/A'}&lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h3 id="2153-nullish-coalescing">2.15.3 Nullish Coalescing (??)</h3>
+<pre><code class="language-javascript">// Nullish coalescing - only works for null or undefined
+const value = null ?? 'default';
+console.log(value); // 'default'
+
+const value2 = undefined ?? 'default';
+console.log(value2); // 'default'
+
+const value3 = 0 ?? 'default';
+console.log(value3); // 0
+
+const value4 = '' ?? 'default';
+console.log(value4); // ''
+
+// Difference from || operator
+const zero = 0 || 'default';
+console.log(zero); // 'default' (0 is falsy)
+
+const zero2 = 0 ?? 'default';
+console.log(zero2); // 0 (0 is not null or undefined)
+
+// React: Nullish coalescing
+function Component({ data, settings }) {
+    const count = data?.count ?? 0;
+    const theme = settings?.theme ?? 'light';
+    const language = settings?.language ?? 'en';
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;p&gt;Theme: {theme}&lt;/p&gt;
+            &lt;p&gt;Language: {language}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Combining with optional chaining
+const result = user?.preferences?.theme ?? 'default-theme';
+</code></pre>
+<h2 id="216-classes-and-prototypes">2.16 Classes and Prototypes</h2>
+<h3 id="2161-class-basics">2.16.1 Class Basics</h3>
+<pre><code class="language-javascript">// Class declaration
+class User {
+    // Constructor
+    constructor(name, email) {
+        this.name = name;
+        this.email = email;
+        this.createdAt = new Date();
+    }
+
+    // Instance method
+    getInfo() {
+        return `${this.name} (${this.email})`;
+    }
+
+    // Static method
+    static createGuest() {
+        return new User('Guest', 'guest@example.com');
+    }
+
+    // Getter
+    get emailDomain() {
+        return this.email.split('@')[1];
+    }
+
+    // Setter
+    set emailDomain(domain) {
+        const username = this.email.split('@')[0];
+        this.email = `${username}@${domain}`;
+    }
+}
+
+// Class inheritance
+class AdminUser extends User {
+    constructor(name, email, permissions) {
+        super(name, email); // Call parent constructor
+        this.permissions = permissions || ['read', 'write'];
+        this.isAdmin = true;
+    }
+
+    // Override method
+    getInfo() {
+        return `Admin: ${super.getInfo()}`;
+    }
+
+    // New method
+    hasPermission(permission) {
+        return this.permissions.includes(permission);
+    }
+}
+
+// Using classes
+const user = new User('John', 'john@example.com');
+console.log(user.getInfo()); // John (john@example.com)
+console.log(user.emailDomain); // example.com
+
+const admin = new AdminUser('Jane', 'jane@example.com', ['read', 'write', 'delete']);
+console.log(admin.getInfo()); // Admin: Jane (jane@example.com)
+console.log(admin.hasPermission('delete')); // true
+</code></pre>
+<h3 id="2162-prototypes-and-prototype-chain">2.16.2 Prototypes and Prototype Chain</h3>
+<pre><code class="language-javascript">// Understanding prototypes
+function Animal(name) {
+    this.name = name;
+}
+
+Animal.prototype.speak = function() {
+    console.log(`${this.name} makes a sound`);
+};
+
+const dog = new Animal('Dog');
+dog.speak(); // Dog makes a sound
+
+// Prototype chain
+console.log(dog.__proto__ === Animal.prototype); // true
+console.log(Animal.prototype.__proto__ === Object.prototype); // true
+console.log(Object.prototype.__proto__ === null); // true
+
+// Class-based prototype inheritance
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    speak() {
+        console.log(`${this.name} makes a sound`);
+    }
+}
+
+class Dog extends Animal {
+    speak() {
+        console.log(`${this.name} barks`);
+    }
+}
+
+const dog = new Dog('Rex');
+dog.speak(); // Rex barks
+
+// React: Using classes for components (legacy)
+class Welcome extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { count: 0 };
+    }
+
+    componentDidMount() {
+        console.log('Component mounted');
+    }
+
+    render() {
+        return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;;
+    }
+}
+
+// Modern approach with functional components and hooks
+function Welcome({ name }) {
+    const [count, setCount] = useState(0);
+
+    useEffect(() =&gt; {
+        console.log('Component mounted');
+    }, []);
+
+    return &lt;h1&gt;Hello, {name}&lt;/h1&gt;;
+}
+</code></pre>
+<h2 id="217-practical-react-javascript-examples">2.17 Practical React JavaScript Examples</h2>
+<h3 id="2171-creating-a-custom-hook-with-javascript">2.17.1 Creating a Custom Hook with JavaScript</h3>
+<pre><code class="language-javascript">// Custom hook using all JavaScript features
+function useFetchData(url, options = {}) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+        const abortController = new AbortController();
+
+        const fetchData = async () =&gt; {
+            try {
+                setLoading(true);
+                setError(null);
+
+                const response = await fetch(url, {
+                    ...options,
+                    signal: abortController.signal
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                setData(result);
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    setError(err.message);
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+
+        return () =&gt; {
+            abortController.abort();
+        };
+    }, [url, JSON.stringify(options)]);
+
+    return { data, loading, error };
+}
+
+// Using the custom hook
+function UserList() {
+    const { data: users, loading, error } = useFetchData('/api/users');
+
+    if (loading) return &lt;Spinner /&gt;;
+    if (error) return &lt;ErrorDisplay error={error} /&gt;;
+
+    return (
+        &lt;ul&gt;
+            {users?.map(user =&gt; (
+                &lt;li key={user.id}&gt;
+                    {user.name} - {user.email}
+                &lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}
+</code></pre>
+<h3 id="2172-data-transformation-patterns">2.17.2 Data Transformation Patterns</h3>
+<pre><code class="language-javascript">// Complex data transformation
+const rawData = {
+    users: [
+        { id: 1, name: 'John Doe', email: 'john@example.com', status: 'active' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'inactive' },
+        { id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'active' }
+    ],
+    posts: [
+        { id: 1, userId: 1, title: 'First Post', content: 'Content 1' },
+        { id: 2, userId: 1, title: 'Second Post', content: 'Content 2' },
+        { id: 3, userId: 2, title: 'Third Post', content: 'Content 3' }
+    ]
+};
+
+// Transform data for UI
+const transformedData = {
+    // Group users by status
+    usersByStatus: rawData.users.reduce((acc, user) =&gt; {
+        if (!acc[user.status]) acc[user.status] = [];
+        acc[user.status].push(user);
+        return acc;
+    }, {}),
+
+    // Map users to their posts
+    userPosts: rawData.users.map(user =&gt; ({
+        ...user,
+        posts: rawData.posts.filter(post =&gt; post.userId === user.id)
+    })),
+
+    // Create name-email map
+    userEmailMap: rawData.users.reduce((acc, user) =&gt; {
+        acc[user.id] = { name: user.name, email: user.email };
+        return acc;
+    }, {}),
+
+    // Find active users with posts
+    activeUsersWithPosts: rawData.users
+        .filter(user =&gt; user.status === 'active')
+        .map(user =&gt; ({
+            ...user,
+            postCount: rawData.posts.filter(post =&gt; post.userId === user.id).length
+        }))
+};
+
+// React component using transformed data
+function Dashboard({ data }) {
+    const { usersByStatus, userPosts, activeUsersWithPosts } = data;
+
+    return (
+        &lt;div&gt;
+            &lt;div className="stats"&gt;
+                {Object.entries(usersByStatus).map(([status, users]) =&gt; (
+                    &lt;div key={status}&gt;
+                        &lt;h3&gt;{status.charAt(0).toUpperCase() + status.slice(1)}&lt;/h3&gt;
+                        &lt;p&gt;Count: {users.length}&lt;/p&gt;
+                    &lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+
+            &lt;div className="user-posts"&gt;
+                {userPosts.map(user =&gt; (
+                    &lt;div key={user.id} className="user-card"&gt;
+                        &lt;h3&gt;{user.name}&lt;/h3&gt;
+                        &lt;p&gt;{user.email}&lt;/p&gt;
+                        &lt;ul&gt;
+                            {user.posts.map(post =&gt; (
+                                &lt;li key={post.id}&gt;{post.title}&lt;/li&gt;
+                            ))}
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="218-common-mistakes-and-best-practices">2.18 Common Mistakes and Best Practices</h2>
+<h3 id="2181-common-javascript-mistakes-in-react">2.18.1 Common JavaScript Mistakes in React</h3>
+<pre><code class="language-javascript">// ❌ Mutating state directly
+function BadComponent() {
+    const [items, setItems] = useState([1, 2, 3]);
+
+    const addItem = (item) =&gt; {
+        items.push(item); // Direct mutation
+        setItems(items); // Wrong - same reference
+    };
+}
+
+// ✅ Proper state update
+function GoodComponent() {
+    const [items, setItems] = useState([1, 2, 3]);
+
+    const addItem = (item) =&gt; {
+        setItems(prev =&gt; [...prev, item]); // New array reference
+    };
+}
+
+// ❌ Using var
+var oldStyle = 'This is legacy';
+// var is function-scoped and can lead to bugs
+
+// ✅ Using let and const
+let newStyle = 'Modern JavaScript';
+const constantStyle = 'Cannot be reassigned';
+
+// ❌ Incorrect 'this' binding
+class BadClass extends React.Component {
+    handleClick() {
+        console.log(this); // 'this' is undefined
+    }
+}
+
+// ✅ Proper 'this' binding
+class GoodClass extends React.Component {
+    handleClick = () =&gt; {
+        console.log(this); // 'this' is properly bound
+    };
+}
+
+// ❌ Not handling async errors
+async function badFetch() {
+    const data = await fetch('/api/data').then(r =&gt; r.json());
+    return data; // If fetch fails, error goes unhandled
+}
+
+// ✅ Proper error handling
+async function goodFetch() {
+    try {
+        const response = await fetch('/api/data');
+        if (!response.ok) throw new Error('Failed to fetch');
+        return await response.json();
+    } catch (error) {
+        console.error('Fetch error:', error);
+        throw error; // Or handle appropriately
+    }
+}
+
+// ❌ Memory leak in useEffect
+function BadEffect() {
+    useEffect(() =&gt; {
+        const handler = () =&gt; console.log('resize');
+        window.addEventListener('resize', handler);
+        // Missing cleanup
+    }, []);
+}
+
+// ✅ Proper cleanup
+function GoodEffect() {
+    useEffect(() =&gt; {
+        const handler = () =&gt; console.log('resize');
+        window.addEventListener('resize', handler);
+        return () =&gt; {
+            window.removeEventListener('resize', handler);
+        };
+    }, []);
+}
+</code></pre>
+<h3 id="2182-best-practices">2.18.2 Best Practices</h3>
+<pre><code class="language-javascript">// ✅ Use descriptive variable names
+// Bad: const d = new Date();
+// Good: const currentDate = new Date();
+
+// ✅ Use const by default, let when needed
+const API_URL = 'https://api.example.com';
+let counter = 0; // Only if you need to reassign
+
+// ✅ Use destructuring for props
+function Component({ user, onUpdate, onDelete }) {
+    // Instead of props.user, props.onUpdate
+}
+
+// ✅ Use spread operator for immutability
+const updatedState = {
+    ...state,
+    property: newValue
+};
+
+// ✅ Use template literals
+const message = `Hello, ${name}! You have ${count} messages.`;
+
+// ✅ Use optional chaining
+const city = user?.address?.city ?? 'Unknown';
+
+// ✅ Use array methods for transformations
+const activeUsers = users
+    .filter(user =&gt; user.active)
+    .map(user =&gt; user.name);
+
+// ✅ Use async/await for promises
+async function fetchData() {
+    try {
+        const response = await fetch('/api/data');
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+// ✅ Use custom hooks for reusable logic
+function useLocalStorage(key, initialValue) {
+    const [value, setValue] = useState(() =&gt; {
+        try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : initialValue;
+        } catch (error) {
+            return initialValue;
+        }
+    });
+
+    useEffect(() =&gt; {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch (error) {
+            console.error('Error saving to localStorage:', error);
+        }
+    }, [key, value]);
+
+    return [value, setValue];
+}
+</code></pre>
+<h2 id="219-interview-questions">2.19 Interview Questions</h2>
+<h3 id="junior-level-questions--2">Junior Level Questions</h3>
+<p><strong>Q: What's the difference between let, const, and var?</strong></p>
+<p><strong>Answer</strong>: 
+- <code>var</code>: Function-scoped, can be redeclared, hoisted with undefined
+- <code>let</code>: Block-scoped, cannot be redeclared, hoisted but not initialized
+- <code>const</code>: Block-scoped, cannot be reassigned, hoisted but not initialized</p>
+<pre><code class="language-javascript">console.log(x); // undefined
+var x = 1;
+
+// console.log(y); // ReferenceError
+let y = 2;
+
+// console.log(z); // ReferenceError
+const z = 3;
+</code></pre>
+<p><strong>Q: What is the difference between == and ===?</strong></p>
+<p><strong>Answer</strong>: 
+- <code>==</code>: Loose equality, performs type coercion
+- <code>===</code>: Strict equality, checks both value and type</p>
+<pre><code class="language-javascript">console.log(5 == '5'); // true (string converted to number)
+console.log(5 === '5'); // false (different types)
+console.log(null == undefined); // true
+console.log(null === undefined); // false
+</code></pre>
+<h3 id="mid-level-questions--2">Mid Level Questions</h3>
+<p><strong>Q: Explain arrow functions and their advantages.</strong></p>
+<p><strong>Answer</strong>:
+Arrow functions provide a shorter syntax and lexical <code>this</code> binding. They don't have their own <code>this</code>, <code>arguments</code>, <code>super</code>, or <code>new.target</code>.</p>
+<pre><code class="language-javascript">// Shorter syntax
+const add = (a, b) =&gt; a + b;
+
+// Lexical 'this'
+const obj = {
+    name: 'John',
+    greet: function() {
+        setTimeout(() =&gt; {
+            console.log(`Hello, ${this.name}`); // 'this' refers to obj
+        }, 1000);
+    }
+};
+</code></pre>
+<p><strong>Q: What are closures and how are they used in React?</strong></p>
+<p><strong>Answer</strong>:
+Closures are functions that have access to variables from their outer scope. In React, closures are fundamental to hooks and callbacks.</p>
+<pre><code class="language-javascript">function Counter() {
+    const [count, setCount] = useState(0);
+
+    // This function forms a closure over count
+    const handleClick = () =&gt; {
+        setCount(count + 1); // Uses closure to access count
+    };
+
+    return &lt;button onClick={handleClick}&gt;{count}&lt;/button&gt;;
+}
+</code></pre>
+<h3 id="senior-level-questions--2">Senior Level Questions</h3>
+<p><strong>Q: Explain the event loop and how it affects React performance.</strong></p>
+<p><strong>Answer</strong>:
+The event loop handles asynchronous operations in JavaScript. React's performance can be affected by blocking the event loop with heavy computations.</p>
+<pre><code class="language-javascript">// ❌ Blocking the event loop
+function HeavyComponent() {
+    useEffect(() =&gt; {
+        // This blocks the event loop
+        const result = heavyComputation();
+        setData(result);
+    }, []);
+}
+
+// ✅ Using web workers or splitting
+function HeavyComponent() {
+    useEffect(() =&gt; {
+        // Use requestIdleCallback or split computation
+        const performComputation = () =&gt; {
+            const result = heavyComputation();
+            setData(result);
+        };
+
+        // Schedule when idle
+        requestIdleCallback(performComputation);
+    }, []);
+}
+</code></pre>
+<p><strong>Q: How do you handle memory leaks in React applications?</strong></p>
+<p><strong>Answer</strong>:
+Memory leaks occur when resources aren't properly cleaned up. Solutions include:
+1. Cleanup in useEffect return
+2. Proper subscription management
+3. Avoiding stale closures
+4. Using AbortController for fetch
+5. Proper handling of DOM references</p>
+<pre><code class="language-javascript">function useResourceCleanup() {
+    useEffect(() =&gt; {
+        const subscription = subscribe();
+        const timer = setTimeout(() =&gt; {}, 1000);
+
+        return () =&gt; {
+            subscription.unsubscribe();
+            clearTimeout(timer);
+            // Clean up DOM refs
+            if (ref.current) {
+                ref.current.removeEventListener();
+            }
+        };
+    }, []);
+}
+</code></pre>
+<h2 id="220-summary">2.20 Summary</h2>
+<h3 id="key-javascript-concepts-for-react">Key JavaScript Concepts for React</h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Use in React</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>let/const</strong></td>
+<td>State variables, props</td>
+<td><code>const [state, setState] = useState()</code></td>
+</tr>
+<tr>
+<td><strong>Arrow Functions</strong></td>
+<td>Components, event handlers</td>
+<td><code>const Component = () =&gt; {}</code></td>
+</tr>
+<tr>
+<td><strong>Destructuring</strong></td>
+<td>Props, state, imports</td>
+<td><code>const { user } = props</code></td>
+</tr>
+<tr>
+<td><strong>Spread/Rest</strong></td>
+<td>State updates, arrays</td>
+<td><code>setState([...items, new])</code></td>
+</tr>
+<tr>
+<td><strong>Map/Filter/Reduce</strong></td>
+<td>Data transformation</td>
+<td><code>users.map(user =&gt; user.name)</code></td>
+</tr>
+<tr>
+<td><strong>Promises/Async</strong></td>
+<td>API calls, data fetching</td>
+<td><code>const data = await fetch('/api')</code></td>
+</tr>
+<tr>
+<td><strong>Modules</strong></td>
+<td>Component organization</td>
+<td><code>import Component from './Component'</code></td>
+</tr>
+<tr>
+<td><strong>Closures</strong></td>
+<td>Hooks, callbacks</td>
+<td><code>useEffect(() =&gt; {}, [])</code></td>
+</tr>
+<tr>
+<td><strong>Event Loop</strong></td>
+<td>Async operations</td>
+<td><code>setTimeout(() =&gt; {}, 0)</code></td>
+</tr>
+<tr>
+<td><strong>Memory Management</strong></td>
+<td>Cleanup, unmounting</td>
+<td><code>return () =&gt; cleanup()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="best-practices-summary">Best Practices Summary</h3>
+<ol>
+<li><strong>Always use const by default, let only when necessary</strong></li>
+<li><strong>Use arrow functions for concise syntax and lexical this</strong></li>
+<li><strong>Destructure props and state for cleaner code</strong></li>
+<li><strong>Use spread operator for immutability</strong></li>
+<li><strong>Use array methods instead of loops for transformations</strong></li>
+<li><strong>Handle promises properly with try/catch</strong></li>
+<li><strong>Clean up side effects and subscriptions</strong></li>
+<li><strong>Use optional chaining for safe nested property access</strong></li>
+<li><strong>Write reusable custom hooks</strong></li>
+<li><strong>Understand JavaScript's event loop for performance</strong></li>
+</ol>
+<hr/>
+<p><em>End of Chapter 2</em></p>
+<p><strong>Next Chapter Preview</strong>: Chapter 3 will cover Everything About HTML Required for React, including semantic HTML, accessibility, forms, and how React interacts with HTML elements and attributes.</p>
+<hr/>
+<p><em>This chapter provides the JavaScript foundation needed for React development. Master these concepts before proceeding to React-specific features.</em></p>
+<h1 id="the-complete-react-developer-course--2">The Complete React Developer Course</h1>
+<h2 id="from-beginner-to-professional--2">From Beginner to Professional</h2>
+<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--2">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+<hr/>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-2" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-1"><span class="pager-label">← Previous chapter</span><strong>01 · Introduction to React</strong></a><a class="pager-card pager-card--next" href="#chapter-3"><span class="pager-label">Next chapter →</span><strong>03 · HTML Required for React</strong></a></nav></section>

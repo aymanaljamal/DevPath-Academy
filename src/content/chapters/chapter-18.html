@@ -1,0 +1,553 @@
+<section class="chapter" id="chapter-18" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">18</span>
+<h1 class="chapter-title" id="state-management-in-react-applications">State Management in React Applications</h1>
+</div>
+<hr/>
+<h2 id="introduction--8">Introduction</h2>
+<p>State management is one of the most important concepts in React.</p>
+<p>Every React application needs to remember information while the user interacts with it.</p>
+<p>Examples:</p>
+<ul>
+<li>Current user</li>
+<li>Shopping cart items</li>
+<li>Selected language</li>
+<li>Theme preference</li>
+<li>Form values</li>
+<li>Notifications</li>
+<li>Table filters</li>
+<li>Server data</li>
+</ul>
+<p>This information is called <strong>State</strong>.</p>
+<p>Understanding state management is essential for building professional React applications.</p>
+<hr/>
+<h2 id="what-is-state">What is State?</h2>
+<p>State is data that can change over time and affects the user interface.</p>
+<p>Example:</p>
+<pre><code class="language-tsx">const [count, setCount] = useState(0);
+</code></pre>
+<p>Current state:</p>
+<pre><code>count = 0
+</code></pre>
+<p>After clicking:</p>
+<pre><code>count = 1
+</code></pre>
+<p>React updates the UI automatically.</p>
+<hr/>
+<h2 id="state-vs-normal-variables">State vs Normal Variables</h2>
+<p>Normal variable:</p>
+<pre><code class="language-tsx">let count = 0;
+
+count++;
+</code></pre>
+<p>React does not know that the value changed.</p>
+<p>The UI will not update.</p>
+<hr/>
+<p>State:</p>
+<pre><code class="language-tsx">const [count, setCount] = useState(0);
+
+setCount(count + 1);
+</code></pre>
+<p>React knows:</p>
+<pre><code class="language-text">State Changed → Re-render Component → Update UI
+</code></pre>
+<hr/>
+<h2 id="types-of-state-in-react">Types of State in React</h2>
+<p>Modern applications usually have several types of state.</p>
+<ul>
+<li>Application State</li>
+<li>Server State</li>
+<li>Component State</li>
+<li>URL State</li>
+<li>Form State</li>
+</ul>
+<hr/>
+<h2 id="component-state">Component State</h2>
+<p>State that belongs to one component.</p>
+<p>Example:</p>
+<pre><code class="language-tsx">function Button(){
+
+const [loading,setLoading] = useState(false);
+
+}
+</code></pre>
+<p>Used for:</p>
+<ul>
+<li>Modals</li>
+<li>Toggles</li>
+<li>Inputs</li>
+<li>Local UI changes</li>
+</ul>
+<hr/>
+<h2 id="example">Example</h2>
+<p>Customer Modal:</p>
+<pre><code class="language-text">Open Modal → User Enters Data → Close Modal
+</code></pre>
+<p>The state belongs only to that component.</p>
+<hr/>
+<h2 id="sharing-component-state">Sharing Component State</h2>
+<p>Sometimes multiple components need the same state.</p>
+<p>Example:</p>
+<pre><code>Parent
+ ├── CustomerForm
+ └── CustomerPreview
+</code></pre>
+<p>Both need:</p>
+<pre><code>customerData
+</code></pre>
+<p>Solution:</p>
+<p>Move state to the common parent.</p>
+<p>This is called:</p>
+<h3 id="lifting-state-up">Lifting State Up</h3>
+<hr/>
+<h2 id="lifting-state-up-example">Lifting State Up Example</h2>
+<p>Before:</p>
+<ul>
+<li>CustomerForm</li>
+<li>has name</li>
+</ul>
+<p>After:</p>
+<pre><code>CustomersPage
+
+has customer state
+
+       |
+       |
+  --------------
+
+Form        Preview
+</code></pre>
+<hr/>
+<h2 id="props-drilling-problem">Props Drilling Problem</h2>
+<p>Passing data through many components:</p>
+<pre><code class="language-text">App → Layout → Page → Component → Child → Button
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-tsx">&lt;Component user={user}/&gt;
+</code></pre>
+<p>After many levels:</p>
+<pre><code class="language-tsx">&lt;Button user={user}/&gt;
+</code></pre>
+<p>This becomes difficult to maintain.</p>
+<p>This problem is called:</p>
+<h2 id="props-drilling">Props Drilling</h2>
+<hr/>
+<h2 id="context-api">Context API</h2>
+<p>React provides Context API to share global data.</p>
+<p>Example:</p>
+<pre><code class="language-text">AuthContext → User Information → Available Everywhere
+</code></pre>
+<hr/>
+<h2 id="context-example">Context Example</h2>
+<p>Create:</p>
+<pre><code>AuthContext.tsx
+</code></pre>
+<p>Store:</p>
+<pre><code class="language-tsx">{
+ user,
+ login,
+ logout
+}
+</code></pre>
+<p>Use:</p>
+<pre><code class="language-tsx">const {user}=useAuth();
+</code></pre>
+<hr/>
+<h2 id="common-contexts">Common Contexts</h2>
+<p>Enterprise applications usually have:</p>
+<ul>
+<li>AuthContext</li>
+<li>ThemeContext</li>
+<li>LanguageContext</li>
+<li>NotificationContext</li>
+</ul>
+<hr/>
+<h2 id="context-limitations">Context Limitations</h2>
+<p>Context is useful, but it is not a complete state management solution.</p>
+<p>Problems:</p>
+<ul>
+<li>Large contexts cause re-renders</li>
+<li>Harder debugging</li>
+<li>Complex updates become difficult</li>
+</ul>
+<p>For large applications, external state libraries are often used.</p>
+<hr/>
+<h2 id="server-state-vs-client-state">Server State vs Client State</h2>
+<p>This is one of the most important concepts.</p>
+<hr/>
+<h2 id="client-state">Client State</h2>
+<p>Data that belongs to the frontend.</p>
+<p>Examples:</p>
+<ul>
+<li>Sidebar Open</li>
+<li>Theme</li>
+<li>Modal Visible</li>
+<li>Selected Tab</li>
+</ul>
+<p>Managed by:</p>
+<ul>
+<li>useState</li>
+<li>Context</li>
+<li>Zustand</li>
+<li>Redux</li>
+</ul>
+<hr/>
+<h2 id="server-state">Server State</h2>
+<p>Data that comes from backend.</p>
+<p>Examples:</p>
+<ul>
+<li>Customers</li>
+<li>Orders</li>
+<li>Employees</li>
+<li>Reports</li>
+</ul>
+<p>Managed by:</p>
+<ul>
+<li>React Query</li>
+<li>SWR</li>
+<li>Apollo Client</li>
+</ul>
+<hr/>
+<h2 id="why-server-state-is-different">Why Server State is Different</h2>
+<p>Server data has:</p>
+<ul>
+<li>Loading</li>
+<li>Errors</li>
+<li>Cache</li>
+<li>Synchronization</li>
+<li>Refreshing</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-text">Customers Table → Backend Changes → Frontend Should Update
+</code></pre>
+<p>React Query handles this automatically.</p>
+<hr/>
+<h2 id="react-query-state-management">React Query State Management</h2>
+<p>Example:</p>
+<pre><code class="language-tsx">const {
+data,
+isLoading,
+error
+}=useQuery({
+queryKey:["customers"],
+queryFn:getCustomers
+});
+</code></pre>
+<p>React Query manages:</p>
+<ul>
+<li>Data</li>
+<li>Loading</li>
+<li>Error</li>
+<li>Cache</li>
+<li>Refetch</li>
+</ul>
+<hr/>
+<h2 id="redux">Redux</h2>
+<p>Redux is a popular state management library.</p>
+<p>Architecture:</p>
+<pre><code class="language-text">Component → Action → Reducer → Store → Component
+</code></pre>
+<hr/>
+<h2 id="redux-store">Redux Store</h2>
+<p>The store contains global state.</p>
+<p>Example:</p>
+<pre><code class="language-text">Store
+│
+├── auth
+├── cart
+├── settings
+└── notifications
+</code></pre>
+<hr/>
+<h2 id="redux-actions">Redux Actions</h2>
+<p>Actions describe what happened.</p>
+<p>Example:</p>
+<pre><code class="language-javascript">{
+ type:"LOGIN",
+ payload:user
+}
+</code></pre>
+<hr/>
+<h2 id="reducers">Reducers</h2>
+<p>Reducers decide how state changes.</p>
+<p>Example:</p>
+<pre><code class="language-javascript">function authReducer(state,action){
+
+switch(action.type){
+
+case "LOGIN":
+
+return action.payload;
+
+}
+
+}
+</code></pre>
+<hr/>
+<h2 id="redux-toolkit">Redux Toolkit</h2>
+<p>Modern Redux uses Redux Toolkit.</p>
+<p>It simplifies:</p>
+<ul>
+<li>Store creation</li>
+<li>Reducers</li>
+<li>Actions</li>
+<li>Async logic</li>
+</ul>
+<hr/>
+<h2 id="redux-architecture">Redux Architecture</h2>
+<p>Example:</p>
+<pre><code class="language-text">Login Button → Dispatch LOGIN Action → Auth Slice → Update Store → Components Re-render
+</code></pre>
+<hr/>
+<h2 id="zustand">Zustand</h2>
+<p>Zustand is a lightweight state management library.</p>
+<p>Example:</p>
+<pre><code class="language-tsx">const useStore=create((set)=&gt;({
+
+user:null,
+
+setUser:(user)=&gt;set({user})
+
+}));
+</code></pre>
+<p>Advantages:</p>
+<ul>
+<li>Simple</li>
+<li>Less code</li>
+<li>Fast</li>
+<li>Easy learning curve</li>
+</ul>
+<hr/>
+<h2 id="redux-vs-zustand-vs-context">Redux vs Zustand vs Context</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Context</th>
+<th>Redux Toolkit</th>
+<th>Zustand</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small Apps</td>
+<td>Excellent</td>
+<td>Good</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>Large Apps</td>
+<td>Limited</td>
+<td>Excellent</td>
+<td>Very Good</td>
+</tr>
+<tr>
+<td>Debugging</td>
+<td>Medium</td>
+<td>Excellent</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Boilerplate</td>
+<td>Low</td>
+<td>Medium</td>
+<td>Very Low</td>
+</tr>
+<tr>
+<td>DevTools</td>
+<td>Limited</td>
+<td>Excellent</td>
+<td>Good</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="form-state-management">Form State Management</h2>
+<p>Forms have their own state.</p>
+<p>Example:</p>
+<ul>
+<li>Name</li>
+<li>Email</li>
+<li>Phone</li>
+<li>Password</li>
+</ul>
+<p>Managing large forms with useState becomes difficult.</p>
+<hr/>
+<h2 id="react-hook-form">React Hook Form</h2>
+<p>Professional applications commonly use:</p>
+<pre><code>React Hook Form
+</code></pre>
+<p>Advantages:</p>
+<ul>
+<li>Fast</li>
+<li>Less re-rendering</li>
+<li>Easy validation</li>
+<li>Works with Zod</li>
+</ul>
+<hr/>
+<h2 id="form-architecture">Form Architecture</h2>
+<p>Example:</p>
+<pre><code class="language-text">CustomerForm → React Hook Form → Zod Validation → Submit → Service → API
+</code></pre>
+<hr/>
+<h2 id="url-state">URL State</h2>
+<p>Sometimes state belongs in the URL.</p>
+<p>Example:</p>
+<pre><code>/customers?page=2&amp;search=john
+</code></pre>
+<p>Benefits:</p>
+<ul>
+<li>Shareable links</li>
+<li>Browser history support</li>
+<li>Refresh keeps state</li>
+</ul>
+<p>Used for:</p>
+<ul>
+<li>Search</li>
+<li>Pagination</li>
+<li>Filters</li>
+</ul>
+<hr/>
+<h2 id="local-storage-state">Local Storage State</h2>
+<p>Some data should survive browser refresh.</p>
+<p>Examples:</p>
+<ul>
+<li>Theme</li>
+<li>Language</li>
+<li>User Preferences</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-javascript">localStorage.setItem(
+"theme",
+"dark"
+);
+</code></pre>
+<hr/>
+<h2 id="session-storage">Session Storage</h2>
+<p>Similar to localStorage.</p>
+<p>Difference:</p>
+<pre><code class="language-text">localStorage → Permanent → sessionStorage → Removed after browser closes
+</code></pre>
+<hr/>
+<h2 id="state-management-architecture-example">State Management Architecture Example</h2>
+<p>Laundry Management System:</p>
+<ul>
+<li>React App</li>
+<li>|</li>
+</ul>
+<hr/>
+<ul>
+<li>|                         |</li>
+<li>Client State              Server State</li>
+<li>|                         |</li>
+<li>Context/Zustand          React Query</li>
+<li>|                         |</li>
+<li>Theme/Auth/UI          Customers/Orders</li>
+<li>|</li>
+<li>Components</li>
+</ul>
+<hr/>
+<h2 id="real-enterprise-example">Real Enterprise Example</h2>
+<p>User opens Dashboard.</p>
+<p>Flow:</p>
+<pre><code class="language-text">Dashboard Page → useDashboard() → React Query → dashboard.service.ts → dashboard.api.ts → Backend → Database → Cache Result → Display Charts
+</code></pre>
+<p>Authentication:</p>
+<pre><code class="language-text">Login → Auth Service → JWT → Auth Context → Protected Routes
+</code></pre>
+<p>Theme:</p>
+<pre><code class="language-text">Theme Button → Theme Context → Update CSS Variables → UI Changes
+</code></pre>
+<hr/>
+<h2 id="choosing-the-right-tool--2">Choosing the Right Tool</h2>
+<p>Use:</p>
+<h3 id="usestate">useState</h3>
+<p>For:</p>
+<ul>
+<li>Small local changes</li>
+<li>Modal state</li>
+<li>Inputs</li>
+</ul>
+<hr/>
+<h3 id="context-api_1">Context API</h3>
+<p>For:</p>
+<ul>
+<li>Authentication</li>
+<li>Theme</li>
+<li>Language</li>
+</ul>
+<hr/>
+<h3 id="react-query--2">React Query</h3>
+<p>For:</p>
+<ul>
+<li>API data</li>
+<li>Backend communication</li>
+<li>Caching</li>
+</ul>
+<hr/>
+<h3 id="redux-toolkit_1">Redux Toolkit</h3>
+<p>For:</p>
+<ul>
+<li>Very large applications</li>
+<li>Complex global state</li>
+<li>Multiple teams</li>
+</ul>
+<hr/>
+<h3 id="zustand_1">Zustand</h3>
+<p>For:</p>
+<ul>
+<li>Medium applications</li>
+<li>Simple global state</li>
+</ul>
+<hr/>
+<h2 id="common-state-management-mistakes">Common State Management Mistakes</h2>
+<p>❌ Putting everything in Redux.</p>
+<p>❌ Using Context for huge frequently changing data.</p>
+<p>❌ Storing server data manually in state.</p>
+<p>❌ Duplicating the same state in multiple places.</p>
+<p>❌ Passing props through many levels.</p>
+<p>❌ Keeping unnecessary global state.</p>
+<p>❌ Forgetting to reset state.</p>
+<hr/>
+<h2 id="state-management-best-practices">State Management Best Practices</h2>
+<p>✅ Keep state as close as possible to where it is used.</p>
+<p>✅ Separate client state from server state.</p>
+<p>✅ Use React Query for backend data.</p>
+<p>✅ Use Context for simple global values.</p>
+<p>✅ Use Redux/Zustand only when needed.</p>
+<p>✅ Avoid unnecessary global state.</p>
+<p>✅ Normalize complex data structures.</p>
+<p>✅ Keep state predictable.</p>
+<hr/>
+<h2 id="state-decision-tree">State Decision Tree</h2>
+<ul>
+<li>Need to store data?</li>
+<li>|</li>
+<li>▼</li>
+<li>Is it from backend?</li>
+<li>Yes        No</li>
+<li>|          |</li>
+<li>▼          ▼</li>
+<li>React Query   Is it shared?</li>
+<li>|</li>
+<li>Yes       No</li>
+<li>|         |</li>
+<li>▼         ▼</li>
+<li>Context/Zustand useState</li>
+</ul>
+<hr/>
+<h2 id="chapter-summary--7">Chapter Summary</h2>
+<p>State management is the foundation of interactive React applications.</p>
+<p>Professional React applications usually divide state into different categories:</p>
+<ul>
+<li><strong>Component State</strong> for local UI behavior.</li>
+<li><strong>Context State</strong> for simple global information.</li>
+<li><strong>Server State</strong> managed by React Query.</li>
+<li><strong>Global Client State</strong> managed by Redux Toolkit or Zustand.</li>
+<li><strong>Form State</strong> managed by React Hook Form.</li>
+<li><strong>URL State</strong> for shareable navigation data.</li>
+</ul>
+<p>The goal is not to use the biggest state management library.</p>
+<p>The goal is to choose the correct tool for each type of data.</p>
+<p>A well-designed state architecture makes React applications easier to understand, faster, and more scalable.</p>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-18" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-17"><span class="pager-label">← Previous chapter</span><strong>17 · React Security Best Practices</strong></a></nav></section>

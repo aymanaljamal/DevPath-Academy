@@ -1,0 +1,2529 @@
+<section class="chapter" id="chapter-6" style="--accent:#B91C1C">
+<div class="chapter-title-card">
+<span class="chapter-num">06</span>
+<h1 class="chapter-title" id="react-hooks">React Hooks</h1>
+</div>
+<h2 id="61-introduction-to-react-hooks">6.1 Introduction to React Hooks</h2>
+<h3 id="simple-explanation--6">Simple Explanation</h3>
+<p>Hooks are functions that let you "hook into" React state and lifecycle features from functional components. Before Hooks, you could only use state and lifecycle methods in class components. Hooks were introduced in React 16.8 to make functional components just as powerful as class components.</p>
+<p>Think of Hooks as special tools in your React toolbox. Each hook serves a specific purpose - some manage state, others handle side effects, and others optimize performance. You can even create your own custom hooks to reuse logic across components.</p>
+<h3 id="technical-explanation--6">Technical Explanation</h3>
+<p>Hooks are JavaScript functions that allow you to use React features without writing classes. They provide a more direct API to React concepts like state, lifecycle, context, and refs. Hooks follow two main rules:
+1. <strong>Only call hooks at the top level</strong> (not inside loops, conditions, or nested functions)
+2. <strong>Only call hooks from React functions</strong> (functional components or custom hooks)</p>
+<p>React provides built-in hooks for common use cases and allows you to create custom hooks for reusable logic.</p>
+<h3 id="professional-explanation--6">Professional Explanation</h3>
+<p>Hooks represent a paradigm shift in React development, enabling functional components to handle complex state management and side effects. They promote:</p>
+<ul>
+<li><strong>Logic Reusability</strong>: Custom hooks encapsulate and share stateful logic</li>
+<li><strong>Code Organization</strong>: Related logic stays together in hooks</li>
+<li><strong>Simpler Testing</strong>: Hooks can be tested in isolation</li>
+<li><strong>Better TypeScript Support</strong>: Improved type inference with hooks</li>
+<li><strong>Reduced Boilerplate</strong>: No more classes, constructors, or bind methods</li>
+</ul>
+<p>In enterprise development, hooks are the standard for writing React components. They enable cleaner code organization, better separation of concerns, and easier maintenance.</p>
+<h2 id="62-usestate-hook">6.2 useState Hook</h2>
+<h3 id="simple-explanation_1--2">Simple Explanation</h3>
+<p>useState is the most basic hook. It lets you add state to functional components. You call it with an initial value, and it returns an array with two things: the current state value and a function to update it.</p>
+<p>Think of useState like a box where you can store a value. The box has two handles: one to see what's inside (the current value) and one to put something new inside (the update function).</p>
+<h3 id="technical-explanation_1--2">Technical Explanation</h3>
+<p>useState is a hook that manages local state in functional components. It returns a stateful value and a function to update it. The update function can accept either a new value or a function that receives the previous state.</p>
+<p>Key characteristics:
+- <strong>Initial value</strong>: Can be any JavaScript value or a function
+- <strong>Lazy initialization</strong>: Use a function for expensive computations
+- <strong>Functional updates</strong>: Use previous state for reliable updates
+- <strong>Multiple states</strong>: Use multiple useState calls
+- <strong>State batching</strong>: Updates are batched for performance</p>
+<h3 id="professional-explanation_1--2">Professional Explanation</h3>
+<p>useState is the foundation of React's state management. Understanding its behavior is crucial for building reliable components.</p>
+<p>Important concepts:
+- <strong>State isolation</strong>: Each useState call is independent
+- <strong>Update scheduling</strong>: State updates are asynchronous
+- <strong>Merge behavior</strong>: useState replaces state (unlike setState in classes)
+- <strong>Optimization</strong>: Use multiple useState calls for unrelated state
+- <strong>TypeScript</strong>: Generics allow type-safe state management</p>
+<h3 id="usestate-examples">useState Examples</h3>
+<pre><code class="language-jsx">// Basic usage
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Using with objects
+function UserProfile() {
+    const [user, setUser] = useState({
+        name: 'John',
+        age: 30,
+        email: 'john@example.com'
+    });
+
+    const updateName = (newName) =&gt; {
+        // Must create new object to trigger re-render
+        setUser({
+            ...user,
+            name: newName
+        });
+    };
+
+    const updateAge = (newAge) =&gt; {
+        setUser(prev =&gt; ({
+            ...prev,
+            age: newAge
+        }));
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{user.name}&lt;/h2&gt;
+            &lt;p&gt;Age: {user.age}&lt;/p&gt;
+            &lt;p&gt;Email: {user.email}&lt;/p&gt;
+            &lt;button onClick={() =&gt; updateName('Jane')}&gt;Change Name&lt;/button&gt;
+            &lt;button onClick={() =&gt; updateAge(31)}&gt;Change Age&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Multiple independent states
+function Form() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const handleSubmit = async (e) =&gt; {
+        e.preventDefault();
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            await login({ username, password });
+            // Success logic
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input
+                type="text"
+                value={username}
+                onChange={(e) =&gt; setUsername(e.target.value)}
+                placeholder="Username"
+                disabled={isLoading}
+            /&gt;
+            &lt;input
+                type="password"
+                value={password}
+                onChange={(e) =&gt; setPassword(e.target.value)}
+                placeholder="Password"
+                disabled={isLoading}
+            /&gt;
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+            &lt;button type="submit" disabled={isLoading}&gt;
+                {isLoading ? 'Loading...' : 'Login'}
+            &lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+
+// Lazy initialization
+function ExpensiveState() {
+    // This function runs only once
+    const [data, setData] = useState(() =&gt; {
+        console.log('Computing initial state...');
+        return heavyComputation();
+    });
+
+    return &lt;div&gt;{data}&lt;/div&gt;;
+}
+
+// Functional updates
+function CounterWithFunctionalUpdates() {
+    const [count, setCount] = useState(0);
+
+    const incrementAsync = () =&gt; {
+        // Use functional update for asynchronous operations
+        setTimeout(() =&gt; {
+            setCount(prev =&gt; prev + 1);
+        }, 1000);
+    };
+
+    const incrementTwice = () =&gt; {
+        // Multiple updates are batched
+        setCount(prev =&gt; prev + 1);
+        setCount(prev =&gt; prev + 1);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={incrementAsync}&gt;Async +1&lt;/button&gt;
+            &lt;button onClick={incrementTwice}&gt;+2&lt;/button&gt;
+            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="63-useeffect-hook">6.3 useEffect Hook</h2>
+<h3 id="simple-explanation_2--2">Simple Explanation</h3>
+<p>useEffect lets you perform side effects in functional components. Side effects are things like fetching data, setting up subscriptions, or manually changing the DOM. You can think of useEffect as a way to tell React to do something after the component renders.</p>
+<p>Think of useEffect as a "do this after rendering" function. It runs after the browser has painted the screen, so you can safely perform operations that affect the DOM or external systems.</p>
+<h3 id="technical-explanation_2--2">Technical Explanation</h3>
+<p>useEffect is a hook that handles side effects in functional components. It runs after the component renders and can optionally clean up before the component unmounts or before the next effect runs.</p>
+<p>Key characteristics:
+- <strong>Timing</strong>: Runs after the browser paints (by default)
+- <strong>Dependencies</strong>: Controls when the effect runs
+- <strong>Cleanup</strong>: Return function for cleaning up subscriptions
+- <strong>Multiple effects</strong>: Can use multiple useEffect calls
+- <strong>Scheduling</strong>: useLayoutEffect for synchronous effects</p>
+<h3 id="professional-explanation_2--2">Professional Explanation</h3>
+<p>Understanding useEffect is crucial for handling side effects correctly. Common pitfalls include dependency arrays and cleanup functions.</p>
+<p>Common use cases:
+- <strong>Data fetching</strong>: API calls on mount or when dependencies change
+- <strong>Subscriptions</strong>: Event listeners, WebSocket connections
+- <strong>DOM manipulation</strong>: Interacting with the DOM after render
+- <strong>Logging</strong>: Analytics and debugging
+- <strong>Timers</strong>: setTimeout, setInterval</p>
+<h3 id="useeffect-examples">useEffect Examples</h3>
+<pre><code class="language-jsx">// Basic useEffect
+function DocumentTitle() {
+    const [count, setCount] = useState(0);
+
+    // Update document title after every render
+    useEffect(() =&gt; {
+        document.title = `Count: ${count}`;
+    });
+
+    return (
+        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+            Clicked {count} times
+        &lt;/button&gt;
+    );
+}
+
+// useEffect with empty dependency array (mount only)
+function DataFetcher() {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Runs once when component mounts
+    useEffect(() =&gt; {
+        const fetchData = async () =&gt; {
+            try {
+                const response = await fetch('/api/data');
+                const json = await response.json();
+                setData(json);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+    return &lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt;;
+}
+
+// useEffect with dependencies
+function UserProfile({ userId }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    // Runs when userId changes
+    useEffect(() =&gt; {
+        const fetchUser = async () =&gt; {
+            setLoading(true);
+            const response = await fetch(`/api/users/${userId}`);
+            const data = await response.json();
+            setUser(data);
+            setLoading(false);
+        };
+
+        fetchUser();
+    }, [userId]); // Dependency array with userId
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (!user) return &lt;div&gt;User not found&lt;/div&gt;;
+    return &lt;div&gt;{user.name}&lt;/div&gt;;
+}
+
+// useEffect with cleanup
+function Timer() {
+    const [seconds, setSeconds] = useState(0);
+
+    useEffect(() =&gt; {
+        const interval = setInterval(() =&gt; {
+            setSeconds(prev =&gt; prev + 1);
+        }, 1000);
+
+        // Cleanup function
+        return () =&gt; {
+            clearInterval(interval);
+            console.log('Timer cleaned up');
+        };
+    }, []); // Empty array ensures cleanup on unmount
+
+    return &lt;div&gt;Seconds: {seconds}&lt;/div&gt;;
+}
+
+// Multiple effects
+function MultiEffect() {
+    const [count, setCount] = useState(0);
+    const [data, setData] = useState(null);
+
+    // Effect 1: Update title
+    useEffect(() =&gt; {
+        document.title = `Count: ${count}`;
+    }, [count]);
+
+    // Effect 2: Fetch data on mount
+    useEffect(() =&gt; {
+        fetchData();
+    }, []);
+
+    // Effect 3: Log changes
+    useEffect(() =&gt; {
+        console.log('Data changed:', data);
+    }, [data]);
+
+    return &lt;div&gt;{/* JSX */}&lt;/div&gt;;
+}
+
+// useEffect for subscriptions
+function WebSocketExample({ roomId }) {
+    const [messages, setMessages] = useState([]);
+    const [isConnected, setIsConnected] = useState(false);
+
+    useEffect(() =&gt; {
+        // Create WebSocket connection
+        const ws = new WebSocket(`ws://example.com/room/${roomId}`);
+
+        ws.onopen = () =&gt; {
+            setIsConnected(true);
+            console.log('WebSocket connected');
+        };
+
+        ws.onmessage = (event) =&gt; {
+            const message = JSON.parse(event.data);
+            setMessages(prev =&gt; [...prev, message]);
+        };
+
+        ws.onclose = () =&gt; {
+            setIsConnected(false);
+            console.log('WebSocket disconnected');
+        };
+
+        // Cleanup
+        return () =&gt; {
+            ws.close();
+        };
+    }, [roomId]); // Reconnect when roomId changes
+
+    return (
+        &lt;div&gt;
+            &lt;div&gt;Status: {isConnected ? 'Connected' : 'Disconnected'}&lt;/div&gt;
+            &lt;ul&gt;
+                {messages.map((msg, index) =&gt; (
+                    &lt;li key={index}&gt;{msg.text}&lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    );
+}
+
+// useEffect for event listeners
+function ResizeListener() {
+    const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+
+    useEffect(() =&gt; {
+        const handleResize = () =&gt; {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () =&gt; {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []); // Empty array - runs once
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Width: {windowSize.width}&lt;/p&gt;
+            &lt;p&gt;Height: {windowSize.height}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="64-usememo-hook">6.4 useMemo Hook</h2>
+<h3 id="simple-explanation_3--2">Simple Explanation</h3>
+<p>useMemo is a performance optimization hook that memoizes the result of a computation. It "remembers" the value from the previous render and only recomputes it when its dependencies change.</p>
+<p>Think of useMemo like a cache - if the inputs haven't changed, use the cached result instead of recomputing everything. This is especially useful for expensive calculations.</p>
+<h3 id="technical-explanation_3--2">Technical Explanation</h3>
+<p>useMemo memoizes the result of a function and returns the cached value when dependencies haven't changed. It runs during rendering and should be used for expensive computations.</p>
+<p>Key characteristics:
+- <strong>Memoization</strong>: Caches computed values
+- <strong>Dependencies</strong>: Controls when to recompute
+- <strong>Performance</strong>: Optimizes expensive calculations
+- <strong>Render phase</strong>: Runs during rendering
+- <strong>Type safety</strong>: Returns the value type</p>
+<h3 id="professional-explanation_3--2">Professional Explanation</h3>
+<p>useMemo is essential for performance optimization but should be used judiciously.</p>
+<p>When to use useMemo:
+- <strong>Expensive computations</strong>: Large data processing
+- <strong>Reference equality</strong>: Maintaining stable object references
+- <strong>Complex derivations</strong>: Derived state that's expensive
+- <strong>Preventing re-renders</strong>: Used with React.memo</p>
+<p>When NOT to use useMemo:
+- <strong>Simple values</strong>: Primitive values and simple operations
+- <strong>Every computation</strong>: The overhead of memoization might be higher
+- <strong>Side effects</strong>: Use useEffect for side effects</p>
+<h3 id="usememo-examples">useMemo Examples</h3>
+<pre><code class="language-jsx">// Basic useMemo
+function ExpensiveComponent({ numbers }) {
+    // Only recompute when numbers changes
+    const sum = useMemo(() =&gt; {
+        console.log('Calculating sum...');
+        return numbers.reduce((acc, n) =&gt; acc + n, 0);
+    }, [numbers]);
+
+    return &lt;div&gt;Sum: {sum}&lt;/div&gt;;
+}
+
+// With filtering and sorting
+function ProductList({ products, filterCategory, sortBy }) {
+    // Filter products - only recompute when dependencies change
+    const filteredProducts = useMemo(() =&gt; {
+        console.log('Filtering products...');
+        return products.filter(p =&gt; 
+            filterCategory ? p.category === filterCategory : true
+        );
+    }, [products, filterCategory]);
+
+    // Sort products - only recompute when filtered products or sort changes
+    const sortedProducts = useMemo(() =&gt; {
+        console.log('Sorting products...');
+        return [...filteredProducts].sort((a, b) =&gt; {
+            if (sortBy === 'price') return a.price - b.price;
+            if (sortBy === 'name') return a.name.localeCompare(b.name);
+            return 0;
+        });
+    }, [filteredProducts, sortBy]);
+
+    return (
+        &lt;div&gt;
+            {sortedProducts.map(product =&gt; (
+                &lt;div key={product.id}&gt;
+                    {product.name} - ${product.price}
+                &lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+
+// Complex computation with dependencies
+function ChartComponent({ data, dimensions }) {
+    // Expensive data processing
+    const processedData = useMemo(() =&gt; {
+        console.log('Processing chart data...');
+
+        // Simulate expensive calculation
+        return data.map(item =&gt; ({
+            ...item,
+            percentage: (item.value / getTotal(data)) * 100,
+            normalized: normalizeData(item.value)
+        }));
+    }, [data]);
+
+    // Only recompute when dimensions change
+    const chartConfig = useMemo(() =&gt; {
+        console.log('Calculating chart config...');
+        return {
+            width: dimensions.width - 40,
+            height: dimensions.height - 40,
+            margin: { top: 20, right: 20, bottom: 20, left: 20 }
+        };
+    }, [dimensions]);
+
+    return &lt;Chart data={processedData} config={chartConfig} /&gt;;
+}
+
+// Maintaining reference equality
+function ReferenceEquality({ user }) {
+    // User object is a prop, might be new on each render
+    // Use useMemo to maintain stable reference
+    const userConfig = useMemo(() =&gt; ({
+        name: user.name,
+        role: user.role,
+        permissions: user.permissions,
+        // Complex derived data
+        displayName: `${user.firstName} ${user.lastName}`,
+        avatarUrl: getAvatarUrl(user.id)
+    }), [user]);
+
+    // Now userConfig will only change when user actually changes
+    return &lt;ChildComponent config={userConfig} /&gt;;
+}
+
+// Preventing unnecessary child re-renders
+function Parent({ items, query }) {
+    // Memoize filtered items to prevent child re-render
+    const filteredItems = useMemo(() =&gt; {
+        return items.filter(item =&gt; 
+            item.name.toLowerCase().includes(query.toLowerCase())
+        );
+    }, [items, query]);
+
+    return &lt;ItemList items={filteredItems} /&gt;;
+}
+
+// useMemo with expensive operations
+function LargeDataset({ dataset, filters }) {
+    const processedData = useMemo(() =&gt; {
+        console.log('Processing large dataset...');
+
+        // Simulate expensive operations
+        return dataset
+            .filter(item =&gt; {
+                if (filters.minPrice &amp;&amp; item.price &lt; filters.minPrice) return false;
+                if (filters.maxPrice &amp;&amp; item.price &gt; filters.maxPrice) return false;
+                if (filters.category &amp;&amp; item.category !== filters.category) return false;
+                if (filters.search &amp;&amp; !item.name.includes(filters.search)) return false;
+                return true;
+            })
+            .map(item =&gt; ({
+                ...item,
+                formattedPrice: `$${item.price.toFixed(2)}`,
+                discount: calculateDiscount(item)
+            }))
+            .sort((a, b) =&gt; b.relevance - a.relevance);
+    }, [dataset, filters]);
+
+    return &lt;DataGrid data={processedData} /&gt;;
+}
+</code></pre>
+<h2 id="65-usecallback-hook">6.5 useCallback Hook</h2>
+<h3 id="simple-explanation_4--2">Simple Explanation</h3>
+<p>useCallback is similar to useMemo but for functions. It memoizes a function reference, so it doesn't get recreated on every render. This is useful when passing callbacks to child components that might otherwise re-render unnecessarily.</p>
+<p>Think of useCallback as a way to "remember" a function. If the dependencies haven't changed, use the same function instance instead of creating a new one.</p>
+<h3 id="technical-explanation_4--2">Technical Explanation</h3>
+<p>useCallback returns a memoized version of the callback that only changes if one of the dependencies has changed. It prevents unnecessary function re-creation and can optimize child component rendering.</p>
+<p>Key characteristics:
+- <strong>Memoization</strong>: Caches function references
+- <strong>Dependencies</strong>: Controls when to create new function
+- <strong>Performance</strong>: Prevents unnecessary re-renders
+- <strong>Stable references</strong>: Maintains function identity
+- <strong>Common with React.memo</strong>: Used together for optimization</p>
+<h3 id="professional-explanation_4--2">Professional Explanation</h3>
+<p>useCallback is crucial for optimizing React applications with many components.</p>
+<p>When to use useCallback:
+- <strong>Child components</strong>: When using React.memo
+- <strong>Event handlers</strong>: Functions passed as props
+- <strong>Custom hooks</strong>: Returning stable callbacks
+- <strong>Dependency arrays</strong>: Used in useEffect dependencies</p>
+<p>When NOT to use useCallback:
+- <strong>Simple components</strong>: No child components that need optimization
+- <strong>Over-optimization</strong>: The overhead might not be worth it
+- <strong>No dependencies</strong>: Function doesn't depend on any state</p>
+<h3 id="usecallback-examples">useCallback Examples</h3>
+<pre><code class="language-jsx">// Basic useCallback
+function Parent() {
+    const [count, setCount] = useState(0);
+    const [otherState, setOtherState] = useState(0);
+
+    // This function will be recreated every render
+    const handleIncrement = () =&gt; {
+        setCount(count + 1);
+    };
+
+    // This function will be memoized
+    const handleDecrement = useCallback(() =&gt; {
+        setCount(count - 1);
+    }, [count]); // Recreate when count changes
+
+    return (
+        &lt;div&gt;
+            &lt;Child onIncrement={handleIncrement} /&gt; {/* Gets new function every time */}
+            &lt;Child onDecrement={handleDecrement} /&gt; {/* Gets stable function */}
+        &lt;/div&gt;
+    );
+}
+
+// With React.memo
+const MemoizedChild = React.memo(({ onAction, label }) =&gt; {
+    console.log('Rendering:', label);
+    return &lt;button onClick={onAction}&gt;{label}&lt;/button&gt;;
+});
+
+function CallbackExample() {
+    const [count, setCount] = useState(0);
+
+    // Without useCallback - child re-renders every time
+    const increment = () =&gt; setCount(c =&gt; c + 1);
+
+    // With useCallback - child re-renders only when needed
+    const decrement = useCallback(() =&gt; {
+        setCount(c =&gt; c - 1);
+    }, []);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;MemoizedChild onAction={increment} label="Increment (bad)" /&gt;
+            &lt;MemoizedChild onAction={decrement} label="Decrement (good)" /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// With dependencies
+function SearchComponent() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [results, setResults] = useState([]);
+
+    // Recreated when searchTerm changes
+    const handleSearch = useCallback(async (term) =&gt; {
+        const response = await fetch(`/api/search?q=${term}`);
+        const data = await response.json();
+        setResults(data);
+    }, []); // Empty - doesn't depend on anything
+
+    // Recreated when searchTerm changes
+    const handleInputChange = useCallback((e) =&gt; {
+        const value = e.target.value;
+        setSearchTerm(value);
+        handleSearch(value);
+    }, [handleSearch]); // Depends on handleSearch
+
+    return (
+        &lt;div&gt;
+            &lt;input value={searchTerm} onChange={handleInputChange} /&gt;
+            &lt;SearchResults results={results} onSelect={handleSelect} /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Event handler with dependencies
+function EventExample({ initialValue, onSubmit }) {
+    const [value, setValue] = useState(initialValue);
+    const [isDirty, setIsDirty] = useState(false);
+
+    // Recreated when value changes
+    const handleChange = useCallback((e) =&gt; {
+        setValue(e.target.value);
+        setIsDirty(true);
+    }, []);
+
+    // Recreated when value or onSubmit changes
+    const handleSubmit = useCallback((e) =&gt; {
+        e.preventDefault();
+        onSubmit(value);
+        setIsDirty(false);
+    }, [value, onSubmit]);
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input value={value} onChange={handleChange} /&gt;
+            &lt;button type="submit" disabled={!isDirty}&gt;
+                Submit
+            &lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+
+// Custom hook with useCallback
+function useAsyncAction(action, dependencies = []) {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const execute = useCallback(async (...args) =&gt; {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const result = await action(...args);
+            return result;
+        } catch (err) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    }, [action]); // Recreate when action changes
+
+    return { execute, loading, error };
+}
+
+// Usage
+function AsyncExample() {
+    const { execute: fetchUsers, loading, error } = useAsyncAction(
+        async (query) =&gt; {
+            const response = await fetch(`/api/users?q=${query}`);
+            return response.json();
+        },
+        [] // Empty dependencies
+    );
+
+    const handleSearch = useCallback(async (term) =&gt; {
+        try {
+            const users = await fetchUsers(term);
+            // Process users
+        } catch (error) {
+            // Handle error
+        }
+    }, [fetchUsers]);
+
+    return &lt;SearchBar onSearch={handleSearch} loading={loading} error={error} /&gt;;
+}
+</code></pre>
+<h2 id="66-useref-hook">6.6 useRef Hook</h2>
+<h3 id="simple-explanation_5--2">Simple Explanation</h3>
+<p>useRef creates a mutable reference that persists for the entire lifecycle of the component. It's like a "storage box" that can hold any value and doesn't cause re-renders when changed. It's commonly used to access DOM elements directly.</p>
+<p>Think of useRef as a way to "point to" something - like a physical pointer that stays the same even as the component re-renders. You can use it to store values that shouldn't trigger re-renders or to interact with DOM elements directly.</p>
+<h3 id="technical-explanation_5--2">Technical Explanation</h3>
+<p>useRef returns a mutable object with a <code>current</code> property. The object persists for the component's lifetime and doesn't cause re-renders when updated. It's commonly used for DOM references, timers, and storing mutable values.</p>
+<p>Key characteristics:
+- <strong>Mutable</strong>: Can change <code>current</code> value without re-rendering
+- <strong>Persistent</strong>: Same reference across renders
+- <strong>DOM access</strong>: Access and manipulate DOM elements
+- <strong>Stable references</strong>: Useful for keeping values without re-renders
+- <strong>No dependencies</strong>: Doesn't trigger effects</p>
+<h3 id="professional-explanation_5--2">Professional Explanation</h3>
+<p>useRef is versatile and has several important use cases in enterprise applications:</p>
+<p>Common use cases:
+- <strong>DOM manipulation</strong>: Direct access to DOM elements
+- <strong>Imperative API</strong>: Integrating with non-React libraries
+- <strong>Value persistence</strong>: Storing values across renders
+- <strong>Avoiding re-renders</strong>: Storing values that don't affect UI
+- <strong>Previous values</strong>: Tracking previous props or state
+- <strong>Focus management</strong>: Controlling input focus</p>
+<h3 id="useref-examples">useRef Examples</h3>
+<pre><code class="language-jsx">// Basic DOM reference
+function FocusInput() {
+    const inputRef = useRef(null);
+
+    const focusInput = () =&gt; {
+        // Access the DOM element directly
+        inputRef.current.focus();
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input ref={inputRef} type="text" /&gt;
+            &lt;button onClick={focusInput}&gt;Focus Input&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Storing mutable values without re-rendering
+function TimerWithRef() {
+    const [seconds, setSeconds] = useState(0);
+    const intervalRef = useRef(null);
+
+    const startTimer = () =&gt; {
+        if (intervalRef.current) return;
+        intervalRef.current = setInterval(() =&gt; {
+            setSeconds(prev =&gt; prev + 1);
+        }, 1000);
+    };
+
+    const stopTimer = () =&gt; {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    };
+
+    useEffect(() =&gt; {
+        // Cleanup on unmount
+        return () =&gt; {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    }, []);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Seconds: {seconds}&lt;/p&gt;
+            &lt;button onClick={startTimer}&gt;Start&lt;/button&gt;
+            &lt;button onClick={stopTimer}&gt;Stop&lt;/button&gt;
+            &lt;button onClick={() =&gt; setSeconds(0)}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Tracking previous values
+function PreviousValue({ value }) {
+    const previousRef = useRef(null);
+
+    useEffect(() =&gt; {
+        // Store current value as previous after update
+        previousRef.current = value;
+    }, [value]);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Current: {value}&lt;/p&gt;
+            &lt;p&gt;Previous: {previousRef.current}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Measuring DOM elements
+function MeasureElement() {
+    const [rect, setRect] = useState({ width: 0, height: 0 });
+    const elementRef = useRef(null);
+
+    const measureElement = () =&gt; {
+        if (elementRef.current) {
+            const { width, height } = elementRef.current.getBoundingClientRect();
+            setRect({ width, height });
+        }
+    };
+
+    useEffect(() =&gt; {
+        // Measure initially
+        measureElement();
+
+        // Measure on resize
+        const handleResize = () =&gt; measureElement();
+        window.addEventListener('resize', handleResize);
+        return () =&gt; window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return (
+        &lt;div&gt;
+            &lt;div ref={elementRef} className="measured-element"&gt;
+                &lt;p&gt;Width: {rect.width}px&lt;/p&gt;
+                &lt;p&gt;Height: {rect.height}px&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;button onClick={measureElement}&gt;Remeasure&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Integrating with external libraries
+function ChartComponent({ data }) {
+    const chartRef = useRef(null);
+    const chartInstanceRef = useRef(null);
+
+    useEffect(() =&gt; {
+        // Initialize chart
+        if (chartRef.current) {
+            chartInstanceRef.current = new Chart(chartRef.current, {
+                type: 'line',
+                data: data
+            });
+        }
+
+        // Cleanup
+        return () =&gt; {
+            if (chartInstanceRef.current) {
+                chartInstanceRef.current.destroy();
+            }
+        };
+    }, []);
+
+    useEffect(() =&gt; {
+        // Update chart when data changes
+        if (chartInstanceRef.current) {
+            chartInstanceRef.current.data = data;
+            chartInstanceRef.current.update();
+        }
+    }, [data]);
+
+    return &lt;canvas ref={chartRef}&gt;&lt;/canvas&gt;;
+}
+
+// Managing focus with useRef
+function FocusManagement() {
+    const nameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+
+    const handleSubmit = (e) =&gt; {
+        e.preventDefault();
+        // Validate and focus first field with error
+        if (!nameRef.current.value) {
+            nameRef.current.focus();
+            return;
+        }
+        if (!emailRef.current.value) {
+            emailRef.current.focus();
+            return;
+        }
+        if (!passwordRef.current.value) {
+            passwordRef.current.focus();
+            return;
+        }
+        // Submit form
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input ref={nameRef} type="text" placeholder="Name" /&gt;
+            &lt;input ref={emailRef} type="email" placeholder="Email" /&gt;
+            &lt;input ref={passwordRef} type="password" placeholder="Password" /&gt;
+            &lt;button type="submit"&gt;Submit&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h2 id="67-usecontext-hook">6.7 useContext Hook</h2>
+<h3 id="simple-explanation_6--2">Simple Explanation</h3>
+<p>useContext provides a way to share data across components without passing props down through every level of the component tree. It's like having a "global" state that any component can access directly.</p>
+<p>Think of Context like a shared bulletin board - any component can post information there, and any component can read from it without going through intermediaries.</p>
+<h3 id="technical-explanation_6--2">Technical Explanation</h3>
+<p>useContext is a hook that reads and subscribes to context changes. It accepts a context object (created with <code>React.createContext</code>) and returns the current context value. When the context changes, components using useContext re-render.</p>
+<p>Key characteristics:
+- <strong>Global state</strong>: Share data across component tree
+- <strong>Avoid prop drilling</strong>: No need to pass props through intermediate components
+- <strong>Dynamic updates</strong>: Components re-render when context changes
+- <strong>Multiple contexts</strong>: Use multiple contexts for different concerns
+- <strong>Provider pattern</strong>: Wrap components to provide context values</p>
+<h3 id="professional-explanation_6--2">Professional Explanation</h3>
+<p>Context is essential for enterprise React applications for managing:</p>
+<ul>
+<li><strong>Theme</strong>: Light/dark mode, branding</li>
+<li><strong>Authentication</strong>: User session, permissions</li>
+<li><strong>Internationalization</strong>: Language, locale</li>
+<li><strong>Configuration</strong>: Feature flags, settings</li>
+<li><strong>State management</strong>: Replacing or complementing libraries</li>
+</ul>
+<p>However, context should be used judiciously:
+- <strong>Performance</strong>: Context updates cause all consumers to re-render
+- <strong>Overuse</strong>: Too many contexts can make code harder to follow
+- <strong>State management</strong>: For complex state, consider state management libraries</p>
+<h3 id="usecontext-examples">useContext Examples</h3>
+<pre><code class="language-jsx">// Creating a context
+const ThemeContext = React.createContext('light');
+
+// Using useContext
+function ThemedButton() {
+    // Access context value directly
+    const theme = useContext(ThemeContext);
+
+    return (
+        &lt;button className={`btn-${theme}`}&gt;
+            Themed Button
+        &lt;/button&gt;
+    );
+}
+
+// With a provider
+function App() {
+    const [theme, setTheme] = useState('light');
+
+    const toggleTheme = () =&gt; {
+        setTheme(prev =&gt; prev === 'light' ? 'dark' : 'light');
+    };
+
+    return (
+        // Provide the context value
+        &lt;ThemeContext.Provider value={theme}&gt;
+            &lt;div&gt;
+                &lt;ThemedButton /&gt;
+                &lt;button onClick={toggleTheme}&gt;Toggle Theme&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/ThemeContext.Provider&gt;
+    );
+}
+
+// Multiple contexts
+const UserContext = React.createContext(null);
+const SettingsContext = React.createContext({});
+
+function Dashboard() {
+    const user = useContext(UserContext);
+    const settings = useContext(SettingsContext);
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Welcome, {user.name}&lt;/h2&gt;
+            &lt;p&gt;Language: {settings.language}&lt;/p&gt;
+            &lt;p&gt;Theme: {settings.theme}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+function AppWithMultipleContext() {
+    const [user] = useState({ name: 'John', role: 'admin' });
+    const [settings] = useState({ language: 'en', theme: 'dark' });
+
+    return (
+        &lt;UserContext.Provider value={user}&gt;
+            &lt;SettingsContext.Provider value={settings}&gt;
+                &lt;Dashboard /&gt;
+            &lt;/SettingsContext.Provider&gt;
+        &lt;/UserContext.Provider&gt;
+    );
+}
+
+// Context with state management
+const AuthContext = React.createContext(null);
+
+function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const login = async (email, password) =&gt; {
+        setLoading(true);
+        setError(null);
+
+        try {
+            // API call
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+            setUser(data.user);
+            return data;
+        } catch (err) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const logout = () =&gt; {
+        setUser(null);
+        // Clear any stored tokens
+    };
+
+    const value = {
+        user,
+        loading,
+        error,
+        login,
+        logout,
+        isAuthenticated: !!user
+    };
+
+    return (
+        &lt;AuthContext.Provider value={value}&gt;
+            {children}
+        &lt;/AuthContext.Provider&gt;
+    );
+}
+
+// Using the Auth context
+function LoginButton() {
+    const { user, login, logout, isAuthenticated } = useContext(AuthContext);
+
+    if (isAuthenticated) {
+        return &lt;button onClick={logout}&gt;Logout ({user.name})&lt;/button&gt;;
+    }
+
+    return &lt;button onClick={() =&gt; login('test@example.com', 'password')}&gt;Login&lt;/button&gt;;
+}
+
+// Context with reducer for complex state
+const CounterContext = React.createContext(null);
+
+const counterReducer = (state, action) =&gt; {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { count: state.count + 1 };
+        case 'DECREMENT':
+            return { count: state.count - 1 };
+        case 'RESET':
+            return { count: 0 };
+        default:
+            return state;
+    }
+};
+
+function CounterProvider({ children }) {
+    const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+
+    return (
+        &lt;CounterContext.Provider value={{ state, dispatch }}&gt;
+            {children}
+        &lt;/CounterContext.Provider&gt;
+    );
+}
+
+function CounterComponent() {
+    const { state, dispatch } = useContext(CounterContext);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {state.count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'INCREMENT' })}&gt;+&lt;/button&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'DECREMENT' })}&gt;-&lt;/button&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'RESET' })}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="68-usereducer-hook">6.8 useReducer Hook</h2>
+<h3 id="simple-explanation_7--2">Simple Explanation</h3>
+<p>useReducer is like useState but more powerful. It's used for managing complex state logic where the next state depends on the previous state and an action. Think of it as a state machine - you define how state changes in response to actions.</p>
+<p>If useState is like a simple light switch (on/off), useReducer is like a sophisticated traffic light (red, yellow, green) with clear rules for how to change states.</p>
+<h3 id="technical-explanation_7--2">Technical Explanation</h3>
+<p>useReducer is a hook that manages state with a reducer function. It's similar to useState but more suitable for complex state logic with multiple sub-values or when the next state depends on the previous state.</p>
+<p>Key characteristics:
+- <strong>Reducer function</strong>: Pure function that takes state and action, returns new state
+- <strong>Action dispatch</strong>: Send actions to update state
+- <strong>Predictable updates</strong>: State transitions are defined in one place
+- <strong>Complex state</strong>: Good for objects with multiple fields
+- <strong>Testing</strong>: Reducers are pure functions, easy to test</p>
+<h3 id="professional-explanation_7--2">Professional Explanation</h3>
+<p>useReducer is ideal for:</p>
+<ul>
+<li><strong>Complex state</strong>: Multiple fields that are interdependent</li>
+<li><strong>State transitions</strong>: Clear patterns for state changes</li>
+<li><strong>Global state</strong>: Used with Context for larger applications</li>
+<li><strong>Redux-like patterns</strong>: Familiar to developers with Redux experience</li>
+<li><strong>Performance</strong>: Can be more performant than useState for complex state</li>
+</ul>
+<p>Common patterns:
+- <strong>Counter</strong>: Simple increment/decrement
+- <strong>Form state</strong>: Managing multiple form fields
+- <strong>Fetch state</strong>: Loading, success, error states
+- <strong>Shopping cart</strong>: Adding, removing, updating items
+- <strong>Game state</strong>: Complex game mechanics</p>
+<h3 id="usereducer-examples">useReducer Examples</h3>
+<pre><code class="language-jsx">// Basic useReducer
+const counterReducer = (state, action) =&gt; {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { count: state.count + 1 };
+        case 'DECREMENT':
+            return { count: state.count - 1 };
+        case 'RESET':
+            return { count: 0 };
+        default:
+            return state;
+    }
+};
+
+function CounterWithReducer() {
+    const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {state.count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'INCREMENT' })}&gt;+&lt;/button&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'DECREMENT' })}&gt;-&lt;/button&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'RESET' })}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Complex state with multiple values
+const todoReducer = (state, action) =&gt; {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return {
+                ...state,
+                todos: [
+                    ...state.todos,
+                    {
+                        id: Date.now(),
+                        text: action.payload,
+                        completed: false
+                    }
+                ]
+            };
+
+        case 'TOGGLE_TODO':
+            return {
+                ...state,
+                todos: state.todos.map(todo =&gt;
+                    todo.id === action.payload
+                        ? { ...todo, completed: !todo.completed }
+                        : todo
+                )
+            };
+
+        case 'DELETE_TODO':
+            return {
+                ...state,
+                todos: state.todos.filter(todo =&gt; todo.id !== action.payload)
+            };
+
+        case 'SET_FILTER':
+            return {
+                ...state,
+                filter: action.payload
+            };
+
+        default:
+            return state;
+    }
+};
+
+function TodoApp() {
+    const [state, dispatch] = useReducer(todoReducer, {
+        todos: [],
+        filter: 'all'
+    });
+
+    const [input, setInput] = useState('');
+
+    const handleSubmit = (e) =&gt; {
+        e.preventDefault();
+        if (input.trim()) {
+            dispatch({ type: 'ADD_TODO', payload: input.trim() });
+            setInput('');
+        }
+    };
+
+    const filteredTodos = state.todos.filter(todo =&gt; {
+        if (state.filter === 'active') return !todo.completed;
+        if (state.filter === 'completed') return todo.completed;
+        return true;
+    });
+
+    return (
+        &lt;div&gt;
+            &lt;form onSubmit={handleSubmit}&gt;
+                &lt;input
+                    value={input}
+                    onChange={(e) =&gt; setInput(e.target.value)}
+                    placeholder="Add a todo"
+                /&gt;
+                &lt;button type="submit"&gt;Add&lt;/button&gt;
+            &lt;/form&gt;
+
+            &lt;div&gt;
+                &lt;button onClick={() =&gt; dispatch({ type: 'SET_FILTER', payload: 'all' })}&gt;
+                    All
+                &lt;/button&gt;
+                &lt;button onClick={() =&gt; dispatch({ type: 'SET_FILTER', payload: 'active' })}&gt;
+                    Active
+                &lt;/button&gt;
+                &lt;button onClick={() =&gt; dispatch({ type: 'SET_FILTER', payload: 'completed' })}&gt;
+                    Completed
+                &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;ul&gt;
+                {filteredTodos.map(todo =&gt; (
+                    &lt;li key={todo.id}&gt;
+                        &lt;input
+                            type="checkbox"
+                            checked={todo.completed}
+                            onChange={() =&gt; dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
+                        /&gt;
+                        &lt;span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}&gt;
+                            {todo.text}
+                        &lt;/span&gt;
+                        &lt;button onClick={() =&gt; dispatch({ type: 'DELETE_TODO', payload: todo.id })}&gt;
+                            Delete
+                        &lt;/button&gt;
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Async actions with useReducer
+const asyncReducer = (state, action) =&gt; {
+    switch (action.type) {
+        case 'FETCH_START':
+            return { ...state, loading: true, error: null };
+        case 'FETCH_SUCCESS':
+            return { data: action.payload, loading: false, error: null };
+        case 'FETCH_ERROR':
+            return { ...state, loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+function AsyncDataFetcher() {
+    const [state, dispatch] = useReducer(asyncReducer, {
+        data: null,
+        loading: false,
+        error: null
+    });
+
+    const fetchData = async () =&gt; {
+        dispatch({ type: 'FETCH_START' });
+
+        try {
+            const response = await fetch('/api/data');
+            const data = await response.json();
+            dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        } catch (error) {
+            dispatch({ type: 'FETCH_ERROR', payload: error.message });
+        }
+    };
+
+    useEffect(() =&gt; {
+        fetchData();
+    }, []);
+
+    if (state.loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (state.error) return &lt;div&gt;Error: {state.error}&lt;/div&gt;;
+    return &lt;pre&gt;{JSON.stringify(state.data, null, 2)}&lt;/pre&gt;;
+}
+</code></pre>
+<h2 id="69-uselayouteffect-hook">6.9 useLayoutEffect Hook</h2>
+<h3 id="simple-explanation_8--2">Simple Explanation</h3>
+<p>useLayoutEffect is similar to useEffect, but it runs synchronously after all DOM mutations and before the browser paints. This means you can use it to measure or manipulate the DOM before the user sees any visual updates.</p>
+<p>Think of useLayoutEffect as a "do this right before painting" function. It's useful when you need to read layout or synchronously re-render to avoid flickering.</p>
+<h3 id="technical-explanation_8--2">Technical Explanation</h3>
+<p>useLayoutEffect runs synchronously after DOM mutations but before the browser paints. It's useful for DOM measurements, layout modifications, and preventing visual flickering. However, it can impact performance if used heavily.</p>
+<p>Key characteristics:
+- <strong>Synchronous</strong>: Runs before the browser paints
+- <strong>DOM access</strong>: Can safely read and modify DOM
+- <strong>Visual flicker</strong>: Prevents visual flickering
+- <strong>Performance</strong>: Can impact performance if not used carefully
+- <strong>Server-side</strong>: Not available during server-side rendering</p>
+<h3 id="professional-explanation_8--2">Professional Explanation</h3>
+<p>When to use useLayoutEffect:
+- <strong>DOM measurements</strong>: Reading element dimensions
+- <strong>Layout animations</strong>: Animations that depend on layout
+- <strong>DOM mutations</strong>: Mutations that must happen before paint
+- <strong>Integration</strong>: Third-party libraries that need DOM access
+- <strong>Preventing flicker</strong>: Updates that need to be synchronous</p>
+<p>When to use useEffect:
+- Most side effects
+- Data fetching
+- Subscriptions
+- Timers
+- Analytics</p>
+<h3 id="uselayouteffect-examples">useLayoutEffect Examples</h3>
+<pre><code class="language-jsx">// Measuring DOM elements
+function MeasureWithLayout() {
+    const [element, setElement] = useState(null);
+    const [height, setHeight] = useState(0);
+
+    useLayoutEffect(() =&gt; {
+        if (element) {
+            const rect = element.getBoundingClientRect();
+            setHeight(rect.height);
+        }
+    }, [element]);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Element height: {height}px&lt;/p&gt;
+            &lt;div ref={setElement} style={{ padding: '20px' }}&gt;
+                &lt;div&gt;Content that might change height&lt;/div&gt;
+                &lt;div&gt;More content&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Preventing flicker with useLayoutEffect
+function FlickerPrevention({ isOpen }) {
+    const [height, setHeight] = useState(0);
+    const contentRef = useRef(null);
+
+    // Runs before paint, preventing flicker
+    useLayoutEffect(() =&gt; {
+        if (contentRef.current &amp;&amp; isOpen) {
+            const rect = contentRef.current.getBoundingClientRect();
+            setHeight(rect.height);
+        }
+    }, [isOpen]);
+
+    return (
+        &lt;div style={{ overflow: 'hidden', transition: 'height 300ms ease' }}&gt;
+            &lt;div
+                ref={contentRef}
+                style={{
+                    height: isOpen ? height : 0,
+                    transition: 'height 300ms ease'
+                }}
+            &gt;
+                &lt;div style={{ padding: '20px' }}&gt;
+                    Content that might change
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Managing scroll position
+function ScrollManager() {
+    const [scrollPosition, setScrollPosition] = useState(0);
+
+    useLayoutEffect(() =&gt; {
+        // Restore scroll position before paint
+        if (scrollPosition &gt; 0) {
+            window.scrollTo(0, scrollPosition);
+        }
+    }, [scrollPosition]);
+
+    const saveScrollPosition = () =&gt; {
+        setScrollPosition(window.pageYOffset);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={saveScrollPosition}&gt;Save Scroll Position&lt;/button&gt;
+            &lt;button onClick={() =&gt; setScrollPosition(0)}&gt;Reset Scroll&lt;/button&gt;
+            {/* Long content */}
+        &lt;/div&gt;
+    );
+}
+
+// Forcing layout recalculation
+function LayoutRecalculation() {
+    const [items, setItems] = useState([]);
+    const containerRef = useRef(null);
+
+    useLayoutEffect(() =&gt; {
+        if (containerRef.current) {
+            // Force layout recalculation
+            const items = containerRef.current.children;
+            const heights = Array.from(items).map(item =&gt; item.offsetHeight);
+            // Do something with heights
+        }
+    }, [items]); // Recalculate when items change
+
+    const addItem = () =&gt; {
+        setItems(prev =&gt; [...prev, Date.now()]);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={addItem}&gt;Add Item&lt;/button&gt;
+            &lt;div ref={containerRef}&gt;
+                {items.map(item =&gt; (
+                    &lt;div key={item}&gt;{item}&lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="610-useimperativehandle-hook">6.10 useImperativeHandle Hook</h2>
+<h3 id="simple-explanation_9--2">Simple Explanation</h3>
+<p>useImperativeHandle allows you to customize the instance value that's exposed to parent components when using refs. It's used with forwardRef to control what methods or properties are accessible from the parent.</p>
+<p>Think of it like controlling which buttons are available on a remote control. You decide what the parent component can do with the ref.</p>
+<h3 id="technical-explanation_9--2">Technical Explanation</h3>
+<p>useImperativeHandle customizes the ref handle exposed to parent components. It's used with <code>forwardRef</code> to limit what parent components can do with the ref, exposing only a specific API.</p>
+<p>Key characteristics:
+- <strong>Controlled access</strong>: Limit what parent components can access
+- <strong>ForwardRef</strong>: Used with forwardRef for ref forwarding
+- <strong>Clean API</strong>: Expose only necessary methods
+- <strong>Encapsulation</strong>: Hide internal implementation details
+- <strong>Testing</strong>: Easier to test specific methods</p>
+<h3 id="professional-explanation_9--2">Professional Explanation</h3>
+<p>Use cases for useImperativeHandle:
+- <strong>Form components</strong>: Expose validation or reset methods
+- <strong>Animation libraries</strong>: Control animation methods
+- <strong>Third-party integration</strong>: Controlled access to external libraries
+- <strong>DOM manipulation</strong>: Controlled access to DOM elements
+- <strong>Imperative API</strong>: When you need imperative methods</p>
+<h3 id="useimperativehandle-examples">useImperativeHandle Examples</h3>
+<pre><code class="language-jsx">// Basic useImperativeHandle
+const FancyInput = forwardRef((props, ref) =&gt; {
+    const inputRef = useRef(null);
+
+    // Expose custom methods to parent
+    useImperativeHandle(ref, () =&gt; ({
+        focus: () =&gt; {
+            inputRef.current.focus();
+        },
+        clear: () =&gt; {
+            inputRef.current.value = '';
+        },
+        setValue: (value) =&gt; {
+            inputRef.current.value = value;
+        },
+        getValue: () =&gt; {
+            return inputRef.current.value;
+        }
+    }));
+
+    return &lt;input ref={inputRef} {...props} /&gt;;
+});
+
+// Parent using FancyInput
+function Parent() {
+    const inputRef = useRef(null);
+
+    const handleFocus = () =&gt; {
+        inputRef.current.focus();
+    };
+
+    const handleClear = () =&gt; {
+        inputRef.current.clear();
+    };
+
+    const handleSet = () =&gt; {
+        inputRef.current.setValue('Hello');
+    };
+
+    const handleGet = () =&gt; {
+        const value = inputRef.current.getValue();
+        alert(value);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;FancyInput ref={inputRef} placeholder="Type something" /&gt;
+            &lt;button onClick={handleFocus}&gt;Focus&lt;/button&gt;
+            &lt;button onClick={handleClear}&gt;Clear&lt;/button&gt;
+            &lt;button onClick={handleSet}&gt;Set Value&lt;/button&gt;
+            &lt;button onClick={handleGet}&gt;Get Value&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Form validation with useImperativeHandle
+const FormInput = forwardRef(({ label, validate, ...props }, ref) =&gt; {
+    const [value, setValue] = useState('');
+    const [error, setError] = useState('');
+
+    const handleChange = (e) =&gt; {
+        const newValue = e.target.value;
+        setValue(newValue);
+        if (validate) {
+            const error = validate(newValue);
+            setError(error || '');
+        }
+    };
+
+    useImperativeHandle(ref, () =&gt; ({
+        getValue: () =&gt; value,
+        setValue: (newValue) =&gt; setValue(newValue),
+        validate: () =&gt; {
+            if (validate) {
+                const error = validate(value);
+                setError(error || '');
+                return !error;
+            }
+            return true;
+        },
+        reset: () =&gt; {
+            setValue('');
+            setError('');
+        }
+    }));
+
+    return (
+        &lt;div&gt;
+            &lt;label&gt;{label}&lt;/label&gt;
+            &lt;input
+                value={value}
+                onChange={handleChange}
+                {...props}
+            /&gt;
+            {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+        &lt;/div&gt;
+    );
+});
+
+// Form using useImperativeHandle
+function ValidatedForm() {
+    const nameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+
+    const handleSubmit = (e) =&gt; {
+        e.preventDefault();
+
+        const isNameValid = nameRef.current.validate();
+        const isEmailValid = emailRef.current.validate();
+        const isPasswordValid = passwordRef.current.validate();
+
+        if (isNameValid &amp;&amp; isEmailValid &amp;&amp; isPasswordValid) {
+            const data = {
+                name: nameRef.current.getValue(),
+                email: emailRef.current.getValue(),
+                password: passwordRef.current.getValue()
+            };
+            console.log('Form submitted:', data);
+        }
+    };
+
+    const handleReset = () =&gt; {
+        nameRef.current.reset();
+        emailRef.current.reset();
+        passwordRef.current.reset();
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;FormInput
+                ref={nameRef}
+                label="Name"
+                validate={(value) =&gt; {
+                    if (!value) return 'Name is required';
+                    if (value.length &lt; 3) return 'Name is too short';
+                    return '';
+                }}
+            /&gt;
+            &lt;FormInput
+                ref={emailRef}
+                label="Email"
+                type="email"
+                validate={(value) =&gt; {
+                    if (!value) return 'Email is required';
+                    if (!value.includes('@')) return 'Invalid email';
+                    return '';
+                }}
+            /&gt;
+            &lt;FormInput
+                ref={passwordRef}
+                label="Password"
+                type="password"
+                validate={(value) =&gt; {
+                    if (!value) return 'Password is required';
+                    if (value.length &lt; 8) return 'Password is too short';
+                    return '';
+                }}
+            /&gt;
+            &lt;button type="submit"&gt;Submit&lt;/button&gt;
+            &lt;button type="button" onClick={handleReset}&gt;Reset&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h2 id="611-usetransition-and-usedeferredvalue">6.11 useTransition and useDeferredValue</h2>
+<h3 id="simple-explanation_10">Simple Explanation</h3>
+<p>useTransition and useDeferredValue are hooks for improving performance by managing how updates are scheduled. They allow you to mark certain updates as non-urgent, so React can prioritize other updates that are more important for user interaction.</p>
+<p>Think of these hooks as traffic controllers - they help decide which updates are urgent (like typing in an input) and which can wait (like rendering search results).</p>
+<h3 id="technical-explanation_10">Technical Explanation</h3>
+<p>These hooks are part of React's Concurrent Mode features, allowing you to mark updates as "transitions" or "deferred" to improve user experience.</p>
+<p><strong>useTransition</strong>:
+- Returns a pending state and a startTransition function
+- Allows marking updates as non-urgent
+- Shows pending state during transitions
+- Keeps UI responsive during heavy updates</p>
+<p><strong>useDeferredValue</strong>:
+- Returns a deferred version of a value
+- Updates the deferred value later if more urgent updates occur
+- Useful for showing stale data during updates
+- Similar to debouncing but integrated with React's scheduling</p>
+<h3 id="professional-explanation_10">Professional Explanation</h3>
+<p>When to use useTransition:
+- <strong>Search/Filter</strong>: Heavy filtering while typing
+- <strong>Large lists</strong>: Rendering large data sets
+- <strong>Complex transitions</strong>: Navigation between pages
+- <strong>Data fetching</strong>: Loading data without blocking UI</p>
+<p>When to use useDeferredValue:
+- <strong>Real-time updates</strong>: Data updates that can be delayed
+- <strong>Search results</strong>: Showing results while typing
+- <strong>Large computations</strong>: Expensive calculations that can be delayed
+- <strong>Smooth UI</strong>: Maintaining smooth user experience</p>
+<h3 id="usetransition-examples">useTransition Examples</h3>
+<pre><code class="language-jsx">// Basic useTransition
+function SearchApp() {
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
+    const [isPending, startTransition] = useTransition();
+
+    const handleSearch = (value) =&gt; {
+        setQuery(value);
+
+        // Mark the heavy update as transition
+        startTransition(() =&gt; {
+            // Simulate heavy filtering
+            const filtered = heavySearch(value);
+            setResults(filtered);
+        });
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input
+                value={query}
+                onChange={(e) =&gt; handleSearch(e.target.value)}
+                placeholder="Search..."
+            /&gt;
+            {isPending &amp;&amp; &lt;div&gt;Loading results...&lt;/div&gt;}
+            &lt;div&gt;
+                {results.map(item =&gt; (
+                    &lt;div key={item.id}&gt;{item.name}&lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Tab navigation with transitions
+function TabNavigation() {
+    const [tab, setTab] = useState('home');
+    const [isPending, startTransition] = useTransition();
+
+    const tabs = {
+        home: &lt;HomeContent /&gt;,
+        about: &lt;AboutContent /&gt;,
+        contact: &lt;ContactContent /&gt;,
+        gallery: &lt;GalleryContent /&gt;
+    };
+
+    const handleTabChange = (newTab) =&gt; {
+        startTransition(() =&gt; {
+            setTab(newTab);
+        });
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;div className="tabs"&gt;
+                {Object.keys(tabs).map(key =&gt; (
+                    &lt;button
+                        key={key}
+                        onClick={() =&gt; handleTabChange(key)}
+                        className={tab === key ? 'active' : ''}
+                    &gt;
+                        {key.charAt(0).toUpperCase() + key.slice(1)}
+                    &lt;/button&gt;
+                ))}
+            &lt;/div&gt;
+            {isPending &amp;&amp; &lt;div className="loading"&gt;Loading tab...&lt;/div&gt;}
+            &lt;div className="content"&gt;
+                {tabs[tab]}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// useDeferredValue example
+function DeferredSearch() {
+    const [query, setQuery] = useState('');
+    const deferredQuery = useDeferredValue(query);
+    const [results, setResults] = useState([]);
+    const [isStale, setIsStale] = useState(false);
+
+    useEffect(() =&gt; {
+        // Check if the deferred value is behind the input
+        setIsStale(deferredQuery !== query);
+
+        // Filter results with deferred query
+        const filtered = heavySearch(deferredQuery);
+        setResults(filtered);
+    }, [deferredQuery]);
+
+    return (
+        &lt;div&gt;
+            &lt;input
+                value={query}
+                onChange={(e) =&gt; setQuery(e.target.value)}
+                placeholder="Type to search..."
+            /&gt;
+            {isStale &amp;&amp; &lt;div className="stale"&gt;Searching...&lt;/div&gt;}
+            &lt;div className="results"&gt;
+                {results.map(item =&gt; (
+                    &lt;div key={item.id} className={isStale ? 'stale' : ''}&gt;
+                        {item.name}
+                    &lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Combining useTransition and useDeferredValue
+function AdvancedSearch() {
+    const [query, setQuery] = useState('');
+    const [filter, setFilter] = useState('all');
+    const [results, setResults] = useState([]);
+    const [isPending, startTransition] = useTransition();
+    const deferredQuery = useDeferredValue(query);
+    const deferredFilter = useDeferredValue(filter);
+
+    useEffect(() =&gt; {
+        // Heavy computation using deferred values
+        const filtered = heavySearch(deferredQuery, deferredFilter);
+        setResults(filtered);
+    }, [deferredQuery, deferredFilter]);
+
+    const handleSearch = (value) =&gt; {
+        setQuery(value);
+    };
+
+    const handleFilterChange = (newFilter) =&gt; {
+        startTransition(() =&gt; {
+            setFilter(newFilter);
+        });
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input
+                value={query}
+                onChange={(e) =&gt; handleSearch(e.target.value)}
+                placeholder="Search..."
+            /&gt;
+            &lt;div className="filters"&gt;
+                {['all', 'active', 'completed'].map(f =&gt; (
+                    &lt;button
+                        key={f}
+                        onClick={() =&gt; handleFilterChange(f)}
+                        className={filter === f ? 'active' : ''}
+                    &gt;
+                        {f.charAt(0).toUpperCase() + f.slice(1)}
+                    &lt;/button&gt;
+                ))}
+            &lt;/div&gt;
+            {isPending &amp;&amp; &lt;div&gt;Updating filter...&lt;/div&gt;}
+            &lt;div className="results"&gt;
+                {results.map(item =&gt; (
+                    &lt;div key={item.id}&gt;{item.name}&lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="612-useid-hook">6.12 useId Hook</h2>
+<h3 id="simple-explanation_11">Simple Explanation</h3>
+<p>useId is a hook for generating unique IDs for accessibility (ARIA) attributes. It creates stable IDs that are unique across the application, preventing ID collisions and hydration mismatches.</p>
+<p>Think of useId like a ticket machine - it gives each element a unique number that won't conflict with any other element in the application.</p>
+<h3 id="technical-explanation_11">Technical Explanation</h3>
+<p>useId generates unique IDs that are consistent between server and client rendering. It's designed for accessibility attributes like <code>aria-describedby</code>, <code>aria-labelledby</code>, and HTML <code>for</code>/<code>id</code> attributes.</p>
+<p>Key characteristics:
+- <strong>Unique IDs</strong>: Generates unique identifiers
+- <strong>Stable</strong>: Consistent between renders
+- <strong>Hydration-safe</strong>: Works with server-side rendering
+- <strong>Prefix support</strong>: Can generate IDs with custom prefixes
+- <strong>Accessibility</strong>: Ideal for ARIA attributes</p>
+<h3 id="professional-explanation_11">Professional Explanation</h3>
+<p>Use cases for useId:
+- <strong>Form labels</strong>: Connecting labels to inputs
+- <strong>ARIA labels</strong>: Describing elements for screen readers
+- <strong>Complex components</strong>: Multiple related elements
+- <strong>Hydration</strong>: Consistent IDs in SSR
+- <strong>Accessibility</strong>: Properly associating elements</p>
+<h3 id="useid-examples">useId Examples</h3>
+<pre><code class="language-jsx">// Basic useId
+function FormField({ label, ...props }) {
+    const id = useId();
+
+    return (
+        &lt;div&gt;
+            &lt;label htmlFor={id}&gt;{label}&lt;/label&gt;
+            &lt;input id={id} {...props} /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Multiple IDs
+function ComplexForm() {
+    const nameId = useId();
+    const emailId = useId();
+    const passwordId = useId();
+    const descriptionId = useId();
+
+    return (
+        &lt;div&gt;
+            &lt;div&gt;
+                &lt;label htmlFor={nameId}&gt;Name:&lt;/label&gt;
+                &lt;input id={nameId} type="text" /&gt;
+                &lt;p id={`${nameId}-help`}&gt;Enter your full name&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;label htmlFor={emailId}&gt;Email:&lt;/label&gt;
+                &lt;input id={emailId} type="email" /&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;label htmlFor={passwordId}&gt;Password:&lt;/label&gt;
+                &lt;input id={passwordId} type="password" /&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;label htmlFor={descriptionId}&gt;Description:&lt;/label&gt;
+                &lt;textarea id={descriptionId} /&gt;
+                &lt;div id={`${descriptionId}-help`}&gt;
+                    Enter a brief description (max 200 characters)
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Accessibility with useId
+function AccessibleAccordion({ title, content }) {
+    const id = useId();
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;
+                &lt;button
+                    id={`${id}-button`}
+                    aria-expanded={isOpen}
+                    aria-controls={`${id}-panel`}
+                    onClick={() =&gt; setIsOpen(!isOpen)}
+                &gt;
+                    {title}
+                &lt;/button&gt;
+            &lt;/h3&gt;
+            &lt;div
+                id={`${id}-panel`}
+                role="region"
+                aria-labelledby={`${id}-button`}
+                hidden={!isOpen}
+            &gt;
+                {content}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Form with multiple related fields
+function AddressForm() {
+    const prefix = useId();
+    const [fields] = useState([
+        { label: 'Street', name: 'street' },
+        { label: 'City', name: 'city' },
+        { label: 'State', name: 'state' },
+        { label: 'ZIP Code', name: 'zip' }
+    ]);
+
+    return (
+        &lt;div&gt;
+            {fields.map((field, index) =&gt; {
+                const id = `${prefix}-${index}`;
+                return (
+                    &lt;div key={id}&gt;
+                        &lt;label htmlFor={id}&gt;{field.label}:&lt;/label&gt;
+                        &lt;input id={id} name={field.name} /&gt;
+                    &lt;/div&gt;
+                );
+            })}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="613-custom-hooks">6.13 Custom Hooks</h2>
+<h3 id="simple-explanation_12">Simple Explanation</h3>
+<p>Custom Hooks let you extract reusable logic from components into reusable functions. They allow you to share stateful logic across multiple components without duplicating code.</p>
+<p>Think of custom hooks like recipe templates - instead of writing the same code over and over, you create a reusable "recipe" that you can use in different components.</p>
+<h3 id="technical-explanation_12">Technical Explanation</h3>
+<p>Custom hooks are JavaScript functions that use React hooks. They allow you to extract component logic into reusable functions. Custom hooks follow the same rules as built-in hooks and can use other hooks.</p>
+<p>Key characteristics:
+- <strong>Reusable</strong>: Share logic across components
+- <strong>Composable</strong>: Can use other hooks
+- <strong>Encapsulated</strong>: Hide implementation details
+- <strong>Testable</strong>: Can be tested independently
+- <strong>Naming</strong>: Must start with "use"</p>
+<h3 id="professional-explanation_12">Professional Explanation</h3>
+<p>Best practices for custom hooks:
+- <strong>Single responsibility</strong>: Do one thing well
+- <strong>Composable</strong>: Build complex hooks from simple ones
+- <strong>Documented</strong>: Clear purpose and API
+- <strong>Tested</strong>: Unit tests for hook logic
+- <strong>Type-safe</strong>: Use TypeScript for type safety</p>
+<p>Common custom hook examples:
+- <strong>useLocalStorage</strong>: Sync with localStorage
+- <strong>useFetch</strong>: Data fetching with loading/error states
+- <strong>useDebounce</strong>: Debounce values
+- <strong>useToggle</strong>: Boolean state management
+- <strong>useMediaQuery</strong>: Responsive design helpers</p>
+<h3 id="custom-hooks-examples">Custom Hooks Examples</h3>
+<pre><code class="language-jsx">// useLocalStorage - Persist state in localStorage
+function useLocalStorage(key, initialValue) {
+    const [storedValue, setStoredValue] = useState(() =&gt; {
+        try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : initialValue;
+        } catch (error) {
+            console.error(error);
+            return initialValue;
+        }
+    });
+
+    const setValue = (value) =&gt; {
+        try {
+            const valueToStore = value instanceof Function ? value(storedValue) : value;
+            setStoredValue(valueToStore);
+            localStorage.setItem(key, JSON.stringify(valueToStore));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return [storedValue, setValue];
+}
+
+// Using useLocalStorage
+function ThemePreference() {
+    const [theme, setTheme] = useLocalStorage('theme', 'light');
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Current theme: {theme}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setTheme('light')}&gt;Light&lt;/button&gt;
+            &lt;button onClick={() =&gt; setTheme('dark')}&gt;Dark&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// useFetch - Data fetching hook
+function useFetch(url, options = {}) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+        const abortController = new AbortController();
+
+        const fetchData = async () =&gt; {
+            try {
+                setLoading(true);
+                setError(null);
+
+                const response = await fetch(url, {
+                    ...options,
+                    signal: abortController.signal
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const json = await response.json();
+                setData(json);
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    setError(error.message);
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+
+        return () =&gt; {
+            abortController.abort();
+        };
+    }, [url, JSON.stringify(options)]);
+
+    return { data, loading, error };
+}
+
+// Using useFetch
+function UserList() {
+    const { data: users, loading, error } = useFetch('/api/users');
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+
+    return (
+        &lt;ul&gt;
+            {users?.map(user =&gt; (
+                &lt;li key={user.id}&gt;{user.name}&lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}
+
+// useDebounce - Debounce values
+function useDebounce(value, delay = 500) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() =&gt; {
+        const timer = setTimeout(() =&gt; {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () =&gt; {
+            clearTimeout(timer);
+        };
+    }, [value, delay]);
+
+    return debouncedValue;
+}
+
+// Using useDebounce
+function SearchWithDebounce() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
+    const [results, setResults] = useState([]);
+
+    useEffect(() =&gt; {
+        if (debouncedSearchTerm) {
+            // Search API call with debounced value
+            searchItems(debouncedSearchTerm).then(setResults);
+        }
+    }, [debouncedSearchTerm]);
+
+    return (
+        &lt;div&gt;
+            &lt;input
+                value={searchTerm}
+                onChange={(e) =&gt; setSearchTerm(e.target.value)}
+                placeholder="Search..."
+            /&gt;
+            &lt;div&gt;
+                {results.map(item =&gt; (
+                    &lt;div key={item.id}&gt;{item.name}&lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// useMediaQuery - Responsive design
+function useMediaQuery(query) {
+    const [matches, setMatches] = useState(() =&gt; {
+        if (typeof window !== 'undefined') {
+            return window.matchMedia(query).matches;
+        }
+        return false;
+    });
+
+    useEffect(() =&gt; {
+        const mediaQuery = window.matchMedia(query);
+        const handler = (event) =&gt; setMatches(event.matches);
+
+        mediaQuery.addEventListener('change', handler);
+        return () =&gt; mediaQuery.removeEventListener('change', handler);
+    }, [query]);
+
+    return matches;
+}
+
+// Using useMediaQuery
+function ResponsiveComponent() {
+    const isMobile = useMediaQuery('(max-width: 640px)');
+    const isTablet = useMediaQuery('(min-width: 641px) and (max-width: 1024px)');
+    const isDesktop = useMediaQuery('(min-width: 1025px)');
+
+    return (
+        &lt;div&gt;
+            {isMobile &amp;&amp; &lt;MobileLayout /&gt;}
+            {isTablet &amp;&amp; &lt;TabletLayout /&gt;}
+            {isDesktop &amp;&amp; &lt;DesktopLayout /&gt;}
+        &lt;/div&gt;
+    );
+}
+
+// useToggle - Toggle state
+function useToggle(initialValue = false) {
+    const [state, setState] = useState(initialValue);
+
+    const toggle = useCallback(() =&gt; {
+        setState(prev =&gt; !prev);
+    }, []);
+
+    const setTrue = useCallback(() =&gt; {
+        setState(true);
+    }, []);
+
+    const setFalse = useCallback(() =&gt; {
+        setState(false);
+    }, []);
+
+    return { state, toggle, setTrue, setFalse };
+}
+
+// Using useToggle
+function ModalControl() {
+    const { state: isOpen, toggle, setTrue, setFalse } = useToggle(false);
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={setTrue}&gt;Open Modal&lt;/button&gt;
+            {isOpen &amp;&amp; (
+                &lt;div className="modal"&gt;
+                    &lt;div className="modal-content"&gt;
+                        &lt;h2&gt;Modal&lt;/h2&gt;
+                        &lt;p&gt;Modal content here&lt;/p&gt;
+                        &lt;button onClick={setFalse}&gt;Close&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            )}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="614-common-mistakes-and-best-practices">6.14 Common Mistakes and Best Practices</h2>
+<h3 id="6141-common-mistakes">6.14.1 Common Mistakes</h3>
+<pre><code class="language-jsx">// ❌ Calling hooks conditionally
+function BadComponent({ condition }) {
+    const [count, setCount] = useState(0); // ✅ Always runs
+
+    if (condition) {
+        const [data, setData] = useState(null); // ❌ Conditional hook
+    }
+}
+
+// ✅ Calling hooks at top level
+function GoodComponent({ condition }) {
+    const [count, setCount] = useState(0);
+    const [data, setData] = useState(null);
+
+    // Use condition inside the hook
+    useEffect(() =&gt; {
+        if (condition) {
+            // Do something
+        }
+    }, [condition]);
+}
+
+// ❌ Missing dependencies in useEffect
+function BadEffect({ userId }) {
+    const [user, setUser] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchUser(userId).then(setUser);
+    }, []); // ❌ Missing userId dependency
+}
+
+// ✅ Including all dependencies
+function GoodEffect({ userId }) {
+    const [user, setUser] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchUser(userId).then(setUser);
+    }, [userId]); // ✅ userId included
+}
+
+// ❌ Stale closure in useEffect
+function StaleClosure() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() =&gt; {
+        const interval = setInterval(() =&gt; {
+            console.log(count); // ❌ Always logs initial count
+        }, 1000);
+
+        return () =&gt; clearInterval(interval);
+    }, []); // Empty dependency array
+}
+
+// ✅ Fixing stale closure
+function FixedClosure() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() =&gt; {
+        const interval = setInterval(() =&gt; {
+            setCount(prev =&gt; {
+                console.log(prev);
+                return prev;
+            });
+        }, 1000);
+
+        return () =&gt; clearInterval(interval);
+    }, []);
+}
+
+// ❌ Mutating refs during render
+function BadRef() {
+    const ref = useRef(0);
+    ref.current = 5; // ❌ Mutation during render
+
+    return &lt;div&gt;{ref.current}&lt;/div&gt;;
+}
+
+// ✅ Mutating refs in effects
+function GoodRef() {
+    const ref = useRef(0);
+
+    useEffect(() =&gt; {
+        ref.current = 5; // ✅ Mutation in effect
+    }, []);
+
+    return &lt;div&gt;{ref.current}&lt;/div&gt;;
+}
+</code></pre>
+<h3 id="6142-best-practices">6.14.2 Best Practices</h3>
+<pre><code class="language-jsx">// ✅ Use multiple useState for unrelated state
+function GoodStateManagement() {
+    const [count, setCount] = useState(0);
+    const [name, setName] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
+
+    // Each state is independent
+    return &lt;div&gt;{/* ... */}&lt;/div&gt;;
+}
+
+// ❌ Putting everything in one state object
+function BadStateManagement() {
+    const [state, setState] = useState({
+        count: 0,
+        name: '',
+        isOpen: false
+    });
+
+    // More complex updates
+}
+
+// ✅ Use functional updates for dependent state
+function GoodFunctionalUpdate({ value }) {
+    const [count, setCount] = useState(0);
+
+    const increment = () =&gt; {
+        setCount(prev =&gt; prev + 1);
+    };
+
+    const asyncIncrement = () =&gt; {
+        setTimeout(() =&gt; {
+            setCount(prev =&gt; prev + 1);
+        }, 1000);
+    };
+}
+
+// ✅ Use useMemo for expensive computations
+function GoodMemoization({ items, filter }) {
+    const filteredItems = useMemo(() =&gt; {
+        return items.filter(item =&gt; item.category === filter);
+    }, [items, filter]);
+
+    return &lt;ItemList items={filteredItems} /&gt;;
+}
+
+// ✅ Use useCallback for callbacks passed to children
+function GoodCallback({ onSave }) {
+    const handleSave = useCallback((data) =&gt; {
+        // Process data
+        onSave(data);
+    }, [onSave]);
+
+    return &lt;SaveButton onSave={handleSave} /&gt;;
+}
+
+// ✅ Keep custom hooks focused
+function useUserData(userId) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+        fetchUser(userId).then(setUser).catch(setError).finally(() =&gt; setLoading(false));
+    }, [userId]);
+
+    return { user, loading, error };
+}
+
+// ✅ Use cleanup in useEffect
+function GoodEffectWithCleanup() {
+    useEffect(() =&gt; {
+        const subscription = subscribe();
+        const eventListener = addEventListener();
+
+        return () =&gt; {
+            subscription.unsubscribe();
+            removeEventListener();
+        };
+    }, []);
+}
+</code></pre>
+<h2 id="615-interview-questions">6.15 Interview Questions</h2>
+<h3 id="junior-level-questions--6">Junior Level Questions</h3>
+<p><strong>Q: What are React Hooks and why were they introduced?</strong></p>
+<p><strong>Answer</strong>: Hooks are functions that let you use React features from functional components. They were introduced to:
+1. Use state and lifecycle in functional components
+2. Share logic between components
+3. Reduce complexity compared to classes
+4. Better performance and readability</p>
+<pre><code class="language-jsx">// Before: Class component
+class Counter extends React.Component {
+    state = { count: 0 };
+    render() {
+        return &lt;button onClick={() =&gt; this.setState({ count: this.state.count + 1 })}&gt;
+            {this.state.count}
+        &lt;/button&gt;;
+    }
+}
+
+// After: Functional component with hooks
+function Counter() {
+    const [count, setCount] = useState(0);
+    return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;;
+}
+</code></pre>
+<p><strong>Q: What are the rules of Hooks?</strong></p>
+<p><strong>Answer</strong>: 
+1. <strong>Only call hooks at the top level</strong> - Not inside loops, conditions, or nested functions
+2. <strong>Only call hooks from React functions</strong> - Functional components or custom hooks</p>
+<h3 id="mid-level-questions--6">Mid Level Questions</h3>
+<p><strong>Q: Explain the difference between <code>useState</code> and <code>useReducer</code>.</strong></p>
+<p><strong>Answer</strong>:
+- <strong>useState</strong>: For simple state, single value, or object
+- <strong>useReducer</strong>: For complex state logic, multiple sub-values, or when next state depends on previous</p>
+<pre><code class="language-jsx">// useState
+const [count, setCount] = useState(0);
+
+// useReducer
+const [state, dispatch] = useReducer(reducer, { count: 0 });
+</code></pre>
+<p><strong>Q: When should you use <code>useMemo</code> vs <code>useCallback</code>?</strong></p>
+<p><strong>Answer</strong>:
+- <strong>useMemo</strong>: Memoizes values/computations
+- <strong>useCallback</strong>: Memoizes functions</p>
+<pre><code class="language-jsx">// useMemo for values
+const processedData = useMemo(() =&gt; {
+    return heavyComputation(data);
+}, [data]);
+
+// useCallback for functions
+const handleClick = useCallback(() =&gt; {
+    console.log('Clicked');
+}, []);
+</code></pre>
+<h3 id="senior-level-questions--6">Senior Level Questions</h3>
+<p><strong>Q: Explain the dependency array in <code>useEffect</code> and common pitfalls.</strong></p>
+<p><strong>Answer</strong>: The dependency array controls when the effect runs. Common pitfalls include:
+1. <strong>Missing dependencies</strong>: Leading to stale closures
+2. <strong>Including unnecessary dependencies</strong>: Causing unnecessary re-runs
+3. <strong>Using objects/arrays</strong>: Causing infinite loops
+4. <strong>Using functions</strong>: Need to use <code>useCallback</code></p>
+<pre><code class="language-jsx">// ✅ Correct dependencies
+useEffect(() =&gt; {
+    fetchUser(userId);
+}, [userId]);
+
+// ❌ Infinite loop with object
+useEffect(() =&gt; {
+    fetchUser(user);
+}, [user]); // user object changes every render
+
+// ✅ Fix with useMemo
+const memoizedUser = useMemo(() =&gt; user, [user.id]);
+useEffect(() =&gt; {
+    fetchUser(memoizedUser);
+}, [memoizedUser]);
+</code></pre>
+<p><strong>Q: How do you optimize performance with hooks?</strong></p>
+<p><strong>Answer</strong>:
+1. <strong>useMemo</strong>: Cache expensive computations
+2. <strong>useCallback</strong>: Memoize callbacks
+3. <strong>React.memo</strong>: Prevent re-renders
+4. <strong>useTransition</strong>: Mark non-urgent updates
+5. <strong>useDeferredValue</strong>: Defer heavy updates
+6. <strong>useId</strong>: Stable IDs for accessibility</p>
+<pre><code class="language-jsx">const MemoizedComponent = React.memo(({ data }) =&gt; {
+    const processed = useMemo(() =&gt; processData(data), [data]);
+    const handleClick = useCallback(() =&gt; handleItem(data.id), [data.id]);
+
+    return &lt;div onClick={handleClick}&gt;{processed}&lt;/div&gt;;
+});
+</code></pre>
+<h2 id="616-summary">6.16 Summary</h2>
+<h3 id="key-hooks-reference">Key Hooks Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Hook</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>useState</strong></td>
+<td>Local state</td>
+<td><code>const [state, setState] = useState(initial)</code></td>
+</tr>
+<tr>
+<td><strong>useEffect</strong></td>
+<td>Side effects</td>
+<td><code>useEffect(() =&gt; {}, [deps])</code></td>
+</tr>
+<tr>
+<td><strong>useMemo</strong></td>
+<td>Memoize values</td>
+<td><code>const value = useMemo(() =&gt; compute(), [deps])</code></td>
+</tr>
+<tr>
+<td><strong>useCallback</strong></td>
+<td>Memoize functions</td>
+<td><code>const fn = useCallback(() =&gt; {}, [deps])</code></td>
+</tr>
+<tr>
+<td><strong>useRef</strong></td>
+<td>Mutable references</td>
+<td><code>const ref = useRef(initialValue)</code></td>
+</tr>
+<tr>
+<td><strong>useContext</strong></td>
+<td>Context values</td>
+<td><code>const value = useContext(Context)</code></td>
+</tr>
+<tr>
+<td><strong>useReducer</strong></td>
+<td>Complex state</td>
+<td><code>const [state, dispatch] = useReducer(reducer, init)</code></td>
+</tr>
+<tr>
+<td><strong>useLayoutEffect</strong></td>
+<td>Synchronous effects</td>
+<td><code>useLayoutEffect(() =&gt; {}, [deps])</code></td>
+</tr>
+<tr>
+<td><strong>useImperativeHandle</strong></td>
+<td>Custom refs</td>
+<td><code>useImperativeHandle(ref, () =&gt; ({}))</code></td>
+</tr>
+<tr>
+<td><strong>useTransition</strong></td>
+<td>Non-urgent updates</td>
+<td><code>const [pending, startTransition] = useTransition()</code></td>
+</tr>
+<tr>
+<td><strong>useDeferredValue</strong></td>
+<td>Deferred values</td>
+<td><code>const deferred = useDeferredValue(value)</code></td>
+</tr>
+<tr>
+<td><strong>useId</strong></td>
+<td>Unique IDs</td>
+<td><code>const id = useId()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="best-practices-summary--4">Best Practices Summary</h3>
+<ol>
+<li><strong>Follow hooks rules</strong>: Top-level and from React functions</li>
+<li><strong>Keep components focused</strong>: Extract logic to custom hooks</li>
+<li><strong>Optimize performance</strong>: Use memoization appropriately</li>
+<li><strong>Clean up effects</strong>: Return cleanup functions</li>
+<li><strong>Use proper dependencies</strong>: Include all dependencies in useEffect</li>
+<li><strong>Avoid unnecessary re-renders</strong>: Use React.memo and useCallback</li>
+<li><strong>Test hooks</strong>: Write unit tests for custom hooks</li>
+<li><strong>Document custom hooks</strong>: Clear purpose and API</li>
+<li><strong>Use TypeScript</strong>: Type-safe hooks</li>
+<li><strong>Monitor performance</strong>: Use React DevTools Profiler</li>
+</ol>
+<h3 id="common-mistakes-to-avoid">Common Mistakes to Avoid</h3>
+<ol>
+<li>❌ Calling hooks conditionally</li>
+<li>❌ Missing dependencies in useEffect</li>
+<li>❌ Stale closures in useEffect</li>
+<li>❌ Mutating state directly</li>
+<li>❌ Using index as key in lists</li>
+<li>❌ Over-memoization</li>
+<li>❌ Not cleaning up effects</li>
+<li>❌ Mutating refs during render</li>
+<li>❌ Creating new objects in render</li>
+<li>❌ Ignoring performance implications</li>
+</ol>
+<hr/>
+<p><em>End of Chapter 6</em></p>
+<p><strong>Next Chapter Preview</strong>: Chapter 7 will cover State Management including Local State, Global State, Context API, Redux Toolkit, Zustand, Jotai, Recoil, and React Query, explaining when to use each approach.</p>
+<hr/>
+<p><em>This chapter provides comprehensive coverage of React Hooks. Master these concepts to build efficient, maintainable, and performant React applications.</em></p>
+<h1 id="the-complete-react-developer-course--6">The Complete React Developer Course</h1>
+<h2 id="from-beginner-to-professional--6">From Beginner to Professional</h2>
+<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--6">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+<hr/>
+<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-6" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-5"><span class="pager-label">← Previous chapter</span><strong>05 · React Fundamentals</strong></a><a class="pager-card pager-card--next" href="#chapter-7"><span class="pager-label">Next chapter →</span><strong>07 · State Management in React</strong></a></nav></section>
