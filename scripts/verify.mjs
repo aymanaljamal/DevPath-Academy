@@ -3,6 +3,7 @@ import { join } from 'node:path';
 
 const file = join(process.cwd(), 'index.html');
 const html = await readFile(file, 'utf8');
+const publicHtml = await readFile(join(process.cwd(), 'public', 'index.html'), 'utf8');
 const count = pattern => [...html.matchAll(pattern)].length;
 const assertions = [];
 const check = (name, condition, detail = '') => {
@@ -11,6 +12,7 @@ const check = (name, condition, detail = '') => {
 };
 
 check('18 chapters', count(/<section\b[^>]*class=["'][^"']*\bchapter\b/gi) === 18);
+check('Vercel public build matches root index', publicHtml === html);
 check('416 major sections', count(/<h2\b[^>]*\bid=/gi) === 416);
 check('555 code blocks', count(/<pre\b/gi) === 555);
 check('26 tables', count(/<table\b/gi) === 26);
@@ -63,6 +65,10 @@ check('Creator credit exists', html.includes('github.com/aymanaljamal'));
 for (const asset of ['manifest.webmanifest', 'sw.js', 'assets/course-icon.svg']) {
   try { await readFile(join(process.cwd(), asset), 'utf8'); check(`${asset} exists`, true); }
   catch { check(`${asset} exists`, false); }
+}
+for (const asset of ['manifest.webmanifest', 'sw.js', 'assets/course-icon.svg']) {
+  try { await readFile(join(process.cwd(), 'public', asset), 'utf8'); check(`public/${asset} exists`, true); }
+  catch { check(`public/${asset} exists`, false); }
 }
 
 for (const result of assertions) {

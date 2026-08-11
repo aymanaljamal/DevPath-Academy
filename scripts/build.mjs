@@ -1,4 +1,4 @@
-import { readFile, readdir, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const root = process.cwd();
@@ -28,5 +28,14 @@ if (unresolvedMarkers.length) {
   throw new Error(`Build failed: unresolved template markers: ${unresolvedMarkers.join(', ')}`);
 }
 
-await writeFile(join(root, 'index.html'), output, 'utf8');
+const publicDir = join(root, 'public');
+await rm(publicDir, { recursive: true, force: true });
+await mkdir(join(publicDir, 'assets'), { recursive: true });
+await Promise.all([
+  writeFile(join(root, 'index.html'), output, 'utf8'),
+  writeFile(join(publicDir, 'index.html'), output, 'utf8'),
+  copyFile(join(root, 'manifest.webmanifest'), join(publicDir, 'manifest.webmanifest')),
+  copyFile(join(root, 'sw.js'), join(publicDir, 'sw.js')),
+  copyFile(join(root, 'assets', 'course-icon.svg'), join(publicDir, 'assets', 'course-icon.svg')),
+]);
 console.log(`Built canonical index.html: ${chapterNames.length} chapters, ${output.length.toLocaleString()} characters.`);

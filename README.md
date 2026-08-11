@@ -51,6 +51,7 @@ GitHub: [github.com/aymanaljamal](https://github.com/aymanaljamal)
 |-- assets/
 |   `-- course-icon.svg              # PWA application icon
 |-- index.html                       # Canonical deployment entry point
+|-- public/                          # Generated Vercel deployment output (gitignored)
 |-- manifest.webmanifest             # Installable app metadata
 |-- sw.js                            # Offline cache service worker
 `-- package.json
@@ -70,9 +71,10 @@ npm run build
 
 For local PWA testing, run `npm start` and open `http://127.0.0.1:4173`.
 
-The build script reads the modular source files and creates one standalone artifact:
+The build script reads the modular source files and creates the canonical standalone artifact plus a Vercel deployment bundle:
 
 - `index.html` - **the canonical deployment entry point**
+- `public/index.html` - generated Vercel output
 
 The files contain all course content, CSS, and application JavaScript and can be opened directly in a modern browser. Deploy the project root and configure the host to serve `index.html`.
 
@@ -86,6 +88,10 @@ npm run verify
 ```
 
 Include `index.html`, `manifest.webmanifest`, `sw.js`, and the `assets/` folder in the deployment. PWA installation and offline caching require HTTP/HTTPS; the core standalone course still works when `index.html` is opened as a local file.
+
+### Vercel
+
+`vercel.json` configures `npm run build` and publishes the generated `public/` directory. The build copies only the production HTML, manifest, service worker, and application icon into that directory. Do not edit `public/` manually.
 
 ## Verify
 
