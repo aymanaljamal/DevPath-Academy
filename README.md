@@ -1,5 +1,6 @@
 # DevPath Academy
 
+
 An interactive, bilingual, offline-ready learning academy for modern software development.
 
 DevPath Academy brings **React**, **Java**, **Spring & Spring Boot**, and practical **Projects** into one consistent learning experience—with shared navigation, progress tracking, notes, bookmarks, review tools, and course-aware themes.
@@ -145,9 +146,9 @@ PWA installation and offline caching require HTTP or HTTPS.
 
 ## Author
 
-Designed and developed by **Ayman Aljamal**.
+Created by **Ayman Aljamal** · [GitHub Profile](https://github.com/aymanaljamal)
 
-- GitHub: [@aymanaljamal](https://github.com/aymanaljamal)
+🌐 **Live Project:** [Open DevPath Academy](https://complete-react-developer-course-4wc5zxfpw-ayman-jamal.vercel.app/#courses)
 
 ## License
 
