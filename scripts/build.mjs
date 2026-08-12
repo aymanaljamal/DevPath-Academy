@@ -14,16 +14,29 @@ const chapterNames = (await readdir(join(src, 'content', 'chapters')))
   .filter(name => /^chapter-\d{2}\.html$/.test(name))
   .sort();
 if (chapterNames.length !== 18) throw new Error(`Build requires 18 chapters, found ${chapterNames.length}`);
+const compactCss = css => css
+  .replace(/\/\*[\s\S]*?\*\//g, '')
+  .replace(/\s+/g, ' ')
+  .replace(/\s*([{}:;,>])\s*/g, '$1')
+  .trim();
 
 const [styles, scripts, courseData, chapters] = await Promise.all([
   Promise.all(styleFiles.map(name => readFile(join(src, 'styles', name), 'utf8'))),
-  Promise.all(scriptFiles.map(name => readFile(join(src, 'scripts', name), 'utf8'))),
+  Promise.all(scriptFiles.map(async name => {
+    const source = await readFile(join(src, 'scripts', name), 'utf8');
+    if (name !== 'devpath-platform.js') return source;
+    const legacyStart = source.indexOf('  function home() {');
+    const improvedStart = source.indexOf('  function improvedHome() {');
+    return legacyStart >= 0 && improvedStart > legacyStart
+      ? source.slice(0, legacyStart) + source.slice(improvedStart)
+      : source;
+  })),
   Promise.all(courseDataFiles.map(name => readFile(join(src, 'data', 'courses', name), 'utf8'))),
   Promise.all(chapterNames.map(name => readFile(join(src, 'content', 'chapters', name), 'utf8'))),
 ]);
 
 const assemble = chapterHtml => template
-  .replace('<!-- INLINE_STYLES -->', () => styles.map((css, index) => `<style data-source="${styleFiles[index]}">\n${css}</style>`).join('\n'))
+  .replace('<!-- INLINE_STYLES -->', () => styles.map((css, index) => `<style data-source="${styleFiles[index]}">${compactCss(css)}</style>`).join('\n'))
   .replace('<!-- COURSE_CHAPTERS -->', () => chapterHtml)
   .replace('<!-- COURSE_DATA -->', () => courseData.map((js, index) => `<script data-course="${courseDataFiles[index]}">\n${js}</script>`).join('\n'))
   .replace('<!-- INLINE_SCRIPTS -->', () => scripts.map((js, index) => `<script data-source="${scriptFiles[index]}">\n${js}</script>`).join('\n'));

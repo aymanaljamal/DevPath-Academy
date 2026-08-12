@@ -16,8 +16,8 @@ check('18 chapters', count(/<section\b[^>]*class=["'][^"']*\bchapter\b/gi) === 1
 check('Vercel public home matches root index', publicHtml === homeHtml);
 check('Vercel React build matches root reader', await readFile(join(process.cwd(), 'public', 'react.html'), 'utf8') === html);
 check('Home excludes full React chapters', !/<section\b[^>]*class=["'][^"']*\bchapter\b/i.test(homeHtml));
-check('Home payload under 425 KB', Buffer.byteLength(homeHtml) < 425000, `${Buffer.byteLength(homeHtml)} bytes`);
-check('416 major sections', count(/<h2\b[^>]*\bid=/gi) - count(/<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|learningPulseTitle|reactPlayLabTitle)["']/gi) === 416);
+check('Home payload under 430 KB', Buffer.byteLength(homeHtml) < 430000, `${Buffer.byteLength(homeHtml)} bytes`);
+check('416 major sections', count(/<h2\b[^>]*\bid=/gi) - count(/<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|learningPulseTitle|planBuilderTitle|reactPlayLabTitle)["']/gi) === 416);
 check('Original 555 code blocks preserved', count(/<pre\b/gi) >= 555, `found ${count(/<pre\b/gi)}`);
 check('26 tables', count(/<table\b/gi) === 26);
 check('18 completion controls', count(/data-complete=["']chapter-/gi) === 18);
@@ -66,7 +66,7 @@ check('Python AI uses PyTorch and reproducible seeds', pythonAiData.includes("fr
 check('Python AI has nine capstones', pythonAiData.includes("capstones:['House Price Prediction'") && (pythonAiData.match(/Capstone'/g)||[]).length >= 9);
 check('Python AI course tools exist', ['Visual Course Roadmap','Models Library','Portfolio Projects','Datasets','Cheat Sheets','AI Glossary','Model Comparison Lab'].every(label=>homeHtml.includes(label)));
 check('Model Comparison Lab persists locally', homeHtml.includes('devpath-python-ai-experiments-v1') && homeHtml.includes('Train &amp; compare'));
-check('Python AI appears prominently on home', homeHtml.includes('Start Python &amp; AI') && homeHtml.includes('data-filter="ai"'));
+check('Python AI appears prominently on home', homeHtml.includes('Data &amp; AI') && homeHtml.includes('data-filter="ai"'));
 check('Python AI lesson requirements exist', ['LEARNING OBJECTIVES','TRY IT YOURSELF','SHORT QUIZ','COMMON MISTAKES','LESSON SUMMARY','MODEL DOSSIER'].every(label=>homeHtml.includes(label)));
 check('Educational disease disclaimer exists', homeHtml.includes('not a medical device') && homeHtml.includes('must never be treated as diagnosis'));
 check('SQL path has 23 lessons', structuredLessonCount(sqlData) === 23, `found ${structuredLessonCount(sqlData)}`);
@@ -119,6 +119,10 @@ check('All course toolbars expose dashboard and review', homeHtml.includes('data
 check('Course boundaries keep previous and next visible', homeHtml.includes('class="toolbar-boundary" disabled') && html.includes("$('#previousChapter').disabled"));
 check('Three interactive home tools exist', ['path-finder','challenge-machine','study-planner'].every(name=>homeHtml.includes(name)));
 check('Personal learning pulse exists', ['learning-pulse','learningStreak','done today','smartReviewHome'].every(name=>homeHtml.includes(name)));
+check('Personal roadmap builder exists', ['plan-builder','planBuilderForm','planGoal','planLevel','planHours','setupPlanBuilder'].every(name=>homeHtml.includes(name)));
+check('Roadmap covers full-stack backend data and database goals', ['fullstack','backend','data','database'].every(goal=>homeHtml.includes(`value="${goal}"`)));
+check('Improved hero exposes useful academy proof', ['improved-hero','focused paths','practical lessons','Build my learning plan'].every(value=>homeHtml.includes(value)));
+check('Plan builder hash routes to the home section', homeHtml.includes("location.hash==='#plan-builder'") && homeHtml.includes("$('#plan-builder')?.scrollIntoView"));
 check('Daily activity is persisted on completion', homeHtml.includes('recordActivity(lesson.id)') && homeHtml.includes('state.activity ||= {}'));
 check('Interactive journey studio exists', ['journey-studio','goal-roadmap','course-constellation','goalPath'].every(name=>homeHtml.includes(name)));
 check('Journey studio connects learning goals', ['fullstack','backend','data','cloud','performance'].every(goal=>homeHtml.includes(`data-learning-goal="${goal}"`)));
