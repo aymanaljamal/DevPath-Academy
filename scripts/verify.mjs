@@ -98,6 +98,7 @@ check('React lab supports reset, mobile, RTL, and reduced motion', html.includes
 check('Interactive home path explorer exists', homeHtml.includes('data-path-course=') && homeHtml.includes('pathPreviewTitle') && homeHtml.includes('--active-course'));
 check('Red global brand with course accents', homeHtml.includes('--dp-brand:#b91c1c') && homeHtml.includes('--active-course'));
 check('React reader has shared Academy navigation', html.includes('class="react-site-header"') && html.includes('index.html#/sources'));
+check('React clean URL redirects Academy hashes home', html.includes("reactDocument&&location.hash.startsWith('#/')") && html.includes('location.replace(`index.html${location.hash}`)'));
 check('Academy-wide advanced notes workspace exists', homeHtml.includes('notes-studio') && homeHtml.includes('lessonNoteSubject') && homeHtml.includes('note-stats'));
 check('Academy notes exports exist', homeHtml.includes('exportAcademyNotesPdf') && homeHtml.includes('exportAcademyNotesJson'));
 check('Academy note count and bilingual controls exist', homeHtml.includes('nav-count') && homeHtml.includes('languageButton') && homeHtml.includes("state.language==='ar'"));

@@ -289,6 +289,8 @@
   }
   function aboutPage(){return `${header()}<main class="devpath-main info-page"><a class="back-link" href="#/">← Home</a><span class="eyebrow">ABOUT THE ACADEMY</span><h1>Built for developers who keep growing.</h1><p class="info-lead">DevPath Academy is a modular learning platform for React, Java, Spring Boot, projects, and future technologies. Every path shares progress, notes, bookmarks, search, responsive navigation, and a consistent lesson experience.</p><section class="creator-panel"><div class="creator-avatar">AA</div><div><small>CREATOR</small><h2>Ayman Aljamal · أيمن الجمل</h2><p>Designed and crafted as a practical path from fundamentals to professional software development.</p><a href="https://github.com/aymanaljamal" target="_blank" rel="noopener noreferrer">github.com/aymanaljamal ↗</a></div></section></main>${footer()}`;}
   function render() {
+    const reactDocument=/(?:^|\/)react(?:\.html)?$/.test(location.pathname);
+    if(reactDocument&&location.hash.startsWith('#/')){location.replace(`index.html${location.hash}`);return;}
     applyTheme();
     applyLanguage();
     document.body.style.removeProperty('--course');
