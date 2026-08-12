@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
-    "lint": "node --check src/scripts/course.js && node --check src/scripts/learning-dashboard.js && node --check src/scripts/devpath-platform.js && node --check src/features/course-catalog/sources.js && node --check src/features/course-catalog/relationships.js",
+    "lint": "node scripts/check-platform.mjs",
     "test": "npm run verify && npm run validate:all",
     "verify": "node scripts/verify.mjs",
     "validate:content": "node scripts/validate-academy.mjs content",

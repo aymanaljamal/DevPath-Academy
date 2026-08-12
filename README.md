@@ -1,269 +1,177 @@
 # DevPath Academy
 
+DevPath Academy is a bilingual, offline-ready learning platform for modern software development. It combines structured curricula, interactive labs, persistent progress, notes, bookmarks, review tools, and a personal roadmap builder in one dependency-free static application.
 
-An interactive, bilingual, offline-ready learning academy for modern software development.
+Created and maintained by **Ayman Aljamal — أيمن الجمل** · [github.com/aymanaljamal](https://github.com/aymanaljamal)
 
-DevPath Academy brings **React**, **Java**, **Spring & Spring Boot**, and practical **Projects** into one consistent learning experience—with shared navigation, progress tracking, notes, bookmarks, review tools, and course-aware themes.
+## Current Academy
 
-Created, designed, and maintained by **Ayman Aljamal — أيمن الجمل** · [GitHub Profile](https://github.com/aymanaljamal)
+| Learning path | Content |
+|---|---:|
+| React | 18 chapters · 416 major sections |
+| Complete Java | 54 lessons |
+| Spring & Spring Boot | 77 lessons |
+| Postman API Testing | 25 lessons |
+| Python, AI & Machine Learning | 197 lessons · 17 stages · 9 capstones |
+| Firebase & Google Cloud | 46 lessons |
+| SQL | 23 lessons |
+| Database Optimization | 25 lessons |
+| Projects | 4 guided projects |
+| **Total** | **469 lessons across 9 paths** |
 
-## Learning Paths
+The Academy uses a red global identity. Each course keeps a separate accent color so course context remains visible without changing the product brand.
 
-| Path | Current content | Accent |
-|---|---:|---|
-| React | 18 chapters · 416 major sections | Blue |
-| Complete Java | 54 lessons | Orange |
-| Spring & Spring Boot | 77 lessons | Green |
-| Python, AI & Machine Learning | 197 lessons · 17 stages · 9 capstones | Python gold |
-| SQL | 23 lessons · PostgreSQL project | Cyan/teal |
-| Database Optimization | 25 lessons · performance case study | Amber/yellow |
-| Firebase & Google Cloud Services | 46 lessons · 4 practical cloud projects | Google amber |
-| Projects | 4 guided projects | Purple |
+## Key Features
 
-The Academy uses a red global identity while each learning path keeps its own accent color. The complete original React curriculum is preserved and loaded separately only when the learner opens it, keeping the home page fast.
+- Responsive Academy, course, and lesson interfaces
+- Shared Arabic/English and RTL/LTR support
+- Light and neutral-charcoal night themes
+- Personal roadmap builder based on goal, level, and weekly hours
+- Persistent course progress, bookmarks, notes, and daily activity
+- Global search, dashboard, smart review, quizzes, exam, and certificate
+- Notes export to JSON, Markdown, and printable PDF
+- React props/state render lab
+- Spring Boot request-pipeline lab
+- Postman request composer
+- SQL query builder and JOIN visualizer
+- Database index advisor and execution-plan viewer
+- Python model-comparison lab
+- Installable PWA with offline cache
+- No runtime dependencies, backend, or database required
 
-## Features
-
-- Unified responsive interface across every course
-- English and Arabic controls with shared RTL/LTR state
-- Shared light and charcoal dark themes
-- Course-aware Previous and Next navigation
-- Independent completion progress for every learning path
-- Persistent bookmarks and advanced notes
-- Note count, statistics, JSON backup, and printable PDF export
-- Dashboard, smart review, quizzes, final assessment, and certificate
-- Global search and command palette with `Ctrl/Cmd + K`
-- Study timer and learning analytics
-- Persistent text highlights with five colors
-- Import and restore for saved learning data
-- Markdown note export
-- Three interactive learning tools on the home page
-- Interactive goal roadmaps and a clickable course-progress constellation
-- Hands-on React props and state lab with live component preview
-- Python & AI roadmap, models library, projects, datasets, cheat sheets, bilingual glossary, and model comparison lab
-- Installable PWA with offline support
-- Mobile-friendly course reader and toolbar
-
-All learning data is stored locally in the browser. Theme and language preferences are shared between the Academy and the original React reader.
-
-## Python, AI & Machine Learning
-
-The gold-accented path progresses from Python and mathematics through NumPy/Pandas, comparative traditional machine learning, time series, NLP, recommendations, PyTorch deep learning, computer vision, transformers and RAG, reinforcement learning, and MLOps. Every stage ends with a review and assessment, for 197 lessons across 17 stages and nine portfolio capstones.
-
-Examples target Python 3.12+, use reproducible seed `42`, and rely on small open datasets or locally generated educational data. The browser-based Model Comparison Lab compares multiple candidates on a deterministic educational split and stores up to 20 experiments locally. Full training work uses scikit-learn and PyTorch; deployment lessons use FastAPI, Docker, and MLflow.
-
-## SQL and Database Optimization
-
-The SQL path covers relational foundations, schema definition, data changes, querying, joins, constraints, transactions, security, indexes, stored procedures, and a PostgreSQL project. Database Optimization continues with execution plans, `EXPLAIN ANALYZE`, index engineering, query rewrites, locking, maintenance, pooling, caching, monitoring, and a practical performance case study.
-
-Both definitions use stable IDs and a versioned curriculum transport shape. They currently remain static for offline use, while the documented course-catalog boundary allows a future database adapter to register the same normalized shape without changing routes or learner data keys.
-
-SQL and Database Optimization lessons include responsive code-native diagrams: ER/key relationships, interactive JOIN results, B-tree structure, query execution flow, and simulated before/after plan comparisons. Technical diagrams use structured HTML/SVG rather than AI-generated images. Lesson references point to verified PostgreSQL documentation and are validated with the content scripts.
-
-## Verified Sources Catalog
-
-The Academy includes a centralized, data-driven source catalog for every learning path. The current catalog contains 41 primary references:
-
-| Path | Sources | Primary publishers |
-|---|---:|---|
-| React | 4 | React, MDN, Vite |
-| Java | 4 | Oracle, Dev.java, Apache Maven |
-| Spring & Spring Boot | 4 | Spring |
-| Python, AI & Machine Learning | 8 | Python, NumPy, pandas, scikit-learn, PyTorch, Hugging Face, MLflow, FastAPI |
-| SQL | 9 | PostgreSQL Global Development Group |
-| Database Optimization | 9 | PostgreSQL Global Development Group |
-| Projects | 3 | Git, Docker, OWASP |
-| Firebase & Google Cloud | 14 | Google Firebase, Google Cloud |
-
-Each source entry contains a real title, HTTPS URL, publisher, and source type. The Academy Sources page renders this catalog by learning path. SQL and Database Optimization lessons also show relevant lesson-level sources with access date and source classification. Source metadata lives in `src/features/course-catalog/sources.js`; curriculum data remains separate.
-
-## Firebase & Google Cloud Services
-
-This bilingual path contains 46 lessons across seven modules. It covers Firebase setup and emulators, Authentication, Firestore, Security Rules, Storage, Realtime Database, Messaging, Cloud Functions, Hosting, App Check, analytics and quality tools, then progresses into Cloud Run, Cloud SQL, Pub/Sub, IAM, Secret Manager, networking, logging, monitoring, CI/CD, reliability, cost control, and architecture. Four projects connect the path to React, Spring Boot, and AI deployment.
-
-```bash
-npm run validate:content
-npm run validate:sources
-npm run validate:relationships
-npm run validate:translations
-npm run validate:all
-```
+All learner data is stored locally in the browser. Stable course and lesson IDs preserve progress between releases.
 
 ## Quick Start
 
-Requirements: **Node.js 18+**. No npm dependencies, backend, or database are required.
+Requirements: Node.js 18 or newer.
 
 ```bash
 npm run build
-npm run verify
+npm test
 npm start
 ```
 
-Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
+Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
+
+Useful commands:
+
+```bash
+npm run lint                   # validates the assembled platform bundle
+npm run verify                 # structural and regression checks
+npm run validate:content       # curriculum completeness
+npm run validate:sources       # source metadata
+npm run validate:relationships # cross-course relationships
+npm run validate:translations  # bilingual coverage
+npm run validate:all           # all curriculum validations
+```
+
+## Scalable Architecture
+
+Source code is organized by responsibility. The browser still receives one optimized platform bundle, but contributors work in smaller ordered feature files.
+
+```text
+src/data/courses/*.js
+        │ course definitions with stable IDs
+        ▼
+src/features/course-catalog/
+        │ official sources and cross-course relationships
+        ▼
+src/platform/
+        ├── 01-core.js              state, icons, routing primitives, header
+        ├── 02-home.js              home UI, roadmap builder, course cards
+        ├── 03-course-reader.js     course and lesson rendering
+        ├── 04-learner-tools.js     notes, search, toolbar, dashboard bindings
+        ├── 05-interactive-labs.js  React, Spring, Postman, SQL, DB, Python labs
+        └── 06-pages-router.js       sources, about, render entry point
+        │
+        ▼
+scripts/source-manifest.mjs
+        │ declares ordered source and asset inputs
+        ▼
+scripts/build.mjs
+        ├── index.html    lightweight Academy application
+        ├── react.html    Academy plus original React curriculum
+        └── public/       Vercel deployment output
+```
+
+The numbered platform files intentionally share one private closure. Their order is declared once in `scripts/source-manifest.mjs`. The build concatenates them, and `scripts/check-platform.mjs` validates the combined syntax. This keeps runtime delivery simple while preventing a single application file from becoming a maintenance bottleneck.
 
 ## Project Structure
 
 ```text
 .
-├── src/                                      # Editable application source
-│   ├── index.template.html                   # Shared HTML shell and metadata
-│   ├── content/
-│   │   └── chapters/
-│   │       ├── chapter-01.html               # Original React chapter 1
-│   │       ├── ...
-│   │       └── chapter-18.html               # Original React chapter 18
-│   ├── data/
-│   │   └── courses/                          # Data-driven learning paths
-│   │       ├── react.js
-│   │       ├── java-essentials.js
-│   │       ├── spring-boot.js
-│   │       ├── python-ai.js
-│   │       ├── firebase-google-cloud.js
-│   │       ├── sql.js
-│   │       ├── database-optimization.js
-│   │       └── projects.js
-│   ├── features/
-│   │   └── course-catalog/
-│   │       ├── README.md                     # Catalog contract and DB-adapter notes
-│   │       ├── relationships.js              # Cross-course relationship records
-│   │       └── sources.js                    # Verified official source catalog
-│   ├── scripts/
-│   │   ├── course.js                         # Original React reader navigation
-│   │   ├── learning-dashboard.js             # React tools, analytics, and persistence
-│   │   └── devpath-platform.js               # SPA routes, shared reader, home tools,
-│   │                                          # notes, bookmarks, progress, and labs
-│   └── styles/
-│       ├── base.css                           # Original reader foundations
-│       ├── course-enhancements.css            # Reader interactions and accessibility
-│       ├── learning-dashboard.css             # Dashboard and study-tool styling
-│       └── devpath-platform.css               # Academy, courses, visualizations,
-│                                              # responsive, RTL, and dark-mode styling
+├── src/
+│   ├── index.template.html
+│   ├── content/chapters/          # original React curriculum
+│   ├── data/courses/              # one file per learning path
+│   ├── features/course-catalog/   # sources and relationships
+│   ├── platform/                  # shared Academy feature fragments
+│   ├── scripts/                   # original React reader/dashboard
+│   └── styles/                    # application style layers
 ├── scripts/
-│   ├── build.mjs                              # Builds root and public outputs
-│   ├── serve.mjs                              # Local static development server
-│   ├── validate-academy.mjs                   # Content/source/translation validation
-│   └── verify.mjs                             # Structural and feature regression checks
-├── assets/
-│   └── course-icon.svg                        # Academy PWA icon
-├── public/                                    # Generated deployment bundle (ignored here)
-├── index.html                                 # Generated lightweight Academy SPA
-├── react.html                                 # Generated lazy-loaded React reader
-├── manifest.webmanifest                       # Installable PWA metadata
-├── sw.js                                      # Offline cache and navigation fallback
-├── vercel.json                                # Vercel build and output configuration
-├── package.json                               # Commands and project metadata
-└── README.md                                  # Project documentation
+│   ├── source-manifest.mjs        # build source-of-truth
+│   ├── build.mjs
+│   ├── check-platform.mjs
+│   ├── validate-academy.mjs
+│   ├── verify.mjs
+│   └── serve.mjs
+├── assets/                        # PWA icons
+├── public/                        # generated deployment bundle, ignored
+├── index.html                     # generated Academy bundle
+├── react.html                     # generated React reader bundle
+├── manifest.webmanifest
+├── sw.js
+└── vercel.json
 ```
 
-Generated files such as `index.html`, `react.html`, and the `public/` deployment bundle should not be edited manually. Change the source under `src/`, then run the build.
-
-### Architecture at a Glance
-
-```text
-Course files (`src/data/courses/*.js`)
-        │
-        ├── register bilingual curriculum data
-        ├── keep stable course and lesson IDs
-        └── remain replaceable by a future database adapter
-        │
-        ▼
-Course catalog (`src/features/course-catalog/`)
-        ├── official sources
-        └── cross-course relationships
-        │
-        ▼
-Shared platform (`src/scripts/devpath-platform.js`)
-        ├── hash routing and course discovery
-        ├── landing, overview, and lesson rendering
-        ├── search, roadmaps, and home interactions
-        └── progress, notes, bookmarks, and experiments
-        │
-        ▼
-Build (`scripts/build.mjs`)
-        ├── index.html
-        ├── react.html
-        └── public/
-```
-
-### Generated vs. Editable Files
+### Editable and Generated Files
 
 | Type | Files | Rule |
 |---|---|---|
-| Editable source | `src/**`, `scripts/**`, `README.md`, `sw.js` | Make implementation changes here. |
-| Course curricula | `src/data/courses/*.js` | Keep IDs stable to preserve learner data. |
-| Catalog metadata | `src/features/course-catalog/*.js` | Manage sources and course relationships here. |
-| Generated output | `index.html`, `react.html`, `public/**` | Regenerate with `npm run build`; do not edit manually. |
-| PWA/deployment | `manifest.webmanifest`, `sw.js`, `vercel.json` | Update when install, cache, or hosting behavior changes. |
+| Application source | `src/platform/**`, `src/scripts/**`, `src/styles/**` | Edit here |
+| Course curricula | `src/data/courses/*.js` | Keep IDs and slugs stable |
+| Catalog metadata | `src/features/course-catalog/**` | Sources and relationships |
+| Build configuration | `scripts/source-manifest.mjs` | Register new source layers here |
+| Generated output | `index.html`, `react.html`, `public/**` | Never edit manually |
+| Deployment/PWA | `vercel.json`, `manifest.webmanifest`, `sw.js` | Update intentionally |
 
-## Add a New Learning Path
+## Adding a Learning Path
 
-Create a JavaScript course definition under `src/data/courses/`. The build discovers course files automatically.
+1. Create `src/data/courses/<course-id>.js`.
+2. Register a stable course ID, slug, titles, description, color, category, and modules.
+3. Give every lesson a stable slug and bilingual metadata.
+4. Add official sources in `src/features/course-catalog/sources.js`.
+5. Add relevant course connections in `relationships.js`.
+6. Run `npm run build && npm test`.
 
-A course definition needs:
+Course files are discovered automatically. The new path receives routing, search, progress, notes, bookmarks, navigation, and toolbar support from the shared platform.
 
-- A stable `id` and `slug`
-- Title, short title, description, and accent color
-- Categorized modules
-- Stable lesson slugs and lesson content
+## Adding a Platform Feature
 
-The new path is automatically included in the catalog, search, progress calculations, bookmarks, notes, course toolbar, and lesson navigation.
+- Put feature rendering and behavior in the matching `src/platform/` fragment.
+- Create another numbered fragment only when the responsibility is genuinely separate.
+- Register a new fragment in `scripts/source-manifest.mjs` in dependency order.
+- Add a regression assertion to `scripts/verify.mjs`.
+- Add responsive, dark-theme, RTL, and reduced-motion behavior when the feature has UI.
+- Run the complete test suite before committing.
 
-## Notes, Bookmarks, and PDF
+Avoid direct edits to generated HTML. Avoid changing existing course or lesson IDs because those IDs are browser-storage keys.
 
-Every course includes the same learning toolbar:
+## Build and Quality Gates
 
-- **Bookmark** saves the current lesson or section.
-- **Notes** opens the bilingual notes workspace and displays the saved-note count.
-- **Complete** updates course progress.
-- **PDF** opens the browser print workflow for saving a clean PDF.
-- **Theme** switches between the shared morning and night themes.
-- **Dashboard** and **Review** expose progress and revision tools.
-- **AR / EN** switches the interface language everywhere.
+The production build:
 
-Saved notes can be exported as JSON, Markdown, or a formatted PDF report. Browser data can also be backed up and restored.
+1. Discovers all course files and 18 React chapters.
+2. Reads source order from the manifest.
+3. Validates and concatenates the six platform fragments.
+4. Compacts CSS.
+5. Builds a lightweight home bundle and a lazy React reader.
+6. Copies PWA assets into `public/`.
 
-## Build and Verification
-
-```bash
-npm run build
-npm run verify
-```
-
-The current verification suite runs **76 checks**, including:
-
-- React content preservation
-- Java and Spring lesson counts
-- Valid navigation and unique DOM IDs
-- Shared toolbar actions and boundary states
-- Notes, bookmarks, exports, and restore support
-- Shared theme and bilingual state
-- Course colors and dark-theme consistency
-- PWA assets and generated deployment output
-
-Current verified content:
-
-| Item | Count |
-|---|---:|
-| React chapters | 18 |
-| Major React sections | 416 |
-| Code blocks | 557 |
-| Tables | 26 |
-| Verification checks | 76 |
+The automated suite currently validates 469 lessons across 9 paths and more than 130 structural, routing, accessibility, content, PWA, theme, and feature regressions.
 
 ## Deployment
 
-The project is ready for GitHub Pages, Vercel, Netlify, Cloudflare Pages, or any static host.
+Vercel uses `vercel.json` to run the build and publish `public/`. The generated static files can also be hosted on GitHub Pages, Netlify, Cloudflare Pages, or any static web host.
 
-For Vercel, `vercel.json` runs the build and publishes the generated `public/` directory. For other static hosts, publish the production files after running the build.
-
-PWA installation and offline caching require HTTP or HTTPS.
-
-## Author
-
-Designed, developed, and authored by **Ayman Aljamal — أيمن الجمل** · [GitHub Profile](https://github.com/aymanaljamal)
-
-🌐 **Live Project:** [Open DevPath Academy](https://complete-react-developer-course-4wc5zxfpw-ayman-jamal.vercel.app/#courses)
-
-## License
-
-This repository is intended for educational use. Add a dedicated license file before redistributing or publishing the course content under specific reuse terms.
+PWA installation and offline support require HTTP or HTTPS. Increment the cache name in `sw.js` whenever deployable application assets change.

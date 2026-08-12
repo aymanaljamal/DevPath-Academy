@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { platformSources } from './source-manifest.mjs';
 
 const file = join(process.cwd(), 'index.html');
 const homeHtml = await readFile(file, 'utf8');
@@ -36,7 +37,7 @@ const idSet = new Set(ids);
 const brokenSidebarTargets = sidebarTargets.filter(id => !idSet.has(id));
 check('Sidebar anchors resolve', brokenSidebarTargets.length === 0, brokenSidebarTargets.join(', '));
 
-for (const scriptName of ['course.js', 'learning-dashboard.js', 'devpath-platform.js']) {
+for (const scriptName of ['course.js', 'learning-dashboard.js']) {
   const source = await readFile(join(process.cwd(), 'src', 'scripts', scriptName), 'utf8');
   try {
     new Function(source);
@@ -123,6 +124,7 @@ check('Personal roadmap builder exists', ['plan-builder','planBuilderForm','plan
 check('Roadmap covers full-stack backend data and database goals', ['fullstack','backend','data','database'].every(goal=>homeHtml.includes(`value="${goal}"`)));
 check('Improved hero exposes useful academy proof', ['improved-hero','focused paths','practical lessons','Build my learning plan'].every(value=>homeHtml.includes(value)));
 check('Plan builder hash routes to the home section', homeHtml.includes("location.hash==='#plan-builder'") && homeHtml.includes("$('#plan-builder')?.scrollIntoView"));
+check('Platform source is split into scalable feature fragments', platformSources.length === 6 && homeHtml.includes('data-source="platform-bundle"'));
 check('Daily activity is persisted on completion', homeHtml.includes('recordActivity(lesson.id)') && homeHtml.includes('state.activity ||= {}'));
 check('Interactive journey studio exists', ['journey-studio','goal-roadmap','course-constellation','goalPath'].every(name=>homeHtml.includes(name)));
 check('Journey studio connects learning goals', ['fullstack','backend','data','cloud','performance'].every(goal=>homeHtml.includes(`data-learning-goal="${goal}"`)));
@@ -164,6 +166,14 @@ for (const asset of ['manifest.webmanifest', 'sw.js', 'assets/course-icon.svg','
 for (const asset of ['manifest.webmanifest', 'sw.js', 'assets/course-icon.svg','assets/course-icon-32.png','assets/course-icon-180.png','assets/course-icon-192.png','assets/course-icon-512.png','assets/course-icon-maskable-512.png']) {
   try { await readFile(join(process.cwd(), 'public', asset), 'utf8'); check(`public/${asset} exists`, true); }
   catch { check(`public/${asset} exists`, false); }
+}
+
+try {
+  const platformSource=(await Promise.all(platformSources.map(file=>readFile(join(process.cwd(),'src',file),'utf8')))).join('\n');
+  new Function(platformSource);
+  check('Platform fragments assemble with valid syntax', true, `${platformSources.length} fragments`);
+} catch (error) {
+  check('Platform fragments assemble with valid syntax', false, error.message);
 }
 check('Explicit application 404 state exists', homeHtml.includes('function notFoundPage()') && homeHtml.includes('404 · PAGE NOT FOUND'));
 check('Unknown lessons render 404', homeHtml.includes('if(r.lessonSlug&&!lesson)'));
