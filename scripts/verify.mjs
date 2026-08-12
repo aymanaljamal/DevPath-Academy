@@ -17,7 +17,7 @@ check('Vercel public home matches root index', publicHtml === homeHtml);
 check('Vercel React build matches root reader', await readFile(join(process.cwd(), 'public', 'react.html'), 'utf8') === html);
 check('Home excludes full React chapters', !/<section\b[^>]*class=["'][^"']*\bchapter\b/i.test(homeHtml));
 check('Home payload under 400 KB', Buffer.byteLength(homeHtml) < 400000, `${Buffer.byteLength(homeHtml)} bytes`);
-check('416 major sections', count(/<h2\b[^>]*\bid=/gi) - count(/<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|reactPlayLabTitle)["']/gi) === 416);
+check('416 major sections', count(/<h2\b[^>]*\bid=/gi) - count(/<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|learningPulseTitle|reactPlayLabTitle)["']/gi) === 416);
 check('Original 555 code blocks preserved', count(/<pre\b/gi) >= 555, `found ${count(/<pre\b/gi)}`);
 check('26 tables', count(/<table\b/gi) === 26);
 check('18 completion controls', count(/data-complete=["']chapter-/gi) === 18);
@@ -109,6 +109,8 @@ check('React previous and next icons are valid', html.includes("/^[A-Za-z]/.test
 check('All course toolbars expose dashboard and review', homeHtml.includes('data-toolbar-dashboard') && homeHtml.includes('data-toolbar-review') && homeHtml.includes('openCourseToolPanel'));
 check('Course boundaries keep previous and next visible', homeHtml.includes('class="toolbar-boundary" disabled') && html.includes("$('#previousChapter').disabled"));
 check('Three interactive home tools exist', ['path-finder','challenge-machine','study-planner'].every(name=>homeHtml.includes(name)));
+check('Personal learning pulse exists', ['learning-pulse','learningStreak','done today','smartReviewHome'].every(name=>homeHtml.includes(name)));
+check('Daily activity is persisted on completion', homeHtml.includes('recordActivity(lesson.id)') && homeHtml.includes('state.activity ||= {}'));
 check('Interactive journey studio exists', ['journey-studio','goal-roadmap','course-constellation','goalPath'].every(name=>homeHtml.includes(name)));
 check('Journey studio connects learning goals', ['fullstack','backend','data','cloud','performance'].every(goal=>homeHtml.includes(`data-learning-goal="${goal}"`)));
 check('Journey studio is responsive and reduced-motion safe', homeHtml.includes('@media(max-width:900px){.journey-shell') && homeHtml.includes('@media(prefers-reduced-motion:reduce){.goal-path>a'));
