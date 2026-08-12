@@ -139,14 +139,17 @@ check('Certificate has A4 landscape layout', html.includes('@page{size:A4 landsc
 check('PDF popups use compatible opener isolation', (html.match(/popup\.opener=null/g) || []).length >= 2 && !html.includes("window.open('','_blank','noopener,noreferrer')"));
 check('Persistence exists', html.includes("localStorage.setItem(APP_KEY"));
 check('Creator credit exists', html.includes('github.com/aymanaljamal'));
-for (const asset of ['manifest.webmanifest', 'sw.js', 'assets/course-icon.svg']) {
+for (const asset of ['manifest.webmanifest', 'sw.js', 'assets/course-icon.svg','assets/course-icon-32.png','assets/course-icon-180.png','assets/course-icon-192.png','assets/course-icon-512.png','assets/course-icon-maskable-512.png']) {
   try { await readFile(join(process.cwd(), asset), 'utf8'); check(`${asset} exists`, true); }
   catch { check(`${asset} exists`, false); }
 }
-for (const asset of ['manifest.webmanifest', 'sw.js', 'assets/course-icon.svg']) {
+for (const asset of ['manifest.webmanifest', 'sw.js', 'assets/course-icon.svg','assets/course-icon-32.png','assets/course-icon-180.png','assets/course-icon-192.png','assets/course-icon-512.png','assets/course-icon-maskable-512.png']) {
   try { await readFile(join(process.cwd(), 'public', asset), 'utf8'); check(`public/${asset} exists`, true); }
   catch { check(`public/${asset} exists`, false); }
 }
+check('Explicit application 404 state exists', homeHtml.includes('function notFoundPage()') && homeHtml.includes('404 · PAGE NOT FOUND'));
+check('Unknown lessons render 404', homeHtml.includes('if(r.lessonSlug&&!lesson)'));
+check('Apple touch and sized favicons exist', homeHtml.includes('rel="apple-touch-icon"') && homeHtml.includes('course-icon-32.png'));
 
 for (const result of assertions) {
   console.log(`${result.passed ? 'PASS' : 'FAIL'}  ${result.name}${result.detail ? ` - ${result.detail}` : ''}`);

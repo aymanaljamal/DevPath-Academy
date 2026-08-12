@@ -48,6 +48,7 @@ await Promise.all([
   copyFile(join(root, 'manifest.webmanifest'), join(publicDir, 'manifest.webmanifest')),
   copyFile(join(root, 'sw.js'), join(publicDir, 'sw.js')),
   copyFile(join(root, 'assets', 'course-icon.svg'), join(publicDir, 'assets', 'course-icon.svg')),
+  ...['course-icon-32.png','course-icon-180.png','course-icon-192.png','course-icon-512.png','course-icon-maskable-512.png'].map(name=>copyFile(join(root,'assets',name),join(publicDir,'assets',name))),
 ]);
 const reduction = Math.round((1 - output.length / reactOutput.length) * 100);
 console.log(`Built home index.html (${output.length.toLocaleString()} chars) and lazy React reader (${reactOutput.length.toLocaleString()} chars, ${chapterNames.length} chapters).`);

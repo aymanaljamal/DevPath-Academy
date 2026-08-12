@@ -1,8 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="116" fill="#7f1d1d"/>
-  <path d="M128 344V230c0-54 43-97 97-97h62c54 0 97 43 97 97v54" fill="none" stroke="#f5f7f5" stroke-width="34" stroke-linecap="round"/>
-  <path d="m286 282 98 2-2 98" fill="none" stroke="#fca5a5" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="128" cy="376" r="38" fill="#fca5a5"/>
-  <circle cx="256" cy="133" r="30" fill="#fecaca"/>
-  <circle cx="384" cy="384" r="38" fill="#ef4444"/>
+  <defs>
+    <linearGradient id="bg" x1="76" y1="56" x2="436" y2="456" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#dc2626"/>
+      <stop offset="0.55" stop-color="#991b1b"/>
+      <stop offset="1" stop-color="#450a0a"/>
+    </linearGradient>
+    <linearGradient id="route" x1="188" y1="340" x2="344" y2="184" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fecaca"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <rect x="18" y="18" width="476" height="476" rx="100" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="4"/>
+  <path d="M150 112v288h101c92 0 151-57 151-144S343 112 251 112H150Z" fill="none" stroke="#fff" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m190 334 142-142" fill="none" stroke="url(#route)" stroke-width="32" stroke-linecap="round"/>
+  <path d="M276 190h58v58" fill="none" stroke="#fff" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="190" cy="334" r="21" fill="#fecaca" stroke="#7f1d1d" stroke-width="8"/>
 </svg>
