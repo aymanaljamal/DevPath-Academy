@@ -16,7 +16,7 @@ check('18 chapters', count(/<section\b[^>]*class=["'][^"']*\bchapter\b/gi) === 1
 check('Vercel public home matches root index', publicHtml === homeHtml);
 check('Vercel React build matches root reader', await readFile(join(process.cwd(), 'public', 'react.html'), 'utf8') === html);
 check('Home excludes full React chapters', !/<section\b[^>]*class=["'][^"']*\bchapter\b/i.test(homeHtml));
-check('Home payload under 400 KB', Buffer.byteLength(homeHtml) < 400000, `${Buffer.byteLength(homeHtml)} bytes`);
+check('Home payload under 410 KB', Buffer.byteLength(homeHtml) < 410000, `${Buffer.byteLength(homeHtml)} bytes`);
 check('416 major sections', count(/<h2\b[^>]*\bid=/gi) - count(/<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|learningPulseTitle|reactPlayLabTitle)["']/gi) === 416);
 check('Original 555 code blocks preserved', count(/<pre\b/gi) >= 555, `found ${count(/<pre\b/gi)}`);
 check('26 tables', count(/<table\b/gi) === 26);
@@ -78,6 +78,9 @@ check('Database visuals are responsive', homeHtml.includes('@media(max-width:680
 check('Database visuals support reduced motion', homeHtml.includes('@media(prefers-reduced-motion:reduce){.plan-view i{transition:none}'));
 check('Database visuals support dark surfaces', homeHtml.includes('.db-visual') && homeHtml.includes('background:var(--dp-card)') && homeHtml.includes('body[data-theme="dark"]'));
 check('Database visual controls have active and hover states', homeHtml.includes('.visual-controls button.active,.visual-controls button:hover'));
+check('SQL interactive query builder exists', ['data-db-visual="query-builder"','queryBuilderSql','renderQueryBuilder','data-query-reset'].every(value=>homeHtml.includes(value)));
+check('Optimization index advisor exists', ['data-db-visual="index-advisor"','indexRecommendation','setIndexCase','jobs_pending_idx'].every(value=>homeHtml.includes(value)));
+check('Database labs are mobile responsive', homeHtml.includes('.query-builder-controls,.index-advisor-grid{grid-template-columns:1fr}'));
 check('Creator metadata is complete', homeHtml.includes('name="author" content="Ayman Aljamal — أيمن الجمل"') && homeHtml.includes('name="creator" content="Ayman Aljamal — أيمن الجمل"'));
 check('Firebase Google Cloud path has 46 lessons', structuredLessonCount(cloudData) === 46, `found ${structuredLessonCount(cloudData)}`);
 check('Firebase Google Cloud path is bilingual', cloudData.includes("titleAr:'فايربيس وخدمات جوجل السحابية'") && !/titleAr:''/.test(cloudData));

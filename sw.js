@@ -1,4 +1,4 @@
-const CACHE = 'devpath-academy-v8-learning-pulse';
+const CACHE = 'devpath-academy-v9-database-labs';
 const CORE = ['./', './index.html', './manifest.webmanifest', './assets/course-icon.svg'];
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting())));
 self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())));
