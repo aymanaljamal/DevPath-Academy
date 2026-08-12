@@ -115,6 +115,7 @@ check('Home interactions have working handlers', homeHtml.includes('setupHomeInt
 check('Theme is shared between Academy and React', homeHtml.includes('devpath-academy-theme-v1') && html.includes('devpath-academy-theme-v1'));
 check('Toolbars have course-aware morning and night themes', homeHtml.includes('.academy-toolbar::before') && homeHtml.includes('body[data-theme="dark"] .academy-toolbar') && homeHtml.includes('body[data-theme="light"] .course-card'));
 check('Night theme uses neutral charcoal and red brand', homeHtml.includes('--dp-bg:#0c0c0f') && homeHtml.includes('rgba(185,28,28,.13)'));
+check('Night lesson summaries are burgundy, not legacy green', homeHtml.includes('.devpath-mode[data-theme="dark"] .takeaways{background:#241719;border-color:#632c32}') && !homeHtml.includes('.devpath-mode[data-theme="dark"] .takeaways{background:#22342c}'));
 check('React brand is white at night', html.includes('body[data-theme="dark"] .react-site-brand{color:#fff!important}'));
 check('Language is shared between Academy and React', homeHtml.includes('devpath-academy-language-v1') && html.includes('devpath-academy-language-v1'));
 check('Every course toolbar has AR EN control', homeHtml.includes('data-toolbar-language') && html.includes("language.id='languageToggle'"));
