@@ -6,8 +6,8 @@ window.ACADEMY_SOURCE_CATALOG = {
     {title:'Vite Guide',url:'https://vite.dev/guide/',publisher:'Vite',type:'OFFICIAL_DOCUMENTATION'}
   ],
   'java-essentials':[
-    {title:'Java SE 21 API Specification',url:'https://docs.oracle.com/en/java/javase/21/docs/api/',publisher:'Oracle',type:'SPECIFICATION'},
-    {title:'Java Language Specification',url:'https://docs.oracle.com/javase/specs/jls/se21/html/',publisher:'Oracle',type:'SPECIFICATION'},
+    {title:'Java SE 25 API Specification',url:'https://docs.oracle.com/en/java/javase/25/docs/api/',publisher:'Oracle',type:'SPECIFICATION'},
+    {title:'Java Language Specification, Java SE 25',url:'https://docs.oracle.com/javase/specs/jls/se25/html/',publisher:'Oracle',type:'SPECIFICATION'},
     {title:'Dev.java Learn',url:'https://dev.java/learn/',publisher:'Oracle',type:'GUIDE'},
     {title:'Apache Maven Guides',url:'https://maven.apache.org/guides/',publisher:'Apache Maven',type:'OFFICIAL_DOCUMENTATION'}
   ],
@@ -21,7 +21,8 @@ window.ACADEMY_SOURCE_CATALOG = {
     {title:'Postman Learning Center',url:'https://learning.postman.com/docs/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'},
     {title:'Write API Tests',url:'https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'},
     {title:'Postman Variables',url:'https://learning.postman.com/docs/sending-requests/variables/variables/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'},
-    {title:'Newman Documentation',url:'https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'}
+    {title:'Postman CLI Collection Runs',url:'https://learning.postman.com/docs/postman-cli/postman-cli-run-collection/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'},
+    {title:'Newman Documentation',url:'https://learning.postman.com/docs/reference/newman-cli/installing-running-newman/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'}
   ],
   'python-ai':[
     {title:'Python 3 Documentation',url:'https://docs.python.org/3/',publisher:'Python Software Foundation',type:'OFFICIAL_DOCUMENTATION'},

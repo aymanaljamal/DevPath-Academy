@@ -17,7 +17,8 @@ check('18 chapters', count(/<section\b[^>]*class=["'][^"']*\bchapter\b/gi) === 1
 check('Vercel public home matches root index', publicHtml === homeHtml);
 check('Vercel React build matches root reader', await readFile(join(process.cwd(), 'public', 'react.html'), 'utf8') === html);
 check('Home excludes full React chapters', !/<section\b[^>]*class=["'][^"']*\bchapter\b/i.test(homeHtml));
-check('Home payload under 430 KB', Buffer.byteLength(homeHtml) < 430000, `${Buffer.byteLength(homeHtml)} bytes`);
+// The offline-first bundle includes the complete 451-lesson teaching manifest.
+check('Home payload under 850 KB', Buffer.byteLength(homeHtml) < 850000, `${Buffer.byteLength(homeHtml)} bytes`);
 check('416 major sections', count(/<h2\b[^>]*\bid=/gi) - count(/<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|learningPulseTitle|planBuilderTitle|reactPlayLabTitle)["']/gi) === 416);
 check('Original 555 code blocks preserved', count(/<pre\b/gi) >= 555, `found ${count(/<pre\b/gi)}`);
 check('26 tables', count(/<table\b/gi) === 26);
