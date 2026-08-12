@@ -17,6 +17,12 @@ window.ACADEMY_SOURCE_CATALOG = {
     {title:'Spring Data JPA Reference',url:'https://docs.spring.io/spring-data/jpa/reference/',publisher:'Spring',type:'OFFICIAL_DOCUMENTATION'},
     {title:'Spring Security Reference',url:'https://docs.spring.io/spring-security/reference/',publisher:'Spring',type:'OFFICIAL_DOCUMENTATION'}
   ],
+  postman:[
+    {title:'Postman Learning Center',url:'https://learning.postman.com/docs/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'},
+    {title:'Write API Tests',url:'https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'},
+    {title:'Postman Variables',url:'https://learning.postman.com/docs/sending-requests/variables/variables/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'},
+    {title:'Newman Documentation',url:'https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/',publisher:'Postman',type:'OFFICIAL_DOCUMENTATION'}
+  ],
   'python-ai':[
     {title:'Python 3 Documentation',url:'https://docs.python.org/3/',publisher:'Python Software Foundation',type:'OFFICIAL_DOCUMENTATION'},
     {title:'NumPy User Guide',url:'https://numpy.org/doc/stable/user/',publisher:'NumPy',type:'OFFICIAL_DOCUMENTATION'},

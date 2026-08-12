@@ -16,7 +16,7 @@ check('18 chapters', count(/<section\b[^>]*class=["'][^"']*\bchapter\b/gi) === 1
 check('Vercel public home matches root index', publicHtml === homeHtml);
 check('Vercel React build matches root reader', await readFile(join(process.cwd(), 'public', 'react.html'), 'utf8') === html);
 check('Home excludes full React chapters', !/<section\b[^>]*class=["'][^"']*\bchapter\b/i.test(homeHtml));
-check('Home payload under 410 KB', Buffer.byteLength(homeHtml) < 410000, `${Buffer.byteLength(homeHtml)} bytes`);
+check('Home payload under 425 KB', Buffer.byteLength(homeHtml) < 425000, `${Buffer.byteLength(homeHtml)} bytes`);
 check('416 major sections', count(/<h2\b[^>]*\bid=/gi) - count(/<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|learningPulseTitle|reactPlayLabTitle)["']/gi) === 416);
 check('Original 555 code blocks preserved', count(/<pre\b/gi) >= 555, `found ${count(/<pre\b/gi)}`);
 check('26 tables', count(/<table\b/gi) === 26);
@@ -97,6 +97,12 @@ check('Lesson PDF action uses browser print', homeHtml.includes('data-toolbar-pr
 check('Lesson PDF has print layout', homeHtml.includes('@media print') && homeHtml.includes('.academy-toolbar'));
 check('React uses the shared Academy toolbar', html.includes('react-academy-toolbar') && html.includes('id="completeCurrentChapter"') && html.includes('id="printReactLesson"'));
 check('React interactive state lab exists', html.includes('react-play-lab') && html.includes('reactLabIncrease') && html.includes('Mark completed'));
+check('React render lab exists on Academy course page', ['react-render-lab','reactPropInput','reactRenderCount','setupFrameworkLabs'].every(value=>homeHtml.includes(value)));
+check('Spring request pipeline lab exists', ['data-api-lab="spring"','data-spring-case="invalid"','springPipeline','MethodArgumentNotValidException'].every(value=>homeHtml.includes(value)));
+check('Postman request composer exists', ['data-api-lab="postman"','postmanMethod','postmanRequestPreview','renderPostman'].every(value=>homeHtml.includes(value)));
+const postmanData = await readFile(join(process.cwd(), 'src', 'data', 'courses', 'postman.js'), 'utf8');
+check('Postman path has 25 lessons', structuredLessonCount(postmanData) === 25, `found ${structuredLessonCount(postmanData)}`);
+check('Postman path is bilingual and sourced', postmanData.includes("titleAr:'اختبار API باستخدام Postman'") && homeHtml.includes('Postman Learning Center'));
 check('React lab supports reset, mobile, RTL, and reduced motion', html.includes('reactLabReset') && html.includes('@media(max-width:760px){.react-play-lab') && html.includes('.language-ar .react-play-lab') && html.includes('@media(prefers-reduced-motion:reduce){.react-lab-preview'));
 check('Interactive home path explorer exists', homeHtml.includes('data-path-course=') && homeHtml.includes('pathPreviewTitle') && homeHtml.includes('--active-course'));
 check('Red global brand with course accents', homeHtml.includes('--dp-brand:#b91c1c') && homeHtml.includes('--active-course'));
