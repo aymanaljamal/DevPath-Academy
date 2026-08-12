@@ -272,9 +272,42 @@
     });
   }
 
+  function initReactPlayLab() {
+    const firstChapter = qs('#chapter-1');
+    if (!firstChapter || qs('.react-play-lab')) return;
+    const lab = document.createElement('section');
+    lab.className = 'react-play-lab';
+    lab.setAttribute('aria-labelledby', 'reactPlayLabTitle');
+    lab.innerHTML = `<div class="react-lab-copy"><span>INTERACTIVE REACT LAB</span><h2 id="reactPlayLabTitle">Make the component respond</h2><p>Change props, update state, and watch React derive the interface. Nothing leaves your browser.</p><div class="react-lab-controls"><label>Card title<input id="reactLabTitle" value="My learning streak" maxlength="36"></label><label>Accent<select id="reactLabAccent"><option value="#149eca">React blue</option><option value="#b91c1c">Academy red</option><option value="#7c3aed">Purple</option><option value="#059669">Green</option></select></label><div class="react-lab-actions"><button id="reactLabDecrease" type="button" aria-label="Decrease count">−</button><output id="reactLabCount" aria-live="polite">1</output><button id="reactLabIncrease" type="button" aria-label="Increase count">+</button></div><button id="reactLabToggle" type="button" aria-pressed="false">Mark completed</button><button id="reactLabReset" type="button">Reset</button></div></div><div class="react-lab-preview" id="reactLabPreview" style="--lab-accent:#149eca"><small>LIVE COMPONENT</small><h3>My learning streak</h3><strong><span id="reactLabPreviewCount">1</span> day</strong><p id="reactLabStatus">Keep the state moving.</p><div><i></i><i></i><i></i><i></i><i></i></div></div><details class="react-lab-code"><summary>Show the React pattern</summary><pre><code class="language-jsx">function StreakCard({ title, accent }) {
+  const [count, setCount] = useState(1);
+  const [complete, setComplete] = useState(false);
+  return &lt;article style={{ '--accent': accent }}&gt;...&lt;/article&gt;;
+}</code></pre></details>`;
+    const intro = qs('.chapter-intro', firstChapter) || qs('.chapter-title', firstChapter);
+    intro?.insertAdjacentElement('afterend', lab);
+    let count = 1, complete = false;
+    const title = qs('#reactLabTitle'), accent = qs('#reactLabAccent'), preview = qs('#reactLabPreview'), countOut = qs('#reactLabCount'), previewCount = qs('#reactLabPreviewCount'), status = qs('#reactLabStatus'), toggle = qs('#reactLabToggle');
+    const render = () => {
+      qs('h3', preview).textContent = title.value.trim() || 'Untitled component';
+      preview.style.setProperty('--lab-accent', accent.value);
+      countOut.value = String(count); previewCount.textContent = String(count);
+      qs('strong', preview).lastChild.textContent = count === 1 ? ' day' : ' days';
+      preview.classList.toggle('is-complete', complete);
+      status.textContent = complete ? 'Completed — state changed the UI.' : count >= 7 ? 'A full week! Derived UI unlocked.' : 'Keep the state moving.';
+      toggle.textContent = complete ? 'Completed ✓' : 'Mark completed'; toggle.setAttribute('aria-pressed', String(complete));
+      qsa('.react-lab-preview i', lab).forEach((bar,index)=>bar.classList.toggle('active',index < Math.min(5,count)));
+    };
+    title.addEventListener('input',render); accent.addEventListener('change',render);
+    qs('#reactLabDecrease').addEventListener('click',()=>{count=Math.max(0,count-1);render();});
+    qs('#reactLabIncrease').addEventListener('click',()=>{count=Math.min(30,count+1);render();});
+    toggle.addEventListener('click',()=>{complete=!complete;render();});
+    qs('#reactLabReset').addEventListener('click',()=>{count=1;complete=false;title.value='My learning streak';accent.value='#149eca';render();title.focus();});
+    render();
+  }
+
   function init() {
     initHighlighting(); initSidebar(); initProgress(); initAnimations(); initTables();
-    initCodeCopy(); initSearch(); initBackToTop(); initCompletion(); initSmoothAnchors(); initScrollSpy();
+    initCodeCopy(); initSearch(); initBackToTop(); initCompletion(); initSmoothAnchors(); initScrollSpy(); initReactPlayLab();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

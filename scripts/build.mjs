@@ -4,7 +4,7 @@ import { join } from 'node:path';
 const root = process.cwd();
 const src = join(root, 'src');
 const styleFiles = ['base.css', 'course-enhancements.css', 'learning-dashboard.css', 'devpath-platform.css'];
-const scriptFiles = ['course.js', 'learning-dashboard.js', 'devpath-platform.js'];
+const scriptFiles = ['course.js', 'learning-dashboard.js', '../features/course-catalog/sources.js', '../features/course-catalog/relationships.js', 'devpath-platform.js'];
 const courseDataFiles = (await readdir(join(src, 'data', 'courses')))
   .filter(name => name.endsWith('.js'))
   .sort();

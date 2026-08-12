@@ -3,10 +3,16 @@
   "version": "2.0.0",
   "private": true,
   "description": "DevPath Academy: an extensible multi-language software-development learning platform.",
+  "author": "Ayman Aljamal <https://github.com/aymanaljamal>",
   "scripts": {
     "start": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
-    "verify": "node scripts/verify.mjs"
+    "verify": "node scripts/verify.mjs",
+    "validate:content": "node scripts/validate-academy.mjs content",
+    "validate:sources": "node scripts/validate-academy.mjs sources",
+    "validate:relationships": "node scripts/validate-academy.mjs relationships",
+    "validate:translations": "node scripts/validate-academy.mjs translations",
+    "validate:all": "node scripts/validate-academy.mjs all"
   },
   "engines": {
     "node": ">=18"

@@ -1,7 +1,7 @@
 {
   "name": "DevPath Academy",
   "short_name": "DevPath",
-  "description": "An extensible academy for React, Java, Spring Boot, projects, and future development paths.",
+  "description": "A bilingual learning academy by Ayman Aljamal for React, Java, Spring Boot, Python and AI, SQL, database optimization, and projects.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
