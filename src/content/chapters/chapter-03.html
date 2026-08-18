@@ -1,34 +1,53 @@
 <section class="chapter" id="chapter-3" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">03</span>
-<h1 class="chapter-title" id="html-required-for-react">HTML Required for React</h1>
-</div>
-<h2 id="31-introduction-to-html-for-react-developers">3.1 Introduction to HTML for React Developers</h2>
-<h3 id="simple-explanation--3">Simple Explanation</h3>
-<p>HTML (HyperText Markup Language) is the skeleton of every webpage. In React, you'll write HTML-like code called JSX that gets transformed into real HTML. Understanding HTML thoroughly is essential because React components ultimately render HTML elements in the browser.</p>
-<p>Think of HTML as the structure of a house - the walls, doors, windows, and rooms. React helps you build these structures dynamically, but you still need to know what each building block does and how to use it properly.</p>
-<h3 id="technical-explanation--3">Technical Explanation</h3>
-<p>HTML provides the structural foundation for web applications. In React, JSX is a syntax extension that allows you to write HTML-like code within JavaScript. This JSX gets compiled to <code>React.createElement()</code> calls, which produce virtual DOM elements that are eventually rendered as real HTML elements.</p>
-<p>Key concepts for React developers:
-- <strong>Semantic HTML</strong>: Using appropriate elements for meaning
-- <strong>Accessibility</strong>: ARIA attributes and proper semantics
-- <strong>Forms</strong>: Controlled vs uncontrolled components
-- <strong>Events</strong>: Synthetic event system
-- <strong>Attributes</strong>: React-specific vs HTML attributes</p>
-<h3 id="professional-explanation--3">Professional Explanation</h3>
-<p>In enterprise React development, HTML knowledge extends beyond basic markup. You need to understand:</p>
-<ul>
-<li><strong>Document Structure</strong>: DOCTYPE, meta tags, semantic elements</li>
-<li><strong>Accessibility</strong>: WCAG compliance, ARIA roles, keyboard navigation</li>
-<li><strong>SEO</strong>: Meta tags, semantic structure, Open Graph</li>
-<li><strong>Performance</strong>: Resource loading, prefetching, preloading</li>
-<li><strong>Security</strong>: CSP, XSS prevention, input sanitization</li>
-<li><strong>Internationalization</strong>: lang attributes, dir attributes</li>
-<li><strong>Progressive Enhancement</strong>: Graceful degradation</li>
-</ul>
-<h2 id="32-document-structure">3.2 Document Structure</h2>
-<h3 id="321-doctype-and-basic-structure">3.2.1 DOCTYPE and Basic Structure</h3>
-<pre><code class="language-html">&lt;!-- HTML5 DOCTYPE --&gt;
+    <div class="chapter-title-card">
+        <span class="chapter-num">03</span>
+        <h1 class="chapter-title" id="html-required-for-react">HTML Required for
+            React</h1>
+    </div>
+    <h2 id="31-introduction-to-html-for-react-developers">3.1 Introduction to
+        HTML for React Developers</h2>
+    <h3 id="simple-explanation--3">Simple Explanation</h3>
+    <p>HTML (HyperText Markup Language) is the skeleton of every webpage. In
+        React, you'll write HTML-like code called JSX that gets transformed into
+        real HTML. Understanding HTML thoroughly is essential because React
+        components ultimately render HTML elements in the browser.</p>
+    <p>Think of HTML as the structure of a house - the walls, doors, windows,
+        and rooms. React helps you build these structures dynamically, but you
+        still need to know what each building block does and how to use it
+        properly.</p>
+    <h3 id="technical-explanation--3">Technical Explanation</h3>
+    <p>HTML provides the structural foundation for web applications. In React,
+        JSX is a syntax extension that allows you to write HTML-like code within
+        JavaScript. This JSX gets compiled to <code>React.createElement()</code>
+        calls, which produce virtual DOM elements that are eventually rendered
+        as real HTML elements.</p>
+    <p>Key concepts for React developers:
+        - <strong>Semantic HTML</strong>: Using appropriate elements for meaning
+        - <strong>Accessibility</strong>: ARIA attributes and proper semantics
+        - <strong>Forms</strong>: Controlled vs uncontrolled components
+        - <strong>Events</strong>: Synthetic event system
+        - <strong>Attributes</strong>: React-specific vs HTML attributes</p>
+    <h3 id="professional-explanation--3">Professional Explanation</h3>
+    <p>In enterprise React development, HTML knowledge extends beyond basic
+        markup. You need to understand:</p>
+    <ul>
+        <li><strong>Document Structure</strong>: DOCTYPE, meta tags, semantic
+            elements</li>
+        <li><strong>Accessibility</strong>: WCAG compliance, ARIA roles,
+            keyboard navigation</li>
+        <li><strong>SEO</strong>: Meta tags, semantic structure, Open Graph</li>
+        <li><strong>Performance</strong>: Resource loading, prefetching,
+            preloading</li>
+        <li><strong>Security</strong>: CSP, XSS prevention, input
+            sanitization</li>
+        <li><strong>Internationalization</strong>: lang attributes, dir
+            attributes</li>
+        <li><strong>Progressive Enhancement</strong>: Graceful degradation</li>
+    </ul>
+    <h2 id="32-document-structure">3.2 Document Structure</h2>
+    <h3 id="321-doctype-and-basic-structure">3.2.1 DOCTYPE and Basic
+        Structure</h3>
+    <pre><code class="language-html">&lt;!-- HTML5 DOCTYPE --&gt;
 &lt;!DOCTYPE html&gt;
 
 &lt;!-- HTML Document Structure --&gt;
@@ -83,8 +102,8 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<h3 id="322-react-integration-points">3.2.2 React Integration Points</h3>
-<pre><code class="language-javascript">// React mounting in index.js
+    <h3 id="322-react-integration-points">3.2.2 React Integration Points</h3>
+    <pre><code class="language-javascript">// React mounting in index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -117,10 +136,11 @@ function App() {
     );
 }
 </code></pre>
-<h2 id="33-semantic-html-elements">3.3 Semantic HTML Elements</h2>
-<h3 id="331-structural-elements">3.3.1 Structural Elements</h3>
-<h4 id="header-header-section"><code>&lt;header&gt;</code> - Header Section</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h2 id="33-semantic-html-elements">3.3 Semantic HTML Elements</h2>
+    <h3 id="331-structural-elements">3.3.1 Structural Elements</h3>
+    <h4 id="header-header-section"><code>&lt;header&gt;</code> - Header
+        Section</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;header&gt;
     &lt;h1&gt;My Website&lt;/h1&gt;
     &lt;nav&gt;
@@ -146,8 +166,8 @@ function Header() {
     );
 }
 </code></pre>
-<h4 id="nav-navigation"><code>&lt;nav&gt;</code> - Navigation</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="nav-navigation"><code>&lt;nav&gt;</code> - Navigation</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;nav aria-label="Main Navigation"&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
@@ -171,8 +191,8 @@ function Navigation({ links }) {
     );
 }
 </code></pre>
-<h4 id="main-main-content"><code>&lt;main&gt;</code> - Main Content</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="main-main-content"><code>&lt;main&gt;</code> - Main Content</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;main&gt;
     &lt;article&gt;
         &lt;h2&gt;Article Title&lt;/h2&gt;
@@ -194,8 +214,9 @@ function MainContent({ article, related }) {
     );
 }
 </code></pre>
-<h4 id="section-content-section"><code>&lt;section&gt;</code> - Content Section</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="section-content-section"><code>&lt;section&gt;</code> - Content
+        Section</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;section aria-labelledby="features-title"&gt;
     &lt;h2 id="features-title"&gt;Features&lt;/h2&gt;
     &lt;div class="features-grid"&gt;
@@ -227,8 +248,9 @@ function Features({ features }) {
     );
 }
 </code></pre>
-<h4 id="article-self-contained-content"><code>&lt;article&gt;</code> - Self-Contained Content</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="article-self-contained-content"><code>&lt;article&gt;</code> -
+        Self-Contained Content</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;article&gt;
     &lt;header&gt;
         &lt;h2&gt;Blog Post Title&lt;/h2&gt;
@@ -262,8 +284,9 @@ function BlogPost({ post }) {
     );
 }
 </code></pre>
-<h4 id="aside-sidebar-content"><code>&lt;aside&gt;</code> - Sidebar Content</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="aside-sidebar-content"><code>&lt;aside&gt;</code> - Sidebar
+        Content</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;aside&gt;
     &lt;h3&gt;Related Articles&lt;/h3&gt;
     &lt;ul&gt;
@@ -288,8 +311,9 @@ function Sidebar({ related }) {
     );
 }
 </code></pre>
-<h4 id="footer-footer-section"><code>&lt;footer&gt;</code> - Footer Section</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="footer-footer-section"><code>&lt;footer&gt;</code> - Footer
+        Section</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;footer&gt;
     &lt;div class="footer-content"&gt;
         &lt;p&gt;&amp;copy; 2024 My Company&lt;/p&gt;
@@ -317,9 +341,10 @@ function Footer() {
     );
 }
 </code></pre>
-<h3 id="332-content-elements">3.3.2 Content Elements</h3>
-<h4 id="div-generic-container"><code>&lt;div&gt;</code> - Generic Container</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="332-content-elements">3.3.2 Content Elements</h3>
+    <h4 id="div-generic-container"><code>&lt;div&gt;</code> - Generic
+        Container</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;div class="container"&gt;
     &lt;div class="row"&gt;
         &lt;div class="col-6"&gt;
@@ -346,8 +371,9 @@ function Grid({ columns }) {
     );
 }
 </code></pre>
-<h4 id="span-inline-container"><code>&lt;span&gt;</code> - Inline Container</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="span-inline-container"><code>&lt;span&gt;</code> - Inline
+        Container</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;p&gt;Welcome, &lt;span class="highlight"&gt;John Doe&lt;/span&gt;!&lt;/p&gt;
 &lt;p&gt;Price: &lt;span class="currency"&gt;$&lt;/span&gt;&lt;span class="amount"&gt;99.99&lt;/span&gt;&lt;/p&gt;
 
@@ -364,8 +390,8 @@ function UserGreeting({ user, price }) {
     );
 }
 </code></pre>
-<h4 id="p-paragraph"><code>&lt;p&gt;</code> - Paragraph</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="p-paragraph"><code>&lt;p&gt;</code> - Paragraph</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;p&gt;This is a paragraph of text. It contains multiple sentences and provides information about a topic.&lt;/p&gt;
 &lt;p&gt;This is another paragraph with &lt;strong&gt;important&lt;/strong&gt; information.&lt;/p&gt;
 
@@ -379,8 +405,9 @@ function Description({ text, highlight }) {
     );
 }
 </code></pre>
-<h4 id="h1-to-h6-headings"><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> - Headings</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="h1-to-h6-headings"><code>&lt;h1&gt;</code> to
+        <code>&lt;h6&gt;</code> - Headings</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;h1&gt;Main Page Title&lt;/h1&gt;
 &lt;h2&gt;Section Title&lt;/h2&gt;
 &lt;h3&gt;Subsection Title&lt;/h3&gt;
@@ -405,8 +432,9 @@ function Headings({ title, sections }) {
     );
 }
 </code></pre>
-<h4 id="ul-ol-li-lists"><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code> - Lists</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="ul-ol-li-lists"><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>,
+        <code>&lt;li&gt;</code> - Lists</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;!-- Unordered List --&gt;
 &lt;ul&gt;
     &lt;li&gt;First item&lt;/li&gt;
@@ -449,9 +477,10 @@ function List({ items, ordered = false }) {
     );
 }
 </code></pre>
-<h3 id="333-text-formatting-elements">3.3.3 Text Formatting Elements</h3>
-<h4 id="strong-and-b-bold-text"><code>&lt;strong&gt;</code> and <code>&lt;b&gt;</code> - Bold Text</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="333-text-formatting-elements">3.3.3 Text Formatting Elements</h3>
+    <h4 id="strong-and-b-bold-text"><code>&lt;strong&gt;</code> and
+        <code>&lt;b&gt;</code> - Bold Text</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;p&gt;
     &lt;strong&gt;Important:&lt;/strong&gt; This is critical information.
     &lt;b&gt;Note:&lt;/b&gt; This is highlighted for attention.
@@ -467,8 +496,9 @@ function ImportantText({ children, importance }) {
     );
 }
 </code></pre>
-<h4 id="em-and-i-italic-text"><code>&lt;em&gt;</code> and <code>&lt;i&gt;</code> - Italic Text</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="em-and-i-italic-text"><code>&lt;em&gt;</code> and
+        <code>&lt;i&gt;</code> - Italic Text</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;p&gt;
     &lt;em&gt;Emphasized text&lt;/em&gt; for stress.
     &lt;i&gt;Italic text&lt;/i&gt; for foreign words or technical terms.
@@ -484,8 +514,9 @@ function EmphasizedText({ text, isTechnical }) {
     );
 }
 </code></pre>
-<h4 id="pre-and-code-code-display"><code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> - Code Display</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="pre-and-code-code-display"><code>&lt;pre&gt;</code> and
+        <code>&lt;code&gt;</code> - Code Display</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;pre&gt;
     &lt;code&gt;
         function greet(name) {
@@ -505,9 +536,9 @@ function CodeBlock({ code, language }) {
     );
 }
 </code></pre>
-<h3 id="334-media-elements">3.3.4 Media Elements</h3>
-<h4 id="img-images"><code>&lt;img&gt;</code> - Images</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="334-media-elements">3.3.4 Media Elements</h3>
+    <h4 id="img-images"><code>&lt;img&gt;</code> - Images</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;img 
     src="/images/avatar.jpg" 
     alt="User avatar showing John Doe"
@@ -544,8 +575,8 @@ function ImageWithFallback({ src, fallback, alt, ...props }) {
     );
 }
 </code></pre>
-<h4 id="video-video"><code>&lt;video&gt;</code> - Video</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="video-video"><code>&lt;video&gt;</code> - Video</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;video controls width="640" height="360"&gt;
     &lt;source src="/video.mp4" type="video/mp4"&gt;
     &lt;source src="/video.webm" type="video/webm"&gt;
@@ -572,8 +603,8 @@ function VideoPlayer({ src, poster, captions }) {
     );
 }
 </code></pre>
-<h4 id="audio-audio"><code>&lt;audio&gt;</code> - Audio</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="audio-audio"><code>&lt;audio&gt;</code> - Audio</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;audio controls&gt;
     &lt;source src="/audio.mp3" type="audio/mpeg"&gt;
     &lt;source src="/audio.ogg" type="audio/ogg"&gt;
@@ -591,9 +622,9 @@ function AudioPlayer({ src, autoPlay = false }) {
     );
 }
 </code></pre>
-<h3 id="335-interactive-elements">3.3.5 Interactive Elements</h3>
-<h4 id="button-buttons"><code>&lt;button&gt;</code> - Buttons</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="335-interactive-elements">3.3.5 Interactive Elements</h3>
+    <h4 id="button-buttons"><code>&lt;button&gt;</code> - Buttons</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;button type="button" onclick="handleClick()"&gt;Click Me&lt;/button&gt;
 &lt;button type="submit"&gt;Submit Form&lt;/button&gt;
 &lt;button type="reset"&gt;Reset Form&lt;/button&gt;
@@ -645,8 +676,8 @@ function Form() {
     );
 }
 </code></pre>
-<h4 id="input-input-fields"><code>&lt;input&gt;</code> - Input Fields</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="input-input-fields"><code>&lt;input&gt;</code> - Input Fields</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;!-- Text Input --&gt;
 &lt;input type="text" name="username" placeholder="Enter username"&gt;
 
@@ -799,8 +830,8 @@ function ControlledForm() {
     );
 }
 </code></pre>
-<h4 id="textarea-text-area"><code>&lt;textarea&gt;</code> - Text Area</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="textarea-text-area"><code>&lt;textarea&gt;</code> - Text Area</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;textarea 
     name="description" 
     rows="4" 
@@ -841,8 +872,9 @@ function TextArea({
     );
 }
 </code></pre>
-<h4 id="select-and-option-dropdown"><code>&lt;select&gt;</code> and <code>&lt;option&gt;</code> - Dropdown</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="select-and-option-dropdown"><code>&lt;select&gt;</code> and
+        <code>&lt;option&gt;</code> - Dropdown</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;select name="country"&gt;
     &lt;option value=""&gt;Select a country&lt;/option&gt;
     &lt;option value="us"&gt;United States&lt;/option&gt;
@@ -905,8 +937,8 @@ function CountrySelect() {
     );
 }
 </code></pre>
-<h4 id="label-labels"><code>&lt;label&gt;</code> - Labels</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="label-labels"><code>&lt;label&gt;</code> - Labels</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;!-- Implicit label (wrapping) --&gt;
 &lt;label&gt;
     &lt;input type="checkbox" name="agree"&gt;
@@ -939,8 +971,8 @@ function FormField({ label, htmlFor, children, required }) {
     );
 }
 </code></pre>
-<h4 id="form-forms"><code>&lt;form&gt;</code> - Forms</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="form-forms"><code>&lt;form&gt;</code> - Forms</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;form action="/submit" method="POST" novalidate&gt;
     &lt;div class="form-group"&gt;
         &lt;label for="name"&gt;Name:&lt;/label&gt;
@@ -1066,9 +1098,11 @@ function RegistrationForm() {
     );
 }
 </code></pre>
-<h3 id="336-table-elements">3.3.6 Table Elements</h3>
-<h4 id="table-thead-tbody-tfoot-tables"><code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code> - Tables</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="336-table-elements">3.3.6 Table Elements</h3>
+    <h4 id="table-thead-tbody-tfoot-tables"><code>&lt;table&gt;</code>,
+        <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>,
+        <code>&lt;tfoot&gt;</code> - Tables</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;table&gt;
     &lt;caption&gt;User Information&lt;/caption&gt;
     &lt;thead&gt;
@@ -1184,9 +1218,10 @@ function UserTable() {
     );
 }
 </code></pre>
-<h3 id="337-link-and-navigation-elements">3.3.7 Link and Navigation Elements</h3>
-<h4 id="a-anchorlink"><code>&lt;a&gt;</code> - Anchor/Link</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="337-link-and-navigation-elements">3.3.7 Link and Navigation
+        Elements</h3>
+    <h4 id="a-anchorlink"><code>&lt;a&gt;</code> - Anchor/Link</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;!-- Regular link --&gt;
 &lt;a href="/about"&gt;About Us&lt;/a&gt;
 
@@ -1243,9 +1278,10 @@ function Navigation() {
     );
 }
 </code></pre>
-<h3 id="338-multimedia-elements">3.3.8 Multimedia Elements</h3>
-<h4 id="svg-scalable-vector-graphics"><code>&lt;svg&gt;</code> - Scalable Vector Graphics</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="338-multimedia-elements">3.3.8 Multimedia Elements</h3>
+    <h4 id="svg-scalable-vector-graphics"><code>&lt;svg&gt;</code> - Scalable
+        Vector Graphics</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;svg width="100" height="100" viewBox="0 0 100 100"&gt;
     &lt;circle cx="50" cy="50" r="40" fill="blue" /&gt;
     &lt;rect x="10" y="10" width="80" height="80" fill="transparent" stroke="red" /&gt;
@@ -1278,8 +1314,9 @@ function Icon({ name, size = 24, color = 'currentColor' }) {
     );
 }
 </code></pre>
-<h4 id="canvas-dynamic-graphics"><code>&lt;canvas&gt;</code> - Dynamic Graphics</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="canvas-dynamic-graphics"><code>&lt;canvas&gt;</code> - Dynamic
+        Graphics</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;canvas id="chart" width="400" height="300"&gt;
     Your browser doesn't support canvas.
 &lt;/canvas&gt;
@@ -1341,9 +1378,11 @@ function Chart({ data, type = 'bar' }) {
     );
 }
 </code></pre>
-<h3 id="339-interactive-elements">3.3.9 Interactive Elements</h3>
-<h4 id="details-and-summary-collapsible-content"><code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> - Collapsible Content</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="339-interactive-elements">3.3.9 Interactive Elements</h3>
+    <h4
+        id="details-and-summary-collapsible-content"><code>&lt;details&gt;</code>
+        and <code>&lt;summary&gt;</code> - Collapsible Content</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;details&gt;
     &lt;summary&gt;Click to expand&lt;/summary&gt;
     &lt;div class="content"&gt;
@@ -1385,8 +1424,8 @@ function FAQ() {
     );
 }
 </code></pre>
-<h4 id="dialog-modal-dialog"><code>&lt;dialog&gt;</code> - Modal Dialog</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="dialog-modal-dialog"><code>&lt;dialog&gt;</code> - Modal Dialog</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;dialog id="modal"&gt;
     &lt;h2&gt;Modal Title&lt;/h2&gt;
     &lt;p&gt;Modal content goes here.&lt;/p&gt;
@@ -1461,9 +1500,10 @@ function App() {
     );
 }
 </code></pre>
-<h3 id="3310-progress-and-meter">3.3.10 Progress and Meter</h3>
-<h4 id="progress-progress-bar"><code>&lt;progress&gt;</code> - Progress Bar</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h3 id="3310-progress-and-meter">3.3.10 Progress and Meter</h3>
+    <h4 id="progress-progress-bar"><code>&lt;progress&gt;</code> - Progress
+        Bar</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
 
 &lt;!-- React Component --&gt;
@@ -1523,8 +1563,8 @@ function FileUpload() {
     );
 }
 </code></pre>
-<h4 id="meter-gaugemeter"><code>&lt;meter&gt;</code> - Gauge/Meter</h4>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
+    <h4 id="meter-gaugemeter"><code>&lt;meter&gt;</code> - Gauge/Meter</h4>
+    <pre><code class="language-html">&lt;!-- HTML --&gt;
 &lt;meter value="70" min="0" max="100"&gt;70%&lt;/meter&gt;
 &lt;meter value="0.6"&gt;60%&lt;/meter&gt;
 
@@ -1578,9 +1618,9 @@ function Dashboard() {
     );
 }
 </code></pre>
-<h2 id="34-html-attributes">3.4 HTML Attributes</h2>
-<h3 id="341-global-attributes">3.4.1 Global Attributes</h3>
-<pre><code class="language-javascript">// Global attributes available on all HTML elements
+    <h2 id="34-html-attributes">3.4 HTML Attributes</h2>
+    <h3 id="341-global-attributes">3.4.1 Global Attributes</h3>
+    <pre><code class="language-javascript">// Global attributes available on all HTML elements
 function GlobalAttributesDemo() {
     return (
         &lt;div
@@ -1604,8 +1644,8 @@ function GlobalAttributesDemo() {
     );
 }
 </code></pre>
-<h3 id="342-data-attributes">3.4.2 Data Attributes</h3>
-<pre><code class="language-javascript">// Data attributes for storing custom data
+    <h3 id="342-data-attributes">3.4.2 Data Attributes</h3>
+    <pre><code class="language-javascript">// Data attributes for storing custom data
 function DataAttributesDemo() {
     const [user, setUser] = useState(null);
 
@@ -1638,8 +1678,9 @@ function DataAttributesDemo() {
     );
 }
 </code></pre>
-<h3 id="343-aria-attributes-accessibility">3.4.3 ARIA Attributes (Accessibility)</h3>
-<pre><code class="language-javascript">// ARIA attributes for accessibility
+    <h3 id="343-aria-attributes-accessibility">3.4.3 ARIA Attributes
+        (Accessibility)</h3>
+    <pre><code class="language-javascript">// ARIA attributes for accessibility
 function AccessibleComponent({ isOpen, onClose, items }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -1681,9 +1722,9 @@ function AccessibleComponent({ isOpen, onClose, items }) {
     );
 }
 </code></pre>
-<h2 id="35-forms-and-validation">3.5 Forms and Validation</h2>
-<h3 id="351-form-validation">3.5.1 Form Validation</h3>
-<pre><code class="language-javascript">// Advanced form validation with HTML5 attributes
+    <h2 id="35-forms-and-validation">3.5 Forms and Validation</h2>
+    <h3 id="351-form-validation">3.5.1 Form Validation</h3>
+    <pre><code class="language-javascript">// Advanced form validation with HTML5 attributes
 function ValidatedForm() {
     const [formData, setFormData] = useState({
         username: '',
@@ -1968,9 +2009,10 @@ function getPasswordStrength(password) {
     }
 }
 </code></pre>
-<h2 id="36-semantic-html-and-accessibility">3.6 Semantic HTML and Accessibility</h2>
-<h3 id="361-semantic-html-in-react">3.6.1 Semantic HTML in React</h3>
-<pre><code class="language-javascript">// Building accessible React components with semantic HTML
+    <h2 id="36-semantic-html-and-accessibility">3.6 Semantic HTML and
+        Accessibility</h2>
+    <h3 id="361-semantic-html-in-react">3.6.1 Semantic HTML in React</h3>
+    <pre><code class="language-javascript">// Building accessible React components with semantic HTML
 function AccessibleArticle({ article }) {
     return (
         &lt;article aria-labelledby={`article-title-${article.id}`}&gt;
@@ -2021,8 +2063,8 @@ function AccessibleArticle({ article }) {
     );
 }
 </code></pre>
-<h3 id="362-aria-implementation">3.6.2 ARIA Implementation</h3>
-<pre><code class="language-javascript">// Comprehensive ARIA implementation
+    <h3 id="362-aria-implementation">3.6.2 ARIA Implementation</h3>
+    <pre><code class="language-javascript">// Comprehensive ARIA implementation
 function AccessibleMenu({ items, onSelect }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const menuRef = useRef(null);
@@ -2097,9 +2139,9 @@ function AccessibleMenu({ items, onSelect }) {
     );
 }
 </code></pre>
-<h2 id="37-seo-in-react">3.7 SEO in React</h2>
-<h3 id="371-meta-tags-and-seo">3.7.1 Meta Tags and SEO</h3>
-<pre><code class="language-javascript">// SEO component with React Helmet
+    <h2 id="37-seo-in-react">3.7 SEO in React</h2>
+    <h3 id="371-meta-tags-and-seo">3.7.1 Meta Tags and SEO</h3>
+    <pre><code class="language-javascript">// SEO component with React Helmet
 import { Helmet } from 'react-helmet';
 
 function SEO({ 
@@ -2171,8 +2213,8 @@ function BlogPostPage({ post }) {
     );
 }
 </code></pre>
-<h3 id="372-sitemaps-and-robots">3.7.2 Sitemaps and Robots</h3>
-<pre><code class="language-javascript">// Sitemap generation configuration
+    <h3 id="372-sitemaps-and-robots">3.7.2 Sitemaps and Robots</h3>
+    <pre><code class="language-javascript">// Sitemap generation configuration
 function generateSitemap() {
     const baseUrl = 'https://example.com';
     const routes = [
@@ -2206,9 +2248,10 @@ Disallow: /private/
 Sitemap: https://example.com/sitemap.xml
 `;
 </code></pre>
-<h2 id="38-performance-and-optimization">3.8 Performance and Optimization</h2>
-<h3 id="381-resource-loading">3.8.1 Resource Loading</h3>
-<pre><code class="language-javascript">// Optimized resource loading
+    <h2 id="38-performance-and-optimization">3.8 Performance and
+        Optimization</h2>
+    <h3 id="381-resource-loading">3.8.1 Resource Loading</h3>
+    <pre><code class="language-javascript">// Optimized resource loading
 function OptimizedResourceLoading() {
     return (
         &lt;&gt;
@@ -2260,8 +2303,8 @@ function OptimizedResourceLoading() {
     );
 }
 </code></pre>
-<h3 id="382-progressive-enhancement">3.8.2 Progressive Enhancement</h3>
-<pre><code class="language-javascript">// Progressive enhancement in React
+    <h3 id="382-progressive-enhancement">3.8.2 Progressive Enhancement</h3>
+    <pre><code class="language-javascript">// Progressive enhancement in React
 function ProgressiveComponent({ children, fallback }) {
     const [isSupported, setIsSupported] = useState(true);
 
@@ -2306,9 +2349,11 @@ function EnhancedFeature() {
     );
 }
 </code></pre>
-<h2 id="39-common-mistakes-and-best-practices">3.9 Common Mistakes and Best Practices</h2>
-<h3 id="391-common-html-mistakes-in-react">3.9.1 Common HTML Mistakes in React</h3>
-<pre><code class="language-javascript">// ❌ Incorrect HTML practices in React
+    <h2 id="39-common-mistakes-and-best-practices">3.9 Common Mistakes and Best
+        Practices</h2>
+    <h3 id="391-common-html-mistakes-in-react">3.9.1 Common HTML Mistakes in
+        React</h3>
+    <pre><code class="language-javascript">// ❌ Incorrect HTML practices in React
 function BadComponent() {
     return (
         &lt;&gt;
@@ -2387,8 +2432,9 @@ function GoodComponent() {
     );
 }
 </code></pre>
-<h3 id="392-html-best-practices-in-react">3.9.2 HTML Best Practices in React</h3>
-<pre><code class="language-javascript">// HTML best practices in React
+    <h3 id="392-html-best-practices-in-react">3.9.2 HTML Best Practices in
+        React</h3>
+    <pre><code class="language-javascript">// HTML best practices in React
 function BestPracticesComponent() {
     return (
         &lt;&gt;
@@ -2483,26 +2529,31 @@ function BestPracticesComponent() {
     );
 }
 </code></pre>
-<h2 id="310-interview-questions">3.10 Interview Questions</h2>
-<h3 id="junior-level-questions--3">Junior Level Questions</h3>
-<p><strong>Q: What is the difference between <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code>?</strong></p>
-<p><strong>Answer</strong>: 
-- <code>&lt;div&gt;</code> is a block-level element that creates a new line and takes full width
-- <code>&lt;span&gt;</code> is an inline element that stays in the line with other elements</p>
-<pre><code class="language-html">&lt;div class="container"&gt;
+    <h2 id="310-interview-questions">3.10 Interview Questions</h2>
+    <h3 id="junior-level-questions--3">Junior Level Questions</h3>
+    <p><strong>Q: What is the difference between <code>&lt;div&gt;</code> and
+            <code>&lt;span&gt;</code>?</strong></p>
+    <p><strong>Answer</strong>:
+        - <code>&lt;div&gt;</code> is a block-level element that creates a new
+        line and takes full width
+        - <code>&lt;span&gt;</code> is an inline element that stays in the line
+        with other elements</p>
+    <pre><code class="language-html">&lt;div class="container"&gt;
     This is a block element
 &lt;/div&gt;
 &lt;p&gt;This is &lt;span class="highlight"&gt;inline&lt;/span&gt; text&lt;/p&gt;
 </code></pre>
-<h3 id="mid-level-questions--3">Mid Level Questions</h3>
-<p><strong>Q: What are semantic HTML elements and why are they important?</strong></p>
-<p><strong>Answer</strong>:
-Semantic HTML elements describe their meaning to both browsers and developers. They're important for:
-1. Accessibility - Screen readers understand the structure
-2. SEO - Search engines understand content hierarchy
-3. Maintainability - Code is more readable
-4. Developer experience - Clear intent of code</p>
-<pre><code class="language-html">&lt;!-- Non-semantic --&gt;
+    <h3 id="mid-level-questions--3">Mid Level Questions</h3>
+    <p><strong>Q: What are semantic HTML elements and why are they
+            important?</strong></p>
+    <p><strong>Answer</strong>:
+        Semantic HTML elements describe their meaning to both browsers and
+        developers. They're important for:
+        1. Accessibility - Screen readers understand the structure
+        2. SEO - Search engines understand content hierarchy
+        3. Maintainability - Code is more readable
+        4. Developer experience - Clear intent of code</p>
+    <pre><code class="language-html">&lt;!-- Non-semantic --&gt;
 &lt;div class="header"&gt;Header&lt;/div&gt;
 &lt;div class="nav"&gt;Navigation&lt;/div&gt;
 &lt;div class="main"&gt;Content&lt;/div&gt;
@@ -2512,17 +2563,18 @@ Semantic HTML elements describe their meaning to both browsers and developers. T
 &lt;nav&gt;Navigation&lt;/nav&gt;
 &lt;main&gt;Content&lt;/main&gt;
 </code></pre>
-<h3 id="senior-level-questions--3">Senior Level Questions</h3>
-<p><strong>Q: How do you handle accessibility in React applications?</strong></p>
-<p><strong>Answer</strong>:
-1. Use semantic HTML elements
-2. Implement ARIA attributes properly
-3. Ensure keyboard navigation
-4. Manage focus programmatically
-5. Provide proper labels for form elements
-6. Use proper heading hierarchy
-7. Implement proper roles for custom components</p>
-<pre><code class="language-javascript">function AccessibleModal({ isOpen, onClose, title, children }) {
+    <h3 id="senior-level-questions--3">Senior Level Questions</h3>
+    <p><strong>Q: How do you handle accessibility in React
+            applications?</strong></p>
+    <p><strong>Answer</strong>:
+        1. Use semantic HTML elements
+        2. Implement ARIA attributes properly
+        3. Ensure keyboard navigation
+        4. Manage focus programmatically
+        5. Provide proper labels for form elements
+        6. Use proper heading hierarchy
+        7. Implement proper roles for custom components</p>
+    <pre><code class="language-javascript">function AccessibleModal({ isOpen, onClose, title, children }) {
     const modalRef = useRef(null);
 
     useEffect(() =&gt; {
@@ -2573,114 +2625,133 @@ Semantic HTML elements describe their meaning to both browsers and developers. T
     );
 }
 </code></pre>
-<h2 id="311-summary">3.11 Summary</h2>
-<h3 id="key-html-concepts-for-react">Key HTML Concepts for React</h3>
-<table>
-<thead>
-<tr>
-<th>Element</th>
-<th>Purpose</th>
-<th>React Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>&lt;div&gt;</code></td>
-<td>Generic block container</td>
-<td>Layout, grouping</td>
-</tr>
-<tr>
-<td><code>&lt;span&gt;</code></td>
-<td>Generic inline container</td>
-<td>Text styling, inline elements</td>
-</tr>
-<tr>
-<td><code>&lt;header&gt;</code></td>
-<td>Page/Article header</td>
-<td>Site header, article header</td>
-</tr>
-<tr>
-<td><code>&lt;nav&gt;</code></td>
-<td>Navigation</td>
-<td>Menus, navigation bars</td>
-</tr>
-<tr>
-<td><code>&lt;main&gt;</code></td>
-<td>Main content</td>
-<td>Primary page content</td>
-</tr>
-<tr>
-<td><code>&lt;section&gt;</code></td>
-<td>Content section</td>
-<td>Logical grouping</td>
-</tr>
-<tr>
-<td><code>&lt;article&gt;</code></td>
-<td>Self-contained content</td>
-<td>Blog posts, news items</td>
-</tr>
-<tr>
-<td><code>&lt;aside&gt;</code></td>
-<td>Sidebar content</td>
-<td>Related information</td>
-</tr>
-<tr>
-<td><code>&lt;footer&gt;</code></td>
-<td>Footer</td>
-<td>Page footer, article footer</td>
-</tr>
-<tr>
-<td><code>&lt;form&gt;</code></td>
-<td>Form</td>
-<td>User input, data submission</td>
-</tr>
-<tr>
-<td><code>&lt;input&gt;</code></td>
-<td>Input field</td>
-<td>User input, forms</td>
-</tr>
-<tr>
-<td><code>&lt;button&gt;</code></td>
-<td>Clickable button</td>
-<td>Actions, events</td>
-</tr>
-<tr>
-<td><code>&lt;table&gt;</code></td>
-<td>Tabular data</td>
-<td>Data display</td>
-</tr>
-<tr>
-<td><code>&lt;img&gt;</code></td>
-<td>Image</td>
-<td>Visual content</td>
-</tr>
-<tr>
-<td><code>&lt;a&gt;</code></td>
-<td>Hyperlink</td>
-<td>Navigation, links</td>
-</tr>
-</tbody>
-</table>
-<h3 id="html-best-practices-summary">HTML Best Practices Summary</h3>
-<ol>
-<li><strong>Use semantic HTML elements</strong> for better accessibility and SEO</li>
-<li><strong>Always include alt text</strong> for images</li>
-<li><strong>Use proper heading hierarchy</strong> (h1 to h6)</li>
-<li><strong>Implement proper form labels</strong> and validation</li>
-<li><strong>Use ARIA attributes</strong> when semantic HTML isn't enough</li>
-<li><strong>Consider accessibility</strong> from the start</li>
-<li><strong>Use lists</strong> for list items</li>
-<li><strong>Provide fallback content</strong> for media elements</li>
-<li><strong>Use proper structure</strong> for tables</li>
-<li><strong>Implement proper focus management</strong> for interactive elements</li>
-</ol>
-<hr/>
-<p><em>End of Chapter 3</em></p>
-<p><strong>Next Chapter Preview</strong>: Chapter 4 will cover CSS Required for React, including selectors, specificity, layouts, responsive design, and CSS-in-JS solutions like CSS Modules and Styled Components.</p>
-<hr/>
-<p><em>This chapter provides the HTML foundation needed for React development. Master these concepts to create accessible, semantic, and well-structured React applications.</em></p>
-<h1 id="the-complete-react-developer-course--3">The Complete React Developer Course</h1>
-<h2 id="from-beginner-to-professional--3">From Beginner to Professional</h2>
-<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--3">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
-<hr/>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-3" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-2"><span class="pager-label">← Previous chapter</span><strong>02 · JavaScript Required for React</strong></a><a class="pager-card pager-card--next" href="#chapter-4"><span class="pager-label">Next chapter →</span><strong>04 · CSS Required for React</strong></a></nav></section>
+    <h2 id="311-summary">3.11 Summary</h2>
+    <h3 id="key-html-concepts-for-react">Key HTML Concepts for React</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Element</th>
+                <th>Purpose</th>
+                <th>React Usage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>&lt;div&gt;</code></td>
+                <td>Generic block container</td>
+                <td>Layout, grouping</td>
+            </tr>
+            <tr>
+                <td><code>&lt;span&gt;</code></td>
+                <td>Generic inline container</td>
+                <td>Text styling, inline elements</td>
+            </tr>
+            <tr>
+                <td><code>&lt;header&gt;</code></td>
+                <td>Page/Article header</td>
+                <td>Site header, article header</td>
+            </tr>
+            <tr>
+                <td><code>&lt;nav&gt;</code></td>
+                <td>Navigation</td>
+                <td>Menus, navigation bars</td>
+            </tr>
+            <tr>
+                <td><code>&lt;main&gt;</code></td>
+                <td>Main content</td>
+                <td>Primary page content</td>
+            </tr>
+            <tr>
+                <td><code>&lt;section&gt;</code></td>
+                <td>Content section</td>
+                <td>Logical grouping</td>
+            </tr>
+            <tr>
+                <td><code>&lt;article&gt;</code></td>
+                <td>Self-contained content</td>
+                <td>Blog posts, news items</td>
+            </tr>
+            <tr>
+                <td><code>&lt;aside&gt;</code></td>
+                <td>Sidebar content</td>
+                <td>Related information</td>
+            </tr>
+            <tr>
+                <td><code>&lt;footer&gt;</code></td>
+                <td>Footer</td>
+                <td>Page footer, article footer</td>
+            </tr>
+            <tr>
+                <td><code>&lt;form&gt;</code></td>
+                <td>Form</td>
+                <td>User input, data submission</td>
+            </tr>
+            <tr>
+                <td><code>&lt;input&gt;</code></td>
+                <td>Input field</td>
+                <td>User input, forms</td>
+            </tr>
+            <tr>
+                <td><code>&lt;button&gt;</code></td>
+                <td>Clickable button</td>
+                <td>Actions, events</td>
+            </tr>
+            <tr>
+                <td><code>&lt;table&gt;</code></td>
+                <td>Tabular data</td>
+                <td>Data display</td>
+            </tr>
+            <tr>
+                <td><code>&lt;img&gt;</code></td>
+                <td>Image</td>
+                <td>Visual content</td>
+            </tr>
+            <tr>
+                <td><code>&lt;a&gt;</code></td>
+                <td>Hyperlink</td>
+                <td>Navigation, links</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="html-best-practices-summary">HTML Best Practices Summary</h3>
+    <ol>
+        <li><strong>Use semantic HTML elements</strong> for better accessibility
+            and SEO</li>
+        <li><strong>Always include alt text</strong> for images</li>
+        <li><strong>Use proper heading hierarchy</strong> (h1 to h6)</li>
+        <li><strong>Implement proper form labels</strong> and validation</li>
+        <li><strong>Use ARIA attributes</strong> when semantic HTML isn't
+            enough</li>
+        <li><strong>Consider accessibility</strong> from the start</li>
+        <li><strong>Use lists</strong> for list items</li>
+        <li><strong>Provide fallback content</strong> for media elements</li>
+        <li><strong>Use proper structure</strong> for tables</li>
+        <li><strong>Implement proper focus management</strong> for interactive
+            elements</li>
+    </ol>
+    <hr />
+    <p><em>End of Chapter 3</em></p>
+    <p><strong>Next Chapter Preview</strong>: Chapter 4 will cover CSS Required
+        for React, including selectors, specificity, layouts, responsive design,
+        and CSS-in-JS solutions like CSS Modules and Styled Components.</p>
+    <hr />
+    <p><em>This chapter provides the HTML foundation needed for React
+            development. Master these concepts to create accessible, semantic,
+            and well-structured React applications.</em></p>
+    <h1 id="the-complete-react-developer-course--3">The Complete React Developer
+        Course</h1>
+    <h2 id="from-beginner-to-professional--3">From Beginner to Professional</h2>
+    <h3
+        id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--3">A
+        Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+    <hr />
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-3" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-2"><span
+                class="pager-label">← Previous chapter</span><strong>02 ·
+                JavaScript Required for React</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-4"><span
+                class="pager-label">Next chapter →</span><strong>04 · CSS
+                Required for React</strong></a></nav></section>

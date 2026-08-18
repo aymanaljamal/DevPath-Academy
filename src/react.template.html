@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>DevPath Academy — Learn Modern Development</title>
+        <meta name="theme-color" content="#B91C1C" />
+        <meta name="color-scheme" content="light dark" />
+        <meta name="description"
+            content="Learn React, Java, Spring Boot, Python and AI, SQL, database optimization, and practical projects in one bilingual academy by Ayman Aljamal." />
+        <meta name="author" content="Ayman Aljamal — أيمن الجمل" />
+        <meta name="creator" content="Ayman Aljamal — أيمن الجمل" />
+        <link rel="manifest" href="manifest.webmanifest" />
+        <link rel="icon" href="assets/course-icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="assets/course-icon-32.png" sizes="32x32"
+            type="image/png" />
+        <link rel="apple-touch-icon" href="assets/course-icon-180.png"
+            sizes="180x180" />
+        <link href="assets/highlight-github-dark.min.css" rel="stylesheet" />
+        <!-- INLINE_STYLES -->
+
+    </head>
+    <body><div id="devpathApp" hidden></div><header class="react-site-header"><a
+                class="react-site-brand" href="index.html#/"
+                aria-label="DevPath Academy home"><svg viewBox="0 0 32 32"
+                    aria-hidden="true"><path
+                        d="M8 7h16v18H8zM12 11h8M12 16h8M12 21h5" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" /></svg><span>DevPath
+                    Academy</span><small>React</small></a><nav
+                aria-label="Academy navigation"><a
+                    href="index.html#/">Home</a><a
+                    href="index.html#courses">Courses</a><a
+                    href="index.html#/sources">Sources</a><a
+                    href="index.html#/about">About</a><a
+                    href="https://github.com/aymanaljamal" target="_blank"
+                    rel="noopener">GitHub</a></nav></header><div
+            aria-hidden="true" class="reading-progress"><div
+                class="reading-progress__bar"
+                id="readingProgressBar"></div></div>
+        <a class="skip-link" href="#mainContent">Skip to course content</a>
+        <div aria-hidden="true" class="sidebar-backdrop"
+            id="sidebarBackdrop"></div>
+        <button aria-controls="sidebar" aria-expanded="false"
+            aria-label="Open chapter navigation" class="sidebar-toggle"
+            id="sidebarToggle" type="button">Chapters</button>
+        <nav aria-label="Course chapters" class="sidebar" id="sidebar"><button
+                aria-label="Close chapter navigation" class="sidebar-close"
+                id="sidebarClose" type="button">×</button>
+            <div class="sidebar-brand">
+                <div class="mark">DevPath Academy // React</div>
+                <h2>React Developer Course</h2>
+            </div><div class="sidebar-tools"><div
+                    class="course-search-wrap"><input
+                        aria-label="Search course sections" autocomplete="off"
+                        class="course-search" id="courseSearch"
+                        placeholder="Search chapters &amp; sections…"
+                        type="search" /><div aria-label="Search results"
+                        class="search-results" id="searchResults"
+                        role="listbox"></div></div><div
+                    class="progress-meta"><span>Course progress</span><strong
+                        id="courseProgressText">0%</strong></div></div>
+            <div class="nav-spine"><div class="nav-chapter"
+                    data-chapter="chapter-1" style="--accent:#B91C1C"><div
+                        class="nav-chapter-row"><a class="nav-link"
+                            data-target="chapter-1" href="#chapter-1"><span
+                                class="dot"></span><span
+                                class="nav-num">1</span><span
+                                class="nav-title">Introduction to
+                                React</span></a><button aria-expanded="false"
+                            aria-label="Expand Introduction to React"
+                            class="nav-expand" data-expand="chapter-1"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-1"><a class="subnav-link"
+                            data-chapter="chapter-1"
+                            data-section="11-what-is-react"
+                            href="#11-what-is-react">1.1 What is React?</a><a
+                            class="subnav-link" data-chapter="chapter-1"
+                            data-section="12-why-was-react-created"
+                            href="#12-why-was-react-created">1.2 Why Was React
+                            Created?</a><a class="subnav-link"
+                            data-chapter="chapter-1"
+                            data-section="13-problems-react-solves"
+                            href="#13-problems-react-solves">1.3 Problems React
+                            Solves</a><a class="subnav-link"
+                            data-chapter="chapter-1"
+                            data-section="14-virtual-dom-dom-and-real-dom"
+                            href="#14-virtual-dom-dom-and-real-dom">1.4 Virtual
+                            DOM, DOM, and Real DOM</a><a class="subnav-link"
+                            data-chapter="chapter-1"
+                            data-section="15-component-based-architecture"
+                            href="#15-component-based-architecture">1.5
+                            Component-Based Architecture</a><a
+                            class="subnav-link" data-chapter="chapter-1"
+                            data-section="16-spa-vs-mpa"
+                            href="#16-spa-vs-mpa">1.6 SPA vs MPA</a><a
+                            class="subnav-link" data-chapter="chapter-1"
+                            data-section="17-react-history-and-evolution"
+                            href="#17-react-history-and-evolution">1.7 React
+                            History and Evolution</a><a class="subnav-link"
+                            data-chapter="chapter-1"
+                            data-section="18-react-ecosystem"
+                            href="#18-react-ecosystem">1.8 React Ecosystem</a><a
+                            class="subnav-link" data-chapter="chapter-1"
+                            data-section="19-common-mistakes-in-react"
+                            href="#19-common-mistakes-in-react">1.9 Common
+                            Mistakes in React</a><a class="subnav-link"
+                            data-chapter="chapter-1"
+                            data-section="110-best-practices"
+                            href="#110-best-practices">1.10 Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-1"
+                            data-section="111-enterprise-practices"
+                            href="#111-enterprise-practices">1.11 Enterprise
+                            Practices</a><a class="subnav-link"
+                            data-chapter="chapter-1"
+                            data-section="112-interview-questions"
+                            href="#112-interview-questions">1.12 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-1" data-section="113-summary"
+                            href="#113-summary">1.13 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-1"
+                            data-section="from-beginner-to-professional"
+                            href="#from-beginner-to-professional">From Beginner
+                            to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-2"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-2"
+                            href="#chapter-2"><span class="dot"></span><span
+                                class="nav-num">2</span><span
+                                class="nav-title">JavaScript Required for
+                                React</span></a><button aria-expanded="false"
+                            aria-label="Expand JavaScript Required for React"
+                            class="nav-expand" data-expand="chapter-2"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-2"><a class="subnav-link"
+                            data-chapter="chapter-2"
+                            data-section="21-introduction-to-javascript-for-react"
+                            href="#21-introduction-to-javascript-for-react">2.1
+                            Introduction to JavaScript for React</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="22-variables-and-scope"
+                            href="#22-variables-and-scope">2.2 Variables and
+                            Scope</a><a class="subnav-link"
+                            data-chapter="chapter-2" data-section="23-functions"
+                            href="#23-functions">2.3 Functions</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="24-objects" href="#24-objects">2.4
+                            Objects</a><a class="subnav-link"
+                            data-chapter="chapter-2" data-section="25-arrays"
+                            href="#25-arrays">2.5 Arrays</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="26-destructuring"
+                            href="#26-destructuring">2.6 Destructuring</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="27-spread-and-rest-operators"
+                            href="#27-spread-and-rest-operators">2.7 Spread and
+                            Rest Operators</a><a class="subnav-link"
+                            data-chapter="chapter-2"
+                            data-section="28-map-filter-reduce"
+                            href="#28-map-filter-reduce">2.8 Map, Filter,
+                            Reduce</a><a class="subnav-link"
+                            data-chapter="chapter-2" data-section="29-promises"
+                            href="#29-promises">2.9 Promises</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="210-asyncawait"
+                            href="#210-asyncawait">2.10 Async/Await</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="211-modules-and-importsexports"
+                            href="#211-modules-and-importsexports">2.11 Modules
+                            and Imports/Exports</a><a class="subnav-link"
+                            data-chapter="chapter-2" data-section="212-closures"
+                            href="#212-closures">2.12 Closures</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="213-event-loop-and-execution-context"
+                            href="#213-event-loop-and-execution-context">2.13
+                            Event Loop and Execution Context</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="214-memory-and-garbage-collection"
+                            href="#214-memory-and-garbage-collection">2.14
+                            Memory and Garbage Collection</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="215-es6-features-for-react"
+                            href="#215-es6-features-for-react">2.15 ES6+
+                            Features for React</a><a class="subnav-link"
+                            data-chapter="chapter-2"
+                            data-section="216-classes-and-prototypes"
+                            href="#216-classes-and-prototypes">2.16 Classes and
+                            Prototypes</a><a class="subnav-link"
+                            data-chapter="chapter-2"
+                            data-section="217-practical-react-javascript-examples"
+                            href="#217-practical-react-javascript-examples">2.17
+                            Practical React JavaScript Examples</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="218-common-mistakes-and-best-practices"
+                            href="#218-common-mistakes-and-best-practices">2.18
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="219-interview-questions"
+                            href="#219-interview-questions">2.19 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-2" data-section="220-summary"
+                            href="#220-summary">2.20 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-2"
+                            data-section="from-beginner-to-professional--2"
+                            href="#from-beginner-to-professional--2">From
+                            Beginner to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-3"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-3"
+                            href="#chapter-3"><span class="dot"></span><span
+                                class="nav-num">3</span><span
+                                class="nav-title">HTML Required for
+                                React</span></a><button aria-expanded="false"
+                            aria-label="Expand HTML Required for React"
+                            class="nav-expand" data-expand="chapter-3"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-3"><a class="subnav-link"
+                            data-chapter="chapter-3"
+                            data-section="31-introduction-to-html-for-react-developers"
+                            href="#31-introduction-to-html-for-react-developers">3.1
+                            Introduction to HTML for React Developers</a><a
+                            class="subnav-link" data-chapter="chapter-3"
+                            data-section="32-document-structure"
+                            href="#32-document-structure">3.2 Document
+                            Structure</a><a class="subnav-link"
+                            data-chapter="chapter-3"
+                            data-section="33-semantic-html-elements"
+                            href="#33-semantic-html-elements">3.3 Semantic HTML
+                            Elements</a><a class="subnav-link"
+                            data-chapter="chapter-3"
+                            data-section="34-html-attributes"
+                            href="#34-html-attributes">3.4 HTML Attributes</a><a
+                            class="subnav-link" data-chapter="chapter-3"
+                            data-section="35-forms-and-validation"
+                            href="#35-forms-and-validation">3.5 Forms and
+                            Validation</a><a class="subnav-link"
+                            data-chapter="chapter-3"
+                            data-section="36-semantic-html-and-accessibility"
+                            href="#36-semantic-html-and-accessibility">3.6
+                            Semantic HTML and Accessibility</a><a
+                            class="subnav-link" data-chapter="chapter-3"
+                            data-section="37-seo-in-react"
+                            href="#37-seo-in-react">3.7 SEO in React</a><a
+                            class="subnav-link" data-chapter="chapter-3"
+                            data-section="38-performance-and-optimization"
+                            href="#38-performance-and-optimization">3.8
+                            Performance and Optimization</a><a
+                            class="subnav-link" data-chapter="chapter-3"
+                            data-section="39-common-mistakes-and-best-practices"
+                            href="#39-common-mistakes-and-best-practices">3.9
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-3"
+                            data-section="310-interview-questions"
+                            href="#310-interview-questions">3.10 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-3" data-section="311-summary"
+                            href="#311-summary">3.11 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-3"
+                            data-section="from-beginner-to-professional--3"
+                            href="#from-beginner-to-professional--3">From
+                            Beginner to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-4"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-4"
+                            href="#chapter-4"><span class="dot"></span><span
+                                class="nav-num">4</span><span
+                                class="nav-title">CSS Required for
+                                React</span></a><button aria-expanded="false"
+                            aria-label="Expand CSS Required for React"
+                            class="nav-expand" data-expand="chapter-4"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-4"><a class="subnav-link"
+                            data-chapter="chapter-4"
+                            data-section="41-introduction-to-css-for-react-developers"
+                            href="#41-introduction-to-css-for-react-developers">4.1
+                            Introduction to CSS for React Developers</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="42-css-selectors"
+                            href="#42-css-selectors">4.2 CSS Selectors</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="43-css-specificity"
+                            href="#43-css-specificity">4.3 CSS Specificity</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="44-box-model" href="#44-box-model">4.4
+                            Box Model</a><a class="subnav-link"
+                            data-chapter="chapter-4" data-section="45-flexbox"
+                            href="#45-flexbox">4.5 Flexbox</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="46-css-grid" href="#46-css-grid">4.6
+                            CSS Grid</a><a class="subnav-link"
+                            data-chapter="chapter-4"
+                            data-section="47-positioning"
+                            href="#47-positioning">4.7 Positioning</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="48-responsive-design"
+                            href="#48-responsive-design">4.8 Responsive
+                            Design</a><a class="subnav-link"
+                            data-chapter="chapter-4"
+                            data-section="49-css-variables-custom-properties"
+                            href="#49-css-variables-custom-properties">4.9 CSS
+                            Variables (Custom Properties)</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="410-animations-and-transitions"
+                            href="#410-animations-and-transitions">4.10
+                            Animations and Transitions</a><a class="subnav-link"
+                            data-chapter="chapter-4"
+                            data-section="411-css-in-react-different-approaches"
+                            href="#411-css-in-react-different-approaches">4.11
+                            CSS in React: Different Approaches</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="412-enterprise-css-practices"
+                            href="#412-enterprise-css-practices">4.12 Enterprise
+                            CSS Practices</a><a class="subnav-link"
+                            data-chapter="chapter-4"
+                            data-section="413-common-mistakes-and-best-practices"
+                            href="#413-common-mistakes-and-best-practices">4.13
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="414-interview-questions"
+                            href="#414-interview-questions">4.14 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-4" data-section="415-summary"
+                            href="#415-summary">4.15 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-4"
+                            data-section="from-beginner-to-professional--4"
+                            href="#from-beginner-to-professional--4">From
+                            Beginner to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-5"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-5"
+                            href="#chapter-5"><span class="dot"></span><span
+                                class="nav-num">5</span><span
+                                class="nav-title">React
+                                Fundamentals</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand React Fundamentals"
+                            class="nav-expand" data-expand="chapter-5"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-5"><a class="subnav-link"
+                            data-chapter="chapter-5"
+                            data-section="51-introduction-to-react-fundamentals"
+                            href="#51-introduction-to-react-fundamentals">5.1
+                            Introduction to React Fundamentals</a><a
+                            class="subnav-link" data-chapter="chapter-5"
+                            data-section="52-jsx-javascript-xml"
+                            href="#52-jsx-javascript-xml">5.2 JSX (JavaScript
+                            XML)</a><a class="subnav-link"
+                            data-chapter="chapter-5"
+                            data-section="53-components"
+                            href="#53-components">5.3 Components</a><a
+                            class="subnav-link" data-chapter="chapter-5"
+                            data-section="54-props" href="#54-props">5.4
+                            Props</a><a class="subnav-link"
+                            data-chapter="chapter-5" data-section="55-state"
+                            href="#55-state">5.5 State</a><a class="subnav-link"
+                            data-chapter="chapter-5"
+                            data-section="56-component-lifecycle"
+                            href="#56-component-lifecycle">5.6 Component
+                            Lifecycle</a><a class="subnav-link"
+                            data-chapter="chapter-5" data-section="57-rendering"
+                            href="#57-rendering">5.7 Rendering</a><a
+                            class="subnav-link" data-chapter="chapter-5"
+                            data-section="58-conditional-rendering"
+                            href="#58-conditional-rendering">5.8 Conditional
+                            Rendering</a><a class="subnav-link"
+                            data-chapter="chapter-5"
+                            data-section="59-lists-and-keys"
+                            href="#59-lists-and-keys">5.9 Lists and Keys</a><a
+                            class="subnav-link" data-chapter="chapter-5"
+                            data-section="510-children-and-composition"
+                            href="#510-children-and-composition">5.10 Children
+                            and Composition</a><a class="subnav-link"
+                            data-chapter="chapter-5"
+                            data-section="511-common-mistakes-and-best-practices"
+                            href="#511-common-mistakes-and-best-practices">5.11
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-5"
+                            data-section="512-interview-questions"
+                            href="#512-interview-questions">5.12 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-5" data-section="513-summary"
+                            href="#513-summary">5.13 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-5"
+                            data-section="from-beginner-to-professional--5"
+                            href="#from-beginner-to-professional--5">From
+                            Beginner to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-6"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-6"
+                            href="#chapter-6"><span class="dot"></span><span
+                                class="nav-num">6</span><span
+                                class="nav-title">React Hooks</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand React Hooks" class="nav-expand"
+                            data-expand="chapter-6"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-6"><a class="subnav-link"
+                            data-chapter="chapter-6"
+                            data-section="61-introduction-to-react-hooks"
+                            href="#61-introduction-to-react-hooks">6.1
+                            Introduction to React Hooks</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="62-usestate-hook"
+                            href="#62-usestate-hook">6.2 useState Hook</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="63-useeffect-hook"
+                            href="#63-useeffect-hook">6.3 useEffect Hook</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="64-usememo-hook"
+                            href="#64-usememo-hook">6.4 useMemo Hook</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="65-usecallback-hook"
+                            href="#65-usecallback-hook">6.5 useCallback
+                            Hook</a><a class="subnav-link"
+                            data-chapter="chapter-6"
+                            data-section="66-useref-hook"
+                            href="#66-useref-hook">6.6 useRef Hook</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="67-usecontext-hook"
+                            href="#67-usecontext-hook">6.7 useContext Hook</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="68-usereducer-hook"
+                            href="#68-usereducer-hook">6.8 useReducer Hook</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="69-uselayouteffect-hook"
+                            href="#69-uselayouteffect-hook">6.9 useLayoutEffect
+                            Hook</a><a class="subnav-link"
+                            data-chapter="chapter-6"
+                            data-section="610-useimperativehandle-hook"
+                            href="#610-useimperativehandle-hook">6.10
+                            useImperativeHandle Hook</a><a class="subnav-link"
+                            data-chapter="chapter-6"
+                            data-section="611-usetransition-and-usedeferredvalue"
+                            href="#611-usetransition-and-usedeferredvalue">6.11
+                            useTransition and useDeferredValue</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="612-useid-hook"
+                            href="#612-useid-hook">6.12 useId Hook</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="613-custom-hooks"
+                            href="#613-custom-hooks">6.13 Custom Hooks</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="614-common-mistakes-and-best-practices"
+                            href="#614-common-mistakes-and-best-practices">6.14
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="615-interview-questions"
+                            href="#615-interview-questions">6.15 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-6" data-section="616-summary"
+                            href="#616-summary">6.16 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-6"
+                            data-section="from-beginner-to-professional--6"
+                            href="#from-beginner-to-professional--6">From
+                            Beginner to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-7"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-7"
+                            href="#chapter-7"><span class="dot"></span><span
+                                class="nav-num">7</span><span
+                                class="nav-title">State Management in
+                                React</span></a><button aria-expanded="false"
+                            aria-label="Expand State Management in React"
+                            class="nav-expand" data-expand="chapter-7"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-7"><a class="subnav-link"
+                            data-chapter="chapter-7"
+                            data-section="71-introduction-to-state-management"
+                            href="#71-introduction-to-state-management">7.1
+                            Introduction to State Management</a><a
+                            class="subnav-link" data-chapter="chapter-7"
+                            data-section="72-local-state-management"
+                            href="#72-local-state-management">7.2 Local State
+                            Management</a><a class="subnav-link"
+                            data-chapter="chapter-7"
+                            data-section="73-lifting-state-up"
+                            href="#73-lifting-state-up">7.3 Lifting State
+                            Up</a><a class="subnav-link"
+                            data-chapter="chapter-7"
+                            data-section="74-context-api"
+                            href="#74-context-api">7.4 Context API</a><a
+                            class="subnav-link" data-chapter="chapter-7"
+                            data-section="75-redux-toolkit-rtk"
+                            href="#75-redux-toolkit-rtk">7.5 Redux Toolkit
+                            (RTK)</a><a class="subnav-link"
+                            data-chapter="chapter-7" data-section="76-zustand"
+                            href="#76-zustand">7.6 Zustand</a><a
+                            class="subnav-link" data-chapter="chapter-7"
+                            data-section="77-jotai" href="#77-jotai">7.7
+                            Jotai</a><a class="subnav-link"
+                            data-chapter="chapter-7" data-section="78-recoil"
+                            href="#78-recoil">7.8 Recoil</a><a
+                            class="subnav-link" data-chapter="chapter-7"
+                            data-section="79-react-query"
+                            href="#79-react-query">7.9 React Query</a><a
+                            class="subnav-link" data-chapter="chapter-7"
+                            data-section="710-when-to-use-each-approach"
+                            href="#710-when-to-use-each-approach">7.10 When to
+                            Use Each Approach</a><a class="subnav-link"
+                            data-chapter="chapter-7"
+                            data-section="711-common-mistakes-and-best-practices"
+                            href="#711-common-mistakes-and-best-practices">7.11
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-7"
+                            data-section="712-interview-questions"
+                            href="#712-interview-questions">7.12 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-7" data-section="713-summary"
+                            href="#713-summary">7.13 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-7"
+                            data-section="from-beginner-to-professional--7"
+                            href="#from-beginner-to-professional--7">From
+                            Beginner to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-8"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-8"
+                            href="#chapter-8"><span class="dot"></span><span
+                                class="nav-num">8</span><span
+                                class="nav-title">Routing in
+                                React</span></a><button aria-expanded="false"
+                            aria-label="Expand Routing in React"
+                            class="nav-expand" data-expand="chapter-8"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-8"><a class="subnav-link"
+                            data-chapter="chapter-8"
+                            data-section="81-introduction-to-routing"
+                            href="#81-introduction-to-routing">8.1 Introduction
+                            to Routing</a><a class="subnav-link"
+                            data-chapter="chapter-8"
+                            data-section="82-react-router-setup"
+                            href="#82-react-router-setup">8.2 React Router
+                            Setup</a><a class="subnav-link"
+                            data-chapter="chapter-8"
+                            data-section="83-basic-routes"
+                            href="#83-basic-routes">8.3 Basic Routes</a><a
+                            class="subnav-link" data-chapter="chapter-8"
+                            data-section="84-dynamic-routes"
+                            href="#84-dynamic-routes">8.4 Dynamic Routes</a><a
+                            class="subnav-link" data-chapter="chapter-8"
+                            data-section="85-nested-routes"
+                            href="#85-nested-routes">8.5 Nested Routes</a><a
+                            class="subnav-link" data-chapter="chapter-8"
+                            data-section="86-protected-routes"
+                            href="#86-protected-routes">8.6 Protected
+                            Routes</a><a class="subnav-link"
+                            data-chapter="chapter-8"
+                            data-section="87-lazy-loading-and-code-splitting"
+                            href="#87-lazy-loading-and-code-splitting">8.7 Lazy
+                            Loading and Code Splitting</a><a class="subnav-link"
+                            data-chapter="chapter-8"
+                            data-section="88-navigation"
+                            href="#88-navigation">8.8 Navigation</a><a
+                            class="subnav-link" data-chapter="chapter-8"
+                            data-section="89-scroll-management"
+                            href="#89-scroll-management">8.9 Scroll
+                            Management</a><a class="subnav-link"
+                            data-chapter="chapter-8"
+                            data-section="810-common-mistakes-and-best-practices"
+                            href="#810-common-mistakes-and-best-practices">8.10
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-8"
+                            data-section="811-interview-questions"
+                            href="#811-interview-questions">8.11 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-8" data-section="812-summary"
+                            href="#812-summary">8.12 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-8"
+                            data-section="from-beginner-to-professional--8"
+                            href="#from-beginner-to-professional--8">From
+                            Beginner to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-9"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-9"
+                            href="#chapter-9"><span class="dot"></span><span
+                                class="nav-num">9</span><span
+                                class="nav-title">API Integration in
+                                React</span></a><button aria-expanded="false"
+                            aria-label="Expand API Integration in React"
+                            class="nav-expand" data-expand="chapter-9"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-9"><a class="subnav-link"
+                            data-chapter="chapter-9"
+                            data-section="91-introduction-to-api-integration"
+                            href="#91-introduction-to-api-integration">9.1
+                            Introduction to API Integration</a><a
+                            class="subnav-link" data-chapter="chapter-9"
+                            data-section="92-fetch-api" href="#92-fetch-api">9.2
+                            Fetch API</a><a class="subnav-link"
+                            data-chapter="chapter-9" data-section="93-axios"
+                            href="#93-axios">9.3 Axios</a><a class="subnav-link"
+                            data-chapter="chapter-9"
+                            data-section="94-rest-api-integration"
+                            href="#94-rest-api-integration">9.4 REST API
+                            Integration</a><a class="subnav-link"
+                            data-chapter="chapter-9"
+                            data-section="95-authentication-and-authorization"
+                            href="#95-authentication-and-authorization">9.5
+                            Authentication and Authorization</a><a
+                            class="subnav-link" data-chapter="chapter-9"
+                            data-section="96-error-handling"
+                            href="#96-error-handling">9.6 Error Handling</a><a
+                            class="subnav-link" data-chapter="chapter-9"
+                            data-section="97-file-upload-and-download"
+                            href="#97-file-upload-and-download">9.7 File Upload
+                            and Download</a><a class="subnav-link"
+                            data-chapter="chapter-9"
+                            data-section="98-pagination-filtering-and-searching"
+                            href="#98-pagination-filtering-and-searching">9.8
+                            Pagination, Filtering, and Searching</a><a
+                            class="subnav-link" data-chapter="chapter-9"
+                            data-section="99-common-mistakes-and-best-practices"
+                            href="#99-common-mistakes-and-best-practices">9.9
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-9"
+                            data-section="910-interview-questions"
+                            href="#910-interview-questions">9.10 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-9" data-section="911-summary"
+                            href="#911-summary">9.11 Summary</a><a
+                            class="subnav-link" data-chapter="chapter-9"
+                            data-section="from-beginner-to-professional--9"
+                            href="#from-beginner-to-professional--9">From
+                            Beginner to Professional</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-10"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-10"
+                            href="#chapter-10"><span class="dot"></span><span
+                                class="nav-num">10</span><span
+                                class="nav-title">TypeScript in
+                                React</span></a><button aria-expanded="false"
+                            aria-label="Expand TypeScript in React"
+                            class="nav-expand" data-expand="chapter-10"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-10"><a class="subnav-link"
+                            data-chapter="chapter-10"
+                            data-section="101-introduction-to-typescript"
+                            href="#101-introduction-to-typescript">10.1
+                            Introduction to TypeScript</a><a class="subnav-link"
+                            data-chapter="chapter-10"
+                            data-section="102-typescript-setup-with-react"
+                            href="#102-typescript-setup-with-react">10.2
+                            TypeScript Setup with React</a><a
+                            class="subnav-link" data-chapter="chapter-10"
+                            data-section="103-basic-types"
+                            href="#103-basic-types">10.3 Basic Types</a><a
+                            class="subnav-link" data-chapter="chapter-10"
+                            data-section="104-interfaces-and-type-aliases"
+                            href="#104-interfaces-and-type-aliases">10.4
+                            Interfaces and Type Aliases</a><a
+                            class="subnav-link" data-chapter="chapter-10"
+                            data-section="105-generics"
+                            href="#105-generics">10.5 Generics</a><a
+                            class="subnav-link" data-chapter="chapter-10"
+                            data-section="106-utility-types"
+                            href="#106-utility-types">10.6 Utility Types</a><a
+                            class="subnav-link" data-chapter="chapter-10"
+                            data-section="107-type-narrowing-and-type-guards"
+                            href="#107-type-narrowing-and-type-guards">10.7 Type
+                            Narrowing and Type Guards</a><a class="subnav-link"
+                            data-chapter="chapter-10"
+                            data-section="108-advanced-types"
+                            href="#108-advanced-types">10.8 Advanced Types</a><a
+                            class="subnav-link" data-chapter="chapter-10"
+                            data-section="109-typescript-in-react-components"
+                            href="#109-typescript-in-react-components">10.9
+                            TypeScript in React Components</a><a
+                            class="subnav-link" data-chapter="chapter-10"
+                            data-section="1010-common-mistakes-and-best-practices"
+                            href="#1010-common-mistakes-and-best-practices">10.10
+                            Common Mistakes and Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-10"
+                            data-section="1011-interview-questions"
+                            href="#1011-interview-questions">10.11 Interview
+                            Questions</a><a class="subnav-link"
+                            data-chapter="chapter-10"
+                            data-section="1012-summary"
+                            href="#1012-summary">10.12
+                            Summary</a></div></div><div class="nav-chapter"
+                    data-chapter="chapter-11" style="--accent:#B91C1C"><div
+                        class="nav-chapter-row"><a class="nav-link"
+                            data-target="chapter-11" href="#chapter-11"><span
+                                class="dot"></span><span
+                                class="nav-num">11</span><span
+                                class="nav-title">Enterprise React Project
+                                Structure</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand Enterprise React Project Structure"
+                            class="nav-expand" data-expand="chapter-11"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-11"><a class="subnav-link"
+                            data-chapter="chapter-11"
+                            data-section="why-project-structure-matters"
+                            href="#why-project-structure-matters">Why Project
+                            Structure Matters</a><a class="subnav-link"
+                            data-chapter="chapter-11"
+                            data-section="how-data-flows-through-the-application"
+                            href="#how-data-flows-through-the-application">How
+                            Data Flows Through the Application</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="root-project-structure"
+                            href="#root-project-structure">Root Project
+                            Structure</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="api"
+                            href="#api">api/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="assets"
+                            href="#assets">assets/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="components"
+                            href="#components">components/</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="pages" href="#pages">pages/</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="layouts"
+                            href="#layouts">layouts/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="hooks"
+                            href="#hooks">hooks/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="services"
+                            href="#services">services/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="routes"
+                            href="#routes">routes/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="context"
+                            href="#context">context/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="store"
+                            href="#store">store/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="providers"
+                            href="#providers">providers/</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="constants"
+                            href="#constants">constants/</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="config" href="#config">config/</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="utils" href="#utils">utils/</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="types" href="#types">types/</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="validations"
+                            href="#validations">validations/</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="features"
+                            href="#features">features/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="shared"
+                            href="#shared">shared/</a><a class="subnav-link"
+                            data-chapter="chapter-11" data-section="main-files"
+                            href="#main-files">Main Files</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="file-extensions"
+                            href="#file-extensions">File Extensions</a><a
+                            class="subnav-link" data-chapter="chapter-11"
+                            data-section="summary"
+                            href="#summary">Summary</a></div></div><div
+                    class="nav-chapter" data-chapter="chapter-12"
+                    style="--accent:#B91C1C"><div class="nav-chapter-row"><a
+                            class="nav-link" data-target="chapter-12"
+                            href="#chapter-12"><span class="dot"></span><span
+                                class="nav-num">12</span><span
+                                class="nav-title">Understanding Data Flow in
+                                React Applications</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand Understanding Data Flow in React Applications"
+                            class="nav-expand" data-expand="chapter-12"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-12"><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="introduction--2"
+                            href="#introduction--2">Introduction</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="the-complete-data-flow"
+                            href="#the-complete-data-flow">The Complete Data
+                            Flow</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-1-the-user"
+                            href="#step-1-the-user">Step 1 — The User</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="step-2-react-page"
+                            href="#step-2-react-page">Step 2 — React Page</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="step-3-react-component"
+                            href="#step-3-react-component">Step 3 — React
+                            Component</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-4-event-handler"
+                            href="#step-4-event-handler">Step 4 — Event
+                            Handler</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-5-reading-state"
+                            href="#step-5-reading-state">Step 5 — Reading
+                            State</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-6-validation"
+                            href="#step-6-validation">Step 6 — Validation</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="step-7-custom-hooks-optional"
+                            href="#step-7-custom-hooks-optional">Step 7 — Custom
+                            Hooks (Optional)</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-8-business-service"
+                            href="#step-8-business-service">Step 8 — Business
+                            Service</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-9-api-layer"
+                            href="#step-9-api-layer">Step 9 — API Layer</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="step-10-axios"
+                            href="#step-10-axios">Step 10 — Axios</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="step-11-http-request"
+                            href="#step-11-http-request">Step 11 — HTTP
+                            Request</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-12-spring-boot-controller"
+                            href="#step-12-spring-boot-controller">Step 12 —
+                            Spring Boot Controller</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-13-spring-service"
+                            href="#step-13-spring-service">Step 13 — Spring
+                            Service</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-14-repository"
+                            href="#step-14-repository">Step 14 —
+                            Repository</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="step-15-database"
+                            href="#step-15-database">Step 15 — Database</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="the-response-journey"
+                            href="#the-response-journey">The Response
+                            Journey</a><a class="subnav-link"
+                            data-chapter="chapter-12" data-section="react-query"
+                            href="#react-query">React Query</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="updating-the-ui"
+                            href="#updating-the-ui">Updating the UI</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="why-react-re-renders"
+                            href="#why-react-re-renders">Why React
+                            Re-renders</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="complete-enterprise-example"
+                            href="#complete-enterprise-example">Complete
+                            Enterprise Example</a><a class="subnav-link"
+                            data-chapter="chapter-12" data-section="error-flow"
+                            href="#error-flow">Error Flow</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="authentication-flow"
+                            href="#authentication-flow">Authentication
+                            Flow</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="file-upload-flow"
+                            href="#file-upload-flow">File Upload Flow</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="data-flow-responsibilities"
+                            href="#data-flow-responsibilities">Data Flow
+                            Responsibilities</a><a class="subnav-link"
+                            data-chapter="chapter-12"
+                            data-section="best-practices"
+                            href="#best-practices">Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="common-mistakes"
+                            href="#common-mistakes">Common Mistakes</a><a
+                            class="subnav-link" data-chapter="chapter-12"
+                            data-section="chapter-summary"
+                            href="#chapter-summary">Chapter
+                            Summary</a></div></div><div class="nav-chapter"
+                    data-chapter="chapter-13" style="--accent:#B91C1C"><div
+                        class="nav-chapter-row"><a class="nav-link"
+                            data-target="chapter-13" href="#chapter-13"><span
+                                class="dot"></span><span
+                                class="nav-num">13</span><span
+                                class="nav-title">Enterprise React Architecture
+                                Case Study</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand Enterprise React Architecture Case Study"
+                            class="nav-expand" data-expand="chapter-13"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-13"><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="introduction--3"
+                            href="#introduction--3">Introduction</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="high-level-architecture"
+                            href="#high-level-architecture">High-Level
+                            Architecture</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="overall-folder-structure"
+                            href="#overall-folder-structure">Overall Folder
+                            Structure</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="application-startup"
+                            href="#application-startup">Application
+                            Startup</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="authentication-architecture"
+                            href="#authentication-architecture">Authentication
+                            Architecture</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="customer-module"
+                            href="#customer-module">Customer Module</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="customer-folder-communication"
+                            href="#customer-folder-communication">Customer
+                            Folder Communication</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="creating-a-customer"
+                            href="#creating-a-customer">Creating a
+                            Customer</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="orders-module"
+                            href="#orders-module">Orders Module</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="order-status-flow"
+                            href="#order-status-flow">Order Status Flow</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="laundry-module"
+                            href="#laundry-module">Laundry Module</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="tailoring-module"
+                            href="#tailoring-module">Tailoring Module</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="employee-module"
+                            href="#employee-module">Employee Module</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="payment-module"
+                            href="#payment-module">Payment Module</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="reports-module"
+                            href="#reports-module">Reports Module</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="dashboard-module"
+                            href="#dashboard-module">Dashboard Module</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="components-communication"
+                            href="#components-communication">Components
+                            Communication</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="context-communication"
+                            href="#context-communication">Context
+                            Communication</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="hooks-communication"
+                            href="#hooks-communication">Hooks
+                            Communication</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="services-communication"
+                            href="#services-communication">Services
+                            Communication</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="api-communication"
+                            href="#api-communication">API Communication</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="axios-communication"
+                            href="#axios-communication">Axios
+                            Communication</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="react-query-communication"
+                            href="#react-query-communication">React Query
+                            Communication</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="example-complete-customer-creation"
+                            href="#example-complete-customer-creation">Example —
+                            Complete Customer Creation</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="complete-project-communication-diagram"
+                            href="#complete-project-communication-diagram">Complete
+                            Project Communication Diagram</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="responsibility-matrix"
+                            href="#responsibility-matrix">Responsibility
+                            Matrix</a><a class="subnav-link"
+                            data-chapter="chapter-13"
+                            data-section="best-practices--2"
+                            href="#best-practices--2">Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="common-mistakes--2"
+                            href="#common-mistakes--2">Common Mistakes</a><a
+                            class="subnav-link" data-chapter="chapter-13"
+                            data-section="chapter-summary--2"
+                            href="#chapter-summary--2">Chapter
+                            Summary</a></div></div><div class="nav-chapter"
+                    data-chapter="chapter-14" style="--accent:#B91C1C"><div
+                        class="nav-chapter-row"><a class="nav-link"
+                            data-target="chapter-14" href="#chapter-14"><span
+                                class="dot"></span><span
+                                class="nav-num">14</span><span
+                                class="nav-title">React Performance
+                                Optimization</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand React Performance Optimization"
+                            class="nav-expand" data-expand="chapter-14"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-14"><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="introduction--4"
+                            href="#introduction--4">Introduction</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="why-performance-matters"
+                            href="#why-performance-matters">Why Performance
+                            Matters</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="understanding-rendering"
+                            href="#understanding-rendering">Understanding
+                            Rendering</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="the-rendering-process"
+                            href="#the-rendering-process">The Rendering
+                            Process</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="what-causes-a-component-to-re-render"
+                            href="#what-causes-a-component-to-re-render">What
+                            Causes a Component to Re-render?</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="unnecessary-re-renders"
+                            href="#unnecessary-re-renders">Unnecessary
+                            Re-renders</a><a class="subnav-link"
+                            data-chapter="chapter-14" data-section="reactmemo"
+                            href="#reactmemo">React.memo()</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="when-to-use-reactmemo"
+                            href="#when-to-use-reactmemo">When to Use
+                            React.memo()</a><a class="subnav-link"
+                            data-chapter="chapter-14" data-section="usememo"
+                            href="#usememo">useMemo()</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="real-example"
+                            href="#real-example">Real Example</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="when-to-use-usememo"
+                            href="#when-to-use-usememo">When to Use
+                            useMemo()</a><a class="subnav-link"
+                            data-chapter="chapter-14" data-section="usecallback"
+                            href="#usecallback">useCallback()</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="usememo-vs-usecallback"
+                            href="#usememo-vs-usecallback">useMemo vs
+                            useCallback</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="lazy-loading"
+                            href="#lazy-loading">Lazy Loading</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="reactlazy"
+                            href="#reactlazy">React.lazy()</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="suspense"
+                            href="#suspense">Suspense</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="code-splitting"
+                            href="#code-splitting">Code Splitting</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="route-based-code-splitting"
+                            href="#route-based-code-splitting">Route-Based Code
+                            Splitting</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="image-optimization"
+                            href="#image-optimization">Image Optimization</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="virtualization"
+                            href="#virtualization">Virtualization</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="pagination-vs-virtualization"
+                            href="#pagination-vs-virtualization">Pagination vs
+                            Virtualization</a><a class="subnav-link"
+                            data-chapter="chapter-14" data-section="debouncing"
+                            href="#debouncing">Debouncing</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="throttling"
+                            href="#throttling">Throttling</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="react-query-performance"
+                            href="#react-query-performance">React Query
+                            Performance</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="memoizing-derived-data"
+                            href="#memoizing-derived-data">Memoizing Derived
+                            Data</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="optimizing-context"
+                            href="#optimizing-context">Optimizing Context</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="avoid-anonymous-functions-in-large-lists"
+                            href="#avoid-anonymous-functions-in-large-lists">Avoid
+                            Anonymous Functions in Large Lists</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="keys-in-lists"
+                            href="#keys-in-lists">Keys in Lists</a><a
+                            class="subnav-link" data-chapter="chapter-14"
+                            data-section="bundle-optimization"
+                            href="#bundle-optimization">Bundle
+                            Optimization</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="measuring-performance"
+                            href="#measuring-performance">Measuring
+                            Performance</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="react-developer-tools"
+                            href="#react-developer-tools">React Developer
+                            Tools</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="common-performance-mistakes"
+                            href="#common-performance-mistakes">Common
+                            Performance Mistakes</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="enterprise-performance-checklist"
+                            href="#enterprise-performance-checklist">Enterprise
+                            Performance Checklist</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="performance-optimization-decision-flow"
+                            href="#performance-optimization-decision-flow">Performance
+                            Optimization Decision Flow</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="performance-optimization-summary"
+                            href="#performance-optimization-summary">Performance
+                            Optimization Summary</a><a class="subnav-link"
+                            data-chapter="chapter-14"
+                            data-section="chapter-summary--3"
+                            href="#chapter-summary--3">Chapter
+                            Summary</a></div></div><div class="nav-chapter"
+                    data-chapter="chapter-15" style="--accent:#B91C1C"><div
+                        class="nav-chapter-row"><a class="nav-link"
+                            data-target="chapter-15" href="#chapter-15"><span
+                                class="dot"></span><span
+                                class="nav-num">15</span><span
+                                class="nav-title">Testing React
+                                Applications</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand Testing React Applications"
+                            class="nav-expand" data-expand="chapter-15"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-15"><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="introduction--5"
+                            href="#introduction--5">Introduction</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="what-is-testing"
+                            href="#what-is-testing">What is Testing?</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="why-testing-matters"
+                            href="#why-testing-matters">Why Testing
+                            Matters</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="types-of-testing"
+                            href="#types-of-testing">Types of Testing</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="unit-testing"
+                            href="#unit-testing">Unit Testing</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="component-testing"
+                            href="#component-testing">Component Testing</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="integration-testing"
+                            href="#integration-testing">Integration
+                            Testing</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="end-to-end-testing-e2e"
+                            href="#end-to-end-testing-e2e">End-to-End Testing
+                            (E2E)</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="testing-pyramid"
+                            href="#testing-pyramid">Testing Pyramid</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="testing-tools"
+                            href="#testing-tools">Testing Tools</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="why-vitest" href="#why-vitest">Why
+                            Vitest?</a><a class="subnav-link"
+                            data-chapter="chapter-15" data-section="why-jest"
+                            href="#why-jest">Why Jest?</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="react-testing-library-rtl"
+                            href="#react-testing-library-rtl">React Testing
+                            Library (RTL)</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="testing-philosophy"
+                            href="#testing-philosophy">Testing Philosophy</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="project-structure"
+                            href="#project-structure">Project Structure</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="naming-convention"
+                            href="#naming-convention">Naming Convention</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="writing-your-first-test"
+                            href="#writing-your-first-test">Writing Your First
+                            Test</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="testing-user-interaction"
+                            href="#testing-user-interaction">Testing User
+                            Interaction</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="testing-forms"
+                            href="#testing-forms">Testing Forms</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="testing-api-calls"
+                            href="#testing-api-calls">Testing API Calls</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="mocking" href="#mocking">Mocking</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="mock-service-worker-msw"
+                            href="#mock-service-worker-msw">Mock Service Worker
+                            (MSW)</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="testing-react-query"
+                            href="#testing-react-query">Testing React
+                            Query</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="testing-context"
+                            href="#testing-context">Testing Context</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="testing-custom-hooks"
+                            href="#testing-custom-hooks">Testing Custom
+                            Hooks</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="snapshot-testing"
+                            href="#snapshot-testing">Snapshot Testing</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="code-coverage"
+                            href="#code-coverage">Code Coverage</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="continuous-integration"
+                            href="#continuous-integration">Continuous
+                            Integration</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="what-should-you-test"
+                            href="#what-should-you-test">What Should You
+                            Test?</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="what-should-you-avoid-testing"
+                            href="#what-should-you-avoid-testing">What Should
+                            You Avoid Testing?</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="common-testing-mistakes"
+                            href="#common-testing-mistakes">Common Testing
+                            Mistakes</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="best-practices--3"
+                            href="#best-practices--3">Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-15"
+                            data-section="enterprise-testing-workflow"
+                            href="#enterprise-testing-workflow">Enterprise
+                            Testing Workflow</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="testing-tools-comparison"
+                            href="#testing-tools-comparison">Testing Tools
+                            Comparison</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="choosing-the-right-tool"
+                            href="#choosing-the-right-tool">Choosing the Right
+                            Tool</a><a class="subnav-link"
+                            data-chapter="chapter-15"
+                            data-section="chapter-summary--4"
+                            href="#chapter-summary--4">Chapter
+                            Summary</a></div></div><div class="nav-chapter"
+                    data-chapter="chapter-16" style="--accent:#B91C1C"><div
+                        class="nav-chapter-row"><a class="nav-link"
+                            data-target="chapter-16" href="#chapter-16"><span
+                                class="dot"></span><span
+                                class="nav-num">16</span><span
+                                class="nav-title">Deployment and DevOps for
+                                React Applications</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand Deployment and DevOps for React Applications"
+                            class="nav-expand" data-expand="chapter-16"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-16"><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="introduction--6"
+                            href="#introduction--6">Introduction</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="what-is-deployment"
+                            href="#what-is-deployment">What is Deployment?</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="development-vs-production"
+                            href="#development-vs-production">Development vs
+                            Production</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="how-vite-works"
+                            href="#how-vite-works">How Vite Works</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="the-build-process"
+                            href="#the-build-process">The Build Process</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="what-happens-during-build"
+                            href="#what-happens-during-build">What Happens
+                            During Build?</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="environment-variables"
+                            href="#environment-variables">Environment
+                            Variables</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="common-environment-files"
+                            href="#common-environment-files">Common Environment
+                            Files</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="never-store-secrets"
+                            href="#never-store-secrets">Never Store
+                            Secrets</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="static-hosting"
+                            href="#static-hosting">Static Hosting</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="nginx" href="#nginx">Nginx</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="why-use-nginx"
+                            href="#why-use-nginx">Why Use Nginx?</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="reverse-proxy"
+                            href="#reverse-proxy">Reverse Proxy</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="docker" href="#docker">Docker</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="dockerfile"
+                            href="#dockerfile">Dockerfile</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="multi-stage-docker-build"
+                            href="#multi-stage-docker-build">Multi-Stage Docker
+                            Build</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="docker-compose"
+                            href="#docker-compose">Docker Compose</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="deployment-pipeline"
+                            href="#deployment-pipeline">Deployment
+                            Pipeline</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="continuous-integration-ci"
+                            href="#continuous-integration-ci">Continuous
+                            Integration (CI)</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="continuous-deployment-cd"
+                            href="#continuous-deployment-cd">Continuous
+                            Deployment (CD)</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="github-actions"
+                            href="#github-actions">GitHub Actions</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="typical-github-actions-workflow"
+                            href="#typical-github-actions-workflow">Typical
+                            GitHub Actions Workflow</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="hosting-platforms"
+                            href="#hosting-platforms">Hosting Platforms</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="production-folder-structure"
+                            href="#production-folder-structure">Production
+                            Folder Structure</a><a class="subnav-link"
+                            data-chapter="chapter-16" data-section="logging"
+                            href="#logging">Logging</a><a class="subnav-link"
+                            data-chapter="chapter-16" data-section="monitoring"
+                            href="#monitoring">Monitoring</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="deployment-checklist"
+                            href="#deployment-checklist">Deployment
+                            Checklist</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="common-deployment-mistakes"
+                            href="#common-deployment-mistakes">Common Deployment
+                            Mistakes</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="complete-enterprise-deployment-flow"
+                            href="#complete-enterprise-deployment-flow">Complete
+                            Enterprise Deployment Flow</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="architecture-overview"
+                            href="#architecture-overview">Architecture
+                            Overview</a><a class="subnav-link"
+                            data-chapter="chapter-16"
+                            data-section="best-practices--4"
+                            href="#best-practices--4">Best Practices</a><a
+                            class="subnav-link" data-chapter="chapter-16"
+                            data-section="chapter-summary--5"
+                            href="#chapter-summary--5">Chapter
+                            Summary</a></div></div><div class="nav-chapter"
+                    data-chapter="chapter-17" style="--accent:#B91C1C"><div
+                        class="nav-chapter-row"><a class="nav-link"
+                            data-target="chapter-17" href="#chapter-17"><span
+                                class="dot"></span><span
+                                class="nav-num">17</span><span
+                                class="nav-title">React Security Best
+                                Practices</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand React Security Best Practices"
+                            class="nav-expand" data-expand="chapter-17"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-17"><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="introduction--7"
+                            href="#introduction--7">Introduction</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="the-security-model-of-a-react-application"
+                            href="#the-security-model-of-a-react-application">The
+                            Security Model of a React Application</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="frontend-security-vs-backend-security"
+                            href="#frontend-security-vs-backend-security">Frontend
+                            Security vs Backend Security</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="authentication-vs-authorization"
+                            href="#authentication-vs-authorization">Authentication
+                            vs Authorization</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="authentication"
+                            href="#authentication">Authentication</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="authorization"
+                            href="#authorization">Authorization</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="jwt-authentication-flow"
+                            href="#jwt-authentication-flow">JWT Authentication
+                            Flow</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="jwt-structure"
+                            href="#jwt-structure">JWT Structure</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="header" href="#header">Header</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="payload" href="#payload">Payload</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="signature"
+                            href="#signature">Signature</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="where-should-we-store-jwt"
+                            href="#where-should-we-store-jwt">Where Should We
+                            Store JWT?</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="localstorage"
+                            href="#localstorage">localStorage</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="cookies" href="#cookies">Cookies</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="enterprise-recommendation"
+                            href="#enterprise-recommendation">Enterprise
+                            Recommendation</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="axios-interceptors"
+                            href="#axios-interceptors">Axios Interceptors</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="protected-routes"
+                            href="#protected-routes">Protected Routes</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="important-security-rule"
+                            href="#important-security-rule">Important Security
+                            Rule</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="role-based-access-control-rbac"
+                            href="#role-based-access-control-rbac">Role-Based
+                            Access Control (RBAC)</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="permission-example"
+                            href="#permission-example">Permission Example</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="xss-attack" href="#xss-attack">XSS
+                            Attack</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="react-protection-against-xss"
+                            href="#react-protection-against-xss">React
+                            Protection Against XSS</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="dangerous-html"
+                            href="#dangerous-html">Dangerous HTML</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="sanitization"
+                            href="#sanitization">Sanitization</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="csrf-attack" href="#csrf-attack">CSRF
+                            Attack</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="csrf-protection"
+                            href="#csrf-protection">CSRF Protection</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="sql-injection"
+                            href="#sql-injection">SQL Injection</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="react-responsibility"
+                            href="#react-responsibility">React
+                            Responsibility</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="input-validation"
+                            href="#input-validation">Input Validation</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="validation-layers"
+                            href="#validation-layers">Validation Layers</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="file-upload-security"
+                            href="#file-upload-security">File Upload
+                            Security</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="safe-upload-process"
+                            href="#safe-upload-process">Safe Upload
+                            Process</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="example-restrictions"
+                            href="#example-restrictions">Example
+                            Restrictions</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="environment-security"
+                            href="#environment-security">Environment
+                            Security</a><a class="subnav-link"
+                            data-chapter="chapter-17" data-section="https"
+                            href="#https">HTTPS</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="content-security-policy-csp"
+                            href="#content-security-policy-csp">Content Security
+                            Policy (CSP)</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="security-headers"
+                            href="#security-headers">Security Headers</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="dependency-security"
+                            href="#dependency-security">Dependency
+                            Security</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="keeping-dependencies-updated"
+                            href="#keeping-dependencies-updated">Keeping
+                            Dependencies Updated</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="error-handling-security"
+                            href="#error-handling-security">Error Handling
+                            Security</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="logging-security"
+                            href="#logging-security">Logging Security</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="security-checklist"
+                            href="#security-checklist">Security Checklist</a><a
+                            class="subnav-link" data-chapter="chapter-17"
+                            data-section="enterprise-security-flow"
+                            href="#enterprise-security-flow">Enterprise Security
+                            Flow</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="common-security-mistakes"
+                            href="#common-security-mistakes">Common Security
+                            Mistakes</a><a class="subnav-link"
+                            data-chapter="chapter-17"
+                            data-section="chapter-summary--6"
+                            href="#chapter-summary--6">Chapter
+                            Summary</a></div></div><div class="nav-chapter"
+                    data-chapter="chapter-18" style="--accent:#B91C1C"><div
+                        class="nav-chapter-row"><a class="nav-link"
+                            data-target="chapter-18" href="#chapter-18"><span
+                                class="dot"></span><span
+                                class="nav-num">18</span><span
+                                class="nav-title">State Management in React
+                                Applications</span></a><button
+                            aria-expanded="false"
+                            aria-label="Expand State Management in React Applications"
+                            class="nav-expand" data-expand="chapter-18"
+                            type="button">⌄</button></div><div class="subnav"
+                        id="subnav-chapter-18"><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="introduction--8"
+                            href="#introduction--8">Introduction</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="what-is-state"
+                            href="#what-is-state">What is State?</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="state-vs-normal-variables"
+                            href="#state-vs-normal-variables">State vs Normal
+                            Variables</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="types-of-state-in-react"
+                            href="#types-of-state-in-react">Types of State in
+                            React</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="component-state"
+                            href="#component-state">Component State</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="example" href="#example">Example</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="sharing-component-state"
+                            href="#sharing-component-state">Sharing Component
+                            State</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="lifting-state-up-example"
+                            href="#lifting-state-up-example">Lifting State Up
+                            Example</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="props-drilling-problem"
+                            href="#props-drilling-problem">Props Drilling
+                            Problem</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="props-drilling"
+                            href="#props-drilling">Props Drilling</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="context-api"
+                            href="#context-api">Context API</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="context-example"
+                            href="#context-example">Context Example</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="common-contexts"
+                            href="#common-contexts">Common Contexts</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="context-limitations"
+                            href="#context-limitations">Context
+                            Limitations</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="server-state-vs-client-state"
+                            href="#server-state-vs-client-state">Server State vs
+                            Client State</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="client-state"
+                            href="#client-state">Client State</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="server-state"
+                            href="#server-state">Server State</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="why-server-state-is-different"
+                            href="#why-server-state-is-different">Why Server
+                            State is Different</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="react-query-state-management"
+                            href="#react-query-state-management">React Query
+                            State Management</a><a class="subnav-link"
+                            data-chapter="chapter-18" data-section="redux"
+                            href="#redux">Redux</a><a class="subnav-link"
+                            data-chapter="chapter-18" data-section="redux-store"
+                            href="#redux-store">Redux Store</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="redux-actions"
+                            href="#redux-actions">Redux Actions</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="reducers"
+                            href="#reducers">Reducers</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="redux-toolkit"
+                            href="#redux-toolkit">Redux Toolkit</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="redux-architecture"
+                            href="#redux-architecture">Redux Architecture</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="zustand" href="#zustand">Zustand</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="redux-vs-zustand-vs-context"
+                            href="#redux-vs-zustand-vs-context">Redux vs Zustand
+                            vs Context</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="form-state-management"
+                            href="#form-state-management">Form State
+                            Management</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="react-hook-form"
+                            href="#react-hook-form">React Hook Form</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="form-architecture"
+                            href="#form-architecture">Form Architecture</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="url-state" href="#url-state">URL
+                            State</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="local-storage-state"
+                            href="#local-storage-state">Local Storage
+                            State</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="session-storage"
+                            href="#session-storage">Session Storage</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="state-management-architecture-example"
+                            href="#state-management-architecture-example">State
+                            Management Architecture Example</a><a
+                            class="subnav-link" data-chapter="chapter-18"
+                            data-section="real-enterprise-example"
+                            href="#real-enterprise-example">Real Enterprise
+                            Example</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="choosing-the-right-tool--2"
+                            href="#choosing-the-right-tool--2">Choosing the
+                            Right Tool</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="common-state-management-mistakes"
+                            href="#common-state-management-mistakes">Common
+                            State Management Mistakes</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="state-management-best-practices"
+                            href="#state-management-best-practices">State
+                            Management Best Practices</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="state-decision-tree"
+                            href="#state-decision-tree">State Decision
+                            Tree</a><a class="subnav-link"
+                            data-chapter="chapter-18"
+                            data-section="chapter-summary--7"
+                            href="#chapter-summary--7">Chapter
+                            Summary</a></div></div></div>
+        </nav>
+        <div class="page">
+            <header class="hero">
+                <div class="eyebrow">18 chapters · beginner to enterprise</div>
+                <h1>The Complete React Developer Course</h1>
+                <h2>From Beginner to Professional</h2>
+                <h3>A comprehensive guide to building enterprise-grade React
+                    applications.</h3>
+            </header>
+            <main id="mainContent">
+
+                <!-- COURSE_CHAPTERS -->
+            </main>
+            <footer><div class="creator-credit"><div><span>DevPath Academy ·
+                            Designed &amp; crafted by</span><strong>Ayman
+                            Aljamal · أيمن الجمل</strong></div><a
+                        href="https://github.com/aymanaljamal"
+                        rel="noopener noreferrer" target="_blank"
+                        aria-label="Visit Ayman Aljamal on GitHub"><span
+                            class="github-mark"
+                            aria-hidden="true">GH</span><span>github.com/aymanaljamal</span></a></div></footer>
+        </div>
+        <button aria-label="Back to top" class="back-to-top" id="backToTop"
+            title="Back to top" type="button">↑</button><script
+            src="assets/highlight.min.js"></script><script
+            src="assets/highlight-http.min.js"></script>
+        <!-- COURSE_DATA -->
+        <!-- INLINE_SCRIPTS -->
+
+    </body>
+</html>

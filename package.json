@@ -19,5 +19,11 @@
   "engines": {
     "node": ">=18"
   },
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@highlightjs/cdn-assets": "11.11.1"
+  },
+  "devDependencies": {
+    "terser": "^5.44.0"
+  }
 }

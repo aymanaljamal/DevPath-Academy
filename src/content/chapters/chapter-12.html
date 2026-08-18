@@ -1,59 +1,68 @@
 <section class="chapter" id="chapter-12" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">12</span>
-<h1 class="chapter-title" id="understanding-data-flow-in-react-applications">Understanding Data Flow in React Applications</h1>
-</div>
-<hr/>
-<h2 id="introduction--2">Introduction</h2>
-<p>One of the biggest challenges for new React developers is understanding <strong>how data moves through an application</strong>.</p>
-<p>Many beginners understand Components, Hooks, or APIs individually, but they don't understand <strong>how everything connects together</strong>.</p>
-<p>In enterprise applications, every button click follows a predictable journey.</p>
-<p>Understanding this journey is the key to reading any React project.</p>
-<p>This chapter explains that journey from the moment a user interacts with the application until the data reaches the database and returns back to the screen.</p>
-<hr/>
-<h2 id="the-complete-data-flow">The Complete Data Flow</h2>
-<p>Imagine the following scenario.</p>
-<p>A user opens the application and clicks:</p>
-<blockquote>
-<p>Create Customer</p>
-</blockquote>
-<p>The request travels through multiple layers.</p>
-<pre><code class="language-text">User → React Page → React Component → Event Handler → Custom Hook (Optional) → Business Service → API Layer → Axios → Internet (HTTP Request) → Spring Boot Controller → Spring Boot Service → Repository → Database
+    <div class="chapter-title-card">
+        <span class="chapter-num">12</span>
+        <h1 class="chapter-title"
+            id="understanding-data-flow-in-react-applications">Understanding
+            Data Flow in React Applications</h1>
+    </div>
+    <hr />
+    <h2 id="introduction--2">Introduction</h2>
+    <p>One of the biggest challenges for new React developers is understanding
+        <strong>how data moves through an application</strong>.</p>
+    <p>Many beginners understand Components, Hooks, or APIs individually, but
+        they don't understand <strong>how everything connects
+            together</strong>.</p>
+    <p>In enterprise applications, every button click follows a predictable
+        journey.</p>
+    <p>Understanding this journey is the key to reading any React project.</p>
+    <p>This chapter explains that journey from the moment a user interacts with
+        the application until the data reaches the database and returns back to
+        the screen.</p>
+    <hr />
+    <h2 id="the-complete-data-flow">The Complete Data Flow</h2>
+    <p>Imagine the following scenario.</p>
+    <p>A user opens the application and clicks:</p>
+    <blockquote>
+        <p>Create Customer</p>
+    </blockquote>
+    <p>The request travels through multiple layers.</p>
+    <pre><code class="language-text">User → React Page → React Component → Event Handler → Custom Hook (Optional) → Business Service → API Layer → Axios → Internet (HTTP Request) → Spring Boot Controller → Spring Boot Service → Repository → Database
 
 Database → Repository → Service → Controller → JSON Response → Axios → API Layer → Service Layer → React Query → React Component → Browser UI
 </code></pre>
-<p>Every enterprise React application follows approximately this architecture.</p>
-<hr/>
-<h2 id="step-1-the-user">Step 1 — The User</h2>
-<p>Everything starts with the user.</p>
-<p>The user can:</p>
-<ul>
-<li>Click a button</li>
-<li>Fill a form</li>
-<li>Type into an input</li>
-<li>Select an item</li>
-<li>Delete data</li>
-<li>Update data</li>
-<li>Navigate to another page</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-tsx">&lt;Button&gt;Create Customer&lt;/Button&gt;
+    <p>Every enterprise React application follows approximately this
+        architecture.</p>
+    <hr />
+    <h2 id="step-1-the-user">Step 1 — The User</h2>
+    <p>Everything starts with the user.</p>
+    <p>The user can:</p>
+    <ul>
+        <li>Click a button</li>
+        <li>Fill a form</li>
+        <li>Type into an input</li>
+        <li>Select an item</li>
+        <li>Delete data</li>
+        <li>Update data</li>
+        <li>Navigate to another page</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-tsx">&lt;Button&gt;Create Customer&lt;/Button&gt;
 </code></pre>
-<p>Nothing happens until the user performs an action.</p>
-<hr/>
-<h2 id="step-2-react-page">Step 2 — React Page</h2>
-<p>The current page receives the interaction.</p>
-<p>Example:</p>
-<pre><code>CustomersPage.tsx
+    <p>Nothing happens until the user performs an action.</p>
+    <hr />
+    <h2 id="step-2-react-page">Step 2 — React Page</h2>
+    <p>The current page receives the interaction.</p>
+    <p>Example:</p>
+    <pre><code>CustomersPage.tsx
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Display data</li>
-<li>Organize components</li>
-<li>Connect UI with business logic</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-tsx">export default function CustomersPage() {
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Display data</li>
+        <li>Organize components</li>
+        <li>Connect UI with business logic</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-tsx">export default function CustomersPage() {
 
     return (
 
@@ -63,154 +72,154 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 
 }
 </code></pre>
-<p>Pages usually contain multiple components.</p>
-<hr/>
-<h2 id="step-3-react-component">Step 3 — React Component</h2>
-<p>Components contain the actual UI.</p>
-<p>Example:</p>
-<pre><code>CustomerForm.tsx
+    <p>Pages usually contain multiple components.</p>
+    <hr />
+    <h2 id="step-3-react-component">Step 3 — React Component</h2>
+    <p>Components contain the actual UI.</p>
+    <p>Example:</p>
+    <pre><code>CustomerForm.tsx
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Render HTML</li>
-<li>Receive Props</li>
-<li>Display State</li>
-<li>Handle Events</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-tsx">&lt;Button onClick={handleSubmit}&gt;
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Render HTML</li>
+        <li>Receive Props</li>
+        <li>Display State</li>
+        <li>Handle Events</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-tsx">&lt;Button onClick={handleSubmit}&gt;
 
 Create
 
 &lt;/Button&gt;
 </code></pre>
-<p>The component itself should remain as simple as possible.</p>
-<hr/>
-<h2 id="step-4-event-handler">Step 4 — Event Handler</h2>
-<p>When the button is clicked:</p>
-<pre><code class="language-tsx">onClick={handleSubmit}
+    <p>The component itself should remain as simple as possible.</p>
+    <hr />
+    <h2 id="step-4-event-handler">Step 4 — Event Handler</h2>
+    <p>When the button is clicked:</p>
+    <pre><code class="language-tsx">onClick={handleSubmit}
 </code></pre>
-<p>React executes:</p>
-<pre><code class="language-tsx">function handleSubmit() {
+    <p>React executes:</p>
+    <pre><code class="language-tsx">function handleSubmit() {
 
     ...
 
 }
 </code></pre>
-<p>This function becomes the starting point of the business process.</p>
-<hr/>
-<h2 id="step-5-reading-state">Step 5 — Reading State</h2>
-<p>Before sending anything to the server, React reads the current data.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">const [customer, setCustomer] = useState(...)
+    <p>This function becomes the starting point of the business process.</p>
+    <hr />
+    <h2 id="step-5-reading-state">Step 5 — Reading State</h2>
+    <p>Before sending anything to the server, React reads the current data.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const [customer, setCustomer] = useState(...)
 </code></pre>
-<p>Current values:</p>
-<ul>
-<li>Name</li>
-<li>Phone</li>
-<li>Address</li>
-<li>Email</li>
-</ul>
-<p>These values become the request body.</p>
-<hr/>
-<h2 id="step-6-validation">Step 6 — Validation</h2>
-<p>Professional applications validate data before sending it.</p>
-<p>Example:</p>
-<ul>
-<li>Name required</li>
-<li>Phone format</li>
-<li>Email format</li>
-<li>Password length</li>
-</ul>
-<p>Libraries:</p>
-<ul>
-<li>Zod</li>
-<li>Yup</li>
-<li>React Hook Form</li>
-</ul>
-<p>If validation fails:</p>
-<ul>
-<li>Stop</li>
-<li>Show Error</li>
-<li>Do NOT call API</li>
-</ul>
-<hr/>
-<h2 id="step-7-custom-hooks-optional">Step 7 — Custom Hooks (Optional)</h2>
-<p>Many enterprise projects move logic into hooks.</p>
-<p>Example:</p>
-<ul>
-<li>useCustomer()</li>
-<li>useOrders()</li>
-<li>useEmployees()</li>
-</ul>
-<p>Instead of writing everything inside the component.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">const { createCustomer } = useCustomer();
+    <p>Current values:</p>
+    <ul>
+        <li>Name</li>
+        <li>Phone</li>
+        <li>Address</li>
+        <li>Email</li>
+    </ul>
+    <p>These values become the request body.</p>
+    <hr />
+    <h2 id="step-6-validation">Step 6 — Validation</h2>
+    <p>Professional applications validate data before sending it.</p>
+    <p>Example:</p>
+    <ul>
+        <li>Name required</li>
+        <li>Phone format</li>
+        <li>Email format</li>
+        <li>Password length</li>
+    </ul>
+    <p>Libraries:</p>
+    <ul>
+        <li>Zod</li>
+        <li>Yup</li>
+        <li>React Hook Form</li>
+    </ul>
+    <p>If validation fails:</p>
+    <ul>
+        <li>Stop</li>
+        <li>Show Error</li>
+        <li>Do NOT call API</li>
+    </ul>
+    <hr />
+    <h2 id="step-7-custom-hooks-optional">Step 7 — Custom Hooks (Optional)</h2>
+    <p>Many enterprise projects move logic into hooks.</p>
+    <p>Example:</p>
+    <ul>
+        <li>useCustomer()</li>
+        <li>useOrders()</li>
+        <li>useEmployees()</li>
+    </ul>
+    <p>Instead of writing everything inside the component.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const { createCustomer } = useCustomer();
 </code></pre>
-<p>Now the component becomes much cleaner.</p>
-<hr/>
-<h2 id="step-8-business-service">Step 8 — Business Service</h2>
-<p>The Service Layer contains business rules.</p>
-<p>Example:</p>
-<pre><code>customer.service.ts
+    <p>Now the component becomes much cleaner.</p>
+    <hr />
+    <h2 id="step-8-business-service">Step 8 — Business Service</h2>
+    <p>The Service Layer contains business rules.</p>
+    <p>Example:</p>
+    <pre><code>customer.service.ts
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Prepare data</li>
-<li>Transform data</li>
-<li>Filter data</li>
-<li>Decide which API to call</li>
-<li>Handle business logic</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-text">Component → Customer Service → Customer API
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Prepare data</li>
+        <li>Transform data</li>
+        <li>Filter data</li>
+        <li>Decide which API to call</li>
+        <li>Handle business logic</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-text">Component → Customer Service → Customer API
 </code></pre>
-<p>Services should not render UI.</p>
-<hr/>
-<h2 id="step-9-api-layer">Step 9 — API Layer</h2>
-<p>Now the request reaches:</p>
-<pre><code>customer.api.ts
+    <p>Services should not render UI.</p>
+    <hr />
+    <h2 id="step-9-api-layer">Step 9 — API Layer</h2>
+    <p>Now the request reaches:</p>
+    <pre><code>customer.api.ts
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Send HTTP Requests</li>
-<li>Receive HTTP Responses</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-tsx">export function createCustomer(data){
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Send HTTP Requests</li>
+        <li>Receive HTTP Responses</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-tsx">export function createCustomer(data){
 
     return api.post("/customers", data);
 
 }
 </code></pre>
-<p>Notice:</p>
-<p>No validation.</p>
-<p>No filtering.</p>
-<p>No UI.</p>
-<p>Only communication.</p>
-<hr/>
-<h2 id="step-10-axios">Step 10 — Axios</h2>
-<p>Every API file usually uses one shared Axios instance.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">const api = axios.create({
+    <p>Notice:</p>
+    <p>No validation.</p>
+    <p>No filtering.</p>
+    <p>No UI.</p>
+    <p>Only communication.</p>
+    <hr />
+    <h2 id="step-10-axios">Step 10 — Axios</h2>
+    <p>Every API file usually uses one shared Axios instance.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const api = axios.create({
 
     baseURL: "http://localhost:8080"
 
 });
 </code></pre>
-<p>Axios automatically:</p>
-<ul>
-<li>Adds Base URL</li>
-<li>Adds Authorization Token</li>
-<li>Converts JSON</li>
-<li>Handles Errors</li>
-<li>Executes Interceptors</li>
-</ul>
-<hr/>
-<h2 id="step-11-http-request">Step 11 — HTTP Request</h2>
-<p>Axios converts the JavaScript object into JSON.</p>
-<p>Example:</p>
-<pre><code class="language-json">{
+    <p>Axios automatically:</p>
+    <ul>
+        <li>Adds Base URL</li>
+        <li>Adds Authorization Token</li>
+        <li>Converts JSON</li>
+        <li>Handles Errors</li>
+        <li>Executes Interceptors</li>
+    </ul>
+    <hr />
+    <h2 id="step-11-http-request">Step 11 — HTTP Request</h2>
+    <p>Axios converts the JavaScript object into JSON.</p>
+    <p>Example:</p>
+    <pre><code class="language-json">{
 
 "name":"John",
 
@@ -218,245 +227,257 @@ Create
 
 }
 </code></pre>
-<p>Then sends:</p>
-<ul>
-<li>POST</li>
-<li>/customers</li>
-</ul>
-<p>Through the Internet.</p>
-<hr/>
-<h2 id="step-12-spring-boot-controller">Step 12 — Spring Boot Controller</h2>
-<p>The request reaches:</p>
-<pre><code>CustomerController
+    <p>Then sends:</p>
+    <ul>
+        <li>POST</li>
+        <li>/customers</li>
+    </ul>
+    <p>Through the Internet.</p>
+    <hr />
+    <h2 id="step-12-spring-boot-controller">Step 12 — Spring Boot
+        Controller</h2>
+    <p>The request reaches:</p>
+    <pre><code>CustomerController
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Receive Request</li>
-<li>Validate Request</li>
-<li>Call Service</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-java">@PostMapping
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Receive Request</li>
+        <li>Validate Request</li>
+        <li>Call Service</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-java">@PostMapping
 
 public Customer create(...)
 </code></pre>
-<p>Controllers should remain thin.</p>
-<hr/>
-<h2 id="step-13-spring-service">Step 13 — Spring Service</h2>
-<p>Now business logic executes.</p>
-<p>Example:</p>
-<pre><code>CustomerService
+    <p>Controllers should remain thin.</p>
+    <hr />
+    <h2 id="step-13-spring-service">Step 13 — Spring Service</h2>
+    <p>Now business logic executes.</p>
+    <p>Example:</p>
+    <pre><code>CustomerService
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Validate business rules</li>
-<li>Calculate values</li>
-<li>Execute workflow</li>
-<li>Call Repository</li>
-</ul>
-<hr/>
-<h2 id="step-14-repository">Step 14 — Repository</h2>
-<p>Repository communicates with the database.</p>
-<p>Example:</p>
-<pre><code>CustomerRepository
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Validate business rules</li>
+        <li>Calculate values</li>
+        <li>Execute workflow</li>
+        <li>Call Repository</li>
+    </ul>
+    <hr />
+    <h2 id="step-14-repository">Step 14 — Repository</h2>
+    <p>Repository communicates with the database.</p>
+    <p>Example:</p>
+    <pre><code>CustomerRepository
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Save</li>
-<li>Update</li>
-<li>Delete</li>
-<li>Find</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-java">repository.save(customer);
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Save</li>
+        <li>Update</li>
+        <li>Delete</li>
+        <li>Find</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-java">repository.save(customer);
 </code></pre>
-<hr/>
-<h2 id="step-15-database">Step 15 — Database</h2>
-<p>Finally data reaches:</p>
-<ul>
-<li>MySQL</li>
-<li>PostgreSQL</li>
-<li>Oracle</li>
-<li>SQL Server</li>
-</ul>
-<p>The record is stored.</p>
-<hr/>
-<h2 id="the-response-journey">The Response Journey</h2>
-<p>Everything now returns backwards.</p>
-<pre><code class="language-text">Database → Repository → Service → Controller → JSON → Axios → API → Service → React Query → Component → Screen
+    <hr />
+    <h2 id="step-15-database">Step 15 — Database</h2>
+    <p>Finally data reaches:</p>
+    <ul>
+        <li>MySQL</li>
+        <li>PostgreSQL</li>
+        <li>Oracle</li>
+        <li>SQL Server</li>
+    </ul>
+    <p>The record is stored.</p>
+    <hr />
+    <h2 id="the-response-journey">The Response Journey</h2>
+    <p>Everything now returns backwards.</p>
+    <pre><code class="language-text">Database → Repository → Service → Controller → JSON → Axios → API → Service → React Query → Component → Screen
 </code></pre>
-<hr/>
-<h2 id="react-query">React Query</h2>
-<p>Most enterprise applications use React Query.</p>
-<p>Responsibilities:</p>
-<ul>
-<li>Cache Data</li>
-<li>Loading State</li>
-<li>Error State</li>
-<li>Refetch</li>
-<li>Synchronization</li>
-</ul>
-<p>Instead of:</p>
-<ul>
-<li>Loading...</li>
-<li>Loading...</li>
-<li>Loading...</li>
-</ul>
-<p>React Query handles it automatically.</p>
-<hr/>
-<h2 id="updating-the-ui">Updating the UI</h2>
-<p>React receives new data.</p>
-<p>State changes.</p>
-<p>React re-renders only affected components.</p>
-<p>Example:</p>
-<ul>
-<li>Old Table</li>
-<li>10 Customers</li>
-<li>↓</li>
-<li>New Table</li>
-<li>11 Customers</li>
-</ul>
-<p>Only the table updates.</p>
-<p>The entire page is NOT reloaded.</p>
-<hr/>
-<h2 id="why-react-re-renders">Why React Re-renders</h2>
-<p>React compares:</p>
-<pre><code class="language-text">Old Virtual DOM → New Virtual DOM → Diff Algorithm → Only Changed Nodes → Real DOM Update
+    <hr />
+    <h2 id="react-query">React Query</h2>
+    <p>Most enterprise applications use React Query.</p>
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Cache Data</li>
+        <li>Loading State</li>
+        <li>Error State</li>
+        <li>Refetch</li>
+        <li>Synchronization</li>
+    </ul>
+    <p>Instead of:</p>
+    <ul>
+        <li>Loading...</li>
+        <li>Loading...</li>
+        <li>Loading...</li>
+    </ul>
+    <p>React Query handles it automatically.</p>
+    <hr />
+    <h2 id="updating-the-ui">Updating the UI</h2>
+    <p>React receives new data.</p>
+    <p>State changes.</p>
+    <p>React re-renders only affected components.</p>
+    <p>Example:</p>
+    <ul>
+        <li>Old Table</li>
+        <li>10 Customers</li>
+        <li>↓</li>
+        <li>New Table</li>
+        <li>11 Customers</li>
+    </ul>
+    <p>Only the table updates.</p>
+    <p>The entire page is NOT reloaded.</p>
+    <hr />
+    <h2 id="why-react-re-renders">Why React Re-renders</h2>
+    <p>React compares:</p>
+    <pre><code class="language-text">Old Virtual DOM → New Virtual DOM → Diff Algorithm → Only Changed Nodes → Real DOM Update
 </code></pre>
-<p>This makes React very fast.</p>
-<hr/>
-<h2 id="complete-enterprise-example">Complete Enterprise Example</h2>
-<p>Imagine the Laundry Management System.</p>
-<p>Customer submits a new laundry order.</p>
-<pre><code class="language-text">User → OrdersPage → CreateOrderForm → handleSubmit() → React Hook Form → Zod Validation → useOrder() → order.service.ts → order.api.ts → Axios → POST /orders → Spring Boot → OrderController → OrderService → OrderRepository → MySQL
+    <p>This makes React very fast.</p>
+    <hr />
+    <h2 id="complete-enterprise-example">Complete Enterprise Example</h2>
+    <p>Imagine the Laundry Management System.</p>
+    <p>Customer submits a new laundry order.</p>
+    <pre><code class="language-text">User → OrdersPage → CreateOrderForm → handleSubmit() → React Hook Form → Zod Validation → useOrder() → order.service.ts → order.api.ts → Axios → POST /orders → Spring Boot → OrderController → OrderService → OrderRepository → MySQL
 
 MySQL → OrderRepository → OrderService → OrderController → 201 Created → Axios → React Query Cache Update → Order Table → Success Toast → UI Updated
 </code></pre>
-<p>This is exactly how enterprise React applications operate.</p>
-<hr/>
-<h2 id="error-flow">Error Flow</h2>
-<p>Suppose something fails.</p>
-<p>Example:</p>
-<pre><code>Database Down
+    <p>This is exactly how enterprise React applications operate.</p>
+    <hr />
+    <h2 id="error-flow">Error Flow</h2>
+    <p>Suppose something fails.</p>
+    <p>Example:</p>
+    <pre><code>Database Down
 </code></pre>
-<p>The flow becomes:</p>
-<pre><code class="language-text">Database → Exception → Spring Boot → HTTP 500 → Axios → Interceptor → API Layer → Service Layer → React Query → Component → Toast → Error Message
+    <p>The flow becomes:</p>
+    <pre><code class="language-text">Database → Exception → Spring Boot → HTTP 500 → Axios → Interceptor → API Layer → Service Layer → React Query → Component → Toast → Error Message
 </code></pre>
-<p>The user sees:</p>
-<ul>
-<li>Unable to create customer.</li>
-<li>Please try again.</li>
-</ul>
-<p>Instead of a broken application.</p>
-<hr/>
-<h2 id="authentication-flow">Authentication Flow</h2>
-<p>Login follows a slightly different path.</p>
-<pre><code class="language-text">User → Login Form → Validation → auth.service.ts → auth.api.ts → POST /login → Spring Boot → JWT Token → Axios → Local Storage → Auth Context → Protected Routes → Dashboard
+    <p>The user sees:</p>
+    <ul>
+        <li>Unable to create customer.</li>
+        <li>Please try again.</li>
+    </ul>
+    <p>Instead of a broken application.</p>
+    <hr />
+    <h2 id="authentication-flow">Authentication Flow</h2>
+    <p>Login follows a slightly different path.</p>
+    <pre><code class="language-text">User → Login Form → Validation → auth.service.ts → auth.api.ts → POST /login → Spring Boot → JWT Token → Axios → Local Storage → Auth Context → Protected Routes → Dashboard
 </code></pre>
-<p>Every future request automatically includes:</p>
-<ul>
-<li>Authorization:</li>
-<li>Bearer <jwt token=""></jwt></li>
-</ul>
-<p>Axios Interceptors usually attach this token automatically.</p>
-<hr/>
-<h2 id="file-upload-flow">File Upload Flow</h2>
-<p>Uploading files introduces another path.</p>
-<pre><code class="language-text">User → Select File → File Object → FormData → Axios → Multipart Request → Spring Boot → Storage Service → Cloud / Local Disk → Database stores file path → Response → React → Image Preview
+    <p>Every future request automatically includes:</p>
+    <ul>
+        <li>Authorization:</li>
+        <li>Bearer <jwt token></jwt></li>
+    </ul>
+    <p>Axios Interceptors usually attach this token automatically.</p>
+    <hr />
+    <h2 id="file-upload-flow">File Upload Flow</h2>
+    <p>Uploading files introduces another path.</p>
+    <pre><code class="language-text">User → Select File → File Object → FormData → Axios → Multipart Request → Spring Boot → Storage Service → Cloud / Local Disk → Database stores file path → Response → React → Image Preview
 </code></pre>
-<hr/>
-<h2 id="data-flow-responsibilities">Data Flow Responsibilities</h2>
-<table>
-<thead>
-<tr>
-<th>Layer</th>
-<th>Responsibility</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>User</td>
-<td>Starts the interaction</td>
-</tr>
-<tr>
-<td>Page</td>
-<td>Organizes UI</td>
-</tr>
-<tr>
-<td>Component</td>
-<td>Displays interface</td>
-</tr>
-<tr>
-<td>Event Handler</td>
-<td>Responds to user actions</td>
-</tr>
-<tr>
-<td>Hook</td>
-<td>Reusable logic</td>
-</tr>
-<tr>
-<td>Validation</td>
-<td>Validate inputs</td>
-</tr>
-<tr>
-<td>Service</td>
-<td>Business logic</td>
-</tr>
-<tr>
-<td>API</td>
-<td>HTTP communication</td>
-</tr>
-<tr>
-<td>Axios</td>
-<td>Network client</td>
-</tr>
-<tr>
-<td>Spring Controller</td>
-<td>Receives request</td>
-</tr>
-<tr>
-<td>Spring Service</td>
-<td>Business processing</td>
-</tr>
-<tr>
-<td>Repository</td>
-<td>Database communication</td>
-</tr>
-<tr>
-<td>Database</td>
-<td>Stores information</td>
-</tr>
-<tr>
-<td>React Query</td>
-<td>Cache &amp; synchronization</td>
-</tr>
-<tr>
-<td>React Component</td>
-<td>Displays updated UI</td>
-</tr>
-</tbody>
-</table>
-<hr/>
-<h2 id="best-practices">Best Practices</h2>
-<p>✅ Keep Components focused on UI.</p>
-<p>✅ Move business logic to Services.</p>
-<p>✅ Keep API files responsible only for HTTP requests.</p>
-<p>✅ Use React Query for server state.</p>
-<p>✅ Validate before sending requests.</p>
-<p>✅ Handle loading and error states.</p>
-<p>✅ Use reusable hooks.</p>
-<p>✅ Separate concerns between UI, logic, networking, and persistence.</p>
-<hr/>
-<h2 id="common-mistakes">Common Mistakes</h2>
-<p>❌ Calling Axios directly inside every component.</p>
-<p>❌ Mixing UI code with business logic.</p>
-<p>❌ Duplicating API calls.</p>
-<p>❌ Keeping large amounts of state inside a single component.</p>
-<p>❌ Ignoring loading and error states.</p>
-<p>❌ Repeating validation logic in multiple places.</p>
-<p>❌ Making components responsible for everything.</p>
-<hr/>
-<h2 id="chapter-summary">Chapter Summary</h2>
-<p>Understanding React data flow is more important than memorizing APIs or hooks.</p>
-<p>Every enterprise React application is built around a layered architecture where each layer has one clear responsibility.</p>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-12" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-11"><span class="pager-label">← Previous chapter</span><strong>11 · Enterprise React Project Structure</strong></a><a class="pager-card pager-card--next" href="#chapter-13"><span class="pager-label">Next chapter →</span><strong>13 · Enterprise React Architecture Case Study</strong></a></nav></section>
+    <hr />
+    <h2 id="data-flow-responsibilities">Data Flow Responsibilities</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Layer</th>
+                <th>Responsibility</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>User</td>
+                <td>Starts the interaction</td>
+            </tr>
+            <tr>
+                <td>Page</td>
+                <td>Organizes UI</td>
+            </tr>
+            <tr>
+                <td>Component</td>
+                <td>Displays interface</td>
+            </tr>
+            <tr>
+                <td>Event Handler</td>
+                <td>Responds to user actions</td>
+            </tr>
+            <tr>
+                <td>Hook</td>
+                <td>Reusable logic</td>
+            </tr>
+            <tr>
+                <td>Validation</td>
+                <td>Validate inputs</td>
+            </tr>
+            <tr>
+                <td>Service</td>
+                <td>Business logic</td>
+            </tr>
+            <tr>
+                <td>API</td>
+                <td>HTTP communication</td>
+            </tr>
+            <tr>
+                <td>Axios</td>
+                <td>Network client</td>
+            </tr>
+            <tr>
+                <td>Spring Controller</td>
+                <td>Receives request</td>
+            </tr>
+            <tr>
+                <td>Spring Service</td>
+                <td>Business processing</td>
+            </tr>
+            <tr>
+                <td>Repository</td>
+                <td>Database communication</td>
+            </tr>
+            <tr>
+                <td>Database</td>
+                <td>Stores information</td>
+            </tr>
+            <tr>
+                <td>React Query</td>
+                <td>Cache &amp; synchronization</td>
+            </tr>
+            <tr>
+                <td>React Component</td>
+                <td>Displays updated UI</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <h2 id="best-practices">Best Practices</h2>
+    <p>✅ Keep Components focused on UI.</p>
+    <p>✅ Move business logic to Services.</p>
+    <p>✅ Keep API files responsible only for HTTP requests.</p>
+    <p>✅ Use React Query for server state.</p>
+    <p>✅ Validate before sending requests.</p>
+    <p>✅ Handle loading and error states.</p>
+    <p>✅ Use reusable hooks.</p>
+    <p>✅ Separate concerns between UI, logic, networking, and persistence.</p>
+    <hr />
+    <h2 id="common-mistakes">Common Mistakes</h2>
+    <p>❌ Calling Axios directly inside every component.</p>
+    <p>❌ Mixing UI code with business logic.</p>
+    <p>❌ Duplicating API calls.</p>
+    <p>❌ Keeping large amounts of state inside a single component.</p>
+    <p>❌ Ignoring loading and error states.</p>
+    <p>❌ Repeating validation logic in multiple places.</p>
+    <p>❌ Making components responsible for everything.</p>
+    <hr />
+    <h2 id="chapter-summary">Chapter Summary</h2>
+    <p>Understanding React data flow is more important than memorizing APIs or
+        hooks.</p>
+    <p>Every enterprise React application is built around a layered architecture
+        where each layer has one clear responsibility.</p>
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-12" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-11"><span
+                class="pager-label">← Previous chapter</span><strong>11 ·
+                Enterprise React Project Structure</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-13"><span
+                class="pager-label">Next chapter →</span><strong>13 · Enterprise
+                React Architecture Case Study</strong></a></nav></section>

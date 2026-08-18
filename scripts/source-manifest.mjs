@@ -3,6 +3,7 @@ export const styleSources = [
   'styles/course-enhancements.css',
   'styles/learning-dashboard.css',
   'styles/devpath-platform.css',
+  'styles/project-files.css',
 ];
 
 export const sharedScriptSources = [
@@ -13,12 +14,14 @@ export const sharedScriptSources = [
 ];
 
 // These files intentionally share one closure and must stay in numeric order.
-// The production build concatenates them into one script to avoid runtime requests.
+// The production build concatenates them into one script to avoid runtime
+// requests.
 export const platformSources = [
   'platform/01-core.js',
   'platform/02-home.js',
   'platform/03-course-reader.js',
   'platform/04-learner-tools.js',
+  'platform/05-project-files.js',
   'platform/05-interactive-labs.js',
   'platform/06-pages-router.js',
 ];

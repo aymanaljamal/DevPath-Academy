@@ -1,15 +1,145 @@
 window.ACADEMY_COURSES = window.ACADEMY_COURSES || {};
 window.ACADEMY_COURSES.postman = {
-  schemaVersion:1,source:'static',id:'postman',slug:'postman',icon:'P',color:'#ff6c37',category:'backend',
-  title:'Postman API Testing',titleAr:'اختبار API باستخدام Postman',shortTitle:'Postman',shortTitleAr:'بوستمان',
-  description:'Design, send, automate, document, and continuously test REST APIs with Postman, scripts, collections, mocks, Newman, and CI.',
-  descriptionAr:'صمّم وأرسل وأتمت ووثّق واختبر REST APIs باستمرار باستخدام Postman والسكريبتات والمجموعات والمحاكاة وNewman وCI.',
-  level:'Beginner to production',duration:'20–30 hours',
-  modules:[
-    {id:'http-client',title:'HTTP and Postman Foundations',titleAr:'أساسيات HTTP وPostman',lessons:[['postman-introduction','Introduction to Postman',{titleAr:'مقدمة إلى Postman'}],['http-anatomy','HTTP Request and Response Anatomy',{titleAr:'بنية طلب واستجابة HTTP'}],['methods-status','Methods, Status Codes, and Idempotency',{titleAr:'الطرق ورموز الحالة وIdempotency'}],['params-headers-body','Params, Headers, and Request Body',{titleAr:'المعاملات والترويسات ومحتوى الطلب'}],['response-inspection','Inspecting Responses and Timing',{titleAr:'فحص الاستجابات والزمن'}]]},
-    {id:'workspace',title:'Collections and Environments',titleAr:'المجموعات والبيئات',lessons:[['collections-folders','Collections and Folders',{titleAr:'Collections والمجلدات'}],['variables-scopes','Variables and Scope',{titleAr:'المتغيرات والنطاق'}],['environments-secrets','Environments and Secret Values',{titleAr:'البيئات والقيم السرية'}],['dynamic-variables','Dynamic Variables and Test Data',{titleAr:'المتغيرات الديناميكية وبيانات الاختبار'}],['request-chaining','Request Chaining',{titleAr:'ربط الطلبات'}]]},
-    {id:'automation',title:'Tests and Automation',titleAr:'الاختبارات والأتمتة',lessons:[['post-response-tests','Post-response Tests',{titleAr:'اختبارات ما بعد الاستجابة'}],['pre-request-scripts','Pre-request Scripts',{titleAr:'سكريبتات ما قبل الطلب'}],['json-schema','JSON Schema Assertions',{titleAr:'التحقق باستخدام JSON Schema'}],['negative-testing','Negative and Boundary Testing',{titleAr:'اختبار الحالات السلبية والحدود'}],['collection-runner','Collection Runner and Data Files',{titleAr:'Collection Runner وملفات البيانات'}],['newman-cli','Newman CLI',{titleAr:'أداة Newman'}],['ci-pipelines','API Tests in CI Pipelines',{titleAr:'اختبارات API داخل CI'}]]},
-    {id:'collaboration',title:'Contracts and Collaboration',titleAr:'العقود والتعاون',lessons:[['openapi-import','OpenAPI Import and Synchronization',{titleAr:'استيراد ومزامنة OpenAPI'}],['mock-servers','Mock Servers',{titleAr:'خوادم المحاكاة'}],['examples-documentation','Examples and API Documentation',{titleAr:'الأمثلة وتوثيق API'}],['monitors','Scheduled Monitors',{titleAr:'المراقبة المجدولة'}],['security-hygiene','Tokens, Secrets, and Security Hygiene',{titleAr:'التوكنات والأسرار وممارسات الأمان'}]]},
-    {id:'capstone',title:'Spring Boot API Test Project',titleAr:'مشروع اختبار Spring Boot API',lessons:[['spring-api-workspace','Build a Spring Boot API Workspace',{titleAr:'بناء Workspace لـSpring Boot API',kind:'project'}],['postman-review','Postman Review',{titleAr:'مراجعة Postman',kind:'review'}],['postman-assessment','Postman Final Assessment',{titleAr:'التقييم النهائي لمسار Postman',kind:'assessment'}]]}
+  schemaVersion: 1,
+  source: 'static',
+  id: 'postman',
+  slug: 'postman',
+  icon: 'P',
+  color: '#ff6c37',
+  category: 'backend',
+  title: 'Postman API Testing',
+  titleAr: 'اختبار API باستخدام Postman',
+  shortTitle: 'Postman',
+  shortTitleAr: 'بوستمان',
+  description:
+      'Design, send, automate, document, and continuously test REST APIs with Postman, scripts, collections, mocks, Newman, and CI.',
+  descriptionAr:
+      'صمّم وأرسل وأتمت ووثّق واختبر REST APIs باستمرار باستخدام Postman والسكريبتات والمجموعات والمحاكاة وNewman وCI.',
+  level: 'Beginner to production',
+  duration: '20–30 hours',
+  modules: [
+    {
+      id: 'http-client',
+      title: 'HTTP and Postman Foundations',
+      titleAr: 'أساسيات HTTP وPostman',
+      lessons: [
+        [
+          'postman-introduction', 'Introduction to Postman',
+          {titleAr: 'مقدمة إلى Postman'}
+        ],
+        [
+          'http-anatomy', 'HTTP Request and Response Anatomy',
+          {titleAr: 'بنية طلب واستجابة HTTP'}
+        ],
+        [
+          'methods-status', 'Methods, Status Codes, and Idempotency',
+          {titleAr: 'الطرق ورموز الحالة وIdempotency'}
+        ],
+        [
+          'params-headers-body', 'Params, Headers, and Request Body',
+          {titleAr: 'المعاملات والترويسات ومحتوى الطلب'}
+        ],
+        [
+          'response-inspection', 'Inspecting Responses and Timing',
+          {titleAr: 'فحص الاستجابات والزمن'}
+        ]
+      ]
+    },
+    {
+      id: 'workspace',
+      title: 'Collections and Environments',
+      titleAr: 'المجموعات والبيئات',
+      lessons: [
+        [
+          'collections-folders', 'Collections and Folders',
+          {titleAr: 'Collections والمجلدات'}
+        ],
+        [
+          'variables-scopes', 'Variables and Scope',
+          {titleAr: 'المتغيرات والنطاق'}
+        ],
+        [
+          'environments-secrets', 'Environments and Secret Values',
+          {titleAr: 'البيئات والقيم السرية'}
+        ],
+        [
+          'dynamic-variables', 'Dynamic Variables and Test Data',
+          {titleAr: 'المتغيرات الديناميكية وبيانات الاختبار'}
+        ],
+        ['request-chaining', 'Request Chaining', {titleAr: 'ربط الطلبات'}]
+      ]
+    },
+    {
+      id: 'automation',
+      title: 'Tests and Automation',
+      titleAr: 'الاختبارات والأتمتة',
+      lessons: [
+        [
+          'post-response-tests', 'Post-response Tests',
+          {titleAr: 'اختبارات ما بعد الاستجابة'}
+        ],
+        [
+          'pre-request-scripts', 'Pre-request Scripts',
+          {titleAr: 'سكريبتات ما قبل الطلب'}
+        ],
+        [
+          'json-schema', 'JSON Schema Assertions',
+          {titleAr: 'التحقق باستخدام JSON Schema'}
+        ],
+        [
+          'negative-testing', 'Negative and Boundary Testing',
+          {titleAr: 'اختبار الحالات السلبية والحدود'}
+        ],
+        [
+          'collection-runner', 'Collection Runner and Data Files',
+          {titleAr: 'Collection Runner وملفات البيانات'}
+        ],
+        ['newman-cli', 'Newman CLI', {titleAr: 'أداة Newman'}],
+        [
+          'ci-pipelines', 'API Tests in CI Pipelines',
+          {titleAr: 'اختبارات API داخل CI'}
+        ]
+      ]
+    },
+    {
+      id: 'collaboration',
+      title: 'Contracts and Collaboration',
+      titleAr: 'العقود والتعاون',
+      lessons: [
+        [
+          'openapi-import', 'OpenAPI Import and Synchronization',
+          {titleAr: 'استيراد ومزامنة OpenAPI'}
+        ],
+        ['mock-servers', 'Mock Servers', {titleAr: 'خوادم المحاكاة'}],
+        [
+          'examples-documentation', 'Examples and API Documentation',
+          {titleAr: 'الأمثلة وتوثيق API'}
+        ],
+        ['monitors', 'Scheduled Monitors', {titleAr: 'المراقبة المجدولة'}],
+        [
+          'security-hygiene', 'Tokens, Secrets, and Security Hygiene',
+          {titleAr: 'التوكنات والأسرار وممارسات الأمان'}
+        ]
+      ]
+    },
+    {
+      id: 'capstone',
+      title: 'Spring Boot API Test Project',
+      titleAr: 'مشروع اختبار Spring Boot API',
+      lessons: [
+        [
+          'spring-api-workspace', 'Build a Spring Boot API Workspace',
+          {titleAr: 'بناء Workspace لـSpring Boot API', kind: 'project'}
+        ],
+        [
+          'postman-review', 'Postman Review',
+          {titleAr: 'مراجعة Postman', kind: 'review'}
+        ],
+        [
+          'postman-assessment', 'Postman Final Assessment',
+          {titleAr: 'التقييم النهائي لمسار Postman', kind: 'assessment'}
+        ]
+      ]
+    }
   ]
 };

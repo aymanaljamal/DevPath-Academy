@@ -1,52 +1,70 @@
 <section class="chapter" id="chapter-10" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">10</span>
-<h1 class="chapter-title" id="typescript-in-react">TypeScript in React</h1>
-</div>
-<h2 id="101-introduction-to-typescript">10.1 Introduction to TypeScript</h2>
-<h3 id="simple-explanation--10">Simple Explanation</h3>
-<p>TypeScript is a superset of JavaScript that adds static typing. It helps you catch errors early, write more predictable code, and get better editor support. Think of it as JavaScript with superpowers - you write JavaScript, but with type annotations that help prevent bugs.</p>
-<p>Think of TypeScript like a spell-checker for your code. Just as a spell-checker catches spelling errors before you send an email, TypeScript catches type errors before you run your code.</p>
-<h3 id="technical-explanation--10">Technical Explanation</h3>
-<p>TypeScript is a strongly typed programming language that builds on JavaScript. It adds optional static types, classes, interfaces, and other features to JavaScript. TypeScript code is transpiled to plain JavaScript that runs anywhere JavaScript runs.</p>
-<p>Key characteristics:
-- <strong>Static Typing</strong>: Catch errors at compile time
-- <strong>Type Inference</strong>: TypeScript can infer types automatically
-- <strong>Structural Typing</strong>: Types are checked by their structure
-- <strong>Generics</strong>: Write reusable, type-safe code
-- <strong>ES Features</strong>: Support for latest ECMAScript features
-- <strong>Tooling</strong>: Excellent IDE support with autocomplete and refactoring</p>
-<h3 id="professional-explanation--10">Professional Explanation</h3>
-<p>In enterprise React development, TypeScript is essential for:
-- <strong>Code Quality</strong>: Catch type errors before runtime
-- <strong>Maintainability</strong>: Types serve as documentation
-- <strong>Refactoring</strong>: Safe refactoring with type checking
-- <strong>Collaboration</strong>: Clear contracts between components
-- <strong>IDE Support</strong>: Better autocomplete and error detection
-- <strong>Scalability</strong>: Types help manage growing codebases</p>
-<h2 id="102-typescript-setup-with-react">10.2 TypeScript Setup with React</h2>
-<h3 id="simple-explanation_1--6">Simple Explanation</h3>
-<p>Setting up TypeScript with React involves creating a project with TypeScript support. The easiest way is using Create React App with the TypeScript template, or Vite with TypeScript support.</p>
-<h3 id="technical-explanation_1--6">Technical Explanation</h3>
-<p>TypeScript can be added to React projects in several ways:
-1. <strong>Create React App</strong>: <code>npx create-react-app my-app --template typescript</code>
-2. <strong>Vite</strong>: <code>npm create vite@latest my-app -- --template react-ts</code>
-3. <strong>Manual Setup</strong>: Install TypeScript and configure tsconfig.json</p>
-<p>Key files:
-- <strong>tsconfig.json</strong>: TypeScript configuration
-- <strong>.tsx</strong>: TypeScript file with JSX
-- <strong>.ts</strong>: TypeScript file without JSX
-- <strong>types/</strong>: Directory for type declarations</p>
-<h3 id="professional-explanation_1--6">Professional Explanation</h3>
-<p>Enterprise TypeScript setup includes:
-- <strong>Strict Mode</strong>: Enable strict type checking
-- <strong>Path Aliases</strong>: Cleaner imports
-- <strong>Declaration Files</strong>: Types for third-party libraries
-- <strong>Build Configuration</strong>: Production-ready build setup
-- <strong>Linting</strong>: ESLint with TypeScript rules
-- <strong>Formatting</strong>: Prettier for consistent formatting</p>
-<h3 id="typescript-setup-examples">TypeScript Setup Examples</h3>
-<pre><code class="language-json">// tsconfig.json
+    <div class="chapter-title-card">
+        <span class="chapter-num">10</span>
+        <h1 class="chapter-title" id="typescript-in-react">TypeScript in
+            React</h1>
+    </div>
+    <h2 id="101-introduction-to-typescript">10.1 Introduction to TypeScript</h2>
+    <h3 id="simple-explanation--10">Simple Explanation</h3>
+    <p>TypeScript is a superset of JavaScript that adds static typing. It helps
+        you catch errors early, write more predictable code, and get better
+        editor support. Think of it as JavaScript with superpowers - you write
+        JavaScript, but with type annotations that help prevent bugs.</p>
+    <p>Think of TypeScript like a spell-checker for your code. Just as a
+        spell-checker catches spelling errors before you send an email,
+        TypeScript catches type errors before you run your code.</p>
+    <h3 id="technical-explanation--10">Technical Explanation</h3>
+    <p>TypeScript is a strongly typed programming language that builds on
+        JavaScript. It adds optional static types, classes, interfaces, and
+        other features to JavaScript. TypeScript code is transpiled to plain
+        JavaScript that runs anywhere JavaScript runs.</p>
+    <p>Key characteristics:
+        - <strong>Static Typing</strong>: Catch errors at compile time
+        - <strong>Type Inference</strong>: TypeScript can infer types
+        automatically
+        - <strong>Structural Typing</strong>: Types are checked by their
+        structure
+        - <strong>Generics</strong>: Write reusable, type-safe code
+        - <strong>ES Features</strong>: Support for latest ECMAScript features
+        - <strong>Tooling</strong>: Excellent IDE support with autocomplete and
+        refactoring</p>
+    <h3 id="professional-explanation--10">Professional Explanation</h3>
+    <p>In enterprise React development, TypeScript is essential for:
+        - <strong>Code Quality</strong>: Catch type errors before runtime
+        - <strong>Maintainability</strong>: Types serve as documentation
+        - <strong>Refactoring</strong>: Safe refactoring with type checking
+        - <strong>Collaboration</strong>: Clear contracts between components
+        - <strong>IDE Support</strong>: Better autocomplete and error detection
+        - <strong>Scalability</strong>: Types help manage growing codebases</p>
+    <h2 id="102-typescript-setup-with-react">10.2 TypeScript Setup with
+        React</h2>
+    <h3 id="simple-explanation_1--6">Simple Explanation</h3>
+    <p>Setting up TypeScript with React involves creating a project with
+        TypeScript support. The easiest way is using Create React App with the
+        TypeScript template, or Vite with TypeScript support.</p>
+    <h3 id="technical-explanation_1--6">Technical Explanation</h3>
+    <p>TypeScript can be added to React projects in several ways:
+        1. <strong>Create React App</strong>: <code>npx create-react-app my-app
+            --template typescript</code>
+        2. <strong>Vite</strong>: <code>npm create vite@latest my-app --
+            --template react-ts</code>
+        3. <strong>Manual Setup</strong>: Install TypeScript and configure
+        tsconfig.json</p>
+    <p>Key files:
+        - <strong>tsconfig.json</strong>: TypeScript configuration
+        - <strong>.tsx</strong>: TypeScript file with JSX
+        - <strong>.ts</strong>: TypeScript file without JSX
+        - <strong>types/</strong>: Directory for type declarations</p>
+    <h3 id="professional-explanation_1--6">Professional Explanation</h3>
+    <p>Enterprise TypeScript setup includes:
+        - <strong>Strict Mode</strong>: Enable strict type checking
+        - <strong>Path Aliases</strong>: Cleaner imports
+        - <strong>Declaration Files</strong>: Types for third-party libraries
+        - <strong>Build Configuration</strong>: Production-ready build setup
+        - <strong>Linting</strong>: ESLint with TypeScript rules
+        - <strong>Formatting</strong>: Prettier for consistent formatting</p>
+    <h3 id="typescript-setup-examples">TypeScript Setup Examples</h3>
+    <pre><code class="language-json">// tsconfig.json
 {
   "compilerOptions": {
     "target": "ES2020",
@@ -117,28 +135,32 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 </code></pre>
-<h2 id="103-basic-types">10.3 Basic Types</h2>
-<h3 id="simple-explanation_2--6">Simple Explanation</h3>
-<p>Basic types in TypeScript are the building blocks of type annotations. They include primitive types like string, number, boolean, and more complex types like arrays and objects.</p>
-<h3 id="technical-explanation_2--6">Technical Explanation</h3>
-<p>TypeScript has several basic types:
-- <strong>Primitive Types</strong>: string, number, boolean, null, undefined, symbol, bigint
-- <strong>Any</strong>: Disables type checking (avoid using)
-- <strong>Void</strong>: No return value
-- <strong>Never</strong>: Function that never returns
-- <strong>Unknown</strong>: Type-safe alternative to any
-- <strong>Arrays</strong>: <code>type[]</code> or <code>Array&lt;type&gt;</code>
-- <strong>Tuples</strong>: Fixed-length arrays
-- <strong>Enums</strong>: Named constants</p>
-<h3 id="professional-explanation_2--6">Professional Explanation</h3>
-<p>In React TypeScript, basic types are used for:
-- <strong>Props</strong>: Define component prop types
-- <strong>State</strong>: Type state variables
-- <strong>Functions</strong>: Type parameters and return values
-- <strong>API Responses</strong>: Type API data
-- <strong>Event Handlers</strong>: Type event objects</p>
-<h3 id="basic-types-examples">Basic Types Examples</h3>
-<pre><code class="language-tsx">// Primitive types
+    <h2 id="103-basic-types">10.3 Basic Types</h2>
+    <h3 id="simple-explanation_2--6">Simple Explanation</h3>
+    <p>Basic types in TypeScript are the building blocks of type annotations.
+        They include primitive types like string, number, boolean, and more
+        complex types like arrays and objects.</p>
+    <h3 id="technical-explanation_2--6">Technical Explanation</h3>
+    <p>TypeScript has several basic types:
+        - <strong>Primitive Types</strong>: string, number, boolean, null,
+        undefined, symbol, bigint
+        - <strong>Any</strong>: Disables type checking (avoid using)
+        - <strong>Void</strong>: No return value
+        - <strong>Never</strong>: Function that never returns
+        - <strong>Unknown</strong>: Type-safe alternative to any
+        - <strong>Arrays</strong>: <code>type[]</code> or
+        <code>Array&lt;type&gt;</code>
+        - <strong>Tuples</strong>: Fixed-length arrays
+        - <strong>Enums</strong>: Named constants</p>
+    <h3 id="professional-explanation_2--6">Professional Explanation</h3>
+    <p>In React TypeScript, basic types are used for:
+        - <strong>Props</strong>: Define component prop types
+        - <strong>State</strong>: Type state variables
+        - <strong>Functions</strong>: Type parameters and return values
+        - <strong>API Responses</strong>: Type API data
+        - <strong>Event Handlers</strong>: Type event objects</p>
+    <h3 id="basic-types-examples">Basic Types Examples</h3>
+    <pre><code class="language-tsx">// Primitive types
 let name: string = "John Doe";
 let age: number = 30;
 let isActive: boolean = true;
@@ -231,30 +253,37 @@ function UserProfile({ user }: { user: User }) {
     );
 }
 </code></pre>
-<h2 id="104-interfaces-and-type-aliases">10.4 Interfaces and Type Aliases</h2>
-<h3 id="simple-explanation_3--6">Simple Explanation</h3>
-<p>Interfaces and type aliases are ways to define custom types. They describe the shape of an object or the structure of a type. Interfaces are more commonly used for object types, while type aliases can be used for any type.</p>
-<p>Think of interfaces like contracts that define what properties and methods an object must have.</p>
-<h3 id="technical-explanation_3--6">Technical Explanation</h3>
-<p><strong>Interfaces</strong>: Define contracts for object structures
-- Can be extended
-- Can be implemented by classes
-- Can be merged (declaration merging)
-- Better for object types</p>
-<p><strong>Type Aliases</strong>: Create new names for types
-- Can represent any type (primitives, unions, intersections)
-- Cannot be extended
-- No declaration merging
-- More flexible for complex types</p>
-<h3 id="professional-explanation_3--6">Professional Explanation</h3>
-<p>Best practices:
-- Use <strong>interfaces</strong> for public API definitions
-- Use <strong>type aliases</strong> for union types, tuple types, and type aliases
-- Use <strong>interfaces</strong> when you need inheritance
-- Use <strong>type aliases</strong> for function signatures
-- Document interfaces with JSDoc</p>
-<h3 id="interfaces-and-type-aliases-examples">Interfaces and Type Aliases Examples</h3>
-<pre><code class="language-tsx">// Interface definition
+    <h2 id="104-interfaces-and-type-aliases">10.4 Interfaces and Type
+        Aliases</h2>
+    <h3 id="simple-explanation_3--6">Simple Explanation</h3>
+    <p>Interfaces and type aliases are ways to define custom types. They
+        describe the shape of an object or the structure of a type. Interfaces
+        are more commonly used for object types, while type aliases can be used
+        for any type.</p>
+    <p>Think of interfaces like contracts that define what properties and
+        methods an object must have.</p>
+    <h3 id="technical-explanation_3--6">Technical Explanation</h3>
+    <p><strong>Interfaces</strong>: Define contracts for object structures
+        - Can be extended
+        - Can be implemented by classes
+        - Can be merged (declaration merging)
+        - Better for object types</p>
+    <p><strong>Type Aliases</strong>: Create new names for types
+        - Can represent any type (primitives, unions, intersections)
+        - Cannot be extended
+        - No declaration merging
+        - More flexible for complex types</p>
+    <h3 id="professional-explanation_3--6">Professional Explanation</h3>
+    <p>Best practices:
+        - Use <strong>interfaces</strong> for public API definitions
+        - Use <strong>type aliases</strong> for union types, tuple types, and
+        type aliases
+        - Use <strong>interfaces</strong> when you need inheritance
+        - Use <strong>type aliases</strong> for function signatures
+        - Document interfaces with JSDoc</p>
+    <h3 id="interfaces-and-type-aliases-examples">Interfaces and Type Aliases
+        Examples</h3>
+    <pre><code class="language-tsx">// Interface definition
 interface User {
     id: number;
     name: string;
@@ -390,27 +419,32 @@ class UserRepository implements Repository&lt;User&gt; {
     }
 }
 </code></pre>
-<h2 id="105-generics">10.5 Generics</h2>
-<h3 id="simple-explanation_4--6">Simple Explanation</h3>
-<p>Generics allow you to create reusable components and functions that work with multiple types. They're like type variables that you can specify when using the component or function.</p>
-<p>Think of generics like a template for a stamp - you can use the same stamp with different colored ink (types) to stamp different designs.</p>
-<h3 id="technical-explanation_4--6">Technical Explanation</h3>
-<p>Generics allow you to write code that works with a variety of types rather than a single one. The type is specified when the function or component is used.</p>
-<p>Key concepts:
-- <strong>Type Parameters</strong>: Placeholders for types
-- <strong>Constraints</strong>: Restrict type parameters
-- <strong>Default Types</strong>: Default type if not specified
-- <strong>Generic Components</strong>: Reusable React components
-- <strong>Generic Hooks</strong>: Reusable hooks with generic types</p>
-<h3 id="professional-explanation_4--6">Professional Explanation</h3>
-<p>Generics are essential for:
-- <strong>Data Structures</strong>: Reusable collections
-- <strong>API Clients</strong>: Type-safe API responses
-- <strong>Form Hooks</strong>: Type-safe form handling
-- <strong>Component Libraries</strong>: Flexible, type-safe components
-- <strong>Utility Functions</strong>: Reusable type-safe utilities</p>
-<h3 id="generics-examples">Generics Examples</h3>
-<pre><code class="language-tsx">// Basic generic function
+    <h2 id="105-generics">10.5 Generics</h2>
+    <h3 id="simple-explanation_4--6">Simple Explanation</h3>
+    <p>Generics allow you to create reusable components and functions that work
+        with multiple types. They're like type variables that you can specify
+        when using the component or function.</p>
+    <p>Think of generics like a template for a stamp - you can use the same
+        stamp with different colored ink (types) to stamp different designs.</p>
+    <h3 id="technical-explanation_4--6">Technical Explanation</h3>
+    <p>Generics allow you to write code that works with a variety of types
+        rather than a single one. The type is specified when the function or
+        component is used.</p>
+    <p>Key concepts:
+        - <strong>Type Parameters</strong>: Placeholders for types
+        - <strong>Constraints</strong>: Restrict type parameters
+        - <strong>Default Types</strong>: Default type if not specified
+        - <strong>Generic Components</strong>: Reusable React components
+        - <strong>Generic Hooks</strong>: Reusable hooks with generic types</p>
+    <h3 id="professional-explanation_4--6">Professional Explanation</h3>
+    <p>Generics are essential for:
+        - <strong>Data Structures</strong>: Reusable collections
+        - <strong>API Clients</strong>: Type-safe API responses
+        - <strong>Form Hooks</strong>: Type-safe form handling
+        - <strong>Component Libraries</strong>: Flexible, type-safe components
+        - <strong>Utility Functions</strong>: Reusable type-safe utilities</p>
+    <h3 id="generics-examples">Generics Examples</h3>
+    <pre><code class="language-tsx">// Basic generic function
 function identity&lt;T&gt;(value: T): T {
     return value;
 }
@@ -576,31 +610,35 @@ const name = getProperty(user, "name"); // Type: string
 const age = getProperty(user, "age"); // Type: number
 // const invalid = getProperty(user, "invalid"); // Error: invalid key
 </code></pre>
-<h2 id="106-utility-types">10.6 Utility Types</h2>
-<h3 id="simple-explanation_5--6">Simple Explanation</h3>
-<p>Utility types are built-in TypeScript types that help you transform existing types. They allow you to create new types based on existing ones without rewriting them.</p>
-<p>Think of utility types like tools in a workshop - each tool (utility type) helps you shape and transform your materials (types) in a specific way.</p>
-<h3 id="technical-explanation_5--6">Technical Explanation</h3>
-<p>TypeScript provides several built-in utility types:
-- <strong>Partial<t></t></strong>: Makes all properties optional
-- <strong>Required<t></t></strong>: Makes all properties required
-- <strong>Readonly<t></t></strong>: Makes all properties readonly
-- <strong>Pick<t, k=""></t,></strong>: Select specific properties
-- <strong>Omit<t, k=""></t,></strong>: Remove specific properties
-- <strong>Exclude<t, u=""></t,></strong>: Exclude types
-- <strong>Extract<t, u=""></t,></strong>: Extract types
-- <strong>Record<k, t=""></k,></strong>: Create object type with keys
-- <strong>ReturnType<t></t></strong>: Get function return type
-- <strong>Parameters<t></t></strong>: Get function parameters</p>
-<h3 id="professional-examples">Professional Examples</h3>
-<p>Utility types are essential for:
-- <strong>Form Handling</strong>: Partial for form values
-- <strong>API Clients</strong>: Pick for selecting fields
-- <strong>Type Safety</strong>: Readonly for immutable data
-- <strong>Data Transformation</strong>: Omit for sensitive data
-- <strong>Type Mapping</strong>: Record for dictionaries</p>
-<h3 id="utility-types-examples">Utility Types Examples</h3>
-<pre><code class="language-tsx">// Partial&lt;T&gt;
+    <h2 id="106-utility-types">10.6 Utility Types</h2>
+    <h3 id="simple-explanation_5--6">Simple Explanation</h3>
+    <p>Utility types are built-in TypeScript types that help you transform
+        existing types. They allow you to create new types based on existing
+        ones without rewriting them.</p>
+    <p>Think of utility types like tools in a workshop - each tool (utility
+        type) helps you shape and transform your materials (types) in a specific
+        way.</p>
+    <h3 id="technical-explanation_5--6">Technical Explanation</h3>
+    <p>TypeScript provides several built-in utility types:
+        - <strong>Partial<t></t></strong>: Makes all properties optional
+        - <strong>Required<t></t></strong>: Makes all properties required
+        - <strong>Readonly<t></t></strong>: Makes all properties readonly
+        - <strong>Pick<t, k></t,></strong>: Select specific properties
+        - <strong>Omit<t, k></t,></strong>: Remove specific properties
+        - <strong>Exclude<t, u></t,></strong>: Exclude types
+        - <strong>Extract<t, u></t,></strong>: Extract types
+        - <strong>Record<k, t></k,></strong>: Create object type with keys
+        - <strong>ReturnType<t></t></strong>: Get function return type
+        - <strong>Parameters<t></t></strong>: Get function parameters</p>
+    <h3 id="professional-examples">Professional Examples</h3>
+    <p>Utility types are essential for:
+        - <strong>Form Handling</strong>: Partial for form values
+        - <strong>API Clients</strong>: Pick for selecting fields
+        - <strong>Type Safety</strong>: Readonly for immutable data
+        - <strong>Data Transformation</strong>: Omit for sensitive data
+        - <strong>Type Mapping</strong>: Record for dictionaries</p>
+    <h3 id="utility-types-examples">Utility Types Examples</h3>
+    <pre><code class="language-tsx">// Partial&lt;T&gt;
 interface User {
     id: number;
     name: string;
@@ -789,27 +827,34 @@ function LoginForm() {
     );
 }
 </code></pre>
-<h2 id="107-type-narrowing-and-type-guards">10.7 Type Narrowing and Type Guards</h2>
-<h3 id="simple-explanation_6--6">Simple Explanation</h3>
-<p>Type narrowing is the process of refining a variable's type from a broader type to a more specific one. Type guards are conditions that help TypeScript narrow down types.</p>
-<p>Think of type narrowing like a detective investigation - you start with a suspect (unknown type) and gather clues (conditions) until you can identify exactly who they are (specific type).</p>
-<h3 id="technical-explanation_6--6">Technical Explanation</h3>
-<p>Type narrowing helps TypeScript understand more specific types:
-- <strong>typeof</strong>: Check primitive types
-- <strong>instanceof</strong>: Check class instances
-- <strong>in</strong>: Check property existence
-- <strong>Equality</strong>: Check equality with specific values
-- <strong>User-defined</strong>: Custom type guard functions</p>
-<p>Type guards are functions that return a type predicate, helping TypeScript narrow types.</p>
-<h3 id="professional-explanation_5--6">Professional Explanation</h3>
-<p>Type narrowing is essential for:
-- <strong>API Responses</strong>: Handling different response shapes
-- <strong>Form Inputs</strong>: Validating user input
-- <strong>Error Handling</strong>: Different error types
-- <strong>Event Handling</strong>: Different event types
-- <strong>Polymorphism</strong>: Handling different types</p>
-<h3 id="type-narrowing-and-type-guards-examples">Type Narrowing and Type Guards Examples</h3>
-<pre><code class="language-tsx">// typeof type guard
+    <h2 id="107-type-narrowing-and-type-guards">10.7 Type Narrowing and Type
+        Guards</h2>
+    <h3 id="simple-explanation_6--6">Simple Explanation</h3>
+    <p>Type narrowing is the process of refining a variable's type from a
+        broader type to a more specific one. Type guards are conditions that
+        help TypeScript narrow down types.</p>
+    <p>Think of type narrowing like a detective investigation - you start with a
+        suspect (unknown type) and gather clues (conditions) until you can
+        identify exactly who they are (specific type).</p>
+    <h3 id="technical-explanation_6--6">Technical Explanation</h3>
+    <p>Type narrowing helps TypeScript understand more specific types:
+        - <strong>typeof</strong>: Check primitive types
+        - <strong>instanceof</strong>: Check class instances
+        - <strong>in</strong>: Check property existence
+        - <strong>Equality</strong>: Check equality with specific values
+        - <strong>User-defined</strong>: Custom type guard functions</p>
+    <p>Type guards are functions that return a type predicate, helping
+        TypeScript narrow types.</p>
+    <h3 id="professional-explanation_5--6">Professional Explanation</h3>
+    <p>Type narrowing is essential for:
+        - <strong>API Responses</strong>: Handling different response shapes
+        - <strong>Form Inputs</strong>: Validating user input
+        - <strong>Error Handling</strong>: Different error types
+        - <strong>Event Handling</strong>: Different event types
+        - <strong>Polymorphism</strong>: Handling different types</p>
+    <h3 id="type-narrowing-and-type-guards-examples">Type Narrowing and Type
+        Guards Examples</h3>
+    <pre><code class="language-tsx">// typeof type guard
 function processValue(value: string | number | boolean) {
     if (typeof value === 'string') {
         // value is string
@@ -1011,27 +1056,32 @@ function DataFetcher() {
     return &lt;div&gt;{JSON.stringify(data)}&lt;/div&gt;;
 }
 </code></pre>
-<h2 id="108-advanced-types">10.8 Advanced Types</h2>
-<h3 id="simple-explanation_7--6">Simple Explanation</h3>
-<p>Advanced types in TypeScript allow you to create complex, flexible type definitions. They include mapped types, conditional types, template literal types, and other powerful type-level programming features.</p>
-<p>Think of advanced types like a swiss army knife - each tool allows you to solve a specific type problem in a precise way.</p>
-<h3 id="technical-explanation_7--6">Technical Explanation</h3>
-<p>Advanced types include:
-- <strong>Mapped Types</strong>: Transform properties of a type
-- <strong>Conditional Types</strong>: Types based on conditions
-- <strong>Template Literal Types</strong>: String manipulation at type level
-- <strong>Infer</strong>: Extract types from complex types
-- <strong>Indexed Access Types</strong>: Access property types
-- <strong>Recursive Types</strong>: Self-referential types</p>
-<h3 id="professional-explanation_6--6">Professional Explanation</h3>
-<p>Advanced types are useful for:
-- <strong>Type Libraries</strong>: Creating reusable type utilities
-- <strong>API Clients</strong>: Type-safe API responses
-- <strong>Form Libraries</strong>: Type-safe form handling
-- <strong>State Management</strong>: Type-safe state updates
-- <strong>Component Libraries</strong>: Flexible, type-safe components</p>
-<h3 id="advanced-types-examples">Advanced Types Examples</h3>
-<pre><code class="language-tsx">// Mapped types
+    <h2 id="108-advanced-types">10.8 Advanced Types</h2>
+    <h3 id="simple-explanation_7--6">Simple Explanation</h3>
+    <p>Advanced types in TypeScript allow you to create complex, flexible type
+        definitions. They include mapped types, conditional types, template
+        literal types, and other powerful type-level programming features.</p>
+    <p>Think of advanced types like a swiss army knife - each tool allows you to
+        solve a specific type problem in a precise way.</p>
+    <h3 id="technical-explanation_7--6">Technical Explanation</h3>
+    <p>Advanced types include:
+        - <strong>Mapped Types</strong>: Transform properties of a type
+        - <strong>Conditional Types</strong>: Types based on conditions
+        - <strong>Template Literal Types</strong>: String manipulation at type
+        level
+        - <strong>Infer</strong>: Extract types from complex types
+        - <strong>Indexed Access Types</strong>: Access property types
+        - <strong>Recursive Types</strong>: Self-referential types</p>
+    <h3 id="professional-explanation_6--6">Professional Explanation</h3>
+    <p>Advanced types are useful for:
+        - <strong>Type Libraries</strong>: Creating reusable type utilities
+        - <strong>API Clients</strong>: Type-safe API responses
+        - <strong>Form Libraries</strong>: Type-safe form handling
+        - <strong>State Management</strong>: Type-safe state updates
+        - <strong>Component Libraries</strong>: Flexible, type-safe
+        components</p>
+    <h3 id="advanced-types-examples">Advanced Types Examples</h3>
+    <pre><code class="language-tsx">// Mapped types
 type Readonly&lt;T&gt; = {
     readonly [P in keyof T]: T[P];
 };
@@ -1171,22 +1221,27 @@ eventBus.on('userCreated', (data) =&gt; {
 
 eventBus.emit('userCreated', { id: 1, name: 'John' });
 </code></pre>
-<h2 id="109-typescript-in-react-components">10.9 TypeScript in React Components</h2>
-<h3 id="simple-explanation_8--5">Simple Explanation</h3>
-<p>TypeScript enhances React components by providing type safety for props, state, and events. This leads to fewer bugs, better IDE support, and self-documenting components.</p>
-<h3 id="technical-explanation_8--5">Technical Explanation</h3>
-<p>TypeScript with React components involves:
-- <strong>Props</strong>: Define prop types
-- <strong>State</strong>: Type state variables
-- <strong>Events</strong>: Type event handlers
-- <strong>Hooks</strong>: Type useState, useReducer, etc.
-- <strong>Context</strong>: Type context values
-- <strong>Refs</strong>: Type refs
-- <strong>Higher-Order Components</strong>: Type HOCs</p>
-<h3 id="professional-examples_1">Professional Examples</h3>
-<p>TypeScript makes React components robust and maintainable by catching type errors at compile time.</p>
-<h3 id="typescript-in-react-components-examples">TypeScript in React Components Examples</h3>
-<pre><code class="language-tsx">// Functional component with props
+    <h2 id="109-typescript-in-react-components">10.9 TypeScript in React
+        Components</h2>
+    <h3 id="simple-explanation_8--5">Simple Explanation</h3>
+    <p>TypeScript enhances React components by providing type safety for props,
+        state, and events. This leads to fewer bugs, better IDE support, and
+        self-documenting components.</p>
+    <h3 id="technical-explanation_8--5">Technical Explanation</h3>
+    <p>TypeScript with React components involves:
+        - <strong>Props</strong>: Define prop types
+        - <strong>State</strong>: Type state variables
+        - <strong>Events</strong>: Type event handlers
+        - <strong>Hooks</strong>: Type useState, useReducer, etc.
+        - <strong>Context</strong>: Type context values
+        - <strong>Refs</strong>: Type refs
+        - <strong>Higher-Order Components</strong>: Type HOCs</p>
+    <h3 id="professional-examples_1">Professional Examples</h3>
+    <p>TypeScript makes React components robust and maintainable by catching
+        type errors at compile time.</p>
+    <h3 id="typescript-in-react-components-examples">TypeScript in React
+        Components Examples</h3>
+    <pre><code class="language-tsx">// Functional component with props
 interface ButtonProps {
     variant: 'primary' | 'secondary' | 'danger';
     size?: 'small' | 'medium' | 'large';
@@ -1417,9 +1472,10 @@ function UserProfile() {
     );
 }
 </code></pre>
-<h2 id="1010-common-mistakes-and-best-practices">10.10 Common Mistakes and Best Practices</h2>
-<h3 id="10101-common-mistakes">10.10.1 Common Mistakes</h3>
-<pre><code class="language-tsx">// ❌ Using any instead of proper types
+    <h2 id="1010-common-mistakes-and-best-practices">10.10 Common Mistakes and
+        Best Practices</h2>
+    <h3 id="10101-common-mistakes">10.10.1 Common Mistakes</h3>
+    <pre><code class="language-tsx">// ❌ Using any instead of proper types
 function processData(data: any) {
     // Disables type checking
     return data.name;
@@ -1510,8 +1566,8 @@ interface DataResponse {
     pagination: Pagination;
 }
 </code></pre>
-<h3 id="10102-best-practices">10.10.2 Best Practices</h3>
-<pre><code class="language-tsx">// ✅ Use interfaces for object types
+    <h3 id="10102-best-practices">10.10.2 Best Practices</h3>
+    <pre><code class="language-tsx">// ✅ Use interfaces for object types
 interface User {
     id: number;
     name: string;
@@ -1574,15 +1630,16 @@ function handleState(state: ApiState) {
     }
 }
 </code></pre>
-<h2 id="1011-interview-questions">10.11 Interview Questions</h2>
-<h3 id="junior-level-questions--10">Junior Level Questions</h3>
-<p><strong>Q: What is TypeScript and why use it with React?</strong></p>
-<p><strong>Answer</strong>: TypeScript is a typed superset of JavaScript that adds static typing. Benefits with React:
-- Better IDE support and autocomplete
-- Catch errors at compile time
-- Self-documenting code
-- Easier refactoring</p>
-<pre><code class="language-tsx">interface Props {
+    <h2 id="1011-interview-questions">10.11 Interview Questions</h2>
+    <h3 id="junior-level-questions--10">Junior Level Questions</h3>
+    <p><strong>Q: What is TypeScript and why use it with React?</strong></p>
+    <p><strong>Answer</strong>: TypeScript is a typed superset of JavaScript
+        that adds static typing. Benefits with React:
+        - Better IDE support and autocomplete
+        - Catch errors at compile time
+        - Self-documenting code
+        - Easier refactoring</p>
+    <pre><code class="language-tsx">interface Props {
     name: string;
     age: number;
 }
@@ -1591,11 +1648,14 @@ function Greeting({ name, age }: Props) {
     return &lt;h1&gt;Hello, {name}! You are {age} years old.&lt;/h1&gt;;
 }
 </code></pre>
-<p><strong>Q: What is the difference between <code>interface</code> and <code>type</code>?</strong></p>
-<p><strong>Answer</strong>:
-- <strong>Interface</strong>: For object types, can be extended, declaration merging
-- <strong>Type</strong>: More flexible, supports union types, can be used for any type</p>
-<pre><code class="language-tsx">// Interface
+    <p><strong>Q: What is the difference between <code>interface</code> and
+            <code>type</code>?</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>Interface</strong>: For object types, can be extended,
+        declaration merging
+        - <strong>Type</strong>: More flexible, supports union types, can be
+        used for any type</p>
+    <pre><code class="language-tsx">// Interface
 interface User {
     id: number;
     name: string;
@@ -1609,10 +1669,11 @@ type User = {
 
 type UserRole = 'admin' | 'user';
 </code></pre>
-<h3 id="mid-level-questions--10">Mid Level Questions</h3>
-<p><strong>Q: How do you use generics in React components?</strong></p>
-<p><strong>Answer</strong>: Generics allow components to work with multiple types while maintaining type safety.</p>
-<pre><code class="language-tsx">function List&lt;T&gt;({ items, renderItem }: ListProps&lt;T&gt;) {
+    <h3 id="mid-level-questions--10">Mid Level Questions</h3>
+    <p><strong>Q: How do you use generics in React components?</strong></p>
+    <p><strong>Answer</strong>: Generics allow components to work with multiple
+        types while maintaining type safety.</p>
+    <pre><code class="language-tsx">function List&lt;T&gt;({ items, renderItem }: ListProps&lt;T&gt;) {
     return items.map((item, index) =&gt; renderItem(item, index));
 }
 
@@ -1622,21 +1683,25 @@ type UserRole = 'admin' | 'user';
     renderItem={(user) =&gt; &lt;UserCard user={user} /&gt;}
 /&gt;
 </code></pre>
-<p><strong>Q: What are utility types and when would you use them?</strong></p>
-<p><strong>Answer</strong>: Utility types are built-in TypeScript types that transform existing types. Common ones:
-- <code>Partial&lt;T&gt;</code>: Make all properties optional
-- <code>Pick&lt;T, K&gt;</code>: Select specific properties
-- <code>Omit&lt;T, K&gt;</code>: Remove specific properties
-- <code>Readonly&lt;T&gt;</code>: Make all properties readonly</p>
-<pre><code class="language-tsx">type UserUpdate = Partial&lt;Omit&lt;User, 'id'&gt;&gt;;
+    <p><strong>Q: What are utility types and when would you use
+            them?</strong></p>
+    <p><strong>Answer</strong>: Utility types are built-in TypeScript types that
+        transform existing types. Common ones:
+        - <code>Partial&lt;T&gt;</code>: Make all properties optional
+        - <code>Pick&lt;T, K&gt;</code>: Select specific properties
+        - <code>Omit&lt;T, K&gt;</code>: Remove specific properties
+        - <code>Readonly&lt;T&gt;</code>: Make all properties readonly</p>
+    <pre><code class="language-tsx">type UserUpdate = Partial&lt;Omit&lt;User, 'id'&gt;&gt;;
 function updateUser(id: number, updates: UserUpdate) {
     // updates can contain any subset of User properties
 }
 </code></pre>
-<h3 id="senior-level-questions--10">Senior Level Questions</h3>
-<p><strong>Q: How do you create type-safe API clients with TypeScript?</strong></p>
-<p><strong>Answer</strong>: Use generics, utility types, and conditional types to create type-safe API clients.</p>
-<pre><code class="language-tsx">interface ApiClient {
+    <h3 id="senior-level-questions--10">Senior Level Questions</h3>
+    <p><strong>Q: How do you create type-safe API clients with
+            TypeScript?</strong></p>
+    <p><strong>Answer</strong>: Use generics, utility types, and conditional
+        types to create type-safe API clients.</p>
+    <pre><code class="language-tsx">interface ApiClient {
     get&lt;T&gt;(url: string): Promise&lt;ApiResponse&lt;T&gt;&gt;;
     post&lt;T&gt;(url: string, data: unknown): Promise&lt;ApiResponse&lt;T&gt;&gt;;
     put&lt;T&gt;(url: string, data: unknown): Promise&lt;ApiResponse&lt;T&gt;&gt;;
@@ -1647,9 +1712,10 @@ function updateUser(id: number, updates: UserUpdate) {
 const user = await client.get&lt;User&gt;('/users/1');
 const users = await client.get&lt;User[]&gt;('/users');
 </code></pre>
-<p><strong>Q: How do you implement type-safe forms in React?</strong></p>
-<p><strong>Answer</strong>: Use TypeScript with form libraries like React Hook Form for type-safe forms.</p>
-<pre><code class="language-tsx">interface FormData {
+    <p><strong>Q: How do you implement type-safe forms in React?</strong></p>
+    <p><strong>Answer</strong>: Use TypeScript with form libraries like React
+        Hook Form for type-safe forms.</p>
+    <pre><code class="language-tsx">interface FormData {
     name: string;
     email: string;
     age: number;
@@ -1672,107 +1738,128 @@ function MyForm() {
     );
 }
 </code></pre>
-<h2 id="1012-summary">10.12 Summary</h2>
-<h3 id="typescript-concepts">TypeScript Concepts</h3>
-<table>
-<thead>
-<tr>
-<th>Concept</th>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Primitives</strong></td>
-<td>Basic types</td>
-<td><code>string</code>, <code>number</code>, <code>boolean</code></td>
-</tr>
-<tr>
-<td><strong>Interfaces</strong></td>
-<td>Object type definitions</td>
-<td><code>interface User { name: string }</code></td>
-</tr>
-<tr>
-<td><strong>Type Aliases</strong></td>
-<td>Custom type names</td>
-<td><code>type UserRole = 'admin' \| 'user'</code></td>
-</tr>
-<tr>
-<td><strong>Generics</strong></td>
-<td>Type parameters</td>
-<td><code>function&lt;T&gt;(value: T): T</code></td>
-</tr>
-<tr>
-<td><strong>Utility Types</strong></td>
-<td>Type transformations</td>
-<td><code>Partial&lt;T&gt;</code>, <code>Pick&lt;T, K&gt;</code></td>
-</tr>
-<tr>
-<td><strong>Type Guards</strong></td>
-<td>Type narrowing</td>
-<td><code>typeof</code>, <code>instanceof</code>, user-defined</td>
-</tr>
-</tbody>
-</table>
-<h3 id="typescript-in-react-2">TypeScript in React</h3>
-<table>
-<thead>
-<tr>
-<th>React Concept</th>
-<th>TypeScript Usage</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Props</strong></td>
-<td>Interface or type</td>
-<td><code>interface Props { name: string }</code></td>
-</tr>
-<tr>
-<td><strong>State</strong></td>
-<td>Type annotation</td>
-<td><code>const [state, setState] = useState&lt;Type&gt;()</code></td>
-</tr>
-<tr>
-<td><strong>Events</strong></td>
-<td>Event types</td>
-<td><code>(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void</code></td>
-</tr>
-<tr>
-<td><strong>Hooks</strong></td>
-<td>Type parameters</td>
-<td><code>useState&lt;string&gt;('')</code></td>
-</tr>
-<tr>
-<td><strong>Context</strong></td>
-<td>Context types</td>
-<td><code>const ctx = createContext&lt;Type | null&gt;(null)</code></td>
-</tr>
-<tr>
-<td><strong>Refs</strong></td>
-<td>Ref types</td>
-<td><code>const ref = useRef&lt;HTMLInputElement&gt;(null)</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="best-practices-summary--8">Best Practices Summary</h3>
-<ol>
-<li><strong>Use interfaces for object types</strong></li>
-<li><strong>Use type aliases for union types and complex types</strong></li>
-<li><strong>Use generics for reusable components</strong></li>
-<li><strong>Use utility types to transform existing types</strong></li>
-<li><strong>Use type guards for safe type narrowing</strong></li>
-<li><strong>Avoid <code>any</code> type</strong></li>
-<li><strong>Use strict mode in TypeScript</strong></li>
-<li><strong>Document types with JSDoc</strong></li>
-<li><strong>Use discriminated unions for state management</strong></li>
-<li><strong>Keep types organized and maintainable</strong></li>
-</ol>
-<hr/>
-<p><em>End of Chapter 10</em></p>
-<p><strong>Next Chapter Preview</strong>: Chapter 11 will cover Project Structure in React, including enterprise folder organization, file naming conventions, and the purpose of each folder and file type.</p>
-<hr/>
-<p><em>This chapter provides comprehensive coverage of TypeScript in React. Master these concepts to build type-safe, maintainable, and scalable React applications.</em></p>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-10" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-9"><span class="pager-label">← Previous chapter</span><strong>09 · API Integration in React</strong></a><a class="pager-card pager-card--next" href="#chapter-11"><span class="pager-label">Next chapter →</span><strong>11 · Enterprise React Project Structure</strong></a></nav></section>
+    <h2 id="1012-summary">10.12 Summary</h2>
+    <h3 id="typescript-concepts">TypeScript Concepts</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Concept</th>
+                <th>Description</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Primitives</strong></td>
+                <td>Basic types</td>
+                <td><code>string</code>, <code>number</code>,
+                    <code>boolean</code></td>
+            </tr>
+            <tr>
+                <td><strong>Interfaces</strong></td>
+                <td>Object type definitions</td>
+                <td><code>interface User { name: string }</code></td>
+            </tr>
+            <tr>
+                <td><strong>Type Aliases</strong></td>
+                <td>Custom type names</td>
+                <td><code>type UserRole = 'admin' \| 'user'</code></td>
+            </tr>
+            <tr>
+                <td><strong>Generics</strong></td>
+                <td>Type parameters</td>
+                <td><code>function&lt;T&gt;(value: T): T</code></td>
+            </tr>
+            <tr>
+                <td><strong>Utility Types</strong></td>
+                <td>Type transformations</td>
+                <td><code>Partial&lt;T&gt;</code>, <code>Pick&lt;T,
+                        K&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>Type Guards</strong></td>
+                <td>Type narrowing</td>
+                <td><code>typeof</code>, <code>instanceof</code>,
+                    user-defined</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="typescript-in-react-2">TypeScript in React</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>React Concept</th>
+                <th>TypeScript Usage</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Props</strong></td>
+                <td>Interface or type</td>
+                <td><code>interface Props { name: string }</code></td>
+            </tr>
+            <tr>
+                <td><strong>State</strong></td>
+                <td>Type annotation</td>
+                <td><code>const [state, setState] =
+                        useState&lt;Type&gt;()</code></td>
+            </tr>
+            <tr>
+                <td><strong>Events</strong></td>
+                <td>Event types</td>
+                <td><code>(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+                        void</code></td>
+            </tr>
+            <tr>
+                <td><strong>Hooks</strong></td>
+                <td>Type parameters</td>
+                <td><code>useState&lt;string&gt;('')</code></td>
+            </tr>
+            <tr>
+                <td><strong>Context</strong></td>
+                <td>Context types</td>
+                <td><code>const ctx = createContext&lt;Type |
+                        null&gt;(null)</code></td>
+            </tr>
+            <tr>
+                <td><strong>Refs</strong></td>
+                <td>Ref types</td>
+                <td><code>const ref =
+                        useRef&lt;HTMLInputElement&gt;(null)</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="best-practices-summary--8">Best Practices Summary</h3>
+    <ol>
+        <li><strong>Use interfaces for object types</strong></li>
+        <li><strong>Use type aliases for union types and complex
+                types</strong></li>
+        <li><strong>Use generics for reusable components</strong></li>
+        <li><strong>Use utility types to transform existing types</strong></li>
+        <li><strong>Use type guards for safe type narrowing</strong></li>
+        <li><strong>Avoid <code>any</code> type</strong></li>
+        <li><strong>Use strict mode in TypeScript</strong></li>
+        <li><strong>Document types with JSDoc</strong></li>
+        <li><strong>Use discriminated unions for state management</strong></li>
+        <li><strong>Keep types organized and maintainable</strong></li>
+    </ol>
+    <hr />
+    <p><em>End of Chapter 10</em></p>
+    <p><strong>Next Chapter Preview</strong>: Chapter 11 will cover Project
+        Structure in React, including enterprise folder organization, file
+        naming conventions, and the purpose of each folder and file type.</p>
+    <hr />
+    <p><em>This chapter provides comprehensive coverage of TypeScript in React.
+            Master these concepts to build type-safe, maintainable, and scalable
+            React applications.</em></p>
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-10" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-9"><span
+                class="pager-label">← Previous chapter</span><strong>09 · API
+                Integration in React</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-11"><span
+                class="pager-label">Next chapter →</span><strong>11 · Enterprise
+                React Project Structure</strong></a></nav></section>

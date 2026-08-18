@@ -1,61 +1,70 @@
 <section class="chapter" id="chapter-14" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">14</span>
-<h1 class="chapter-title" id="react-performance-optimization">React Performance Optimization</h1>
-</div>
-<hr/>
-<h2 id="introduction--4">Introduction</h2>
-<p>React is already fast by default.</p>
-<p>However, <strong>fast</strong> does not always mean <strong>optimized</strong>.</p>
-<p>As applications grow, unnecessary rendering, expensive calculations, large JavaScript bundles, and excessive API requests can significantly reduce performance.</p>
-<p>Performance optimization is the process of making your application:</p>
-<ul>
-<li>Faster</li>
-<li>More responsive</li>
-<li>More scalable</li>
-<li>More memory efficient</li>
-<li>Easier to maintain</li>
-</ul>
-<p>Enterprise applications often serve thousands or millions of users simultaneously, making performance optimization a critical skill for every React developer.</p>
-<hr/>
-<h2 id="why-performance-matters">Why Performance Matters</h2>
-<p>Imagine an application with:</p>
-<ul>
-<li>50 pages</li>
-<li>300 React components</li>
-<li>200 API endpoints</li>
-<li>Thousands of records</li>
-<li>Hundreds of users online</li>
-</ul>
-<p>Without optimization:</p>
-<ul>
-<li>Slow loading</li>
-<li>UI freezes</li>
-<li>Laggy scrolling</li>
-<li>Excessive network requests</li>
-<li>High memory usage</li>
-<li>Poor user experience</li>
-</ul>
-<p>A well-optimized React application feels smooth even when handling large amounts of data.</p>
-<hr/>
-<h2 id="understanding-rendering">Understanding Rendering</h2>
-<p>Everything in React starts with rendering.</p>
-<p>Rendering means:</p>
-<blockquote>
-<p>React executes a component function and produces a new Virtual DOM representation.</p>
-</blockquote>
-<p>Example:</p>
-<pre><code class="language-tsx">function Welcome() {
+    <div class="chapter-title-card">
+        <span class="chapter-num">14</span>
+        <h1 class="chapter-title" id="react-performance-optimization">React
+            Performance Optimization</h1>
+    </div>
+    <hr />
+    <h2 id="introduction--4">Introduction</h2>
+    <p>React is already fast by default.</p>
+    <p>However, <strong>fast</strong> does not always mean
+        <strong>optimized</strong>.</p>
+    <p>As applications grow, unnecessary rendering, expensive calculations,
+        large JavaScript bundles, and excessive API requests can significantly
+        reduce performance.</p>
+    <p>Performance optimization is the process of making your application:</p>
+    <ul>
+        <li>Faster</li>
+        <li>More responsive</li>
+        <li>More scalable</li>
+        <li>More memory efficient</li>
+        <li>Easier to maintain</li>
+    </ul>
+    <p>Enterprise applications often serve thousands or millions of users
+        simultaneously, making performance optimization a critical skill for
+        every React developer.</p>
+    <hr />
+    <h2 id="why-performance-matters">Why Performance Matters</h2>
+    <p>Imagine an application with:</p>
+    <ul>
+        <li>50 pages</li>
+        <li>300 React components</li>
+        <li>200 API endpoints</li>
+        <li>Thousands of records</li>
+        <li>Hundreds of users online</li>
+    </ul>
+    <p>Without optimization:</p>
+    <ul>
+        <li>Slow loading</li>
+        <li>UI freezes</li>
+        <li>Laggy scrolling</li>
+        <li>Excessive network requests</li>
+        <li>High memory usage</li>
+        <li>Poor user experience</li>
+    </ul>
+    <p>A well-optimized React application feels smooth even when handling large
+        amounts of data.</p>
+    <hr />
+    <h2 id="understanding-rendering">Understanding Rendering</h2>
+    <p>Everything in React starts with rendering.</p>
+    <p>Rendering means:</p>
+    <blockquote>
+        <p>React executes a component function and produces a new Virtual DOM
+            representation.</p>
+    </blockquote>
+    <p>Example:</p>
+    <pre><code class="language-tsx">function Welcome() {
     return &lt;h1&gt;Hello&lt;/h1&gt;;
 }
 </code></pre>
-<p>Every time React renders this component, the function executes again.</p>
-<p>Rendering <strong>does not necessarily mean updating the browser</strong>.</p>
-<p>React first compares the new Virtual DOM with the previous one.</p>
-<p>Only actual differences are applied to the Real DOM.</p>
-<hr/>
-<h2 id="the-rendering-process">The Rendering Process</h2>
-<pre><code class="language-text">State Changes
+    <p>Every time React renders this component, the function executes again.</p>
+    <p>Rendering <strong>does not necessarily mean updating the
+            browser</strong>.</p>
+    <p>React first compares the new Virtual DOM with the previous one.</p>
+    <p>Only actual differences are applied to the Real DOM.</p>
+    <hr />
+    <h2 id="the-rendering-process">The Rendering Process</h2>
+    <pre><code class="language-text">State Changes
       │
       ▼
 React Executes Component
@@ -72,28 +81,29 @@ Find Differences
       ▼
 Update Only Changed DOM Nodes
 </code></pre>
-<p>This comparison process is called <strong>Reconciliation</strong>.</p>
-<hr/>
-<h2 id="what-causes-a-component-to-re-render">What Causes a Component to Re-render?</h2>
-<p>A component renders again when:</p>
-<ul>
-<li>State changes</li>
-<li>Props change</li>
-<li>Context changes</li>
-<li>Parent component re-renders</li>
-<li>Forced update</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-tsx">const [count, setCount] = useState(0);
+    <p>This comparison process is called <strong>Reconciliation</strong>.</p>
+    <hr />
+    <h2 id="what-causes-a-component-to-re-render">What Causes a Component to
+        Re-render?</h2>
+    <p>A component renders again when:</p>
+    <ul>
+        <li>State changes</li>
+        <li>Props change</li>
+        <li>Context changes</li>
+        <li>Parent component re-renders</li>
+        <li>Forced update</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const [count, setCount] = useState(0);
 </code></pre>
-<p>Calling:</p>
-<pre><code class="language-tsx">setCount(count + 1);
+    <p>Calling:</p>
+    <pre><code class="language-tsx">setCount(count + 1);
 </code></pre>
-<p>causes React to render again.</p>
-<hr/>
-<h2 id="unnecessary-re-renders">Unnecessary Re-renders</h2>
-<p>Consider this example:</p>
-<pre><code class="language-tsx">function Parent() {
+    <p>causes React to render again.</p>
+    <hr />
+    <h2 id="unnecessary-re-renders">Unnecessary Re-renders</h2>
+    <p>Consider this example:</p>
+    <pre><code class="language-tsx">function Parent() {
 
     const [count, setCount] = useState(0);
 
@@ -107,405 +117,409 @@ Update Only Changed DOM Nodes
     );
 }
 </code></pre>
-<p>Every click causes:</p>
-<pre><code class="language-text">Parent → Child
+    <p>Every click causes:</p>
+    <pre><code class="language-text">Parent → Child
 </code></pre>
-<p>Even if <code>Child</code> never uses <code>count</code>.</p>
-<p>This is called an unnecessary re-render.</p>
-<hr/>
-<h2 id="reactmemo">React.memo()</h2>
-<h3 id="purpose--2">Purpose</h3>
-<p>Prevent a component from re-rendering when its props have not changed.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">const CustomerCard = React.memo(function CustomerCard(props) {
+    <p>Even if <code>Child</code> never uses <code>count</code>.</p>
+    <p>This is called an unnecessary re-render.</p>
+    <hr />
+    <h2 id="reactmemo">React.memo()</h2>
+    <h3 id="purpose--2">Purpose</h3>
+    <p>Prevent a component from re-rendering when its props have not
+        changed.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const CustomerCard = React.memo(function CustomerCard(props) {
 
     return &lt;div&gt;{props.name}&lt;/div&gt;;
 
 });
 </code></pre>
-<p>Now React compares props before rendering.</p>
-<p>If props remain the same:</p>
-<pre><code>Skip Rendering
+    <p>Now React compares props before rendering.</p>
+    <p>If props remain the same:</p>
+    <pre><code>Skip Rendering
 </code></pre>
-<hr/>
-<h3 id="without-reactmemo">Without React.memo()</h3>
-<pre><code class="language-text">Parent Render → Child Render → Child Render → Child Render → Child Render
+    <hr />
+    <h3 id="without-reactmemo">Without React.memo()</h3>
+    <pre><code class="language-text">Parent Render → Child Render → Child Render → Child Render → Child Render
 </code></pre>
-<hr/>
-<h3 id="with-reactmemo">With React.memo()</h3>
-<pre><code class="language-text">Parent Render → Compare Props → Props Same → Skip Rendering
+    <hr />
+    <h3 id="with-reactmemo">With React.memo()</h3>
+    <pre><code class="language-text">Parent Render → Compare Props → Props Same → Skip Rendering
 </code></pre>
-<hr/>
-<h2 id="when-to-use-reactmemo">When to Use React.memo()</h2>
-<p>Good candidates:</p>
-<ul>
-<li>Tables</li>
-<li>Cards</li>
-<li>Lists</li>
-<li>Dashboard widgets</li>
-<li>Expensive components</li>
-</ul>
-<p>Avoid wrapping every component.</p>
-<p>React.memo also performs comparisons, which has its own cost.</p>
-<hr/>
-<h2 id="usememo">useMemo()</h2>
-<h3 id="purpose_1">Purpose</h3>
-<p>Memoize expensive calculations.</p>
-<p>Without useMemo:</p>
-<pre><code class="language-tsx">const total = calculateTotal(customers);
+    <hr />
+    <h2 id="when-to-use-reactmemo">When to Use React.memo()</h2>
+    <p>Good candidates:</p>
+    <ul>
+        <li>Tables</li>
+        <li>Cards</li>
+        <li>Lists</li>
+        <li>Dashboard widgets</li>
+        <li>Expensive components</li>
+    </ul>
+    <p>Avoid wrapping every component.</p>
+    <p>React.memo also performs comparisons, which has its own cost.</p>
+    <hr />
+    <h2 id="usememo">useMemo()</h2>
+    <h3 id="purpose_1">Purpose</h3>
+    <p>Memoize expensive calculations.</p>
+    <p>Without useMemo:</p>
+    <pre><code class="language-tsx">const total = calculateTotal(customers);
 </code></pre>
-<p>The calculation executes on every render.</p>
-<p>With useMemo:</p>
-<pre><code class="language-tsx">const total = useMemo(() =&gt; {
+    <p>The calculation executes on every render.</p>
+    <p>With useMemo:</p>
+    <pre><code class="language-tsx">const total = useMemo(() =&gt; {
 
     return calculateTotal(customers);
 
 }, [customers]);
 </code></pre>
-<p>Now React recalculates only when <code>customers</code> changes.</p>
-<hr/>
-<h2 id="real-example">Real Example</h2>
-<p>Imagine:</p>
-<pre><code>10,000 Orders
+    <p>Now React recalculates only when <code>customers</code> changes.</p>
+    <hr />
+    <h2 id="real-example">Real Example</h2>
+    <p>Imagine:</p>
+    <pre><code>10,000 Orders
 </code></pre>
-<p>Calculating totals:</p>
-<ul>
-<li>Sum</li>
-<li>Average</li>
-<li>Revenue</li>
-<li>Tax</li>
-<li>Discount</li>
-</ul>
-<p>These operations may become expensive.</p>
-<p>Memoization prevents unnecessary recalculation.</p>
-<hr/>
-<h2 id="when-to-use-usememo">When to Use useMemo()</h2>
-<p>Good for:</p>
-<ul>
-<li>Sorting</li>
-<li>Filtering</li>
-<li>Searching</li>
-<li>Large calculations</li>
-<li>Statistics</li>
-<li>Chart preparation</li>
-</ul>
-<p>Not for simple arithmetic.</p>
-<hr/>
-<h2 id="usecallback">useCallback()</h2>
-<p>Functions are recreated every render.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">const handleDelete = () =&gt; {
+    <p>Calculating totals:</p>
+    <ul>
+        <li>Sum</li>
+        <li>Average</li>
+        <li>Revenue</li>
+        <li>Tax</li>
+        <li>Discount</li>
+    </ul>
+    <p>These operations may become expensive.</p>
+    <p>Memoization prevents unnecessary recalculation.</p>
+    <hr />
+    <h2 id="when-to-use-usememo">When to Use useMemo()</h2>
+    <p>Good for:</p>
+    <ul>
+        <li>Sorting</li>
+        <li>Filtering</li>
+        <li>Searching</li>
+        <li>Large calculations</li>
+        <li>Statistics</li>
+        <li>Chart preparation</li>
+    </ul>
+    <p>Not for simple arithmetic.</p>
+    <hr />
+    <h2 id="usecallback">useCallback()</h2>
+    <p>Functions are recreated every render.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const handleDelete = () =&gt; {
 
     ...
 
 };
 </code></pre>
-<p>Every render:</p>
-<pre><code class="language-text">New Function → New Reference
+    <p>Every render:</p>
+    <pre><code class="language-text">New Function → New Reference
 </code></pre>
-<p>If passed to child components:</p>
-<pre><code class="language-text">Props Changed → Child Re-renders
+    <p>If passed to child components:</p>
+    <pre><code class="language-text">Props Changed → Child Re-renders
 </code></pre>
-<hr/>
-<h3 id="solution">Solution</h3>
-<pre><code class="language-tsx">const handleDelete = useCallback(() =&gt; {
+    <hr />
+    <h3 id="solution">Solution</h3>
+    <pre><code class="language-tsx">const handleDelete = useCallback(() =&gt; {
 
     ...
 
 }, []);
 </code></pre>
-<p>React reuses the same function reference.</p>
-<hr/>
-<h2 id="usememo-vs-usecallback">useMemo vs useCallback</h2>
-<table>
-<thead>
-<tr>
-<th>useMemo</th>
-<th>useCallback</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Memoizes values</td>
-<td>Memoizes functions</td>
-</tr>
-<tr>
-<td>Returns value</td>
-<td>Returns function</td>
-</tr>
-</tbody>
-</table>
-<p>Example:</p>
-<pre><code class="language-tsx">const filtered = useMemo(...)
+    <p>React reuses the same function reference.</p>
+    <hr />
+    <h2 id="usememo-vs-usecallback">useMemo vs useCallback</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>useMemo</th>
+                <th>useCallback</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Memoizes values</td>
+                <td>Memoizes functions</td>
+            </tr>
+            <tr>
+                <td>Returns value</td>
+                <td>Returns function</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const filtered = useMemo(...)
 
 const handleClick = useCallback(...)
 </code></pre>
-<hr/>
-<h2 id="lazy-loading">Lazy Loading</h2>
-<p>Large applications should not download everything immediately.</p>
-<p>Instead of:</p>
-<ul>
-<li>Dashboard</li>
-<li>Customers</li>
-<li>Orders</li>
-<li>Reports</li>
-<li>Employees</li>
-<li>Invoices</li>
-<li>Settings</li>
-<li>Analytics</li>
-<li>Admin</li>
-</ul>
-<p>Loading all at startup...</p>
-<p>Only load the page the user visits.</p>
-<hr/>
-<h2 id="reactlazy">React.lazy()</h2>
-<p>Example:</p>
-<pre><code class="language-tsx">const Dashboard = React.lazy(() =&gt; import("./Dashboard"));
+    <hr />
+    <h2 id="lazy-loading">Lazy Loading</h2>
+    <p>Large applications should not download everything immediately.</p>
+    <p>Instead of:</p>
+    <ul>
+        <li>Dashboard</li>
+        <li>Customers</li>
+        <li>Orders</li>
+        <li>Reports</li>
+        <li>Employees</li>
+        <li>Invoices</li>
+        <li>Settings</li>
+        <li>Analytics</li>
+        <li>Admin</li>
+    </ul>
+    <p>Loading all at startup...</p>
+    <p>Only load the page the user visits.</p>
+    <hr />
+    <h2 id="reactlazy">React.lazy()</h2>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const Dashboard = React.lazy(() =&gt; import("./Dashboard"));
 </code></pre>
-<p>Dashboard is downloaded only when needed.</p>
-<hr/>
-<h2 id="suspense">Suspense</h2>
-<p>Lazy components need a loading state.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">&lt;Suspense fallback={&lt;Loader /&gt;}&gt;
+    <p>Dashboard is downloaded only when needed.</p>
+    <hr />
+    <h2 id="suspense">Suspense</h2>
+    <p>Lazy components need a loading state.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">&lt;Suspense fallback={&lt;Loader /&gt;}&gt;
 
     &lt;Dashboard /&gt;
 
 &lt;/Suspense&gt;
 </code></pre>
-<p>Flow:</p>
-<pre><code class="language-text">User Opens Dashboard → Loading... → Download Component → Render Dashboard
+    <p>Flow:</p>
+    <pre><code class="language-text">User Opens Dashboard → Loading... → Download Component → Render Dashboard
 </code></pre>
-<hr/>
-<h2 id="code-splitting">Code Splitting</h2>
-<p>Instead of one huge JavaScript bundle:</p>
-<ul>
-<li>app.js</li>
-<li>15 MB</li>
-</ul>
-<p>React splits it into smaller files.</p>
-<p>Example:</p>
-<ul>
-<li>login.js</li>
-<li>dashboard.js</li>
-<li>orders.js</li>
-<li>customers.js</li>
-<li>reports.js</li>
-</ul>
-<p>Browser downloads only what is necessary.</p>
-<hr/>
-<h2 id="route-based-code-splitting">Route-Based Code Splitting</h2>
-<p>Example:</p>
-<ul>
-<li>/</li>
-<li>↓</li>
-<li>Login Bundle</li>
-</ul>
-<hr/>
-<ul>
-<li>/dashboard</li>
-<li>↓</li>
-<li>Dashboard Bundle</li>
-</ul>
-<hr/>
-<ul>
-<li>/reports</li>
-<li>↓</li>
-<li>Reports Bundle</li>
-</ul>
-<p>This greatly improves startup performance.</p>
-<hr/>
-<h2 id="image-optimization">Image Optimization</h2>
-<p>Large images slow applications.</p>
-<p>Bad:</p>
-<pre><code>5000x5000 PNG
+    <hr />
+    <h2 id="code-splitting">Code Splitting</h2>
+    <p>Instead of one huge JavaScript bundle:</p>
+    <ul>
+        <li>app.js</li>
+        <li>15 MB</li>
+    </ul>
+    <p>React splits it into smaller files.</p>
+    <p>Example:</p>
+    <ul>
+        <li>login.js</li>
+        <li>dashboard.js</li>
+        <li>orders.js</li>
+        <li>customers.js</li>
+        <li>reports.js</li>
+    </ul>
+    <p>Browser downloads only what is necessary.</p>
+    <hr />
+    <h2 id="route-based-code-splitting">Route-Based Code Splitting</h2>
+    <p>Example:</p>
+    <ul>
+        <li>/</li>
+        <li>↓</li>
+        <li>Login Bundle</li>
+    </ul>
+    <hr />
+    <ul>
+        <li>/dashboard</li>
+        <li>↓</li>
+        <li>Dashboard Bundle</li>
+    </ul>
+    <hr />
+    <ul>
+        <li>/reports</li>
+        <li>↓</li>
+        <li>Reports Bundle</li>
+    </ul>
+    <p>This greatly improves startup performance.</p>
+    <hr />
+    <h2 id="image-optimization">Image Optimization</h2>
+    <p>Large images slow applications.</p>
+    <p>Bad:</p>
+    <pre><code>5000x5000 PNG
 </code></pre>
-<p>Good:</p>
-<ul>
-<li>Compressed WebP</li>
-<li>Responsive Images</li>
-<li>Lazy Loading</li>
-</ul>
-<p>Use:</p>
-<pre><code class="language-html">&lt;img loading="lazy"&gt;
+    <p>Good:</p>
+    <ul>
+        <li>Compressed WebP</li>
+        <li>Responsive Images</li>
+        <li>Lazy Loading</li>
+    </ul>
+    <p>Use:</p>
+    <pre><code class="language-html">&lt;img loading="lazy"&gt;
 </code></pre>
-<p>when appropriate.</p>
-<hr/>
-<h2 id="virtualization">Virtualization</h2>
-<p>Suppose you have:</p>
-<pre><code>100,000 Customers
+    <p>when appropriate.</p>
+    <hr />
+    <h2 id="virtualization">Virtualization</h2>
+    <p>Suppose you have:</p>
+    <pre><code>100,000 Customers
 </code></pre>
-<p>Rendering every row is expensive.</p>
-<p>Instead:</p>
-<pre><code>Visible Rows Only
+    <p>Rendering every row is expensive.</p>
+    <p>Instead:</p>
+    <pre><code>Visible Rows Only
 </code></pre>
-<p>Libraries:</p>
-<ul>
-<li>react-window</li>
-<li>react-virtualized</li>
-</ul>
-<p>Flow:</p>
-<pre><code class="language-text">100,000 Records → 20 Visible → Render Only 20 → Scroll → Render Next 20
+    <p>Libraries:</p>
+    <ul>
+        <li>react-window</li>
+        <li>react-virtualized</li>
+    </ul>
+    <p>Flow:</p>
+    <pre><code class="language-text">100,000 Records → 20 Visible → Render Only 20 → Scroll → Render Next 20
 </code></pre>
-<p>Huge performance improvement.</p>
-<hr/>
-<h2 id="pagination-vs-virtualization">Pagination vs Virtualization</h2>
-<p>Pagination:</p>
-<pre><code class="language-text">Page 1 → 20 Records
+    <p>Huge performance improvement.</p>
+    <hr />
+    <h2 id="pagination-vs-virtualization">Pagination vs Virtualization</h2>
+    <p>Pagination:</p>
+    <pre><code class="language-text">Page 1 → 20 Records
 </code></pre>
-<p>Virtualization:</p>
-<pre><code class="language-text">100,000 Records → Only Visible Rows Render
+    <p>Virtualization:</p>
+    <pre><code class="language-text">100,000 Records → Only Visible Rows Render
 </code></pre>
-<p>Large enterprise dashboards often combine both.</p>
-<hr/>
-<h2 id="debouncing">Debouncing</h2>
-<p>User types:</p>
-<ul>
-<li>A</li>
-<li>AB</li>
-<li>ABC</li>
-<li>ABCD</li>
-</ul>
-<p>Without debounce:</p>
-<pre><code>4 API Requests
+    <p>Large enterprise dashboards often combine both.</p>
+    <hr />
+    <h2 id="debouncing">Debouncing</h2>
+    <p>User types:</p>
+    <ul>
+        <li>A</li>
+        <li>AB</li>
+        <li>ABC</li>
+        <li>ABCD</li>
+    </ul>
+    <p>Without debounce:</p>
+    <pre><code>4 API Requests
 </code></pre>
-<p>With debounce:</p>
-<pre><code class="language-text">Wait → One API Request
+    <p>With debounce:</p>
+    <pre><code class="language-text">Wait → One API Request
 </code></pre>
-<p>Useful for:</p>
-<ul>
-<li>Search</li>
-<li>Autocomplete</li>
-<li>Filters</li>
-</ul>
-<hr/>
-<h2 id="throttling">Throttling</h2>
-<p>Throttle limits how often a function executes.</p>
-<p>Example:</p>
-<p>Scrolling.</p>
-<p>Without throttle:</p>
-<pre><code>1000 Events
+    <p>Useful for:</p>
+    <ul>
+        <li>Search</li>
+        <li>Autocomplete</li>
+        <li>Filters</li>
+    </ul>
+    <hr />
+    <h2 id="throttling">Throttling</h2>
+    <p>Throttle limits how often a function executes.</p>
+    <p>Example:</p>
+    <p>Scrolling.</p>
+    <p>Without throttle:</p>
+    <pre><code>1000 Events
 </code></pre>
-<p>With throttle:</p>
-<pre><code>20 Events
+    <p>With throttle:</p>
+    <pre><code>20 Events
 </code></pre>
-<hr/>
-<h2 id="react-query-performance">React Query Performance</h2>
-<p>React Query automatically improves performance.</p>
-<p>Features:</p>
-<ul>
-<li>Request caching</li>
-<li>Background refetching</li>
-<li>Request deduplication</li>
-<li>Retry</li>
-<li>Pagination support</li>
-<li>Infinite scrolling</li>
-</ul>
-<p>Without React Query:</p>
-<pre><code class="language-text">Component → API → API → API → API
+    <hr />
+    <h2 id="react-query-performance">React Query Performance</h2>
+    <p>React Query automatically improves performance.</p>
+    <p>Features:</p>
+    <ul>
+        <li>Request caching</li>
+        <li>Background refetching</li>
+        <li>Request deduplication</li>
+        <li>Retry</li>
+        <li>Pagination support</li>
+        <li>Infinite scrolling</li>
+    </ul>
+    <p>Without React Query:</p>
+    <pre><code class="language-text">Component → API → API → API → API
 </code></pre>
-<p>With React Query:</p>
-<pre><code class="language-text">Component → Cache → Reuse Data
+    <p>With React Query:</p>
+    <pre><code class="language-text">Component → Cache → Reuse Data
 </code></pre>
-<hr/>
-<h2 id="memoizing-derived-data">Memoizing Derived Data</h2>
-<p>Instead of:</p>
-<pre><code class="language-tsx">customers.filter(...).sort(...)
+    <hr />
+    <h2 id="memoizing-derived-data">Memoizing Derived Data</h2>
+    <p>Instead of:</p>
+    <pre><code class="language-tsx">customers.filter(...).sort(...)
 </code></pre>
-<p>on every render,</p>
-<p>use:</p>
-<pre><code class="language-tsx">useMemo(...)
+    <p>on every render,</p>
+    <p>use:</p>
+    <pre><code class="language-tsx">useMemo(...)
 </code></pre>
-<p>Only recompute when data changes.</p>
-<hr/>
-<h2 id="optimizing-context">Optimizing Context</h2>
-<p>Large Context objects cause many re-renders.</p>
-<p>Bad:</p>
-<pre><code class="language-text">One Huge Context → Entire Application Re-renders
+    <p>Only recompute when data changes.</p>
+    <hr />
+    <h2 id="optimizing-context">Optimizing Context</h2>
+    <p>Large Context objects cause many re-renders.</p>
+    <p>Bad:</p>
+    <pre><code class="language-text">One Huge Context → Entire Application Re-renders
 </code></pre>
-<p>Better:</p>
-<ul>
-<li>Auth Context</li>
-<li>Theme Context</li>
-<li>Language Context</li>
-<li>Notification Context</li>
-</ul>
-<p>Separate contexts reduce unnecessary updates.</p>
-<hr/>
-<h2 id="avoid-anonymous-functions-in-large-lists">Avoid Anonymous Functions in Large Lists</h2>
-<p>Bad:</p>
-<pre><code class="language-tsx">&lt;button onClick={() =&gt; deleteCustomer(id)}&gt;
+    <p>Better:</p>
+    <ul>
+        <li>Auth Context</li>
+        <li>Theme Context</li>
+        <li>Language Context</li>
+        <li>Notification Context</li>
+    </ul>
+    <p>Separate contexts reduce unnecessary updates.</p>
+    <hr />
+    <h2 id="avoid-anonymous-functions-in-large-lists">Avoid Anonymous Functions
+        in Large Lists</h2>
+    <p>Bad:</p>
+    <pre><code class="language-tsx">&lt;button onClick={() =&gt; deleteCustomer(id)}&gt;
 </code></pre>
-<p>inside thousands of rows.</p>
-<p>Prefer memoized handlers when performance becomes an issue.</p>
-<hr/>
-<h2 id="keys-in-lists">Keys in Lists</h2>
-<p>Bad:</p>
-<pre><code class="language-tsx">key={index}
+    <p>inside thousands of rows.</p>
+    <p>Prefer memoized handlers when performance becomes an issue.</p>
+    <hr />
+    <h2 id="keys-in-lists">Keys in Lists</h2>
+    <p>Bad:</p>
+    <pre><code class="language-tsx">key={index}
 </code></pre>
-<p>Good:</p>
-<pre><code class="language-tsx">key={customer.id}
+    <p>Good:</p>
+    <pre><code class="language-tsx">key={customer.id}
 </code></pre>
-<p>Stable keys help React update efficiently.</p>
-<hr/>
-<h2 id="bundle-optimization">Bundle Optimization</h2>
-<p>Large dependencies increase bundle size.</p>
-<p>Instead of importing entire libraries unnecessarily:</p>
-<pre><code class="language-tsx">import _ from "lodash";
+    <p>Stable keys help React update efficiently.</p>
+    <hr />
+    <h2 id="bundle-optimization">Bundle Optimization</h2>
+    <p>Large dependencies increase bundle size.</p>
+    <p>Instead of importing entire libraries unnecessarily:</p>
+    <pre><code class="language-tsx">import _ from "lodash";
 </code></pre>
-<p>Prefer importing only what you need when possible.</p>
-<p>Remove unused dependencies regularly.</p>
-<hr/>
-<h2 id="measuring-performance">Measuring Performance</h2>
-<p>React provides the <strong>Profiler</strong>.</p>
-<p>The Profiler shows:</p>
-<ul>
-<li>Render duration</li>
-<li>Number of renders</li>
-<li>Slow components</li>
-<li>Component hierarchy</li>
-</ul>
-<p>It helps identify bottlenecks instead of guessing.</p>
-<hr/>
-<h2 id="react-developer-tools">React Developer Tools</h2>
-<p>React DevTools provides:</p>
-<ul>
-<li>Component tree</li>
-<li>Props</li>
-<li>State</li>
-<li>Context</li>
-<li>Hooks</li>
-<li>Profiler</li>
-</ul>
-<p>Every professional React developer should use it.</p>
-<hr/>
-<h2 id="common-performance-mistakes">Common Performance Mistakes</h2>
-<p>❌ Wrapping everything in <code>React.memo()</code>.</p>
-<p>❌ Using <code>useMemo()</code> for trivial calculations.</p>
-<p>❌ Using <code>useCallback()</code> everywhere.</p>
-<p>❌ Fetching the same data multiple times.</p>
-<p>❌ Rendering huge lists without virtualization.</p>
-<p>❌ Loading all routes on startup.</p>
-<p>❌ Ignoring bundle size.</p>
-<p>❌ Passing new object literals as props every render.</p>
-<p>❌ Creating very large Context objects.</p>
-<p>❌ Using array indexes as keys.</p>
-<hr/>
-<h2 id="enterprise-performance-checklist">Enterprise Performance Checklist</h2>
-<p>✅ Use React Query for server state.</p>
-<p>✅ Split code by route.</p>
-<p>✅ Lazy-load heavy pages.</p>
-<p>✅ Memoize expensive calculations.</p>
-<p>✅ Memoize callbacks only when beneficial.</p>
-<p>✅ Use stable keys.</p>
-<p>✅ Optimize images.</p>
-<p>✅ Cache API responses.</p>
-<p>✅ Virtualize large lists.</p>
-<p>✅ Debounce search inputs.</p>
-<p>✅ Profile before optimizing.</p>
-<hr/>
-<h2 id="performance-optimization-decision-flow">Performance Optimization Decision Flow</h2>
-<pre><code class="language-text">Application Feels Slow
+    <p>Prefer importing only what you need when possible.</p>
+    <p>Remove unused dependencies regularly.</p>
+    <hr />
+    <h2 id="measuring-performance">Measuring Performance</h2>
+    <p>React provides the <strong>Profiler</strong>.</p>
+    <p>The Profiler shows:</p>
+    <ul>
+        <li>Render duration</li>
+        <li>Number of renders</li>
+        <li>Slow components</li>
+        <li>Component hierarchy</li>
+    </ul>
+    <p>It helps identify bottlenecks instead of guessing.</p>
+    <hr />
+    <h2 id="react-developer-tools">React Developer Tools</h2>
+    <p>React DevTools provides:</p>
+    <ul>
+        <li>Component tree</li>
+        <li>Props</li>
+        <li>State</li>
+        <li>Context</li>
+        <li>Hooks</li>
+        <li>Profiler</li>
+    </ul>
+    <p>Every professional React developer should use it.</p>
+    <hr />
+    <h2 id="common-performance-mistakes">Common Performance Mistakes</h2>
+    <p>❌ Wrapping everything in <code>React.memo()</code>.</p>
+    <p>❌ Using <code>useMemo()</code> for trivial calculations.</p>
+    <p>❌ Using <code>useCallback()</code> everywhere.</p>
+    <p>❌ Fetching the same data multiple times.</p>
+    <p>❌ Rendering huge lists without virtualization.</p>
+    <p>❌ Loading all routes on startup.</p>
+    <p>❌ Ignoring bundle size.</p>
+    <p>❌ Passing new object literals as props every render.</p>
+    <p>❌ Creating very large Context objects.</p>
+    <p>❌ Using array indexes as keys.</p>
+    <hr />
+    <h2 id="enterprise-performance-checklist">Enterprise Performance
+        Checklist</h2>
+    <p>✅ Use React Query for server state.</p>
+    <p>✅ Split code by route.</p>
+    <p>✅ Lazy-load heavy pages.</p>
+    <p>✅ Memoize expensive calculations.</p>
+    <p>✅ Memoize callbacks only when beneficial.</p>
+    <p>✅ Use stable keys.</p>
+    <p>✅ Optimize images.</p>
+    <p>✅ Cache API responses.</p>
+    <p>✅ Virtualize large lists.</p>
+    <p>✅ Debounce search inputs.</p>
+    <p>✅ Profile before optimizing.</p>
+    <hr />
+    <h2 id="performance-optimization-decision-flow">Performance Optimization
+        Decision Flow</h2>
+    <pre><code class="language-text">Application Feels Slow
         │
         ▼
 Measure Performance
@@ -537,73 +551,87 @@ Lazy Loading
         ▼
 Profile Again
 </code></pre>
-<hr/>
-<h2 id="performance-optimization-summary">Performance Optimization Summary</h2>
-<table>
-<thead>
-<tr>
-<th>Technique</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>React.memo</td>
-<td>Prevent unnecessary component renders</td>
-</tr>
-<tr>
-<td>useMemo</td>
-<td>Cache expensive computed values</td>
-</tr>
-<tr>
-<td>useCallback</td>
-<td>Cache function references</td>
-</tr>
-<tr>
-<td>React.lazy</td>
-<td>Load components on demand</td>
-</tr>
-<tr>
-<td>Suspense</td>
-<td>Display fallback UI while loading</td>
-</tr>
-<tr>
-<td>Code Splitting</td>
-<td>Reduce initial bundle size</td>
-</tr>
-<tr>
-<td>React Query</td>
-<td>Cache and synchronize server data</td>
-</tr>
-<tr>
-<td>Virtualization</td>
-<td>Render only visible list items</td>
-</tr>
-<tr>
-<td>Debounce</td>
-<td>Reduce rapid API calls</td>
-</tr>
-<tr>
-<td>Throttle</td>
-<td>Limit frequent event execution</td>
-</tr>
-<tr>
-<td>Profiler</td>
-<td>Measure rendering performance</td>
-</tr>
-</tbody>
-</table>
-<hr/>
-<h2 id="chapter-summary--3">Chapter Summary</h2>
-<p>Performance optimization in React is about <strong>reducing unnecessary work</strong>, not applying every optimization technique everywhere.</p>
-<p>A well-performing React application:</p>
-<ul>
-<li>Renders only what is necessary.</li>
-<li>Downloads only what the user needs.</li>
-<li>Reuses previously computed values.</li>
-<li>Avoids duplicate network requests.</li>
-<li>Efficiently handles large datasets.</li>
-<li>Measures performance before applying optimizations.</li>
-</ul>
-<p>The best optimization is <strong>understanding why React is doing work</strong> and ensuring it only performs the work that truly matters.</p>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-14" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-13"><span class="pager-label">← Previous chapter</span><strong>13 · Enterprise React Architecture Case Study</strong></a><a class="pager-card pager-card--next" href="#chapter-15"><span class="pager-label">Next chapter →</span><strong>15 · Testing React Applications</strong></a></nav></section>
+    <hr />
+    <h2 id="performance-optimization-summary">Performance Optimization
+        Summary</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Technique</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>React.memo</td>
+                <td>Prevent unnecessary component renders</td>
+            </tr>
+            <tr>
+                <td>useMemo</td>
+                <td>Cache expensive computed values</td>
+            </tr>
+            <tr>
+                <td>useCallback</td>
+                <td>Cache function references</td>
+            </tr>
+            <tr>
+                <td>React.lazy</td>
+                <td>Load components on demand</td>
+            </tr>
+            <tr>
+                <td>Suspense</td>
+                <td>Display fallback UI while loading</td>
+            </tr>
+            <tr>
+                <td>Code Splitting</td>
+                <td>Reduce initial bundle size</td>
+            </tr>
+            <tr>
+                <td>React Query</td>
+                <td>Cache and synchronize server data</td>
+            </tr>
+            <tr>
+                <td>Virtualization</td>
+                <td>Render only visible list items</td>
+            </tr>
+            <tr>
+                <td>Debounce</td>
+                <td>Reduce rapid API calls</td>
+            </tr>
+            <tr>
+                <td>Throttle</td>
+                <td>Limit frequent event execution</td>
+            </tr>
+            <tr>
+                <td>Profiler</td>
+                <td>Measure rendering performance</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <h2 id="chapter-summary--3">Chapter Summary</h2>
+    <p>Performance optimization in React is about <strong>reducing unnecessary
+            work</strong>, not applying every optimization technique
+        everywhere.</p>
+    <p>A well-performing React application:</p>
+    <ul>
+        <li>Renders only what is necessary.</li>
+        <li>Downloads only what the user needs.</li>
+        <li>Reuses previously computed values.</li>
+        <li>Avoids duplicate network requests.</li>
+        <li>Efficiently handles large datasets.</li>
+        <li>Measures performance before applying optimizations.</li>
+    </ul>
+    <p>The best optimization is <strong>understanding why React is doing
+            work</strong> and ensuring it only performs the work that truly
+        matters.</p>
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-14" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-13"><span
+                class="pager-label">← Previous chapter</span><strong>13 ·
+                Enterprise React Architecture Case Study</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-15"><span
+                class="pager-label">Next chapter →</span><strong>15 · Testing
+                React Applications</strong></a></nav></section>

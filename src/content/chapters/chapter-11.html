@@ -1,13 +1,17 @@
 <section class="chapter" id="chapter-11" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">11</span>
-<h1 class="chapter-title" id="enterprise-react-project-structure">Enterprise React Project Structure</h1>
-</div>
-<h3 id="introduction">Introduction</h3>
-<p>As React applications grow, organizing files becomes just as important as writing good code.</p>
-<p>A small project with only a few pages can keep everything inside the <code>src</code> folder without any structure.</p>
-<p>Example:</p>
-<pre><code class="language-text">src
+    <div class="chapter-title-card">
+        <span class="chapter-num">11</span>
+        <h1 class="chapter-title"
+            id="enterprise-react-project-structure">Enterprise React Project
+            Structure</h1>
+    </div>
+    <h3 id="introduction">Introduction</h3>
+    <p>As React applications grow, organizing files becomes just as important as
+        writing good code.</p>
+    <p>A small project with only a few pages can keep everything inside the
+        <code>src</code> folder without any structure.</p>
+    <p>Example:</p>
+    <pre><code class="language-text">src
 │
 ├── App.tsx
 ├── Login.tsx
@@ -16,45 +20,51 @@
 ├── Employee.tsx
 └── index.css
 </code></pre>
-<p>This works for very small applications.</p>
-<p>However, an enterprise application may contain:</p>
-<ul>
-<li>100+ pages</li>
-<li>500+ React components</li>
-<li>Hundreds of API endpoints</li>
-<li>Multiple development teams</li>
-<li>Thousands of files</li>
-</ul>
-<p>Without a proper architecture, maintaining the project becomes nearly impossible.</p>
-<p>For this reason, professional companies organize React applications into specialized folders where each folder has one responsibility.</p>
-<hr/>
-<h2 id="why-project-structure-matters">Why Project Structure Matters</h2>
-<p>A good project structure provides:</p>
-<ul>
-<li>Better maintainability</li>
-<li>Easier onboarding for new developers</li>
-<li>Better scalability</li>
-<li>Less duplicated code</li>
-<li>Easier debugging</li>
-<li>Cleaner architecture</li>
-<li>Separation of concerns</li>
-<li>Reusable code</li>
-</ul>
-<p>Every developer on the team immediately knows where each file belongs.</p>
-<hr/>
-<h2 id="how-data-flows-through-the-application">How Data Flows Through the Application</h2>
-<p>Before understanding the folders, you should understand how data travels inside a React application.</p>
-<p>Imagine a user clicks the <strong>Create Customer</strong> button.</p>
-<p>The request flows like this:</p>
-<pre><code class="language-text">User → Customer Page → Customer Form Component → Customer Service → Customer API → Axios Instance → Spring Boot REST API → Controller → Service → Repository → Database
+    <p>This works for very small applications.</p>
+    <p>However, an enterprise application may contain:</p>
+    <ul>
+        <li>100+ pages</li>
+        <li>500+ React components</li>
+        <li>Hundreds of API endpoints</li>
+        <li>Multiple development teams</li>
+        <li>Thousands of files</li>
+    </ul>
+    <p>Without a proper architecture, maintaining the project becomes nearly
+        impossible.</p>
+    <p>For this reason, professional companies organize React applications into
+        specialized folders where each folder has one responsibility.</p>
+    <hr />
+    <h2 id="why-project-structure-matters">Why Project Structure Matters</h2>
+    <p>A good project structure provides:</p>
+    <ul>
+        <li>Better maintainability</li>
+        <li>Easier onboarding for new developers</li>
+        <li>Better scalability</li>
+        <li>Less duplicated code</li>
+        <li>Easier debugging</li>
+        <li>Cleaner architecture</li>
+        <li>Separation of concerns</li>
+        <li>Reusable code</li>
+    </ul>
+    <p>Every developer on the team immediately knows where each file
+        belongs.</p>
+    <hr />
+    <h2 id="how-data-flows-through-the-application">How Data Flows Through the
+        Application</h2>
+    <p>Before understanding the folders, you should understand how data travels
+        inside a React application.</p>
+    <p>Imagine a user clicks the <strong>Create Customer</strong> button.</p>
+    <p>The request flows like this:</p>
+    <pre><code class="language-text">User → Customer Page → Customer Form Component → Customer Service → Customer API → Axios Instance → Spring Boot REST API → Controller → Service → Repository → Database
 
 Database → Repository → Service → Controller → JSON Response → Axios → Customer API → Customer Service → React Query → React Component → User Interface
 </code></pre>
-<p>Understanding this flow makes understanding the folder structure much easier.</p>
-<hr/>
-<h2 id="root-project-structure">Root Project Structure</h2>
-<p>A typical enterprise React application may look like this:</p>
-<pre><code class="language-text">src
+    <p>Understanding this flow makes understanding the folder structure much
+        easier.</p>
+    <hr />
+    <h2 id="root-project-structure">Root Project Structure</h2>
+    <p>A typical enterprise React application may look like this:</p>
+    <pre><code class="language-text">src
 │
 ├── api
 ├── assets
@@ -80,15 +90,16 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 ├── index.css
 └── vite-env.d.ts
 </code></pre>
-<p>Each folder has a single responsibility.</p>
-<hr/>
-<h2 id="api">api/</h2>
-<h3 id="purpose">Purpose</h3>
-<p>The <code>api</code> folder contains all communication with the backend.</p>
-<p>Its responsibility is only sending HTTP requests.</p>
-<p>It should never contain business logic.</p>
-<p>Example:</p>
-<pre><code class="language-text">api
+    <p>Each folder has a single responsibility.</p>
+    <hr />
+    <h2 id="api">api/</h2>
+    <h3 id="purpose">Purpose</h3>
+    <p>The <code>api</code> folder contains all communication with the
+        backend.</p>
+    <p>Its responsibility is only sending HTTP requests.</p>
+    <p>It should never contain business logic.</p>
+    <p>Example:</p>
+    <pre><code class="language-text">api
 │
 ├── api.ts
 ├── auth.api.ts
@@ -98,31 +109,31 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 ├── payment.api.ts
 └── report.api.ts
 </code></pre>
-<p>Example:</p>
-<pre><code class="language-ts">export function getCustomers() {
+    <p>Example:</p>
+    <pre><code class="language-ts">export function getCustomers() {
     return api.get("/customers");
 }
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>GET requests</li>
-<li>POST requests</li>
-<li>PUT requests</li>
-<li>DELETE requests</li>
-<li>Upload requests</li>
-<li>Download requests</li>
-</ul>
-<p>Not responsible for:</p>
-<ul>
-<li>Filtering data</li>
-<li>Business rules</li>
-<li>UI logic</li>
-</ul>
-<hr/>
-<h2 id="assets">assets/</h2>
-<p>Stores static resources.</p>
-<p>Example:</p>
-<pre><code class="language-text">assets
+    <p>Responsibilities:</p>
+    <ul>
+        <li>GET requests</li>
+        <li>POST requests</li>
+        <li>PUT requests</li>
+        <li>DELETE requests</li>
+        <li>Upload requests</li>
+        <li>Download requests</li>
+    </ul>
+    <p>Not responsible for:</p>
+    <ul>
+        <li>Filtering data</li>
+        <li>Business rules</li>
+        <li>UI logic</li>
+    </ul>
+    <hr />
+    <h2 id="assets">assets/</h2>
+    <p>Stores static resources.</p>
+    <p>Example:</p>
+    <pre><code class="language-text">assets
 │
 ├── images
 ├── icons
@@ -130,48 +141,48 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 ├── videos
 └── styles
 </code></pre>
-<p>Contains:</p>
-<ul>
-<li>Logos</li>
-<li>Images</li>
-<li>Icons</li>
-<li>Fonts</li>
-<li>Global CSS</li>
-<li>Animations</li>
-</ul>
-<hr/>
-<h2 id="components">components/</h2>
-<p>Contains reusable UI components.</p>
-<p>Instead of rewriting the same button 50 times:</p>
-<pre><code class="language-tsx">&lt;button&gt;Create&lt;/button&gt;
+    <p>Contains:</p>
+    <ul>
+        <li>Logos</li>
+        <li>Images</li>
+        <li>Icons</li>
+        <li>Fonts</li>
+        <li>Global CSS</li>
+        <li>Animations</li>
+    </ul>
+    <hr />
+    <h2 id="components">components/</h2>
+    <p>Contains reusable UI components.</p>
+    <p>Instead of rewriting the same button 50 times:</p>
+    <pre><code class="language-tsx">&lt;button&gt;Create&lt;/button&gt;
 </code></pre>
-<p>You create:</p>
-<pre><code class="language-tsx">&lt;Button /&gt;
+    <p>You create:</p>
+    <pre><code class="language-tsx">&lt;Button /&gt;
 </code></pre>
-<p>Project:</p>
-<pre><code class="language-text">components
+    <p>Project:</p>
+    <pre><code class="language-text">components
 │
 ├── common
 ├── forms
 ├── layout
 └── ui
 </code></pre>
-<p>Examples:</p>
-<ul>
-<li>Button</li>
-<li>Card</li>
-<li>Modal</li>
-<li>Table</li>
-<li>Loader</li>
-<li>Input</li>
-<li>Pagination</li>
-</ul>
-<p>Reusable everywhere.</p>
-<hr/>
-<h2 id="pages">pages/</h2>
-<p>A page represents an entire screen.</p>
-<p>Examples:</p>
-<pre><code class="language-text">pages
+    <p>Examples:</p>
+    <ul>
+        <li>Button</li>
+        <li>Card</li>
+        <li>Modal</li>
+        <li>Table</li>
+        <li>Loader</li>
+        <li>Input</li>
+        <li>Pagination</li>
+    </ul>
+    <p>Reusable everywhere.</p>
+    <hr />
+    <h2 id="pages">pages/</h2>
+    <p>A page represents an entire screen.</p>
+    <p>Examples:</p>
+    <pre><code class="language-text">pages
 │
 ├── Dashboard
 ├── Customers
@@ -180,37 +191,38 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 ├── Reports
 └── Login
 </code></pre>
-<p>Usually every page corresponds to one route.</p>
-<p>Example:</p>
-<pre><code>/customers
+    <p>Usually every page corresponds to one route.</p>
+    <p>Example:</p>
+    <pre><code>/customers
 </code></pre>
-<p>loads</p>
-<pre><code>CustomersPage.tsx
+    <p>loads</p>
+    <pre><code>CustomersPage.tsx
 </code></pre>
-<hr/>
-<h2 id="layouts">layouts/</h2>
-<p>Layouts define page structure.</p>
-<p>Example:</p>
-<ul>
-<li>Dashboard Layout</li>
-<li>+--------------------------------+</li>
-<li>Navbar</li>
-</ul>
-<hr/>
-<ul>
-<li>Sidebar | Main Content</li>
-</ul>
-<hr/>
-<ul>
-<li>Footer</li>
-<li>+--------------------------------+</li>
-</ul>
-<p>Instead of rewriting Navbar and Sidebar on every page, pages are wrapped inside layouts.</p>
-<hr/>
-<h2 id="hooks">hooks/</h2>
-<p>Contains reusable custom hooks.</p>
-<p>Example:</p>
-<pre><code class="language-text">hooks
+    <hr />
+    <h2 id="layouts">layouts/</h2>
+    <p>Layouts define page structure.</p>
+    <p>Example:</p>
+    <ul>
+        <li>Dashboard Layout</li>
+        <li>+--------------------------------+</li>
+        <li>Navbar</li>
+    </ul>
+    <hr />
+    <ul>
+        <li>Sidebar | Main Content</li>
+    </ul>
+    <hr />
+    <ul>
+        <li>Footer</li>
+        <li>+--------------------------------+</li>
+    </ul>
+    <p>Instead of rewriting Navbar and Sidebar on every page, pages are wrapped
+        inside layouts.</p>
+    <hr />
+    <h2 id="hooks">hooks/</h2>
+    <p>Contains reusable custom hooks.</p>
+    <p>Example:</p>
+    <pre><code class="language-text">hooks
 │
 ├── useAuth.ts
 ├── usePagination.ts
@@ -218,70 +230,70 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 ├── useTheme.ts
 └── useToast.ts
 </code></pre>
-<p>Hooks encapsulate reusable logic.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">const { login } = useAuth();
+    <p>Hooks encapsulate reusable logic.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">const { login } = useAuth();
 </code></pre>
-<hr/>
-<h2 id="services">services/</h2>
-<p>Contains business logic.</p>
-<p>Services sit between Components and APIs.</p>
-<p>Flow:</p>
-<pre><code class="language-text">Component → Service → API
+    <hr />
+    <h2 id="services">services/</h2>
+    <p>Contains business logic.</p>
+    <p>Services sit between Components and APIs.</p>
+    <p>Flow:</p>
+    <pre><code class="language-text">Component → Service → API
 </code></pre>
-<p>Example:</p>
-<p>API returns:</p>
-<pre><code class="language-text">100 customers
+    <p>Example:</p>
+    <p>API returns:</p>
+    <pre><code class="language-text">100 customers
 </code></pre>
-<p>Service filters:</p>
-<pre><code class="language-text">Only Active Customers
+    <p>Service filters:</p>
+    <pre><code class="language-text">Only Active Customers
 </code></pre>
-<p>Components receive clean data.</p>
-<hr/>
-<h2 id="routes">routes/</h2>
-<p>Responsible for navigation.</p>
-<p>Example:</p>
-<pre><code class="language-text">routes
+    <p>Components receive clean data.</p>
+    <hr />
+    <h2 id="routes">routes/</h2>
+    <p>Responsible for navigation.</p>
+    <p>Example:</p>
+    <pre><code class="language-text">routes
 │
 ├── AppRouter.tsx
 ├── ProtectedRoute.tsx
 ├── PublicRoute.tsx
 └── RouteGuard.tsx
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Page navigation</li>
-<li>Authentication protection</li>
-<li>Authorization</li>
-<li>Lazy loading</li>
-</ul>
-<hr/>
-<h2 id="context">context/</h2>
-<p>Stores global application state.</p>
-<p>Example:</p>
-<pre><code class="language-text">AuthContext → Current User → Accessible by every component
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Page navigation</li>
+        <li>Authentication protection</li>
+        <li>Authorization</li>
+        <li>Lazy loading</li>
+    </ul>
+    <hr />
+    <h2 id="context">context/</h2>
+    <p>Stores global application state.</p>
+    <p>Example:</p>
+    <pre><code class="language-text">AuthContext → Current User → Accessible by every component
 </code></pre>
-<p>Examples:</p>
-<ul>
-<li>Authentication</li>
-<li>Theme</li>
-<li>Language</li>
-</ul>
-<hr/>
-<h2 id="store">store/</h2>
-<p>Contains centralized state management.</p>
-<p>Usually used with:</p>
-<ul>
-<li>Redux Toolkit</li>
-<li>Zustand</li>
-<li>MobX</li>
-</ul>
-<p>Stores application-wide data.</p>
-<hr/>
-<h2 id="providers">providers/</h2>
-<p>Wrap global providers around the application.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">&lt;QueryClientProvider&gt;
+    <p>Examples:</p>
+    <ul>
+        <li>Authentication</li>
+        <li>Theme</li>
+        <li>Language</li>
+    </ul>
+    <hr />
+    <h2 id="store">store/</h2>
+    <p>Contains centralized state management.</p>
+    <p>Usually used with:</p>
+    <ul>
+        <li>Redux Toolkit</li>
+        <li>Zustand</li>
+        <li>MobX</li>
+    </ul>
+    <p>Stores application-wide data.</p>
+    <hr />
+    <h2 id="providers">providers/</h2>
+    <p>Wrap global providers around the application.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">&lt;QueryClientProvider&gt;
 
 &lt;AuthProvider&gt;
 
@@ -295,49 +307,49 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 
 &lt;/QueryClientProvider&gt;
 </code></pre>
-<hr/>
-<h2 id="constants">constants/</h2>
-<p>Stores values that rarely change.</p>
-<p>Example:</p>
-<ul>
-<li>API_URL</li>
-<li>ADMIN_ROLE</li>
-<li>CUSTOMER_ROLE</li>
-<li>ORDER_PENDING</li>
-<li>ORDER_COMPLETED</li>
-<li>MAX_UPLOAD_SIZE</li>
-</ul>
-<p>Instead of repeating strings throughout the project.</p>
-<hr/>
-<h2 id="config">config/</h2>
-<p>Contains project configuration.</p>
-<p>Examples:</p>
-<ul>
-<li>Axios</li>
-<li>React Query</li>
-<li>Theme</li>
-<li>Environment</li>
-<li>Application Settings</li>
-</ul>
-<hr/>
-<h2 id="utils">utils/</h2>
-<p>General helper functions.</p>
-<p>Examples:</p>
-<ul>
-<li>formatDate()</li>
-<li>formatCurrency()</li>
-<li>downloadFile()</li>
-<li>parseJwt()</li>
-<li>generateUUID()</li>
-<li>capitalize()</li>
-</ul>
-<p>Pure functions.</p>
-<p>No React code.</p>
-<hr/>
-<h2 id="types">types/</h2>
-<p>Contains TypeScript definitions.</p>
-<p>Example:</p>
-<pre><code class="language-ts">export interface Customer {
+    <hr />
+    <h2 id="constants">constants/</h2>
+    <p>Stores values that rarely change.</p>
+    <p>Example:</p>
+    <ul>
+        <li>API_URL</li>
+        <li>ADMIN_ROLE</li>
+        <li>CUSTOMER_ROLE</li>
+        <li>ORDER_PENDING</li>
+        <li>ORDER_COMPLETED</li>
+        <li>MAX_UPLOAD_SIZE</li>
+    </ul>
+    <p>Instead of repeating strings throughout the project.</p>
+    <hr />
+    <h2 id="config">config/</h2>
+    <p>Contains project configuration.</p>
+    <p>Examples:</p>
+    <ul>
+        <li>Axios</li>
+        <li>React Query</li>
+        <li>Theme</li>
+        <li>Environment</li>
+        <li>Application Settings</li>
+    </ul>
+    <hr />
+    <h2 id="utils">utils/</h2>
+    <p>General helper functions.</p>
+    <p>Examples:</p>
+    <ul>
+        <li>formatDate()</li>
+        <li>formatCurrency()</li>
+        <li>downloadFile()</li>
+        <li>parseJwt()</li>
+        <li>generateUUID()</li>
+        <li>capitalize()</li>
+    </ul>
+    <p>Pure functions.</p>
+    <p>No React code.</p>
+    <hr />
+    <h2 id="types">types/</h2>
+    <p>Contains TypeScript definitions.</p>
+    <p>Example:</p>
+    <pre><code class="language-ts">export interface Customer {
 
     id: number;
 
@@ -347,29 +359,29 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 
 }
 </code></pre>
-<p>Used everywhere.</p>
-<hr/>
-<h2 id="validations">validations/</h2>
-<p>Contains validation schemas.</p>
-<p>Usually built using:</p>
-<ul>
-<li>Zod</li>
-<li>Yup</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-ts">CustomerSchema
+    <p>Used everywhere.</p>
+    <hr />
+    <h2 id="validations">validations/</h2>
+    <p>Contains validation schemas.</p>
+    <p>Usually built using:</p>
+    <ul>
+        <li>Zod</li>
+        <li>Yup</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-ts">CustomerSchema
 </code></pre>
-<p>Rules:</p>
-<ul>
-<li>Name required</li>
-<li>Phone format</li>
-<li>Email validation</li>
-</ul>
-<hr/>
-<h2 id="features">features/</h2>
-<p>Some enterprise projects organize by feature.</p>
-<p>Example:</p>
-<pre><code class="language-text">features
+    <p>Rules:</p>
+    <ul>
+        <li>Name required</li>
+        <li>Phone format</li>
+        <li>Email validation</li>
+    </ul>
+    <hr />
+    <h2 id="features">features/</h2>
+    <p>Some enterprise projects organize by feature.</p>
+    <p>Example:</p>
+    <pre><code class="language-text">features
 │
 ├── auth
 ├── customer
@@ -377,8 +389,8 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 ├── order
 └── payment
 </code></pre>
-<p>Each feature contains:</p>
-<pre><code class="language-text">customer
+    <p>Each feature contains:</p>
+    <pre><code class="language-text">customer
 │
 ├── api
 ├── components
@@ -388,12 +400,12 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 ├── types
 └── validations
 </code></pre>
-<p>Everything related to Customers stays together.</p>
-<hr/>
-<h2 id="shared">shared/</h2>
-<p>Contains code shared across multiple features.</p>
-<p>Example:</p>
-<pre><code class="language-text">shared
+    <p>Everything related to Customers stays together.</p>
+    <hr />
+    <h2 id="shared">shared/</h2>
+    <p>Contains code shared across multiple features.</p>
+    <p>Example:</p>
+    <pre><code class="language-text">shared
 │
 ├── components
 ├── hooks
@@ -401,134 +413,149 @@ Database → Repository → Service → Controller → JSON Response → Axios �
 ├── constants
 └── types
 </code></pre>
-<hr/>
-<h2 id="main-files">Main Files</h2>
-<h3 id="maintsx">main.tsx</h3>
-<p>Application entry point.</p>
-<p>Responsibilities:</p>
-<ul>
-<li>Mount React</li>
-<li>Create root</li>
-<li>Register providers</li>
-<li>Render App</li>
-</ul>
-<hr/>
-<h3 id="apptsx">App.tsx</h3>
-<p>Root application component.</p>
-<p>Responsibilities:</p>
-<ul>
-<li>Render layouts</li>
-<li>Render router</li>
-<li>Global application structure</li>
-</ul>
-<hr/>
-<h3 id="indexcss">index.css</h3>
-<p>Global CSS styles.</p>
-<p>Typically imports:</p>
-<ul>
-<li>Tailwind</li>
-<li>Variables</li>
-<li>Global styles</li>
-<li>Fonts</li>
-</ul>
-<hr/>
-<h3 id="vite-envdts">vite-env.d.ts</h3>
-<p>TypeScript declarations generated for Vite.</p>
-<p>Allows TypeScript to understand:</p>
-<pre><code class="language-ts">import.meta.env
+    <hr />
+    <h2 id="main-files">Main Files</h2>
+    <h3 id="maintsx">main.tsx</h3>
+    <p>Application entry point.</p>
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Mount React</li>
+        <li>Create root</li>
+        <li>Register providers</li>
+        <li>Render App</li>
+    </ul>
+    <hr />
+    <h3 id="apptsx">App.tsx</h3>
+    <p>Root application component.</p>
+    <p>Responsibilities:</p>
+    <ul>
+        <li>Render layouts</li>
+        <li>Render router</li>
+        <li>Global application structure</li>
+    </ul>
+    <hr />
+    <h3 id="indexcss">index.css</h3>
+    <p>Global CSS styles.</p>
+    <p>Typically imports:</p>
+    <ul>
+        <li>Tailwind</li>
+        <li>Variables</li>
+        <li>Global styles</li>
+        <li>Fonts</li>
+    </ul>
+    <hr />
+    <h3 id="vite-envdts">vite-env.d.ts</h3>
+    <p>TypeScript declarations generated for Vite.</p>
+    <p>Allows TypeScript to understand:</p>
+    <pre><code class="language-ts">import.meta.env
 </code></pre>
-<hr/>
-<h2 id="file-extensions">File Extensions</h2>
-<h3 id="ts">.ts</h3>
-<p>TypeScript file.</p>
-<p>Contains:</p>
-<ul>
-<li>Functions</li>
-<li>Classes</li>
-<li>Utilities</li>
-<li>Services</li>
-<li>APIs</li>
-<li>Hooks (without JSX)</li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-ts">customer.service.ts
+    <hr />
+    <h2 id="file-extensions">File Extensions</h2>
+    <h3 id="ts">.ts</h3>
+    <p>TypeScript file.</p>
+    <p>Contains:</p>
+    <ul>
+        <li>Functions</li>
+        <li>Classes</li>
+        <li>Utilities</li>
+        <li>Services</li>
+        <li>APIs</li>
+        <li>Hooks (without JSX)</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code class="language-ts">customer.service.ts
 </code></pre>
-<hr/>
-<h3 id="tsx">.tsx</h3>
-<p>TypeScript + JSX.</p>
-<p>Contains React Components.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">CustomerTable.tsx
+    <hr />
+    <h3 id="tsx">.tsx</h3>
+    <p>TypeScript + JSX.</p>
+    <p>Contains React Components.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">CustomerTable.tsx
 </code></pre>
-<hr/>
-<h3 id="css">.css</h3>
-<p>Regular CSS file.</p>
-<p>Global styles.</p>
-<hr/>
-<h3 id="modulecss">.module.css</h3>
-<p>Scoped CSS.</p>
-<p>Styles only affect one component.</p>
-<p>Example:</p>
-<pre><code class="language-tsx">import styles from "./Button.module.css";
+    <hr />
+    <h3 id="css">.css</h3>
+    <p>Regular CSS file.</p>
+    <p>Global styles.</p>
+    <hr />
+    <h3 id="modulecss">.module.css</h3>
+    <p>Scoped CSS.</p>
+    <p>Styles only affect one component.</p>
+    <p>Example:</p>
+    <pre><code class="language-tsx">import styles from "./Button.module.css";
 </code></pre>
-<hr/>
-<h3 id="scss">.scss</h3>
-<p>Sass stylesheet.</p>
-<p>Supports:</p>
-<ul>
-<li>Variables</li>
-<li>Nesting</li>
-<li>Mixins</li>
-</ul>
-<hr/>
-<h3 id="svg">.svg</h3>
-<p>Vector graphics.</p>
-<p>Best for:</p>
-<ul>
-<li>Icons</li>
-<li>Logos</li>
-</ul>
-<hr/>
-<h3 id="png">.png</h3>
-<p>Raster image.</p>
-<p>Supports transparency.</p>
-<hr/>
-<h3 id="jpg">.jpg</h3>
-<p>Compressed photograph.</p>
-<p>Best for photos.</p>
-<hr/>
-<h3 id="json">.json</h3>
-<p>Configuration or data.</p>
-<p>Examples:</p>
-<ul>
-<li>package.json</li>
-<li>tsconfig.json</li>
-<li>launch.json</li>
-</ul>
-<hr/>
-<h3 id="env">.env</h3>
-<p>Environment variables.</p>
-<p>Example:</p>
-<pre><code class="language-env">VITE_API_URL=http://localhost:8080
+    <hr />
+    <h3 id="scss">.scss</h3>
+    <p>Sass stylesheet.</p>
+    <p>Supports:</p>
+    <ul>
+        <li>Variables</li>
+        <li>Nesting</li>
+        <li>Mixins</li>
+    </ul>
+    <hr />
+    <h3 id="svg">.svg</h3>
+    <p>Vector graphics.</p>
+    <p>Best for:</p>
+    <ul>
+        <li>Icons</li>
+        <li>Logos</li>
+    </ul>
+    <hr />
+    <h3 id="png">.png</h3>
+    <p>Raster image.</p>
+    <p>Supports transparency.</p>
+    <hr />
+    <h3 id="jpg">.jpg</h3>
+    <p>Compressed photograph.</p>
+    <p>Best for photos.</p>
+    <hr />
+    <h3 id="json">.json</h3>
+    <p>Configuration or data.</p>
+    <p>Examples:</p>
+    <ul>
+        <li>package.json</li>
+        <li>tsconfig.json</li>
+        <li>launch.json</li>
+    </ul>
+    <hr />
+    <h3 id="env">.env</h3>
+    <p>Environment variables.</p>
+    <p>Example:</p>
+    <pre><code class="language-env">VITE_API_URL=http://localhost:8080
 </code></pre>
-<p>Never commit secrets.</p>
-<hr/>
-<h3 id="envlocal">.env.local</h3>
-<p>Local environment variables.</p>
-<p>Ignored by Git.</p>
-<hr/>
-<h3 id="md">.md</h3>
-<p>Markdown documentation.</p>
-<p>Used for:</p>
-<ul>
-<li>README</li>
-<li>Documentation</li>
-<li>Architecture</li>
-<li>Tutorials</li>
-</ul>
-<hr/>
-<h2 id="summary">Summary</h2>
-<p>A well-designed React project structure is not about creating many folders—it is about <strong>assigning a clear responsibility to each part of the application</strong>.</p>
-<p>When every folder has one purpose, developers can quickly locate files, understand data flow, collaborate efficiently, and scale the application without creating technical debt.</p>
-<p>This architecture is the foundation of professional React applications used in enterprise environments.</p>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-11" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-10"><span class="pager-label">← Previous chapter</span><strong>10 · TypeScript in React</strong></a><a class="pager-card pager-card--next" href="#chapter-12"><span class="pager-label">Next chapter →</span><strong>12 · Understanding Data Flow in React Applications</strong></a></nav></section>
+    <p>Never commit secrets.</p>
+    <hr />
+    <h3 id="envlocal">.env.local</h3>
+    <p>Local environment variables.</p>
+    <p>Ignored by Git.</p>
+    <hr />
+    <h3 id="md">.md</h3>
+    <p>Markdown documentation.</p>
+    <p>Used for:</p>
+    <ul>
+        <li>README</li>
+        <li>Documentation</li>
+        <li>Architecture</li>
+        <li>Tutorials</li>
+    </ul>
+    <hr />
+    <h2 id="summary">Summary</h2>
+    <p>A well-designed React project structure is not about creating many
+        folders—it is about <strong>assigning a clear responsibility to each
+            part of the application</strong>.</p>
+    <p>When every folder has one purpose, developers can quickly locate files,
+        understand data flow, collaborate efficiently, and scale the application
+        without creating technical debt.</p>
+    <p>This architecture is the foundation of professional React applications
+        used in enterprise environments.</p>
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-11" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-10"><span
+                class="pager-label">← Previous chapter</span><strong>10 ·
+                TypeScript in React</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-12"><span
+                class="pager-label">Next chapter →</span><strong>12 ·
+                Understanding Data Flow in React
+                Applications</strong></a></nav></section>

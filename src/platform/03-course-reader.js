@@ -1,119 +1,856 @@
-  function coursePage(course) {
-    if(course.id==='react') return reactCoursePage(course);
-    const p=courseProgress(course), lessons=flatLessons(course);
-    const pythonTools=course.id==='python-ai'?`<nav class="python-tool-nav" aria-label="Python and AI learning tools">${[['roadmap','Roadmap'],['models','Models Library'],['projects','Projects'],['datasets','Datasets'],['cheatsheets','Cheat Sheets'],['glossary','AI Glossary'],['lab','Model Comparison Lab']].map(([slug,label])=>`<a href="#/courses/python-ai/${slug}">${label}</a>`).join('')}</nav>`:'';
-    return `${header()}<main class="devpath-main course-page" style="--course:${course.color}"><a class="back-link" href="#/">← All learning paths</a><section class="course-hero"><span class="tech-icon large">${technologyIcon(course)}</span><div><span class="eyebrow">${esc(course.level)}</span><h1>${esc(state.language==='ar'&&course.titleAr?course.titleAr:course.title)}</h1><p>${esc(state.language==='ar'&&course.descriptionAr?course.descriptionAr:course.description)}</p><div class="course-stats"><span><strong>${course.modules.length}</strong> stages</span><span><strong>${lessons.length}</strong> lessons</span><span><strong>${p.percent}%</strong> complete</span></div></div></section>${course.id==='spring-boot'?springPipelineLab():course.id==='postman'?postmanRequestLab():''}${pythonTools}<div class="course-layout"><aside class="module-nav"><strong>Course outline</strong>${course.modules.map((m,i)=>`<a href="#module-${m.id}"><span>${String(i+1).padStart(2,'0')}</span>${esc(state.language==='ar'&&m.titleAr?m.titleAr:m.title)}</a>`).join('')}</aside><section class="module-list">${course.modules.map((module,i)=>moduleCard(course,module,i)).join('')}</section></div></main>${footer()}`;
+function coursePage(course) {
+  if (course.id === 'react') return reactCoursePage(course);
+  const p = courseProgress(course), lessons = flatLessons(course);
+  const pythonTools = course.id === 'python-ai' ?
+      `<nav class="python-tool-nav" aria-label="Python and AI learning tools">${
+              [['roadmap', 'Roadmap'], ['models', 'Models Library'],
+               ['projects', 'Projects'], ['datasets', 'Datasets'],
+               ['cheatsheets', 'Cheat Sheets'], ['glossary', 'AI Glossary'],
+               ['lab', 'Model Comparison Lab']]
+                  .map(
+                      ([slug, label]) =>
+                          `<a href="#/courses/python-ai/${slug}">${label}</a>`)
+                  .join('')}</nav>` :
+      '';
+  return `${
+      header()}<main class="devpath-main course-page premium-course-page" style="--course:${
+      course
+          .color}"><a class="back-link" href="#/">← All learning paths</a><section class="course-hero premium-hero"><div class="course-hero-copy"><span class="eyebrow">${
+      esc(course.level)}</span><h1>${
+      esc(state.language === 'ar' && course.titleAr ? course.titleAr :
+                                                      course.title)}</h1><p>${
+      esc(state.language === 'ar' && course.descriptionAr ?
+              course.descriptionAr :
+              course.description)}</p><div class="course-stats"><span><strong>${
+      course.modules.length}</strong> chapters</span><span><strong>${
+      lessons.length}</strong> lessons</span><span><strong>${
+      p.percent}%</strong> complete</span></div><div class="course-actions"><a class="primary-cta" href="#module-${
+      course.modules[0]
+          .id}">Start Learning</a><a class="secondary-cta" href="#/sources">Explore Curriculum</a></div></div><div class="course-hero-panel"><div class="hero-panel-chip">${
+      course.modules.length} Chapter Path</div><div class="hero-panel-title">${
+      esc(course.shortTitle || course.title)}</div><p>${
+      esc(course.id === 'file-extensions' ?
+              'Learn to identify source, configuration, generated, secret, and deployment files by purpose rather than memorizing suffixes.' :
+              'A focused path with reusable structure, stable progress, and clear chapter hierarchy.')}</p><div class="hero-panel-progress"><span><strong>${
+      p.percent}%</strong> Progress</span><progress max="100" value="${
+      p.percent}"></progress></div></div></section>${
+      course.id === 'file-extensions' ? fileExtensionsLanding() :
+          course.id === 'spring-boot' ? springPipelineLab() :
+          course.id === 'postman'     ? postmanRequestLab() :
+                                        ''}${
+      pythonTools}<div class="course-layout premium-layout"><aside class="module-nav premium-module-nav"><strong>Course</strong><div class="module-nav-title">${
+      esc(course.title)}</div><label class="module-search"><span>${
+      icon(
+          'search')}</span><input type="search" placeholder="Search chapters"></label><div class="module-nav-progress"><span>Progress</span><strong>${
+      p.percent}%</strong><progress max="100" value="${
+      p.percent}"></progress></div>${
+      course.modules
+          .map(
+              (m, i) => `<a href="#module-${m.id}"><span>${
+                  String(i + 1).padStart(2, '0')}</span>${
+                  esc(state.language === 'ar' && m.titleAr ? m.titleAr :
+                                                             m.title)}</a>`)
+          .join('')}</aside><section class="module-list">${
+      course.modules.map((module, i) => moduleCard(course, module, i))
+          .join(
+              '')}</section><aside class="lesson-toc" aria-label="On this page"><strong>On this page</strong><a href="#lesson-objectives">Objectives</a><a href="#lesson-concepts">Concepts</a><a href="#lesson-example">Example</a><a href="#lesson-practice">Practice</a><a href="#lesson-questions">Questions</a><a href="#lesson-summary">Summary</a></aside></div></main>${
+      footer()}`;
+}
+function springPipelineLab() {
+  return `<section class="api-pipeline-lab" data-api-lab="spring"><div><span class="eyebrow">INTERACTIVE REQUEST PIPELINE</span><h2>Follow a request through Spring Boot</h2><p>Change the scenario to see validation, service logic, persistence, and exception handling.</p></div><div class="api-scenario-buttons" role="group" aria-label="Spring request scenario"><button data-spring-case="success">Valid request</button><button data-spring-case="invalid">Validation error</button><button data-spring-case="missing">Not found</button><button data-spring-case="unauthorized">Unauthorized</button></div><div class="pipeline-steps" id="springPipeline" aria-live="polite"></div><pre><code id="springResponse" class="language-json"></code></pre></section>`;
+}
+function postmanRequestLab() {
+  return `<section class="api-pipeline-lab" data-api-lab="postman"><div><span class="eyebrow">POSTMAN REQUEST LAB</span><h2>Compose your first API request</h2><p>Pick a method, authorization mode, and body; then inspect the generated request and test.</p></div><div class="postman-controls"><label>Method<select id="postmanMethod"><option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option></select></label><label>Authorization<select id="postmanAuth"><option value="none">None</option><option value="bearer">Bearer token</option><option value="api-key">API key</option></select></label><label>Environment<select id="postmanEnvironment"><option value="local">Local</option><option value="staging">Staging</option></select></label></div><pre><code id="postmanRequestPreview" class="language-http"></code></pre><div class="postman-test"><strong>Generated test</strong><pre><code id="postmanTestPreview" class="language-javascript"></code></pre></div></section>`;
+}
+function reactCoursePage(course) {
+  const p = courseProgress(course), completedChapters = legacyCompleted(),
+        experience = course.experiences?.[0];
+  let number = 0;
+  const experienceCard = experience ?
+      `<article class="module-card project-experience-card" id="react-project-structure"><div class="module-heading"><div><span>INTERACTIVE EXPERIENCE</span><h2>${
+          esc(experience
+                  [1])}</h2></div><small>Explorer · flow · quiz</small></div><ol><li><a href="${
+          routeHref(course.id, experience[0])}"><span class="lesson-status">${
+          (state.completed.react || []).includes(`react:${experience[0]}`) ?
+              '✓' :
+              '↗'}</span><span><small>Visual architecture lab</small><strong>Open the React project explorer</strong></span><b>→</b></a></li></ol></article>` :
+      '';
+  return `${
+      header()}<main class="devpath-main course-page react-original premium-course-page" style="--course:${
+      course
+          .color}"><a class="back-link" href="#/">← All learning paths</a><section class="course-hero premium-hero"><div class="course-hero-copy"><span class="eyebrow">YOUR ORIGINAL COURSE · FULL CONTENT</span><h1>${
+      esc(course.title)}</h1><p>${
+      esc(course
+              .description)}</p><div class="course-stats"><span><strong>18</strong> chapters</span><span><strong>416</strong> sections</span><span><strong>${
+      p.percent}%</strong> complete</span></div><div class="course-actions"><a class="primary-cta react-launch" href="react.html#chapter-1">Continue original course</a><a class="secondary-cta" href="${
+      routeHref(
+          'react',
+          'project-structure')}">Explore project structure</a></div></div><div class="course-hero-panel"><div class="hero-panel-chip">Preserved Reader + Visual Lab</div><div class="hero-panel-title">React</div><p>The original curriculum stays preserved while a new interactive architecture experience explains how real project files connect.</p><div class="hero-panel-progress"><span><strong>${
+      p.percent}%</strong> Progress</span><progress max="100" value="${
+      p.percent}"></progress></div></div></section>${
+      reactRenderLab()}<div class="course-layout premium-layout"><aside class="module-nav premium-module-nav"><strong>Original course outline</strong><div class="module-nav-title">React Developer Course</div><a href="#react-project-structure"><span>00</span>Project Structure Lab</a>${
+      course.modules
+          .map(
+              (module, index) => `<a href="#react-module-${module.id}"><span>${
+                  String(index + 1).padStart(
+                      2, '0')}</span>${esc(module.title)}</a>`)
+          .join('')}</aside><section class="module-list">${experienceCard}${
+      course.modules
+          .map(
+              (module,
+               moduleIndex) => `<article class="module-card" id="react-module-${
+                  module.id}"><div class="module-heading"><div><span>PART ${
+                  String(moduleIndex + 1).padStart(2, '0')}</span><h2>${
+                  esc(module.title)}</h2></div><small>${
+                  module.lessons.length} original chapters</small></div><ol>${
+                  module.lessons
+                      .map(([slug, title]) => {
+                        number += 1;
+                        const completed =
+                            JSON.parse(
+                                    localStorage.getItem(LEGACY_COMPLETE_KEY) ||
+                                    '[]')
+                                .includes(slug);
+                        return `<li class="${
+                            completed ? 'done' : ''}"><a href="react.html#${
+                            slug}"><span class="lesson-status">${
+                            completed ?
+                                '✓' :
+                                number}</span><span><small>Original chapter ${
+                            number}</small><strong>${
+                            esc(title)}</strong></span><b>→</b></a></li>`;
+                      })
+                      .join('')}</ol></article>`)
+          .join(
+              '')}</section><aside class="lesson-toc" aria-label="On this page"><strong>On this page</strong><a href="#react-project-structure">Project lab</a><a href="#react-render-lab">Render lab</a><a href="#react-module-react-foundations">Foundations</a><a href="#react-module-react-core">Core</a><a href="#react-module-react-enterprise">Enterprise</a><a href="#react-module-react-production">Production</a></aside></div></main>${
+      footer()}`;
+}
+function reactRenderLab() {
+  return `<section class="react-render-lab"><div><span class="eyebrow">REACT RENDER LAB</span><h2>See props and state update a component</h2><p>Edit the prop, change state, and watch the render count.</p></div><div class="react-lab-controls"><label>title prop<input id="reactPropInput" value="Learning React" maxlength="40"></label><div><button id="reactMinus" type="button">−</button><strong id="reactStateValue">0</strong><button id="reactPlus" type="button">+</button></div><button id="reactLabResetHome" type="button">Reset</button></div><div class="react-component-preview"><small>LessonCard.jsx · render <b id="reactRenderCount">1</b></small><h3 id="reactPreviewTitle">Learning React</h3><p>State value: <strong id="reactPreviewState">0</strong></p></div></section>`;
+}
+function moduleCard(course, module, index) {
+  const done = new Set(state.completed[course.id] || []);
+  return `<article class="module-card" id="module-${
+      module.id}"><div class="module-heading"><div><span>${
+      course.id === 'python-ai' ?
+          'STAGE' :
+          'MODULE'} ${String(index + 1).padStart(2, '0')}</span><h2>${
+      esc(state.language === 'ar' && module.titleAr ?
+              module.titleAr :
+              module.title)}</h2></div><small>${
+      module.lessons.filter(([slug]) => done.has(`${course.id}:${slug}`))
+          .length}/${module.lessons.length} complete</small></div><ol>${
+      module.lessons
+          .map(
+              ([slug, title, meta = {}], i) => `<li class="${
+                  done.has(`${course.id}:${slug}`) ? 'done' : ''}"><a href="${
+                  routeHref(course.id, slug)}"><span class="lesson-status">${
+                  done.has(`${course.id}:${slug}`) ?
+                      '✓' :
+                      i + 1}</span><span><small>${
+                  meta.kind === 'assessment' ?
+                      'Assessment' :
+                      meta.kind === 'review' ?
+                      'Review' :
+                      `Lesson ${index + 1}.${i + 1}`}</small><strong>${
+                  esc(state.language === 'ar' && meta.titleAr ?
+                          meta.titleAr :
+                          title)}</strong></span><b>→</b></a></li>`)
+          .join('')}</ol></article>`;
+}
+function reactLanding() {
+  const p = courseProgress(reactCourse);
+  return `${
+      header()}<main class="devpath-main course-page" style="--course:#169fca"><a class="back-link" href="#/">← All learning paths</a><section class="course-hero"><span class="tech-icon large">R</span><div><span class="eyebrow">ORIGINAL COURSE · FULLY PRESERVED</span><h1>React Developer Course</h1><p>${
+      reactCourse
+          .description}</p><div class="course-stats"><span><strong>18</strong> chapters</span><span><strong>416</strong> sections</span><span><strong>${
+      p.percent}%</strong> complete</span></div><a class="primary-cta react-launch" href="react.html#chapter-1">Open React course</a></div></section><section class="legacy-note"><strong>The complete React course is loaded only when you open it.</strong><p>This keeps the Academy home page fast while preserving chapters, quizzes, notes, bookmarks, progress, exports, and reading preferences.</p><a href="react.html#chapter-1">Enter the React reader →</a></section></main>${
+      footer()}`;
+}
+const lessonExample = (course, title) => {
+  if (course.id === 'firebase-google-cloud') {
+    if (/Firestore|Firebase|Authentication|Security Rules/i.test(title))
+      return {
+        language: 'javascript',
+        code:
+            'import { initializeApp } from "firebase/app";\nimport { getFirestore, collection, getDocs } from "firebase/firestore";\n\nconst app = initializeApp(firebaseConfig);\nconst db = getFirestore(app);\nconst snapshot = await getDocs(collection(db, "courses"));\nconsole.log(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));',
+        output: '[{ id: "react", title: "React" }, { id: "sql", title: "SQL" }]'
+      };
+    if (/Cloud Run|Container|Spring Boot/i.test(title))
+      return {
+        language: 'bash',
+        code: 'gcloud run deploy academy-api --source . --region europe-west1',
+        output: 'Service [academy-api] revision deployed and serving traffic.'
+      };
+    return {
+      language: 'bash',
+      code: 'firebase login\nfirebase use --add\nfirebase emulators:start',
+      output: 'All emulators ready! It is now safe to connect your app.'
+    };
   }
-  function springPipelineLab(){return `<section class="api-pipeline-lab" data-api-lab="spring"><div><span class="eyebrow">INTERACTIVE REQUEST PIPELINE</span><h2>Follow a request through Spring Boot</h2><p>Change the scenario to see validation, service logic, persistence, and exception handling.</p></div><div class="api-scenario-buttons" role="group" aria-label="Spring request scenario"><button data-spring-case="success">Valid request</button><button data-spring-case="invalid">Validation error</button><button data-spring-case="missing">Not found</button><button data-spring-case="unauthorized">Unauthorized</button></div><div class="pipeline-steps" id="springPipeline" aria-live="polite"></div><pre><code id="springResponse" class="language-json"></code></pre></section>`;}
-  function postmanRequestLab(){return `<section class="api-pipeline-lab" data-api-lab="postman"><div><span class="eyebrow">POSTMAN REQUEST LAB</span><h2>Compose your first API request</h2><p>Pick a method, authorization mode, and body; then inspect the generated request and test.</p></div><div class="postman-controls"><label>Method<select id="postmanMethod"><option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option></select></label><label>Authorization<select id="postmanAuth"><option value="none">None</option><option value="bearer">Bearer token</option><option value="api-key">API key</option></select></label><label>Environment<select id="postmanEnvironment"><option value="local">Local</option><option value="staging">Staging</option></select></label></div><pre><code id="postmanRequestPreview" class="language-http"></code></pre><div class="postman-test"><strong>Generated test</strong><pre><code id="postmanTestPreview" class="language-javascript"></code></pre></div></section>`;}
-  function reactCoursePage(course){
-    const p=courseProgress(course),completedChapters=legacyCompleted();let number=0;
-    return `${header()}<main class="devpath-main course-page react-original" style="--course:${course.color}"><a class="back-link" href="#/">← All learning paths</a><section class="course-hero"><span class="tech-icon large">${technologyIcon(course)}</span><div><span class="eyebrow">YOUR ORIGINAL COURSE · FULL CONTENT</span><h1>${esc(course.title)}</h1><p>${esc(course.description)}</p><div class="course-stats"><span><strong>18</strong> chapters</span><span><strong>416</strong> sections</span><span><strong>${p.percent}%</strong> complete</span></div><a class="primary-cta react-launch" href="react.html#chapter-1">Continue original course</a></div></section>${reactRenderLab()}<div class="course-layout"><aside class="module-nav"><strong>Original course outline</strong>${course.modules.map((module,index)=>`<a href="#react-module-${module.id}"><span>${String(index+1).padStart(2,'0')}</span>${esc(module.title)}</a>`).join('')}</aside><section class="module-list">${course.modules.map((module,moduleIndex)=>`<article class="module-card" id="react-module-${module.id}"><div class="module-heading"><div><span>PART ${String(moduleIndex+1).padStart(2,'0')}</span><h2>${esc(module.title)}</h2></div><small>${module.lessons.length} original chapters</small></div><ol>${module.lessons.map(([slug,title])=>{number+=1;const completed=JSON.parse(localStorage.getItem(LEGACY_COMPLETE_KEY)||'[]').includes(slug);return `<li class="${completed?'done':''}"><a href="react.html#${slug}"><span class="lesson-status">${completed?'✓':number}</span><span><small>Original chapter ${number}</small><strong>${esc(title)}</strong></span><b>→</b></a></li>`;}).join('')}</ol></article>`).join('')}</section></div></main>${footer()}`;
+  if (course.id === 'sql' || course.id === 'database-optimization') {
+    if (/EXPLAIN|Plan|Index|Optimization|Slow|Pagination/i.test(title))
+      return {
+        language: 'sql',
+        code:
+            'EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)\nSELECT id, title\nFROM lessons\nWHERE course_id = 42 AND published = true\nORDER BY created_at DESC\nLIMIT 25;',
+        output:
+            'Index Scan using lessons_course_created_idx\nPlanning Time: 0.18 ms\nExecution Time: 0.42 ms'
+      };
+    return {
+      language: 'sql',
+      code:
+          'BEGIN;\n\nCREATE TABLE lessons (\n  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  course_id BIGINT NOT NULL REFERENCES courses(id),\n  title TEXT NOT NULL,\n  published BOOLEAN NOT NULL DEFAULT false\n);\n\nCOMMIT;',
+      output: 'BEGIN\nCREATE TABLE\nCOMMIT'
+    };
   }
-  function reactRenderLab(){return `<section class="react-render-lab"><div><span class="eyebrow">REACT RENDER LAB</span><h2>See props and state update a component</h2><p>Edit the prop, change state, and watch the render count.</p></div><div class="react-lab-controls"><label>title prop<input id="reactPropInput" value="Learning React" maxlength="40"></label><div><button id="reactMinus" type="button">−</button><strong id="reactStateValue">0</strong><button id="reactPlus" type="button">+</button></div><button id="reactLabResetHome" type="button">Reset</button></div><div class="react-component-preview"><small>LessonCard.jsx · render <b id="reactRenderCount">1</b></small><h3 id="reactPreviewTitle">Learning React</h3><p>State value: <strong id="reactPreviewState">0</strong></p></div></section>`;}
-  function moduleCard(course,module,index) {
-    const done=new Set(state.completed[course.id]||[]);
-    return `<article class="module-card" id="module-${module.id}"><div class="module-heading"><div><span>${course.id==='python-ai'?'STAGE':'MODULE'} ${String(index+1).padStart(2,'0')}</span><h2>${esc(state.language==='ar'&&module.titleAr?module.titleAr:module.title)}</h2></div><small>${module.lessons.filter(([slug])=>done.has(`${course.id}:${slug}`)).length}/${module.lessons.length} complete</small></div><ol>${module.lessons.map(([slug,title,meta={}],i)=>`<li class="${done.has(`${course.id}:${slug}`)?'done':''}"><a href="${routeHref(course.id,slug)}"><span class="lesson-status">${done.has(`${course.id}:${slug}`)?'✓':i+1}</span><span><small>${meta.kind==='assessment'?'Assessment':meta.kind==='review'?'Review':`Lesson ${index+1}.${i+1}`}</small><strong>${esc(state.language==='ar'&&meta.titleAr?meta.titleAr:title)}</strong></span><b>→</b></a></li>`).join('')}</ol></article>`;
+  if (course.id === 'python-ai') {
+    if (/Classification|Classifier|Spam|Churn|Disease|Sentiment/i.test(title))
+      return {
+        language: 'python',
+        code:
+            'from sklearn.model_selection import train_test_split\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import LogisticRegression\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, stratify=y, random_state=42\n)\nmodel = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))\nmodel.fit(X_train, y_train)\nprint(model.score(X_test, y_test))',
+        output: '0.87  # example result; your dataset will differ'
+      };
+    if (/Regression|Price|Forecast|ARIMA|SARIMA/i.test(title))
+      return {
+        language: 'python',
+        code:
+            'from sklearn.model_selection import cross_validate\nfrom sklearn.ensemble import RandomForestRegressor\n\nmodel = RandomForestRegressor(n_estimators=200, random_state=42)\nscores = cross_validate(model, X, y, cv=5,\n    scoring=("neg_mean_absolute_error", "r2"))\nprint(-scores["test_neg_mean_absolute_error"].mean())',
+        output: '18425.31  # mean cross-validated MAE'
+      };
+    if (/PyTorch|Tensor|Neural|CNN|LSTM|GRU|Deep/i.test(title))
+      return {
+        language: 'python',
+        code:
+            'import torch\nfrom torch import nn\n\ntorch.manual_seed(42)\nmodel = nn.Sequential(nn.Linear(8, 32), nn.ReLU(), nn.Dropout(0.2), nn.Linear(32, 2))\nlogits = model(torch.randn(4, 8))\nprint(logits.shape)',
+        output: 'torch.Size([4, 2])'
+      };
+    return {
+      language: 'python',
+      code:
+          'from pathlib import Path\nimport random\nimport numpy as np\n\nSEED = 42\nrandom.seed(SEED)\nnp.random.seed(SEED)\nvalues = np.array([12, 18, 21, 27], dtype=float)\nprint(f"mean={values.mean():.2f}")',
+      output: 'mean=19.50'
+    };
   }
-  function reactLanding(){
-    const p=courseProgress(reactCourse);
-    return `${header()}<main class="devpath-main course-page" style="--course:#169fca"><a class="back-link" href="#/">← All learning paths</a><section class="course-hero"><span class="tech-icon large">R</span><div><span class="eyebrow">ORIGINAL COURSE · FULLY PRESERVED</span><h1>React Developer Course</h1><p>${reactCourse.description}</p><div class="course-stats"><span><strong>18</strong> chapters</span><span><strong>416</strong> sections</span><span><strong>${p.percent}%</strong> complete</span></div><a class="primary-cta react-launch" href="react.html#chapter-1">Open React course</a></div></section><section class="legacy-note"><strong>The complete React course is loaded only when you open it.</strong><p>This keeps the Academy home page fast while preserving chapters, quizzes, notes, bookmarks, progress, exports, and reading preferences.</p><a href="react.html#chapter-1">Enter the React reader →</a></section></main>${footer()}`;
-  }
-  const lessonExample = (course,title) => {
-    if(course.id==='firebase-google-cloud'){
-      if(/Firestore|Firebase|Authentication|Security Rules/i.test(title))return {language:'javascript',code:'import { initializeApp } from "firebase/app";\nimport { getFirestore, collection, getDocs } from "firebase/firestore";\n\nconst app = initializeApp(firebaseConfig);\nconst db = getFirestore(app);\nconst snapshot = await getDocs(collection(db, "courses"));\nconsole.log(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));',output:'[{ id: "react", title: "React" }, { id: "sql", title: "SQL" }]'};
-      if(/Cloud Run|Container|Spring Boot/i.test(title))return {language:'bash',code:'gcloud run deploy academy-api --source . --region europe-west1',output:'Service [academy-api] revision deployed and serving traffic.'};
-      return {language:'bash',code:'firebase login\nfirebase use --add\nfirebase emulators:start',output:'All emulators ready! It is now safe to connect your app.'};
-    }
-    if(course.id==='sql'||course.id==='database-optimization'){
-      if(/EXPLAIN|Plan|Index|Optimization|Slow|Pagination/i.test(title))return {language:'sql',code:'EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)\nSELECT id, title\nFROM lessons\nWHERE course_id = 42 AND published = true\nORDER BY created_at DESC\nLIMIT 25;',output:'Index Scan using lessons_course_created_idx\nPlanning Time: 0.18 ms\nExecution Time: 0.42 ms'};
-      return {language:'sql',code:'BEGIN;\n\nCREATE TABLE lessons (\n  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  course_id BIGINT NOT NULL REFERENCES courses(id),\n  title TEXT NOT NULL,\n  published BOOLEAN NOT NULL DEFAULT false\n);\n\nCOMMIT;',output:'BEGIN\nCREATE TABLE\nCOMMIT'};
-    }
-    if(course.id==='python-ai'){
-      if(/Classification|Classifier|Spam|Churn|Disease|Sentiment/i.test(title)) return {language:'python',code:'from sklearn.model_selection import train_test_split\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import LogisticRegression\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, stratify=y, random_state=42\n)\nmodel = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))\nmodel.fit(X_train, y_train)\nprint(model.score(X_test, y_test))',output:'0.87  # example result; your dataset will differ'};
-      if(/Regression|Price|Forecast|ARIMA|SARIMA/i.test(title)) return {language:'python',code:'from sklearn.model_selection import cross_validate\nfrom sklearn.ensemble import RandomForestRegressor\n\nmodel = RandomForestRegressor(n_estimators=200, random_state=42)\nscores = cross_validate(model, X, y, cv=5,\n    scoring=("neg_mean_absolute_error", "r2"))\nprint(-scores["test_neg_mean_absolute_error"].mean())',output:'18425.31  # mean cross-validated MAE'};
-      if(/PyTorch|Tensor|Neural|CNN|LSTM|GRU|Deep/i.test(title)) return {language:'python',code:'import torch\nfrom torch import nn\n\ntorch.manual_seed(42)\nmodel = nn.Sequential(nn.Linear(8, 32), nn.ReLU(), nn.Dropout(0.2), nn.Linear(32, 2))\nlogits = model(torch.randn(4, 8))\nprint(logits.shape)',output:'torch.Size([4, 2])'};
-      return {language:'python',code:'from pathlib import Path\nimport random\nimport numpy as np\n\nSEED = 42\nrandom.seed(SEED)\nnp.random.seed(SEED)\nvalues = np.array([12, 18, 21, 27], dtype=float)\nprint(f"mean={values.mean():.2f}")',output:'mean=19.50'};
-    }
-    if(course.id==='projects') return {language:'bash',code:'git checkout -b feature/learning-project\nnpm run build\nnpm run verify',output:'Build completed successfully'};
-    if(course.id==='react') return {language:'jsx',code:'import { useState } from "react";\n\nexport default function LessonCard({ title }) {\n  const [complete, setComplete] = useState(false);\n  return (\n    <button onClick={() => setComplete(value => !value)}>\n      {complete ? "Completed" : title}\n    </button>\n  );\n}',output:'An interactive lesson button rendered in the browser'};
-    if(/PostgreSQL|Searching|Migration|JPA|Entities|Relationships|Transactions/i.test(title)) return {language:'sql',code:'CREATE TABLE tasks (\n  id BIGSERIAL PRIMARY KEY,\n  title VARCHAR(120) NOT NULL,\n  completed BOOLEAN NOT NULL DEFAULT FALSE\n);',output:'CREATE TABLE'};
-    if(/Properties|Profiles|Environment/i.test(title)) return {language:'properties',code:'spring.application.name=academy-api\nspring.profiles.active=dev\nserver.port=8080',output:'Started AcademyApiApplication on port 8080'};
-    if(/Docker/i.test(title)) return {language:'bash',code:'docker build -t academy-api .\ndocker run -p 8080:8080 academy-api',output:'Started AcademyApiApplication'};
-    if(course.id==='spring-boot') return {language:'java',code:'@RestController\n@RequestMapping("/api/lessons")\nclass LessonController {\n  @GetMapping("/{id}")\n  ResponseEntity<String> find(@PathVariable Long id) {\n    return ResponseEntity.ok("Lesson " + id);\n  }\n}',output:'HTTP 200 — Lesson 42'};
-    return {language:'java',code:'public class AcademyExample {\n  public static void main(String[] args) {\n    List<String> topics = List.of("Java", "Spring Boot");\n    topics.forEach(System.out::println);\n  }\n}',output:'Java\nSpring Boot'};
+  if (course.id === 'projects')
+    return {
+      language: 'bash',
+      code:
+          'git checkout -b feature/learning-project\nnpm run build\nnpm run verify',
+      output: 'Build completed successfully'
+    };
+  if (course.id === 'react')
+    return {
+      language: 'jsx',
+      code:
+          'import { useState } from "react";\n\nexport default function LessonCard({ title }) {\n  const [complete, setComplete] = useState(false);\n  return (\n    <button onClick={() => setComplete(value => !value)}>\n      {complete ? "Completed" : title}\n    </button>\n  );\n}',
+      output: 'An interactive lesson button rendered in the browser'
+    };
+  if (/PostgreSQL|Searching|Migration|JPA|Entities|Relationships|Transactions/i
+          .test(title))
+    return {
+      language: 'sql',
+      code:
+          'CREATE TABLE tasks (\n  id BIGSERIAL PRIMARY KEY,\n  title VARCHAR(120) NOT NULL,\n  completed BOOLEAN NOT NULL DEFAULT FALSE\n);',
+      output: 'CREATE TABLE'
+    };
+  if (/Properties|Profiles|Environment/i.test(title))
+    return {
+      language: 'properties',
+      code:
+          'spring.application.name=academy-api\nspring.profiles.active=dev\nserver.port=8080',
+      output: 'Started AcademyApiApplication on port 8080'
+    };
+  if (/Docker/i.test(title))
+    return {
+      language: 'bash',
+      code:
+          'docker build -t academy-api .\ndocker run -p 8080:8080 academy-api',
+      output: 'Started AcademyApiApplication'
+    };
+  if (course.id === 'spring-boot')
+    return {
+      language: 'java',
+      code:
+          '@RestController\n@RequestMapping("/api/lessons")\nclass LessonController {\n  @GetMapping("/{id}")\n  ResponseEntity<String> find(@PathVariable Long id) {\n    return ResponseEntity.ok("Lesson " + id);\n  }\n}',
+      output: 'HTTP 200 — Lesson 42'
+    };
+  return {
+    language: 'java',
+    code:
+        'public class AcademyExample {\n  public static void main(String[] args) {\n    List<String> topics = List.of("Java", "Spring Boot");\n    topics.forEach(System.out::println);\n  }\n}',
+    output: 'Java\nSpring Boot'
   };
-  function lessonPage(course,lesson) {
-    const lessons=flatLessons(course),index=lessons.findIndex(l=>l.slug===lesson.slug),prev=lessons[index-1],next=lessons[index+1],example=lessonExample(course,lesson.title),done=(state.completed[course.id]||[]).includes(lesson.id),bookmarked=state.bookmarks.includes(lesson.id),note=state.notes[lesson.id]; state.lastLesson[course.id]=lesson.slug;save();
-    const title=state.language==='ar'&&lesson.titleAr?lesson.titleAr:lesson.title,moduleTitle=state.language==='ar'&&lesson.moduleTitleAr?lesson.moduleTitleAr:lesson.moduleTitle;
-    return `${header()}<main class="devpath-main lesson-page" style="--course:${course.color}"><aside class="lesson-sidebar"><a class="back-link" href="${routeHref(course.id)}">← ${esc(course.shortTitle)}</a><strong>Course contents</strong>${course.modules.map(m=>`<details ${m.id===lesson.moduleId?'open':''}><summary>${esc(state.language==='ar'&&m.titleAr?m.titleAr:m.title)}</summary>${m.lessons.map(([slug,itemTitle,meta={}])=>`<a class="${slug===lesson.slug?'active':''}" href="${routeHref(course.id,slug)}">${esc(state.language==='ar'&&meta.titleAr?meta.titleAr:itemTitle)}</a>`).join('')}</details>`).join('')}</aside><article class="lesson-content"><div class="lesson-breadcrumb">${esc(state.language==='ar'&&course.titleAr?course.titleAr:course.title)} <span>/</span> ${esc(moduleTitle)}</div><div class="lesson-title-row"><div><span class="eyebrow">LESSON ${index+1} OF ${lessons.length}</span><h1>${esc(title)}</h1>${lesson.duration?`<div class="lesson-meta"><span>${esc(lesson.duration)}</span><span>${esc(lesson.difficulty)}</span><span>Prerequisite: ${esc(lesson.prerequisites)}</span></div>`:''}</div><div class="lesson-actions"><button id="lessonBookmark" class="${bookmarked?'is-active':''}" aria-pressed="${bookmarked}">${icon('bookmark')}<span>Bookmark</span></button><button id="lessonNote">${icon('notes')}<span>${note?'Edit note':'Add note'}</span></button></div></div>${lessonSections(course,lesson,example)}<div class="practice-card"><span>PRACTICE</span><h2>Try it yourself</h2><p>Create a small example for <strong>${esc(title)}</strong>. Explain why each important line exists, run it, and compare the result with your expectation.</p><label><input id="lessonComplete" type="checkbox" ${done?'checked':''}> I completed this lesson</label></div><nav class="lesson-pager">${prev?`<a href="${routeHref(course.id,prev.slug)}"><small>← Previous</small><strong>${esc(prev.title)}</strong></a>`:'<span></span>'}${next?`<a class="next" href="${routeHref(course.id,next.slug)}"><small>Next →</small><strong>${esc(next.title)}</strong></a>`:`<a class="next" href="${routeHref(course.id)}"><small>Course complete</small><strong>Review course outline →</strong></a>`}</nav></article></main>${footer()}${noteDialog(lesson,note)}`;
+};
+function lessonPage(course, lesson) {
+  const lessons = course.id === 'react' && lesson.kind === 'project-structure' ?
+      [lesson] :
+      flatLessons(course),
+        index = lessons.findIndex(l => l.slug === lesson.slug),
+        prev = lessons[index - 1], next = lessons[index + 1],
+        example = lessonExample(course, lesson.title),
+        done = (state.completed[course.id] || []).includes(lesson.id),
+        bookmarked = state.bookmarks.includes(lesson.id),
+        note = state.notes[lesson.id];
+  state.lastLesson[course.id] = lesson.slug;
+  save();
+  const title = state.language === 'ar' && lesson.titleAr ? lesson.titleAr :
+                                                            lesson.title,
+        moduleTitle = state.language === 'ar' && lesson.moduleTitleAr ?
+      lesson.moduleTitleAr :
+      lesson.moduleTitle;
+  const experienceSidebar = course.experiences?.length ?
+      `<details open><summary>Interactive Experiences</summary>${
+          course.experiences
+              .map(([slug, itemTitle]) => `<a class="${
+                  slug === lesson.slug ? 'active' : ''}" href="${
+                  routeHref(course.id, slug)}">${esc(itemTitle)}</a>`)
+              .join('')}</details>` :
+      '';
+  return `${
+      header()}<main class="devpath-main lesson-page premium-lesson-page" style="--course:${
+      course
+          .color}"><aside class="lesson-sidebar premium-lesson-sidebar"><a class="back-link" href="${
+      routeHref(course.id)}">← ${
+      esc(course
+              .shortTitle)}</a><strong>Course contents</strong><div class="lesson-sidebar-search"><span>${
+      icon(
+          'search')}</span><input type="search" placeholder="Search chapters"></div>${
+      course.modules
+          .map(
+              m => `<details ${
+                  m.id === lesson.moduleId ? 'open' : ''}><summary>${
+                  esc(state.language === 'ar' && m.titleAr ?
+                          m.titleAr :
+                          m.title)}</summary>${
+                  m.lessons
+                      .map(
+                          ([slug, itemTitle, meta = {}]) => `<a class="${
+                              slug === lesson.slug ?
+                                  'active' :
+                                  ''}" href="${
+                              course.id === 'react' ?
+                                  `react.html#${slug}` :
+                                  routeHref(course.id, slug)}">${
+                              esc(state.language === 'ar' && meta.titleAr ?
+                                      meta.titleAr :
+                                      itemTitle)}</a>`)
+                      .join('')}</details>`)
+          .join(
+              '')}${experienceSidebar}</aside><article class="lesson-content premium-lesson-content"><div class="lesson-breadcrumb">${
+      esc(state.language === 'ar' && course.titleAr ?
+              course.titleAr :
+              course.title)} <span>/</span> ${
+      esc(moduleTitle)}</div><div class="lesson-title-row premium-lesson-header"><div><span class="eyebrow">LESSON ${
+      index + 1} OF ${lessons.length}</span><h1>${esc(title)}</h1>${
+      lesson.duration ?
+          `<div class="lesson-meta"><span>${esc(lesson.duration)}</span><span>${
+              esc(lesson.difficulty)}</span><span>Prerequisite: ${
+              esc(lesson.prerequisites)}</span></div>` :
+          ''}</div><div class="lesson-actions"><button id="lessonBookmark" class="${
+      bookmarked ? 'is-active' : ''}" aria-pressed="${bookmarked}">${
+      icon('bookmark')}<span>Bookmark</span></button><button id="lessonNote">${
+      icon('notes')}<span>${
+      note ?
+          'Edit note' :
+          'Add note'}</span></button></div></div><div class="lesson-intro-strip"><span>${
+      course.id === 'react' ? 'React core concepts' :
+                              'Premium lesson experience'}</span><strong>${
+      course.id === 'react' ?
+          'Build with confidence and clarity.' :
+          'Learn the concept, prove it, then apply it.'}</strong></div>${
+      lessonSections(
+          course, lesson,
+          example)}<div class="practice-card"><span>PRACTICE</span><h2>Try it yourself</h2><p>Create a small example for <strong>${
+      esc(title)}</strong>. Explain why each important line exists, run it, and compare the result with your expectation.</p><label><input id="lessonComplete" type="checkbox" ${
+      done ?
+          'checked' :
+          ''}> I completed this lesson</label></div><nav class="lesson-pager">${
+      prev ? `<a href="${
+                 routeHref(
+                     course.id, prev.slug)}"><small>← Previous</small><strong>${
+                 esc(prev.title)}</strong></a>` :
+             '<span></span>'}${
+      next ?
+          `<a class="next" href="${
+              routeHref(course.id, next.slug)}"><small>Next →</small><strong>${
+              esc(next.title)}</strong></a>` :
+          `<a class="next" href="${
+              routeHref(
+                  course
+                      .id)}"><small>Course complete</small><strong>Review course outline →</strong></a>`}</nav></article><aside class="lesson-toc premium-lesson-toc" aria-label="On this page"><strong>On this page</strong><a href="#lesson-objectives">Objectives</a><a href="#lesson-concepts">Concepts</a><a href="#lesson-example">Example</a><a href="#lesson-real-world">Real world</a><a href="#lesson-practice">Practice</a><a href="#lesson-questions">Questions</a><a href="#lesson-summary">Summary</a></aside></main>${
+      footer()}${noteDialog(lesson, note)}`;
+}
+function lessonToolbar(course, lesson) {
+  const lessons = course.id === 'react' && lesson.kind === 'project-structure' ?
+      [lesson] : flatLessons(course),
+        index = lessons.findIndex(item => item.id === lesson.id),
+        prev = lessons[index - 1], next = lessons[index + 1],
+        done = (state.completed[course.id] || []).includes(lesson.id),
+        bookmarked = state.bookmarks.includes(lesson.id),
+        progress = courseProgress(course);
+  return `<aside class="academy-toolbar" aria-label="Lesson tools"><div class="toolbar-progress"><span>${
+      esc(course.shortTitle)}</span><strong>${
+      progress.percent}%</strong><progress max="100" value="${
+      progress.percent}"></progress></div><div class="toolbar-actions">${
+      prev ?
+          `<a href="${
+              routeHref(
+                  course.id,
+                  prev.slug)}" aria-label="Previous lesson" title="Previous lesson">${
+              icon('previous')}</a>` :
+          ''}${
+      next ?
+          `<a href="${
+              routeHref(
+                  course.id,
+                  next.slug)}" aria-label="Next lesson" title="Next lesson">${
+              icon('next')}</a>` :
+          ''}<button data-toolbar-bookmark class="${
+      bookmarked ? 'is-active' :
+                   ''}" aria-pressed="${bookmarked}" title="Bookmark lesson">${
+      icon(
+          'bookmark')}<span>Bookmark</span></button><button data-toolbar-note title="Add lesson note">${
+      icon(
+          'notes')}<span>Notes</span></button><button data-toolbar-complete class="${
+      done ? 'is-active' : ''}" aria-pressed="${
+      done}" title="Mark lesson complete">${icon('check')}<span>${
+      done ?
+          'Completed' :
+          'Complete'}</span></button><button data-toolbar-print title="Print or save lesson as PDF">${
+      icon(
+          'print')}<span>PDF</span></button><button data-toolbar-theme title="Toggle night theme">${
+      icon(
+          state.theme === 'dark' ?
+              'sun' :
+              'moon')}<span>Theme</span></button></div></aside>`;
+}
+function topicGuide(course, lesson) {
+  const title = lesson.title;
+  const rules = course.id === 'firebase-google-cloud' ?
+      [
+        [
+          /Auth|Identity|IAM|Security|Secret|App Check/,
+          [
+            'Cloud identity proves who or what is making a request before policy decides what it may do.',
+            'Firebase Authentication handles end-user identity; IAM governs cloud resources; Security Rules protect Firebase data; secrets remain server-side.',
+            'Define the smallest permissions for a learner, instructor, and deployment service account.'
+          ]
+        ],
+        [
+          /Firestore|Realtime|Storage|SQL|Data/,
+          [
+            'Managed data services trade infrastructure work for explicit modeling, security, cost, and consistency decisions.',
+            'Firestore is document-oriented; Realtime Database is a synchronized JSON tree; Cloud SQL is relational; Cloud Storage holds objects.',
+            'Choose a service for course metadata, video files, transactional billing, and live presence.'
+          ]
+        ],
+        [
+          /Function|Run|Pub\/Sub|Event/,
+          [
+            'Serverless services run code in response to requests or events without managing individual servers.',
+            'Cloud Functions handles focused events; Cloud Run executes containers; Pub/Sub decouples producers and consumers.',
+            'Design an idempotent thumbnail pipeline that safely retries failed events.'
+          ]
+        ],
+        [
+          /Hosting|Deploy|CI|Environment|Architecture|Reliability|Monitoring/,
+          [
+            'Cloud delivery combines repeatable deployment, observability, controlled environments, and failure planning.',
+            'Use separate projects, automated builds, regional choices, logs, metrics, alerts, budgets, and rollback-safe releases.',
+            'Deploy staging, define a health signal, and document rollback and cost limits.'
+          ]
+        ]
+      ] :
+      (course.id === 'sql' || course.id === 'database-optimization') ?
+      [
+        [
+          /SELECT|WHERE|ORDER|Aggregate|GROUP|JOIN|Subquer|View/,
+          [
+            'SQL describes the result set you need; the database planner chooses how to produce it.',
+            'Queries move through parsing, rewriting, planning, and execution. Predicates, join cardinality, statistics, and indexes shape the selected plan.',
+            'Write the query, inspect its result, then validate its plan and boundary cases.'
+          ]
+        ],
+        [
+          /Index|B-Tree|EXPLAIN|Performance|Slow|Optimization|Pagination/,
+          [
+            'Database optimization reduces total work while preserving correct results.',
+            'Use EXPLAIN ANALYZE and buffer statistics to find expensive scans, bad cardinality estimates, sorts, joins, and lock waits before changing indexes or SQL.',
+            'Capture a baseline plan, make one evidence-based change, and compare latency and buffers.'
+          ]
+        ],
+        [
+          /Transaction|Lock|VACUUM|Connection|Caching|Monitoring|Statistics/,
+          [
+            'Production databases coordinate concurrent work and maintain storage over time.',
+            'MVCC, transaction isolation, locks, autovacuum, statistics, pooling, caches, and monitoring interact; improving one metric can move cost elsewhere.',
+            'Define an operational metric, failure threshold, and rollback-safe change.'
+          ]
+        ],
+        [
+          /CREATE|ALTER|DROP|INSERT|UPDATE|DELETE|Constraint|Key|Security/,
+          [
+            'A relational schema protects meaning as data changes.',
+            'Keys and constraints encode invariants; transactions make related changes atomic; roles and least privilege constrain access.',
+            'Create a small schema, attempt invalid writes, and verify they fail safely.'
+          ]
+        ]
+      ] :
+      course.id === 'java-essentials' ?
+      [
+        [
+          /Variables|Data Types|Operators/,
+          [
+            'Java stores strongly typed values and applies operators according to each type.',
+            'Primitive values hold data directly; reference variables point to objects. Numeric promotion and operator precedence affect the resulting type and value.',
+            'Model a product price calculation and test boundary values.'
+          ]
+        ],
+        [
+          /Classes|Objects|Constructors|Encapsulation|Inheritance|Polymorphism|Abstraction|Interfaces/,
+          [
+            'Object-oriented Java models behavior and data as collaborating types.',
+            'Classes define state and behavior; interfaces define contracts; inheritance and dynamic dispatch allow an implementation to vary behind a stable type.',
+            'Design a payment interface with two implementations and hide mutable state.'
+          ]
+        ],
+        [
+          /Collection|ArrayList|LinkedList|HashSet|HashMap|Queue|Stack|Generics/,
+          [
+            'Collections store groups of values with different ordering, lookup, and uniqueness guarantees.',
+            'The Collections Framework exposes interfaces such as List, Set, Map, Queue, and Deque. Generics provide compile-time type safety without manual casts.',
+            'Choose structures for a task queue, unique tags, and ID-based lookup.'
+          ]
+        ],
+        [
+          /Lambda|Stream|Optional/,
+          [
+            'Modern Java can describe transformations as pipelines instead of manual loops.',
+            'Lambdas implement functional interfaces; streams compose lazy intermediate operations and terminal operations; Optional models a possibly absent result.',
+            'Filter and group course enrollments without mutating the source list.'
+          ]
+        ],
+        [
+          /Thread|Concurrency|CompletableFuture/,
+          [
+            'Concurrency lets independent work make progress without blocking the whole application.',
+            'Threads share memory, so visibility, atomicity, synchronization, executors, futures, and structured ownership determine correctness.',
+            'Run two independent service calls concurrently and combine their results safely.'
+          ]
+        ],
+        [
+          /JVM|Garbage|Reflection|Annotation|Module/,
+          [
+            'The Java platform provides runtime metadata, modular boundaries, memory management, and dynamic type inspection.',
+            'Bytecode executes on the JVM; garbage collectors reclaim unreachable objects; reflection reads runtime type metadata; modules define explicit dependencies.',
+            'Inspect an annotated class and explain which dependencies its module exports.'
+          ]
+        ],
+        [
+          /JDBC|File|NIO|Serialization|Networking|HTTP/,
+          [
+            'Java connects applications to files, networks, and relational databases through standard APIs.',
+            'I/O resources are closeable; NIO uses Path and channels; JDBC uses connections and prepared statements; HttpClient supports synchronous and asynchronous requests.',
+            'Read configuration safely and execute a parameterized database query.'
+          ]
+        ],
+        [
+          /JUnit|Mockito|Testing/,
+          [
+            'Automated tests protect behavior while the code changes.',
+            'JUnit defines test lifecycle and assertions; Mockito replaces collaborators so a unit can be tested in isolation.',
+            'Test a service success case and its repository failure case.'
+          ]
+        ]
+      ] :
+      [
+        [
+          /IoC|Dependency Injection|Beans|ApplicationContext|Component|Configuration|Annotation/,
+          [
+            'Spring creates and connects application objects so business code does not construct its own dependencies.',
+            'The ApplicationContext discovers bean definitions, resolves dependency graphs, applies lifecycle callbacks, and can wrap beans with framework proxies.',
+            'Wire a controller, service, and repository using constructor injection.'
+          ]
+        ],
+        [
+          /MVC|Controller|Request|REST|HTTP|DTO|Validation|Exception/,
+          [
+            'Spring MVC turns HTTP requests into validated application calls and structured responses.',
+            'DispatcherServlet selects a handler, argument resolvers bind request data, validation runs before the controller body, and exception handlers map failures to HTTP responses.',
+            'Add a validated create-lesson endpoint with a consistent error response.'
+          ]
+        ],
+        [
+          /JPA|Entit|Repositor|JPQL|Query|Pagination|Transaction|Database|Flyway|Liquibase/,
+          [
+            'Spring Data connects domain objects to relational data while keeping persistence rules explicit.',
+            'JPA tracks entity state in a persistence context; repositories derive queries; transactions define atomic boundaries; migrations version the physical schema.', 'Persist a Course with Lessons and fetch a paginated projection without an N+1 query.'
+          ]
+        ],
+        [
+          /Security|Authentication|Authorization|JWT|Role|CORS|CSRF|OAuth|Secret/,
+          [
+            'Spring Security protects each request using an ordered security filter chain.',
+            'Authentication establishes identity; authorization evaluates authorities; JWT and OAuth2 carry delegated identity; CORS and CSRF address different browser threats.',
+            'Protect an instructor endpoint and test anonymous, learner, and admin access.'
+          ]
+        ],
+        [
+          /Test|Mockito|Testcontainers/,
+          [
+            'Spring tests can isolate a class, load a web slice, or verify the complete application against real infrastructure.',
+            'Unit tests avoid the container; slice tests load selected beans; integration tests use the application context and Testcontainers for realistic dependencies.',
+            'Test a controller contract and a PostgreSQL repository query.'
+          ]
+        ],
+        [
+          /Cloud|Gateway|Discovery|Feign|Resilience|Rabbit|Kafka|Microservice/,
+          [
+            'Distributed Spring services communicate through explicit APIs and asynchronous messages.',
+            'Gateways route traffic, discovery resolves instances, Feign creates HTTP clients, Resilience4j applies fault tolerance, and brokers decouple producers from consumers.',
+            'Design an order flow that remains safe when the notification service is unavailable.'
+          ]
+        ],
+        [
+          /Docker|Deployment|Actuator|Observability|Logging|Rate|Production/,
+          [
+            'Production Spring systems must be deployable, observable, limited, and diagnosable.',
+            'Actuator exposes managed endpoints; Micrometer records metrics and traces; containers package runtime dependencies; rate limiting protects capacity.',
+            'Containerize the API and define health, readiness, metrics, and request limits.'
+          ]
+        ]
+      ];
+  const match = rules.find(([pattern]) => pattern.test(title));
+  const values = match?.[1] || [
+    `${title} solves a specific problem in ${course.shortTitle} applications.`,
+    `Understand ${
+        title} through its runtime behavior, API contract, lifecycle, failure modes, and effect on surrounding components.`,
+    `Build the smallest runnable example of ${
+        title}, then add one failure case.`
+  ];
+  return {
+    simple: values[0],
+    technical: values[1],
+    exercise: values[2],
+    professional: `Use ${
+        title} behind a clear boundary, document its trade-offs, test important behavior, and make failures observable.`
+  };
+}
+function lessonSections(course, lesson, example) {
+  if (lesson.kind === 'project-structure')
+    return projectStructureLessonSections(course, lesson);
+  if (course.id === 'file-extensions')
+    return fileExtensionLessonSections(lesson);
+  if (lesson.content) return detailedLessonSections(course, lesson);
+  const guide = topicGuide(course, lesson);
+  if (course.id === 'sql' || course.id === 'database-optimization')
+    return databaseLessonSections(course, lesson, example, guide);
+  if (course.id === 'python-ai') {
+    const isModel = lesson.kind === 'model',
+          isAssessment = lesson.kind === 'assessment',
+          isProject = lesson.kind === 'project';
+    if (isAssessment)
+      return `<section class="lesson-section"><span class="section-label">STAGE ASSESSMENT</span><h2>Test knowledge and practical judgment</h2><p>Answer without running code first, then verify each answer experimentally.</p><ol><li>Explain the stage's central idea in plain language and Arabic technical terms.</li><li>Choose an appropriate technique for a new scenario and justify what you rejected.</li><li>Find and repair the data, evaluation, or implementation mistake in your stage notebook.</li><li>Build a reproducible mini-pipeline with <code>random_state=42</code>.</li></ol></section><section class="takeaways"><span>PASS CRITERIA</span><ul><li>80% quiz score</li><li>Runnable exercise</li><li>Written model or design justification</li></ul></section>`;
+    const modelBlock = isModel ?
+        `<section class="model-dossier"><span class="section-label">MODEL DOSSIER</span><h2>Understand before you fit</h2><div class="model-facts"><article><strong>Main idea &amp; mechanics</strong><p>Map inputs to predictions by learning parameters or structure from examples. Trace how training changes the model and how inference uses the fitted state.</p></article><article><strong>Mathematical intuition</strong><p>Connect the objective function, optimization process, decision surface, and regularization to observable behavior.</p></article><article><strong>Use / avoid</strong><p>Use it when its assumptions and cost fit the data. Avoid it when sample size, feature geometry, latency, explainability, or leakage risks conflict.</p></article><article><strong>Assumptions &amp; preprocessing</strong><p>Check independence, scale sensitivity, missing values, categorical encoding, distribution shape, and train-only fitting.</p></article><article><strong>Hyperparameters &amp; cost</strong><p>Tune capacity and regularization with cross-validation. Report training time, inference latency, and memory alongside predictive metrics.</p></article><article><strong>Evaluation &amp; explainability</strong><p>Choose metrics from the business error cost; inspect residuals or confusion patterns; use coefficients, feature importance, permutation importance, or SHAP where suitable.</p></article></div><p><strong>Comparison:</strong> establish a simple baseline, compare at least three candidates on identical folds, inspect overfitting through train–validation gaps, tune only finalists, and select from evidence rather than popularity.</p></section>` :
+        '';
+    const projectBlock = isProject ?
+        `<section class="lesson-section project-brief"><span class="section-label">PORTFOLIO PROJECT</span><h2>From business goal to deployment</h2><ol><li>Define the problem, user, business metric, constraints, and dataset.</li><li>Explore, clean, split, and engineer features without leakage.</li><li>Build a baseline and at least three candidate models.</li><li>Cross-validate, tune finalists, evaluate once on the test set, and explain results.</li><li>Document risks, deployment guidance, monitoring, and reproducibility.</li></ol><pre><code class="language-text">project/\n├── README.md\n├── data/README.md\n├── notebooks/01_eda.ipynb\n├── src/{data,features,train,evaluate}.py\n├── tests/\n├── models/.gitkeep\n└── requirements.txt</code></pre>${
+            / Disease /.test(lesson.title) ?
+                '<p class="safety-notice"><strong>Educational use only:</strong> this classifier is not a medical device and must never be treated as diagnosis or clinical advice.</p>' :
+                ''}</section>` :
+        '';
+    return `<section id="lesson-objectives" class="lesson-objectives"><span class="section-label">LEARNING OBJECTIVES</span><ul><li>Explain ${
+        esc(lesson
+                .title)} in clear English and Arabic technical language.</li><li>Implement a reproducible example and interpret its output.</li><li>Recognize trade-offs, failure modes, and appropriate alternatives.</li></ul></section><section id="lesson-concepts" class="explanation-grid"><div><span>INTUITIVE VIEW</span><p>${
+        esc(guide.simple)}</p></div><div><span>STEP BY STEP</span><p>${
+        esc(guide
+                .technical)}</p></div><div><span>PROFESSIONAL PRACTICE</span><p>${
+        esc(guide.professional)}</p></div></section>${
+        modelBlock}<section id="lesson-example" class="lesson-section"><span class="section-label">RUNNABLE EXAMPLE</span><h2>Build the smallest reproducible experiment</h2><p>Use Python ${
+        esc(course
+                .pythonVersion)} and a fixed seed. Install the lesson libraries in a virtual environment: <code>python -m venv .venv</code>, then <code>python -m pip install numpy pandas scikit-learn matplotlib</code>. PyTorch stages use <code>torch</code>.</p><pre><code class="language-${
+        example.language}">${
+        esc(example
+                .code)}</code></pre><div class="expected-output"><strong>Expected output</strong><pre><code class="language-text">${
+        esc(example.output)}</code></pre></div></section>${
+        projectBlock}<section id="lesson-practice" class="practice-card exercise-levels"><span>TRY IT YOURSELF</span><h2>Practice at three levels</h2><p><strong>Easy:</strong> reproduce the example and annotate every transformation.</p><p><strong>Medium:</strong> change the data or hyperparameters and explain the result.</p><p><strong>Challenge:</strong> compare an alternative, measure it fairly, and defend your selection.</p></section><section class="lesson-section split"><div><span class="section-label warning">COMMON MISTAKES</span><ul><li>Fitting preprocessing before the data split.</li><li>Reporting one metric or a single lucky split.</li><li>Confusing correlation, prediction, and causation.</li></ul></div><div id="lesson-questions"><span class="section-label good">SHORT QUIZ</span><ol><li>What assumption matters most here?</li><li>Which metric matches the real error cost?</li><li>What evidence would make you reject this approach?</li></ol></div></section><section id="lesson-summary" class="takeaways"><span>LESSON SUMMARY</span><ul><li>Start with the problem and a transparent baseline.</li><li>Keep experiments reproducible and leakage-free.</li><li>Compare alternatives using consistent data and metrics.</li></ul></section>`;
   }
-  function lessonToolbar(course,lesson){
-    const lessons=flatLessons(course),index=lessons.findIndex(item=>item.id===lesson.id),prev=lessons[index-1],next=lessons[index+1],done=(state.completed[course.id]||[]).includes(lesson.id),bookmarked=state.bookmarks.includes(lesson.id),progress=courseProgress(course);
-    return `<aside class="academy-toolbar" aria-label="Lesson tools"><div class="toolbar-progress"><span>${esc(course.shortTitle)}</span><strong>${progress.percent}%</strong><progress max="100" value="${progress.percent}"></progress></div><div class="toolbar-actions">${prev?`<a href="${routeHref(course.id,prev.slug)}" aria-label="Previous lesson" title="Previous lesson">${icon('previous')}</a>`:''}${next?`<a href="${routeHref(course.id,next.slug)}" aria-label="Next lesson" title="Next lesson">${icon('next')}</a>`:''}<button data-toolbar-bookmark class="${bookmarked?'is-active':''}" aria-pressed="${bookmarked}" title="Bookmark lesson">${icon('bookmark')}<span>Bookmark</span></button><button data-toolbar-note title="Add lesson note">${icon('notes')}<span>Notes</span></button><button data-toolbar-complete class="${done?'is-active':''}" aria-pressed="${done}" title="Mark lesson complete">${icon('check')}<span>${done?'Completed':'Complete'}</span></button><button data-toolbar-print title="Print or save lesson as PDF">${icon('print')}<span>PDF</span></button><button data-toolbar-theme title="Toggle night theme">${icon(state.theme==='dark'?'sun':'moon')}<span>Theme</span></button></div></aside>`;
-  }
-  function topicGuide(course,lesson){
-    const title=lesson.title;
-    const rules=course.id==='firebase-google-cloud' ? [
-      [/Auth|Identity|IAM|Security|Secret|App Check/,['Cloud identity proves who or what is making a request before policy decides what it may do.','Firebase Authentication handles end-user identity; IAM governs cloud resources; Security Rules protect Firebase data; secrets remain server-side.','Define the smallest permissions for a learner, instructor, and deployment service account.']],
-      [/Firestore|Realtime|Storage|SQL|Data/,['Managed data services trade infrastructure work for explicit modeling, security, cost, and consistency decisions.','Firestore is document-oriented; Realtime Database is a synchronized JSON tree; Cloud SQL is relational; Cloud Storage holds objects.','Choose a service for course metadata, video files, transactional billing, and live presence.']],
-      [/Function|Run|Pub\/Sub|Event/,['Serverless services run code in response to requests or events without managing individual servers.','Cloud Functions handles focused events; Cloud Run executes containers; Pub/Sub decouples producers and consumers.','Design an idempotent thumbnail pipeline that safely retries failed events.']],
-      [/Hosting|Deploy|CI|Environment|Architecture|Reliability|Monitoring/,['Cloud delivery combines repeatable deployment, observability, controlled environments, and failure planning.','Use separate projects, automated builds, regional choices, logs, metrics, alerts, budgets, and rollback-safe releases.','Deploy staging, define a health signal, and document rollback and cost limits.']]
-    ] : (course.id==='sql'||course.id==='database-optimization') ? [
-      [/SELECT|WHERE|ORDER|Aggregate|GROUP|JOIN|Subquer|View/,['SQL describes the result set you need; the database planner chooses how to produce it.','Queries move through parsing, rewriting, planning, and execution. Predicates, join cardinality, statistics, and indexes shape the selected plan.','Write the query, inspect its result, then validate its plan and boundary cases.']],
-      [/Index|B-Tree|EXPLAIN|Performance|Slow|Optimization|Pagination/,['Database optimization reduces total work while preserving correct results.','Use EXPLAIN ANALYZE and buffer statistics to find expensive scans, bad cardinality estimates, sorts, joins, and lock waits before changing indexes or SQL.','Capture a baseline plan, make one evidence-based change, and compare latency and buffers.']],
-      [/Transaction|Lock|VACUUM|Connection|Caching|Monitoring|Statistics/,['Production databases coordinate concurrent work and maintain storage over time.','MVCC, transaction isolation, locks, autovacuum, statistics, pooling, caches, and monitoring interact; improving one metric can move cost elsewhere.','Define an operational metric, failure threshold, and rollback-safe change.']],
-      [/CREATE|ALTER|DROP|INSERT|UPDATE|DELETE|Constraint|Key|Security/,['A relational schema protects meaning as data changes.','Keys and constraints encode invariants; transactions make related changes atomic; roles and least privilege constrain access.','Create a small schema, attempt invalid writes, and verify they fail safely.']]
-    ] : course.id==='java-essentials' ? [
-      [/Variables|Data Types|Operators/,['Java stores strongly typed values and applies operators according to each type.','Primitive values hold data directly; reference variables point to objects. Numeric promotion and operator precedence affect the resulting type and value.','Model a product price calculation and test boundary values.']],
-      [/Classes|Objects|Constructors|Encapsulation|Inheritance|Polymorphism|Abstraction|Interfaces/,['Object-oriented Java models behavior and data as collaborating types.','Classes define state and behavior; interfaces define contracts; inheritance and dynamic dispatch allow an implementation to vary behind a stable type.','Design a payment interface with two implementations and hide mutable state.']],
-      [/Collection|ArrayList|LinkedList|HashSet|HashMap|Queue|Stack|Generics/,['Collections store groups of values with different ordering, lookup, and uniqueness guarantees.','The Collections Framework exposes interfaces such as List, Set, Map, Queue, and Deque. Generics provide compile-time type safety without manual casts.','Choose structures for a task queue, unique tags, and ID-based lookup.']],
-      [/Lambda|Stream|Optional/,['Modern Java can describe transformations as pipelines instead of manual loops.','Lambdas implement functional interfaces; streams compose lazy intermediate operations and terminal operations; Optional models a possibly absent result.','Filter and group course enrollments without mutating the source list.']],
-      [/Thread|Concurrency|CompletableFuture/,['Concurrency lets independent work make progress without blocking the whole application.','Threads share memory, so visibility, atomicity, synchronization, executors, futures, and structured ownership determine correctness.','Run two independent service calls concurrently and combine their results safely.']],
-      [/JVM|Garbage|Reflection|Annotation|Module/,['The Java platform provides runtime metadata, modular boundaries, memory management, and dynamic type inspection.','Bytecode executes on the JVM; garbage collectors reclaim unreachable objects; reflection reads runtime type metadata; modules define explicit dependencies.','Inspect an annotated class and explain which dependencies its module exports.']],
-      [/JDBC|File|NIO|Serialization|Networking|HTTP/,['Java connects applications to files, networks, and relational databases through standard APIs.','I/O resources are closeable; NIO uses Path and channels; JDBC uses connections and prepared statements; HttpClient supports synchronous and asynchronous requests.','Read configuration safely and execute a parameterized database query.']],
-      [/JUnit|Mockito|Testing/,['Automated tests protect behavior while the code changes.','JUnit defines test lifecycle and assertions; Mockito replaces collaborators so a unit can be tested in isolation.','Test a service success case and its repository failure case.']]
-    ] : [
-      [/IoC|Dependency Injection|Beans|ApplicationContext|Component|Configuration|Annotation/,['Spring creates and connects application objects so business code does not construct its own dependencies.','The ApplicationContext discovers bean definitions, resolves dependency graphs, applies lifecycle callbacks, and can wrap beans with framework proxies.','Wire a controller, service, and repository using constructor injection.']],
-      [/MVC|Controller|Request|REST|HTTP|DTO|Validation|Exception/,['Spring MVC turns HTTP requests into validated application calls and structured responses.','DispatcherServlet selects a handler, argument resolvers bind request data, validation runs before the controller body, and exception handlers map failures to HTTP responses.','Add a validated create-lesson endpoint with a consistent error response.']],
-      [/JPA|Entit|Repositor|JPQL|Query|Pagination|Transaction|Database|Flyway|Liquibase/,['Spring Data connects domain objects to relational data while keeping persistence rules explicit.','JPA tracks entity state in a persistence context; repositories derive queries; transactions define atomic boundaries; migrations version the physical schema.','Persist a Course with Lessons and fetch a paginated projection without an N+1 query.']],
-      [/Security|Authentication|Authorization|JWT|Role|CORS|CSRF|OAuth|Secret/,['Spring Security protects each request using an ordered security filter chain.','Authentication establishes identity; authorization evaluates authorities; JWT and OAuth2 carry delegated identity; CORS and CSRF address different browser threats.','Protect an instructor endpoint and test anonymous, learner, and admin access.']],
-      [/Test|Mockito|Testcontainers/,['Spring tests can isolate a class, load a web slice, or verify the complete application against real infrastructure.','Unit tests avoid the container; slice tests load selected beans; integration tests use the application context and Testcontainers for realistic dependencies.','Test a controller contract and a PostgreSQL repository query.']],
-      [/Cloud|Gateway|Discovery|Feign|Resilience|Rabbit|Kafka|Microservice/,['Distributed Spring services communicate through explicit APIs and asynchronous messages.','Gateways route traffic, discovery resolves instances, Feign creates HTTP clients, Resilience4j applies fault tolerance, and brokers decouple producers from consumers.','Design an order flow that remains safe when the notification service is unavailable.']],
-      [/Docker|Deployment|Actuator|Observability|Logging|Rate|Production/,['Production Spring systems must be deployable, observable, limited, and diagnosable.','Actuator exposes managed endpoints; Micrometer records metrics and traces; containers package runtime dependencies; rate limiting protects capacity.','Containerize the API and define health, readiness, metrics, and request limits.']]
+  return `<section id="lesson-objectives" class="explanation-grid"><div><span>SIMPLE EXPLANATION</span><p>${
+      esc(guide.simple)}</p></div><div><span>TECHNICAL EXPLANATION</span><p>${
+      esc(guide
+              .technical)}</p></div><div><span>PROFESSIONAL EXPLANATION</span><p>${
+      esc(guide
+              .professional)}</p></div></section><section id="lesson-concepts" class="lesson-section"><span class="section-label">SYNTAX &amp; ANNOTATIONS</span><h2>Recognize the working shape</h2><p>Read the declaration, inputs, return type, lifecycle, and annotations from the outside inward.</p><pre><code class="language-${
+      example.language}">${
+      esc(example
+              .code)}</code></pre><div class="expected-output"><strong>Expected output</strong><pre><code class="language-text">${
+      esc(example
+              .output)}</code></pre></div></section><section class="lesson-section"><span class="section-label">REAL-WORLD USE CASE</span><h2>Use it in the Academy system</h2><p>Apply ${
+      esc(lesson
+              .title)} where courses, lessons, learners, and progress must remain correct and maintainable as traffic and requirements grow.</p></section><section id="lesson-practice" class="lesson-section split"><div><span class="section-label warning">COMMON MISTAKES</span><h2>Watch out for</h2><ul><li>Using the API without understanding ownership or lifecycle.</li><li>Mixing domain, transport, and infrastructure responsibilities.</li><li>Ignoring failure paths, resource cleanup, and boundary cases.</li></ul></div><div><span class="section-label good">BEST PRACTICES</span><h2>Use it well</h2><ul><li>Prefer small, intention-revealing units.</li><li>Validate inputs and preserve clear boundaries.</li><li>Test important behavior and observable failures.</li></ul></div></section><section class="practice-card"><span>PRACTICE CHALLENGE</span><h2>Apply the concept</h2><p>${
+      esc(guide
+              .exercise)}</p></section><section id="lesson-questions" class="lesson-section"><span class="section-label">INTERVIEW QUESTIONS</span><h2>Check your understanding</h2><ol><li>What problem does ${
+      esc(lesson
+              .title)} solve?</li><li>What lifecycle or trade-off matters most?</li><li>How would you test its success and failure behavior?</li></ol></section><section id="lesson-summary" class="takeaways"><span>SUMMARY &amp; KEY TAKEAWAYS</span><ul><li>Explain the problem before the syntax.</li><li>Connect the concept to runtime behavior and architecture.</li><li>Prove your understanding with a runnable example and failure test.</li></ul></section>`;
+}
+function detailedLessonSections(course, lesson) {
+  const c = lesson.content,
+        sources =
+            (window.ACADEMY_SOURCE_CATALOG?.[course.id] || []).slice(0, 4);
+  const concepts =
+      c.concepts
+          .map(
+              item => `<article><h3>${esc(item.name)}</h3><p>${
+                  esc(item.explanation)}</p>${
+                  item.syntax ?
+                      `<pre><code class="language-${
+                          esc(item.language || c.examples[0].language)}">${
+                          esc(item.syntax)}</code></pre>` :
+                      ''}</article>`)
+          .join('');
+  const examples =
+      c.examples
+          .map(
+              (item, index) => `<article class="lesson-example"><h3>${
+                  index + 1}. ${esc(item.title)}</h3><p>${
+                  esc(item.explanation)}</p><pre><code class="language-${
+                  esc(item.language)}">${esc(item.code)}</code></pre>${
+                  item.output ?
+                      `<div class="expected-output"><strong>Expected behavior or output</strong><pre><code class="language-text">${
+                          esc(item.output)}</code></pre></div>` :
+                      ''}</article>`)
+          .join('');
+  return `<section id="lesson-objectives" class="lesson-objectives"><span class="section-label">LEARNING OBJECTIVES</span><ul>${
+      c.objectives.map(item => `<li>${esc(item)}</li>`)
+          .join(
+              '')}</ul></section><section id="lesson-concepts" class="explanation-grid"><div><span>SIMPLE EXPLANATION</span><p>${
+      esc(c.simple)}</p></div><div><span>TECHNICAL EXPLANATION</span><p>${
+      esc(c.technical)}</p></div><div><span>WHEN AND WHY</span><p>${
+      esc(c.whenToUse)}</p></div></section><section class="lesson-section concept-catalog"><span class="section-label">TYPES &amp; MAIN CONCEPTS</span><h2>Important variations and rules</h2><div class="model-facts">${
+      concepts}</div></section>${
+      (course.id === 'sql' || course.id === 'database-optimization') ?
+          databaseVisual(lesson.title) :
+          ''}<section id="lesson-example" class="lesson-section"><span class="section-label">PRACTICAL EXAMPLES</span><h2>Build understanding step by step</h2>${
+      examples}</section><section class="lesson-section project-brief"><span class="section-label">PROFESSIONAL EXAMPLE</span><h2>A realistic application</h2><p>${
+      esc(c.realWorld.context)}</p><p><strong>Implementation:</strong> ${
+      esc(c.realWorld
+              .implementation)}</p><p><strong>Why this design:</strong> ${
+      esc(c.realWorld
+              .reasoning)}</p></section><section id="lesson-practice" class="lesson-section split"><div><span class="section-label warning">COMMON MISTAKES</span><ul>${
+      c.mistakes.map(item => `<li>${esc(item)}</li>`)
+          .join(
+              '')}</ul></div><div><span class="section-label good">BEST PRACTICES</span><ul>${
+      c.practices.map(item => `<li>${esc(item)}</li>`)
+          .join(
+              '')}</ul></div></section><section class="practice-card"><span>PRACTICE CHALLENGE</span><h2>Apply ${
+      esc(lesson.title)}</h2><p>${
+      esc(c.exercise)}</p></section><section id="lesson-questions" class="lesson-section"><span class="section-label">REVIEW QUESTIONS</span><ol>${
+      c.questions.map(item => `<li>${esc(item)}</li>`)
+          .join(
+              '')}</ol></section><section id="lesson-summary" class="takeaways"><span>LESSON SUMMARY</span><ul>${
+      c.takeaways.map(item => `<li>${esc(item)}</li>`)
+          .join(
+              '')}</ul></section><section class="lesson-sources"><span class="section-label">AUTHORITATIVE REFERENCES</span>${
+      sources
+          .map(
+              source => `<a href="${
+                  esc(source
+                          .url)}" target="_blank" rel="noopener noreferrer"><strong>${
+                  esc(source.title)}</strong><small>${
+                  esc(source.publisher)} · ${esc(source.type)}</small></a>`)
+          .join('')}</section>`;
+}
+const databaseSourceFor = title =>
+    /EXPLAIN|Plan|Performance|Optimization|Slow|Scan|Join/i.test(title) ?
+    [
+      'PostgreSQL: Using EXPLAIN',
+      'https://www.postgresql.org/docs/current/using-explain.html'
+    ] :
+    /Index|B-Tree/i.test(title) ?
+    [
+      'PostgreSQL: Indexes',
+      'https://www.postgresql.org/docs/current/indexes.html'
+    ] :
+    /VACUUM|ANALYZE/i.test(title) ?
+    [
+      'PostgreSQL: Routine Vacuuming',
+      'https://www.postgresql.org/docs/current/routine-vacuuming.html'
+    ] :
+    /JOIN|WHERE|GROUP|Subquer|SELECT/i.test(title) ?
+    [
+      'PostgreSQL: Table Expressions',
+      'https://www.postgresql.org/docs/current/queries-table-expressions.html'
+    ] :
+    [
+      'PostgreSQL: Data Definition',
+      'https://www.postgresql.org/docs/current/ddl.html'
     ];
-    const match=rules.find(([pattern])=>pattern.test(title));
-    const values=match?.[1]||[`${title} solves a specific problem in ${course.shortTitle} applications.`,`Understand ${title} through its runtime behavior, API contract, lifecycle, failure modes, and effect on surrounding components.`,`Build the smallest runnable example of ${title}, then add one failure case.`];
-    return {simple:values[0],technical:values[1],exercise:values[2],professional:`Use ${title} behind a clear boundary, document its trade-offs, test important behavior, and make failures observable.`};
-  }
-  function lessonSections(course,lesson,example){
-    if(lesson.content)return detailedLessonSections(course,lesson);
-    const guide=topicGuide(course,lesson);
-    if(course.id==='sql'||course.id==='database-optimization')return databaseLessonSections(course,lesson,example,guide);
-    if(course.id==='python-ai'){
-      const isModel=lesson.kind==='model',isAssessment=lesson.kind==='assessment',isProject=lesson.kind==='project';
-      if(isAssessment)return `<section class="lesson-section"><span class="section-label">STAGE ASSESSMENT</span><h2>Test knowledge and practical judgment</h2><p>Answer without running code first, then verify each answer experimentally.</p><ol><li>Explain the stage's central idea in plain language and Arabic technical terms.</li><li>Choose an appropriate technique for a new scenario and justify what you rejected.</li><li>Find and repair the data, evaluation, or implementation mistake in your stage notebook.</li><li>Build a reproducible mini-pipeline with <code>random_state=42</code>.</li></ol></section><section class="takeaways"><span>PASS CRITERIA</span><ul><li>80% quiz score</li><li>Runnable exercise</li><li>Written model or design justification</li></ul></section>`;
-      const modelBlock=isModel?`<section class="model-dossier"><span class="section-label">MODEL DOSSIER</span><h2>Understand before you fit</h2><div class="model-facts"><article><strong>Main idea &amp; mechanics</strong><p>Map inputs to predictions by learning parameters or structure from examples. Trace how training changes the model and how inference uses the fitted state.</p></article><article><strong>Mathematical intuition</strong><p>Connect the objective function, optimization process, decision surface, and regularization to observable behavior.</p></article><article><strong>Use / avoid</strong><p>Use it when its assumptions and cost fit the data. Avoid it when sample size, feature geometry, latency, explainability, or leakage risks conflict.</p></article><article><strong>Assumptions &amp; preprocessing</strong><p>Check independence, scale sensitivity, missing values, categorical encoding, distribution shape, and train-only fitting.</p></article><article><strong>Hyperparameters &amp; cost</strong><p>Tune capacity and regularization with cross-validation. Report training time, inference latency, and memory alongside predictive metrics.</p></article><article><strong>Evaluation &amp; explainability</strong><p>Choose metrics from the business error cost; inspect residuals or confusion patterns; use coefficients, feature importance, permutation importance, or SHAP where suitable.</p></article></div><p><strong>Comparison:</strong> establish a simple baseline, compare at least three candidates on identical folds, inspect overfitting through train–validation gaps, tune only finalists, and select from evidence rather than popularity.</p></section>`:'';
-      const projectBlock=isProject?`<section class="lesson-section project-brief"><span class="section-label">PORTFOLIO PROJECT</span><h2>From business goal to deployment</h2><ol><li>Define the problem, user, business metric, constraints, and dataset.</li><li>Explore, clean, split, and engineer features without leakage.</li><li>Build a baseline and at least three candidate models.</li><li>Cross-validate, tune finalists, evaluate once on the test set, and explain results.</li><li>Document risks, deployment guidance, monitoring, and reproducibility.</li></ol><pre><code class="language-text">project/\n├── README.md\n├── data/README.md\n├── notebooks/01_eda.ipynb\n├── src/{data,features,train,evaluate}.py\n├── tests/\n├── models/.gitkeep\n└── requirements.txt</code></pre>${/Disease/.test(lesson.title)?'<p class="safety-notice"><strong>Educational use only:</strong> this classifier is not a medical device and must never be treated as diagnosis or clinical advice.</p>':''}</section>`:'';
-      return `<section class="lesson-objectives"><span class="section-label">LEARNING OBJECTIVES</span><ul><li>Explain ${esc(lesson.title)} in clear English and Arabic technical language.</li><li>Implement a reproducible example and interpret its output.</li><li>Recognize trade-offs, failure modes, and appropriate alternatives.</li></ul></section><section class="explanation-grid"><div><span>INTUITIVE VIEW</span><p>${esc(guide.simple)}</p></div><div><span>STEP BY STEP</span><p>${esc(guide.technical)}</p></div><div><span>PROFESSIONAL PRACTICE</span><p>${esc(guide.professional)}</p></div></section>${modelBlock}<section class="lesson-section"><span class="section-label">RUNNABLE EXAMPLE</span><h2>Build the smallest reproducible experiment</h2><p>Use Python ${esc(course.pythonVersion)} and a fixed seed. Install the lesson libraries in a virtual environment: <code>python -m venv .venv</code>, then <code>python -m pip install numpy pandas scikit-learn matplotlib</code>. PyTorch stages use <code>torch</code>.</p><pre><code class="language-${example.language}">${esc(example.code)}</code></pre><div class="expected-output"><strong>Expected output</strong><pre><code class="language-text">${esc(example.output)}</code></pre></div></section>${projectBlock}<section class="practice-card exercise-levels"><span>TRY IT YOURSELF</span><h2>Practice at three levels</h2><p><strong>Easy:</strong> reproduce the example and annotate every transformation.</p><p><strong>Medium:</strong> change the data or hyperparameters and explain the result.</p><p><strong>Challenge:</strong> compare an alternative, measure it fairly, and defend your selection.</p></section><section class="lesson-section split"><div><span class="section-label warning">COMMON MISTAKES</span><ul><li>Fitting preprocessing before the data split.</li><li>Reporting one metric or a single lucky split.</li><li>Confusing correlation, prediction, and causation.</li></ul></div><div><span class="section-label good">SHORT QUIZ</span><ol><li>What assumption matters most here?</li><li>Which metric matches the real error cost?</li><li>What evidence would make you reject this approach?</li></ol></div></section><section class="takeaways"><span>LESSON SUMMARY</span><ul><li>Start with the problem and a transparent baseline.</li><li>Keep experiments reproducible and leakage-free.</li><li>Compare alternatives using consistent data and metrics.</li></ul></section>`;
-    }
-    return `<section class="explanation-grid"><div><span>SIMPLE EXPLANATION</span><p>${esc(guide.simple)}</p></div><div><span>TECHNICAL EXPLANATION</span><p>${esc(guide.technical)}</p></div><div><span>PROFESSIONAL EXPLANATION</span><p>${esc(guide.professional)}</p></div></section><section class="lesson-section"><span class="section-label">SYNTAX &amp; ANNOTATIONS</span><h2>Recognize the working shape</h2><p>Read the declaration, inputs, return type, lifecycle, and annotations from the outside inward.</p><pre><code class="language-${example.language}">${esc(example.code)}</code></pre><div class="expected-output"><strong>Expected output</strong><pre><code class="language-text">${esc(example.output)}</code></pre></div></section><section class="lesson-section"><span class="section-label">REAL-WORLD USE CASE</span><h2>Use it in the Academy system</h2><p>Apply ${esc(lesson.title)} where courses, lessons, learners, and progress must remain correct and maintainable as traffic and requirements grow.</p></section><section class="lesson-section split"><div><span class="section-label warning">COMMON MISTAKES</span><h2>Watch out for</h2><ul><li>Using the API without understanding ownership or lifecycle.</li><li>Mixing domain, transport, and infrastructure responsibilities.</li><li>Ignoring failure paths, resource cleanup, and boundary cases.</li></ul></div><div><span class="section-label good">BEST PRACTICES</span><h2>Use it well</h2><ul><li>Prefer small, intention-revealing units.</li><li>Validate inputs and preserve clear boundaries.</li><li>Test important behavior and observable failures.</li></ul></div></section><section class="practice-card"><span>PRACTICE CHALLENGE</span><h2>Apply the concept</h2><p>${esc(guide.exercise)}</p></section><section class="lesson-section"><span class="section-label">INTERVIEW QUESTIONS</span><h2>Check your understanding</h2><ol><li>What problem does ${esc(lesson.title)} solve?</li><li>What lifecycle or trade-off matters most?</li><li>How would you test its success and failure behavior?</li></ol></section><section class="takeaways"><span>SUMMARY &amp; KEY TAKEAWAYS</span><ul><li>Explain the problem before the syntax.</li><li>Connect the concept to runtime behavior and architecture.</li><li>Prove your understanding with a runnable example and failure test.</li></ul></section>`;
-  }
-  function detailedLessonSections(course,lesson){
-    const c=lesson.content, sources=(window.ACADEMY_SOURCE_CATALOG?.[course.id]||[]).slice(0,4);
-    const concepts=c.concepts.map(item=>`<article><h3>${esc(item.name)}</h3><p>${esc(item.explanation)}</p>${item.syntax?`<pre><code class="language-${esc(item.language||c.examples[0].language)}">${esc(item.syntax)}</code></pre>`:''}</article>`).join('');
-    const examples=c.examples.map((item,index)=>`<article class="lesson-example"><h3>${index+1}. ${esc(item.title)}</h3><p>${esc(item.explanation)}</p><pre><code class="language-${esc(item.language)}">${esc(item.code)}</code></pre>${item.output?`<div class="expected-output"><strong>Expected behavior or output</strong><pre><code class="language-text">${esc(item.output)}</code></pre></div>`:''}</article>`).join('');
-    return `<section class="lesson-objectives"><span class="section-label">LEARNING OBJECTIVES</span><ul>${c.objectives.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></section><section class="explanation-grid"><div><span>SIMPLE EXPLANATION</span><p>${esc(c.simple)}</p></div><div><span>TECHNICAL EXPLANATION</span><p>${esc(c.technical)}</p></div><div><span>WHEN AND WHY</span><p>${esc(c.whenToUse)}</p></div></section><section class="lesson-section concept-catalog"><span class="section-label">TYPES &amp; MAIN CONCEPTS</span><h2>Important variations and rules</h2><div class="model-facts">${concepts}</div></section>${(course.id==='sql'||course.id==='database-optimization')?databaseVisual(lesson.title):''}<section class="lesson-section"><span class="section-label">PRACTICAL EXAMPLES</span><h2>Build understanding step by step</h2>${examples}</section><section class="lesson-section project-brief"><span class="section-label">PROFESSIONAL EXAMPLE</span><h2>A realistic application</h2><p>${esc(c.realWorld.context)}</p><p><strong>Implementation:</strong> ${esc(c.realWorld.implementation)}</p><p><strong>Why this design:</strong> ${esc(c.realWorld.reasoning)}</p></section><section class="lesson-section split"><div><span class="section-label warning">COMMON MISTAKES</span><ul>${c.mistakes.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></div><div><span class="section-label good">BEST PRACTICES</span><ul>${c.practices.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></div></section><section class="practice-card"><span>PRACTICE CHALLENGE</span><h2>Apply ${esc(lesson.title)}</h2><p>${esc(c.exercise)}</p></section><section class="lesson-section"><span class="section-label">REVIEW QUESTIONS</span><ol>${c.questions.map(item=>`<li>${esc(item)}</li>`).join('')}</ol></section><section class="takeaways"><span>LESSON SUMMARY</span><ul>${c.takeaways.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></section><section class="lesson-sources"><span class="section-label">AUTHORITATIVE REFERENCES</span>${sources.map(source=>`<a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer"><strong>${esc(source.title)}</strong><small>${esc(source.publisher)} · ${esc(source.type)}</small></a>`).join('')}</section>`;
-  }
-  const databaseSourceFor=title=>/EXPLAIN|Plan|Performance|Optimization|Slow|Scan|Join/i.test(title)?['PostgreSQL: Using EXPLAIN','https://www.postgresql.org/docs/current/using-explain.html']:/Index|B-Tree/i.test(title)?['PostgreSQL: Indexes','https://www.postgresql.org/docs/current/indexes.html']:/VACUUM|ANALYZE/i.test(title)?['PostgreSQL: Routine Vacuuming','https://www.postgresql.org/docs/current/routine-vacuuming.html']:/JOIN|WHERE|GROUP|Subquer|SELECT/i.test(title)?['PostgreSQL: Table Expressions','https://www.postgresql.org/docs/current/queries-table-expressions.html']:['PostgreSQL: Data Definition','https://www.postgresql.org/docs/current/ddl.html'];
-  function databaseVisual(title){
-    if(/JOIN/i.test(title))return `<section class="db-visual" data-db-visual="join"><span class="section-label">INTERACTIVE JOIN VISUALIZER</span><h2>See which rows survive each JOIN</h2><div class="visual-controls" role="group" aria-label="Join type">${['INNER','LEFT','RIGHT','FULL','CROSS'].map(type=>`<button type="button" data-join="${type}">${type} JOIN</button>`).join('')}<button type="button" data-visual-reset>Reset</button></div><div class="join-stage"><div><strong>customers</strong><p data-key="c1">1 · Lina</p><p data-key="c2">2 · Omar</p><p data-key="c3">3 · Noor</p></div><svg viewBox="0 0 160 120" aria-label="Matching customer and order rows"><path d="M5 25 C70 25 90 25 155 25"/><path d="M5 55 C70 55 90 55 155 55"/></svg><div><strong>orders</strong><p data-key="o1">10 · customer 1 · $40</p><p data-key="o2">11 · customer 2 · $75</p><p data-key="o4">12 · customer 4 · $20</p></div></div><pre><code id="joinSql" class="language-sql"></code></pre><div id="joinResult" class="visual-result" aria-live="polite"></div></section>`;
-    if(/SELECT|WHERE|ORDER BY|GROUP BY|Aggregate/i.test(title))return `<section class="db-visual" data-db-visual="query-builder"><span class="section-label">INTERACTIVE SQL BUILDER</span><h2>Build a query and watch the result change</h2><div class="query-builder-controls"><label>Filter<select id="queryFilter"><option value="all">All orders</option><option value="paid">Paid only</option><option value="high">Total ≥ 100</option></select></label><label>Group<select id="queryGroup"><option value="none">No grouping</option><option value="status">By status</option><option value="customer">By customer</option></select></label><label>Sort<select id="querySort"><option value="newest">Newest first</option><option value="total">Highest total</option><option value="name">Customer A–Z</option></select></label></div><pre><code id="queryBuilderSql" class="language-sql"></code></pre><div class="query-result-table" id="queryBuilderResult" aria-live="polite"></div><button class="visual-reset" type="button" data-query-reset>Reset query</button></section>`;
-    if(/Index|B-Tree/i.test(title))return `<section class="db-visual" data-db-visual="index-advisor"><span class="section-label">INTERACTIVE INDEX ADVISOR</span><h2>Match an index to the query pattern</h2><div class="visual-controls" role="group" aria-label="Query pattern"><button type="button" data-index-case="email">Email lookup</button><button type="button" data-index-case="timeline">User timeline</button><button type="button" data-index-case="pending">Pending jobs</button><button type="button" data-index-case="covering">Covering query</button></div><div class="index-advisor-grid"><div><small>QUERY</small><pre><code id="indexQuery" class="language-sql"></code></pre></div><div><small>RECOMMENDED INDEX</small><pre><code id="indexRecommendation" class="language-sql"></code></pre></div></div><div id="indexVerdict" class="index-verdict" aria-live="polite"></div><svg class="btree" viewBox="0 0 720 260" role="img" aria-label="Balanced B-tree index with root, branches, and leaf keys"><g class="tree-edge"><path d="M360 60 180 130M360 60 540 130M180 160 90 220M180 160 270 220M540 160 450 220M540 160 630 220"/></g><g class="tree-node"><rect x="310" y="25" width="100" height="45"/><text x="360" y="53">30 | 60</text><rect x="130" y="120" width="100" height="45"/><text x="180" y="148">10 | 20</text><rect x="490" y="120" width="100" height="45"/><text x="540" y="148">40 | 50</text>${[[40,'1 · 5'],[220,'21 · 25'],[400,'31 · 35'],[580,'61 · 80']].map(([x,t])=>`<rect x="${x}" y="205" width="100" height="40"/><text x="${x+50}" y="231">${t}</text>`).join('')}</g></svg></section>`;
-    if(/EXPLAIN|Plan|Performance|Optimization|Slow/i.test(title))return `<section class="db-visual" data-db-visual="plan"><span class="section-label">QUERY PLAN VIEWER</span><h2>Compare work before and after an index</h2><div class="visual-controls"><button type="button" data-plan="before">Before index</button><button type="button" data-plan="after">After index</button><button type="button" data-visual-reset>Reset</button></div><div id="planView" class="plan-view" aria-live="polite"></div><p class="simulation-label">Simulated educational result—not a real database measurement. Actual performance depends on dataset size, engine, hardware, cache, statistics, and parameters.</p></section>`;
-    if(/Key|Table|Relational|Normalization|Denormalization/i.test(title))return `<section class="db-visual"><span class="section-label">STRUCTURED ER DIAGRAM</span><h2>Keys make relationships enforceable</h2><div class="er-diagram"><article><strong>courses</strong><p class="pk">🔑 id · PRIMARY KEY</p><p>title · TEXT</p></article><i aria-label="one course has many lessons">1 ─────── &lt;</i><article><strong>lessons</strong><p class="pk">🔑 id · PRIMARY KEY</p><p class="fk">↗ course_id · FOREIGN KEY</p><p>title · TEXT</p></article></div></section>`;
-    return `<section class="db-visual"><span class="section-label">QUERY EXECUTION FLOW</span><h2>Follow data from intent to result</h2><div class="execution-flow">${['SQL text','Parser','Rewriter','Planner','Executor','Rows'].map((step,index)=>`<span><b>${index+1}</b>${step}</span>`).join('')}</div></section>`;
-  }
-  function databaseLessonSections(course,lesson,example,guide){const [sourceTitle,sourceUrl]=databaseSourceFor(lesson.title);return `<section class="lesson-objectives"><span class="section-label">LEARNING OBJECTIVES</span><ul><li>Explain ${esc(lesson.title)} and its prerequisites.</li><li>Write and run correct PostgreSQL syntax.</li><li>Interpret the result and connect it to production behavior.</li></ul></section><section class="explanation-grid"><div><span>SIMPLE EXPLANATION</span><p>${esc(guide.simple)}</p></div><div><span>TECHNICAL EXPLANATION</span><p>${esc(guide.technical)}</p></div><div><span>REAL-WORLD USE</span><p>${esc(guide.professional)}</p></div></section>${databaseVisual(lesson.title)}<section class="lesson-section"><span class="section-label">RUNNABLE POSTGRESQL EXAMPLE</span><h2>Syntax, result, and interpretation</h2><pre><code class="language-sql">${esc(example.code)}</code></pre><div class="expected-output"><strong>Expected output</strong><pre><code>${esc(example.output)}</code></pre></div><p>The output confirms whether PostgreSQL accepted the statement or which plan node performed the work. Read estimates separately from actual measurements.</p></section><section class="practice-card"><span>INTERACTIVE EXERCISE</span><h2>Predict, run, explain</h2><p>${esc(guide.exercise)}</p><details><summary>Show solution</summary><p>Start with the smallest correct query, validate rows and constraints, then use <code>EXPLAIN (ANALYZE, BUFFERS)</code> only on safe test data when performance is relevant.</p></details></section><section class="lesson-section split"><div><span class="section-label warning">COMMON MISTAKES</span><ul><li>Assuming row order without ORDER BY.</li><li>Ignoring NULL and three-valued logic.</li><li>Adding indexes without measuring write and storage cost.</li></ul></div><div><span class="section-label good">BEST PRACTICES</span><ul><li>Use explicit columns and constraints.</li><li>Test transactions and failure paths.</li><li>Measure identical workloads before and after changes.</li></ul></div></section><section class="lesson-section"><span class="section-label">REVIEW QUESTIONS</span><ol><li>What database work does this feature avoid or add?</li><li>Which behavior is standard SQL and which is PostgreSQL-specific?</li><li>How would you verify correctness and performance?</li></ol></section><section class="takeaways"><span>LESSON SUMMARY</span><ul><li>Correctness comes before optimization.</li><li>Plans and measurements explain runtime work.</li><li>Schema, queries, and application code form one system.</li></ul></section><section class="lesson-sources"><span class="section-label">SOURCES AND FURTHER READING</span><a href="${sourceUrl}" target="_blank" rel="noopener noreferrer"><strong>${sourceTitle}</strong><small>PostgreSQL Global Development Group · OFFICIAL_DOCUMENTATION · accessed 2026-08-12</small></a></section>`;}
-  const noteRecord=value=>typeof value==='string'?{subject:'',body:value}:value&&typeof value==='object'?{subject:value.subject||'',body:value.body||'',updatedAt:value.updatedAt}:{subject:'',body:''};
-  const allLessonEntries=()=>catalog.flatMap(course=>flatLessons(course).map(lesson=>({...lesson,courseTitle:course.title,color:course.color,href:course.id==='react'?`react.html#${lesson.slug}`:routeHref(course.id,lesson.slug)})));
+function databaseVisual(title) {
+  if (/JOIN/i.test(title))
+    return `<section class="db-visual" data-db-visual="join"><span class="section-label">INTERACTIVE JOIN VISUALIZER</span><h2>See which rows survive each JOIN</h2><div class="visual-controls" role="group" aria-label="Join type">${
+            ['INNER', 'LEFT', 'RIGHT', 'FULL', 'CROSS']
+                .map(
+                    type => `<button type="button" data-join="${type}">${
+                        type} JOIN</button>`)
+                .join(
+                    '')}<button type="button" data-visual-reset>Reset</button></div><div class="join-stage"><div><strong>customers</strong><p data-key="c1">1 · Lina</p><p data-key="c2">2 · Omar</p><p data-key="c3">3 · Noor</p></div><svg viewBox="0 0 160 120" aria-label="Matching customer and order rows"><path d="M5 25 C70 25 90 25 155 25"/><path d="M5 55 C70 55 90 55 155 55"/></svg><div><strong>orders</strong><p data-key="o1">10 · customer 1 · $40</p><p data-key="o2">11 · customer 2 · $75</p><p data-key="o4">12 · customer 4 · $20</p></div></div><pre><code id="joinSql" class="language-sql"></code></pre><div id="joinResult" class="visual-result" aria-live="polite"></div></section>`;
+  if (/SELECT|WHERE|ORDER BY|GROUP BY|Aggregate/i.test(title))
+    return `<section class="db-visual" data-db-visual="query-builder"><span class="section-label">INTERACTIVE SQL BUILDER</span><h2>Build a query and watch the result change</h2><div class="query-builder-controls"><label>Filter<select id="queryFilter"><option value="all">All orders</option><option value="paid">Paid only</option><option value="high">Total ≥ 100</option></select></label><label>Group<select id="queryGroup"><option value="none">No grouping</option><option value="status">By status</option><option value="customer">By customer</option></select></label><label>Sort<select id="querySort"><option value="newest">Newest first</option><option value="total">Highest total</option><option value="name">Customer A–Z</option></select></label></div><pre><code id="queryBuilderSql" class="language-sql"></code></pre><div class="query-result-table" id="queryBuilderResult" aria-live="polite"></div><button class="visual-reset" type="button" data-query-reset>Reset query</button></section>`;
+  if (/Index|B-Tree/i.test(title))
+    return `<section class="db-visual" data-db-visual="index-advisor"><span class="section-label">INTERACTIVE INDEX ADVISOR</span><h2>Match an index to the query pattern</h2><div class="visual-controls" role="group" aria-label="Query pattern"><button type="button" data-index-case="email">Email lookup</button><button type="button" data-index-case="timeline">User timeline</button><button type="button" data-index-case="pending">Pending jobs</button><button type="button" data-index-case="covering">Covering query</button></div><div class="index-advisor-grid"><div><small>QUERY</small><pre><code id="indexQuery" class="language-sql"></code></pre></div><div><small>RECOMMENDED INDEX</small><pre><code id="indexRecommendation" class="language-sql"></code></pre></div></div><div id="indexVerdict" class="index-verdict" aria-live="polite"></div><svg class="btree" viewBox="0 0 720 260" role="img" aria-label="Balanced B-tree index with root, branches, and leaf keys"><g class="tree-edge"><path d="M360 60 180 130M360 60 540 130M180 160 90 220M180 160 270 220M540 160 450 220M540 160 630 220"/></g><g class="tree-node"><rect x="310" y="25" width="100" height="45"/><text x="360" y="53">30 | 60</text><rect x="130" y="120" width="100" height="45"/><text x="180" y="148">10 | 20</text><rect x="490" y="120" width="100" height="45"/><text x="540" y="148">40 | 50</text>${
+            [[40, '1 · 5'], [220, '21 · 25'], [400, '31 · 35'],
+             [580, '61 · 80']]
+                .map(
+                    ([x, t]) => `<rect x="${
+                        x}" y="205" width="100" height="40"/><text x="${
+                        x + 50}" y="231">${t}</text>`)
+                .join('')}</g></svg></section>`;
+  if (/EXPLAIN|Plan|Performance|Optimization|Slow/i.test(title))
+    return `<section class="db-visual" data-db-visual="plan"><span class="section-label">QUERY PLAN VIEWER</span><h2>Compare work before and after an index</h2><div class="visual-controls"><button type="button" data-plan="before">Before index</button><button type="button" data-plan="after">After index</button><button type="button" data-visual-reset>Reset</button></div><div id="planView" class="plan-view" aria-live="polite"></div><p class="simulation-label">Simulated educational result—not a real database measurement. Actual performance depends on dataset size, engine, hardware, cache, statistics, and parameters.</p></section>`;
+  if (/Key|Table|Relational|Normalization|Denormalization/i.test(title))
+    return `<section class="db-visual"><span class="section-label">STRUCTURED ER DIAGRAM</span><h2>Keys make relationships enforceable</h2><div class="er-diagram"><article><strong>courses</strong><p class="pk">🔑 id · PRIMARY KEY</p><p>title · TEXT</p></article><i aria-label="one course has many lessons">1 ─────── &lt;</i><article><strong>lessons</strong><p class="pk">🔑 id · PRIMARY KEY</p><p class="fk">↗ course_id · FOREIGN KEY</p><p>title · TEXT</p></article></div></section>`;
+  return `<section class="db-visual"><span class="section-label">QUERY EXECUTION FLOW</span><h2>Follow data from intent to result</h2><div class="execution-flow">${
+          ['SQL text', 'Parser', 'Rewriter', 'Planner', 'Executor', 'Rows']
+              .map((step, index) => `<span><b>${index + 1}</b>${step}</span>`)
+              .join('')}</div></section>`;
+}
+function databaseLessonSections(course, lesson, example, guide) {
+  const [sourceTitle, sourceUrl] = databaseSourceFor(lesson.title);
+  return `<section class="lesson-objectives"><span class="section-label">LEARNING OBJECTIVES</span><ul><li>Explain ${
+      esc(lesson
+              .title)} and its prerequisites.</li><li>Write and run correct PostgreSQL syntax.</li><li>Interpret the result and connect it to production behavior.</li></ul></section><section class="explanation-grid"><div><span>SIMPLE EXPLANATION</span><p>${
+      esc(guide.simple)}</p></div><div><span>TECHNICAL EXPLANATION</span><p>${
+      esc(guide.technical)}</p></div><div><span>REAL-WORLD USE</span><p>${
+      esc(guide.professional)}</p></div></section>${
+      databaseVisual(
+          lesson
+              .title)}<section class="lesson-section"><span class="section-label">RUNNABLE POSTGRESQL EXAMPLE</span><h2>Syntax, result, and interpretation</h2><pre><code class="language-sql">${
+      esc(example
+              .code)}</code></pre><div class="expected-output"><strong>Expected output</strong><pre><code>${
+      esc(example
+              .output)}</code></pre></div><p>The output confirms whether PostgreSQL accepted the statement or which plan node performed the work. Read estimates separately from actual measurements.</p></section><section class="practice-card"><span>INTERACTIVE EXERCISE</span><h2>Predict, run, explain</h2><p>${
+      esc(guide
+              .exercise)}</p><details><summary>Show solution</summary><p>Start with the smallest correct query, validate rows and constraints, then use <code>EXPLAIN (ANALYZE, BUFFERS)</code> only on safe test data when performance is relevant.</p></details></section><section class="lesson-section split"><div><span class="section-label warning">COMMON MISTAKES</span><ul><li>Assuming row order without ORDER BY.</li><li>Ignoring NULL and three-valued logic.</li><li>Adding indexes without measuring write and storage cost.</li></ul></div><div><span class="section-label good">BEST PRACTICES</span><ul><li>Use explicit columns and constraints.</li><li>Test transactions and failure paths.</li><li>Measure identical workloads before and after changes.</li></ul></div></section><section class="lesson-section"><span class="section-label">REVIEW QUESTIONS</span><ol><li>What database work does this feature avoid or add?</li><li>Which behavior is standard SQL and which is PostgreSQL-specific?</li><li>How would you verify correctness and performance?</li></ol></section><section class="takeaways"><span>LESSON SUMMARY</span><ul><li>Correctness comes before optimization.</li><li>Plans and measurements explain runtime work.</li><li>Schema, queries, and application code form one system.</li></ul></section><section class="lesson-sources"><span class="section-label">SOURCES AND FURTHER READING</span><a href="${
+      sourceUrl}" target="_blank" rel="noopener noreferrer"><strong>${
+      sourceTitle}</strong><small>PostgreSQL Global Development Group · OFFICIAL_DOCUMENTATION · accessed 2026-08-12</small></a></section>`;
+}
+const noteRecord = value => typeof value === 'string' ?
+    {subject: '', body: value} :
+    value && typeof value === 'object' ? {
+      subject: value.subject || '',
+      body: value.body || '',
+      updatedAt: value.updatedAt
+    } :
+                                         {subject: '', body: ''};
+const allLessonEntries = () => catalog.flatMap(
+    course => flatLessons(course).map(
+        lesson => ({
+          ...lesson,
+          courseTitle: course.title,
+          color: course.color,
+          href: course.id === 'react' ? `react.html#${lesson.slug}` :
+                                        routeHref(course.id, lesson.slug)
+        })));

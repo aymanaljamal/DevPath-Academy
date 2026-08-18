@@ -1,27 +1,33 @@
 <section class="chapter" id="chapter-13" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">13</span>
-<h1 class="chapter-title" id="enterprise-react-architecture-case-study">Enterprise React Architecture Case Study</h1>
-</div>
-<h3 id="laundry-management-system-react-typescript-spring-boot">Laundry Management System (React + TypeScript + Spring Boot)</h3>
-<hr/>
-<h2 id="introduction--3">Introduction</h2>
-<p>In the previous chapters, you learned:</p>
-<ul>
-<li>React fundamentals</li>
-<li>Enterprise folder structure</li>
-<li>Data flow</li>
-<li>Services</li>
-<li>APIs</li>
-<li>Components</li>
-<li>Hooks</li>
-</ul>
-<p>In this chapter, we will combine everything into one complete enterprise application.</p>
-<p>Our case study is a <strong>Laundry Management System</strong>.</p>
-<p>This chapter explains how every folder communicates with the others and how data flows through the application from the user interface to the database.</p>
-<hr/>
-<h2 id="high-level-architecture">High-Level Architecture</h2>
-<pre><code class="language-text">                        Browser
+        <div class="chapter-title-card">
+                <span class="chapter-num">13</span>
+                <h1 class="chapter-title"
+                        id="enterprise-react-architecture-case-study">Enterprise
+                        React Architecture Case Study</h1>
+        </div>
+        <h3 id="laundry-management-system-react-typescript-spring-boot">Laundry
+                Management System (React + TypeScript + Spring Boot)</h3>
+        <hr />
+        <h2 id="introduction--3">Introduction</h2>
+        <p>In the previous chapters, you learned:</p>
+        <ul>
+                <li>React fundamentals</li>
+                <li>Enterprise folder structure</li>
+                <li>Data flow</li>
+                <li>Services</li>
+                <li>APIs</li>
+                <li>Components</li>
+                <li>Hooks</li>
+        </ul>
+        <p>In this chapter, we will combine everything into one complete
+                enterprise application.</p>
+        <p>Our case study is a <strong>Laundry Management System</strong>.</p>
+        <p>This chapter explains how every folder communicates with the others
+                and how data flows through the application from the user
+                interface to the database.</p>
+        <hr />
+        <h2 id="high-level-architecture">High-Level Architecture</h2>
+        <pre><code class="language-text">                        Browser
                            │
                            ▼
                  React Application
@@ -52,10 +58,10 @@
                            ▼
                       MySQL Database
 </code></pre>
-<p>Every layer has one responsibility.</p>
-<hr/>
-<h2 id="overall-folder-structure">Overall Folder Structure</h2>
-<pre><code class="language-text">src
+        <p>Every layer has one responsibility.</p>
+        <hr />
+        <h2 id="overall-folder-structure">Overall Folder Structure</h2>
+        <pre><code class="language-text">src
 │
 ├── api
 ├── assets
@@ -77,81 +83,82 @@
 ├── main.tsx
 └── index.css
 </code></pre>
-<p>Now let's see how every folder communicates with the others.</p>
-<hr/>
-<h2 id="application-startup">Application Startup</h2>
-<p>When the application starts, React executes:</p>
-<pre><code class="language-text">main.tsx → Render React → Load Providers → Load Router → Render App.tsx → Open Login Page or Dashboard
+        <p>Now let's see how every folder communicates with the others.</p>
+        <hr />
+        <h2 id="application-startup">Application Startup</h2>
+        <p>When the application starts, React executes:</p>
+        <pre><code class="language-text">main.tsx → Render React → Load Providers → Load Router → Render App.tsx → Open Login Page or Dashboard
 </code></pre>
-<p>Example:</p>
-<pre><code class="language-tsx">ReactDOM.createRoot(document.getElementById("root")!).render(
+        <p>Example:</p>
+        <pre><code class="language-tsx">ReactDOM.createRoot(document.getElementById("root")!).render(
 
 &lt;App /&gt;
 
 )
 </code></pre>
-<hr/>
-<h2 id="authentication-architecture">Authentication Architecture</h2>
-<p>Login is usually the first workflow.</p>
-<pre><code class="language-text">Login Page → Login Form → Validation → auth.service.ts → auth.api.ts → Axios → POST /login → Spring Boot → JWT Token → LocalStorage → AuthContext → Dashboard
+        <hr />
+        <h2 id="authentication-architecture">Authentication Architecture</h2>
+        <p>Login is usually the first workflow.</p>
+        <pre><code class="language-text">Login Page → Login Form → Validation → auth.service.ts → auth.api.ts → Axios → POST /login → Spring Boot → JWT Token → LocalStorage → AuthContext → Dashboard
 </code></pre>
-<h4 id="responsibilities">Responsibilities</h4>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Responsibility</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>LoginPage</td>
-<td>UI</td>
-</tr>
-<tr>
-<td>LoginForm</td>
-<td>Form</td>
-</tr>
-<tr>
-<td>Validation</td>
-<td>Validate email/password</td>
-</tr>
-<tr>
-<td>auth.service.ts</td>
-<td>Business logic</td>
-</tr>
-<tr>
-<td>auth.api.ts</td>
-<td>HTTP request</td>
-</tr>
-<tr>
-<td>Axios</td>
-<td>Communication</td>
-</tr>
-<tr>
-<td>AuthContext</td>
-<td>Store current user</td>
-</tr>
-<tr>
-<td>ProtectedRoute</td>
-<td>Protect pages</td>
-</tr>
-</tbody>
-</table>
-<hr/>
-<h2 id="customer-module">Customer Module</h2>
-<p>Imagine the user clicks:</p>
-<pre><code>Customers
+        <h4 id="responsibilities">Responsibilities</h4>
+        <table>
+                <thead>
+                        <tr>
+                                <th>File</th>
+                                <th>Responsibility</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                                <td>LoginPage</td>
+                                <td>UI</td>
+                        </tr>
+                        <tr>
+                                <td>LoginForm</td>
+                                <td>Form</td>
+                        </tr>
+                        <tr>
+                                <td>Validation</td>
+                                <td>Validate email/password</td>
+                        </tr>
+                        <tr>
+                                <td>auth.service.ts</td>
+                                <td>Business logic</td>
+                        </tr>
+                        <tr>
+                                <td>auth.api.ts</td>
+                                <td>HTTP request</td>
+                        </tr>
+                        <tr>
+                                <td>Axios</td>
+                                <td>Communication</td>
+                        </tr>
+                        <tr>
+                                <td>AuthContext</td>
+                                <td>Store current user</td>
+                        </tr>
+                        <tr>
+                                <td>ProtectedRoute</td>
+                                <td>Protect pages</td>
+                        </tr>
+                </tbody>
+        </table>
+        <hr />
+        <h2 id="customer-module">Customer Module</h2>
+        <p>Imagine the user clicks:</p>
+        <pre><code>Customers
 </code></pre>
-<p>The application loads:</p>
-<pre><code class="language-text">CustomersPage → CustomerTable → useCustomers() → customer.service.ts → customer.api.ts → GET /customers → Spring Boot → Database
+        <p>The application loads:</p>
+        <pre><code class="language-text">CustomersPage → CustomerTable → useCustomers() → customer.service.ts → customer.api.ts → GET /customers → Spring Boot → Database
 </code></pre>
-<p>Returned data:</p>
-<pre><code class="language-text">Customers → React Query Cache → CustomerTable → Screen
+        <p>Returned data:</p>
+        <pre><code class="language-text">Customers → React Query Cache → CustomerTable → Screen
 </code></pre>
-<hr/>
-<h2 id="customer-folder-communication">Customer Folder Communication</h2>
-<pre><code class="language-text">CustomersPage
+        <hr />
+        <h2 id="customer-folder-communication">Customer Folder
+                Communication</h2>
+        <pre><code class="language-text">CustomersPage
         │
         ▼
 CustomerTable
@@ -174,109 +181,110 @@ Axios
         ▼
 Spring Boot
 </code></pre>
-<p>Notice that the UI never communicates directly with Spring Boot.</p>
-<p>Everything goes through the Service and API layers.</p>
-<hr/>
-<h2 id="creating-a-customer">Creating a Customer</h2>
-<p>User clicks:</p>
-<pre><code>Save
+        <p>Notice that the UI never communicates directly with Spring Boot.</p>
+        <p>Everything goes through the Service and API layers.</p>
+        <hr />
+        <h2 id="creating-a-customer">Creating a Customer</h2>
+        <p>User clicks:</p>
+        <pre><code>Save
 </code></pre>
-<p>Flow:</p>
-<pre><code class="language-text">Button → handleSubmit() → React Hook Form → Zod Validation → customer.service.create() → customer.api.create() → Axios POST → Spring Boot → Database → 201 Created → React Query Refetch → Customer Table Updated
+        <p>Flow:</p>
+        <pre><code class="language-text">Button → handleSubmit() → React Hook Form → Zod Validation → customer.service.create() → customer.api.create() → Axios POST → Spring Boot → Database → 201 Created → React Query Refetch → Customer Table Updated
 </code></pre>
-<hr/>
-<h2 id="orders-module">Orders Module</h2>
-<p>Orders are more complicated.</p>
-<p>Each order belongs to:</p>
-<ul>
-<li>Customer</li>
-<li>Laundry</li>
-<li>Tailoring</li>
-<li>Payment</li>
-</ul>
-<p>Architecture:</p>
-<pre><code class="language-text">OrdersPage → CreateOrderForm → Select Customer → Select Services → Calculate Total → order.service.ts → order.api.ts → POST /orders
+        <hr />
+        <h2 id="orders-module">Orders Module</h2>
+        <p>Orders are more complicated.</p>
+        <p>Each order belongs to:</p>
+        <ul>
+                <li>Customer</li>
+                <li>Laundry</li>
+                <li>Tailoring</li>
+                <li>Payment</li>
+        </ul>
+        <p>Architecture:</p>
+        <pre><code class="language-text">OrdersPage → CreateOrderForm → Select Customer → Select Services → Calculate Total → order.service.ts → order.api.ts → POST /orders
 </code></pre>
-<p>Backend:</p>
-<pre><code class="language-text">OrderController → OrderService → CustomerRepository → LaundryRepository → TailoringRepository → PaymentRepository → Database
+        <p>Backend:</p>
+        <pre><code class="language-text">OrderController → OrderService → CustomerRepository → LaundryRepository → TailoringRepository → PaymentRepository → Database
 </code></pre>
-<hr/>
-<h2 id="order-status-flow">Order Status Flow</h2>
-<p>Example:</p>
-<pre><code class="language-text">Pending → Received → Washing → Drying → Ironing → Tailoring → Ready → Delivered
+        <hr />
+        <h2 id="order-status-flow">Order Status Flow</h2>
+        <p>Example:</p>
+        <pre><code class="language-text">Pending → Received → Washing → Drying → Ironing → Tailoring → Ready → Delivered
 </code></pre>
-<p>React updates the badge automatically after each backend response.</p>
-<hr/>
-<h2 id="laundry-module">Laundry Module</h2>
-<p>Laundry employees open:</p>
-<pre><code>Laundry Dashboard
+        <p>React updates the badge automatically after each backend
+                response.</p>
+        <hr />
+        <h2 id="laundry-module">Laundry Module</h2>
+        <p>Laundry employees open:</p>
+        <pre><code>Laundry Dashboard
 </code></pre>
-<p>Flow:</p>
-<pre><code class="language-text">LaundryPage → LaundryTable → laundry.service.ts → laundry.api.ts → GET /laundry/jobs → Backend → Database → LaundryTable
+        <p>Flow:</p>
+        <pre><code class="language-text">LaundryPage → LaundryTable → laundry.service.ts → laundry.api.ts → GET /laundry/jobs → Backend → Database → LaundryTable
 </code></pre>
-<p>Updating status:</p>
-<pre><code class="language-text">Click → Update Status → PATCH Request → Backend → Database → React Query → Updated Badge
+        <p>Updating status:</p>
+        <pre><code class="language-text">Click → Update Status → PATCH Request → Backend → Database → React Query → Updated Badge
 </code></pre>
-<hr/>
-<h2 id="tailoring-module">Tailoring Module</h2>
-<p>The tailoring department works almost the same way.</p>
-<pre><code class="language-text">Tailoring Page → Tailoring Queue → tailoring.service.ts → tailoring.api.ts → PATCH /tailoring → Backend → Database → Updated UI
+        <hr />
+        <h2 id="tailoring-module">Tailoring Module</h2>
+        <p>The tailoring department works almost the same way.</p>
+        <pre><code class="language-text">Tailoring Page → Tailoring Queue → tailoring.service.ts → tailoring.api.ts → PATCH /tailoring → Backend → Database → Updated UI
 </code></pre>
-<hr/>
-<h2 id="employee-module">Employee Module</h2>
-<p>Manager opens:</p>
-<pre><code>Employees
+        <hr />
+        <h2 id="employee-module">Employee Module</h2>
+        <p>Manager opens:</p>
+        <pre><code>Employees
 </code></pre>
-<p>Architecture:</p>
-<pre><code class="language-text">EmployeesPage → EmployeeTable → EmployeeModal → employee.service.ts → employee.api.ts → Spring Boot
+        <p>Architecture:</p>
+        <pre><code class="language-text">EmployeesPage → EmployeeTable → EmployeeModal → employee.service.ts → employee.api.ts → Spring Boot
 </code></pre>
-<p>CRUD Operations:</p>
-<ul>
-<li>Create</li>
-<li>Read</li>
-<li>Update</li>
-<li>Delete</li>
-</ul>
-<hr/>
-<h2 id="payment-module">Payment Module</h2>
-<p>Payment process:</p>
-<pre><code class="language-text">Payment Page → Payment Form → Calculate Remaining Balance → payment.service.ts → payment.api.ts → Backend → Invoice → Receipt → Success Message
+        <p>CRUD Operations:</p>
+        <ul>
+                <li>Create</li>
+                <li>Read</li>
+                <li>Update</li>
+                <li>Delete</li>
+        </ul>
+        <hr />
+        <h2 id="payment-module">Payment Module</h2>
+        <p>Payment process:</p>
+        <pre><code class="language-text">Payment Page → Payment Form → Calculate Remaining Balance → payment.service.ts → payment.api.ts → Backend → Invoice → Receipt → Success Message
 </code></pre>
-<hr/>
-<h2 id="reports-module">Reports Module</h2>
-<p>Reports usually generate PDFs or Excel files.</p>
-<p>Flow:</p>
-<pre><code class="language-text">Reports Page → Filter Form → report.service.ts → report.api.ts → Backend → Generate PDF → Download File → User
+        <hr />
+        <h2 id="reports-module">Reports Module</h2>
+        <p>Reports usually generate PDFs or Excel files.</p>
+        <p>Flow:</p>
+        <pre><code class="language-text">Reports Page → Filter Form → report.service.ts → report.api.ts → Backend → Generate PDF → Download File → User
 </code></pre>
-<hr/>
-<h2 id="dashboard-module">Dashboard Module</h2>
-<p>Dashboard loads multiple APIs simultaneously.</p>
-<pre><code class="language-text">Dashboard → Total Orders → Revenue → Customers → Employees → Pending Jobs → Charts
+        <hr />
+        <h2 id="dashboard-module">Dashboard Module</h2>
+        <p>Dashboard loads multiple APIs simultaneously.</p>
+        <pre><code class="language-text">Dashboard → Total Orders → Revenue → Customers → Employees → Pending Jobs → Charts
 </code></pre>
-<p>Flow:</p>
-<pre><code class="language-text">DashboardPage → dashboard.service.ts → dashboard.api.ts → Multiple REST APIs → React Query → Dashboard Cards
+        <p>Flow:</p>
+        <pre><code class="language-text">DashboardPage → dashboard.service.ts → dashboard.api.ts → Multiple REST APIs → React Query → Dashboard Cards
 </code></pre>
-<hr/>
-<h2 id="components-communication">Components Communication</h2>
-<p>Example:</p>
-<pre><code>OrdersPage
+        <hr />
+        <h2 id="components-communication">Components Communication</h2>
+        <p>Example:</p>
+        <pre><code>OrdersPage
 </code></pre>
-<p>Contains:</p>
-<ul>
-<li>PageHeader</li>
-<li>SearchBar</li>
-<li>OrderFilters</li>
-<li>OrderTable</li>
-<li>Pagination</li>
-<li>CreateOrderModal</li>
-<li>DeleteDialog</li>
-</ul>
-<p>Each component has only one responsibility.</p>
-<hr/>
-<h2 id="context-communication">Context Communication</h2>
-<p>Global Context is available everywhere.</p>
-<p>Example:</p>
-<pre><code class="language-text">App
+        <p>Contains:</p>
+        <ul>
+                <li>PageHeader</li>
+                <li>SearchBar</li>
+                <li>OrderFilters</li>
+                <li>OrderTable</li>
+                <li>Pagination</li>
+                <li>CreateOrderModal</li>
+                <li>DeleteDialog</li>
+        </ul>
+        <p>Each component has only one responsibility.</p>
+        <hr />
+        <h2 id="context-communication">Context Communication</h2>
+        <p>Global Context is available everywhere.</p>
+        <p>Example:</p>
+        <pre><code class="language-text">App
 │
 ├── Navbar
 ├── Sidebar
@@ -285,15 +293,15 @@ Spring Boot
 ├── Customers
 └── Footer
 </code></pre>
-<p>Every component can access:</p>
-<pre><code class="language-tsx">const { user } = useAuth();
+        <p>Every component can access:</p>
+        <pre><code class="language-tsx">const { user } = useAuth();
 </code></pre>
-<p>Without passing props through every level.</p>
-<hr/>
-<h2 id="hooks-communication">Hooks Communication</h2>
-<p>Custom hooks simplify components.</p>
-<p>Instead of:</p>
-<pre><code class="language-tsx">CustomersPage
+        <p>Without passing props through every level.</p>
+        <hr />
+        <h2 id="hooks-communication">Hooks Communication</h2>
+        <p>Custom hooks simplify components.</p>
+        <p>Instead of:</p>
+        <pre><code class="language-tsx">CustomersPage
 
 ↓
 
@@ -315,8 +323,8 @@ Error
 
 Success
 </code></pre>
-<p>We simply write:</p>
-<pre><code class="language-tsx">const {
+        <p>We simply write:</p>
+        <pre><code class="language-tsx">const {
 
 customers,
 
@@ -326,56 +334,58 @@ createCustomer
 
 } = useCustomers();
 </code></pre>
-<p>The hook hides all complexity.</p>
-<hr/>
-<h2 id="services-communication">Services Communication</h2>
-<p>Services are the application's brain.</p>
-<p>Example:</p>
-<pre><code class="language-text">Customer Page → Customer Service → Validate Data → Transform Data → Call API → Return Result
+        <p>The hook hides all complexity.</p>
+        <hr />
+        <h2 id="services-communication">Services Communication</h2>
+        <p>Services are the application's brain.</p>
+        <p>Example:</p>
+        <pre><code class="language-text">Customer Page → Customer Service → Validate Data → Transform Data → Call API → Return Result
 </code></pre>
-<p>Services should never render UI.</p>
-<hr/>
-<h2 id="api-communication">API Communication</h2>
-<p>API files are responsible only for HTTP communication.</p>
-<p>Example:</p>
-<ul>
-<li>customer.api.ts</li>
-<li>↓</li>
-<li>GET</li>
-<li>POST</li>
-<li>PUT</li>
-<li>DELETE</li>
-</ul>
-<p>Nothing else.</p>
-<hr/>
-<h2 id="axios-communication">Axios Communication</h2>
-<p>Axios automatically:</p>
-<pre><code class="language-text">Add Base URL → Attach JWT → Serialize JSON → Send Request → Receive Response → Handle Errors → Return Data
+        <p>Services should never render UI.</p>
+        <hr />
+        <h2 id="api-communication">API Communication</h2>
+        <p>API files are responsible only for HTTP communication.</p>
+        <p>Example:</p>
+        <ul>
+                <li>customer.api.ts</li>
+                <li>↓</li>
+                <li>GET</li>
+                <li>POST</li>
+                <li>PUT</li>
+                <li>DELETE</li>
+        </ul>
+        <p>Nothing else.</p>
+        <hr />
+        <h2 id="axios-communication">Axios Communication</h2>
+        <p>Axios automatically:</p>
+        <pre><code class="language-text">Add Base URL → Attach JWT → Serialize JSON → Send Request → Receive Response → Handle Errors → Return Data
 </code></pre>
-<p>All API files reuse the same Axios instance.</p>
-<hr/>
-<h2 id="react-query-communication">React Query Communication</h2>
-<p>React Query sits between Components and APIs.</p>
-<pre><code class="language-text">Component → React Query → Service → API → Axios
+        <p>All API files reuse the same Axios instance.</p>
+        <hr />
+        <h2 id="react-query-communication">React Query Communication</h2>
+        <p>React Query sits between Components and APIs.</p>
+        <pre><code class="language-text">Component → React Query → Service → API → Axios
 </code></pre>
-<p>Responsibilities:</p>
-<ul>
-<li>Cache</li>
-<li>Refetch</li>
-<li>Retry</li>
-<li>Synchronization</li>
-<li>Loading State</li>
-<li>Error State</li>
-</ul>
-<hr/>
-<h2 id="example-complete-customer-creation">Example — Complete Customer Creation</h2>
-<pre><code class="language-text">User → Customers Page → Customer Form → Button Click → handleSubmit() → React Hook Form → Zod Validation → useCustomer() → customer.service.ts → customer.api.ts → Axios → POST /customers → Spring Boot → Controller → Service → Repository → Database
+        <p>Responsibilities:</p>
+        <ul>
+                <li>Cache</li>
+                <li>Refetch</li>
+                <li>Retry</li>
+                <li>Synchronization</li>
+                <li>Loading State</li>
+                <li>Error State</li>
+        </ul>
+        <hr />
+        <h2 id="example-complete-customer-creation">Example — Complete Customer
+                Creation</h2>
+        <pre><code class="language-text">User → Customers Page → Customer Form → Button Click → handleSubmit() → React Hook Form → Zod Validation → useCustomer() → customer.service.ts → customer.api.ts → Axios → POST /customers → Spring Boot → Controller → Service → Repository → Database
 
 Database → Repository → Service → Controller → HTTP 201 → Axios → React Query → Customer Table Refresh → Success Toast → Updated UI
 </code></pre>
-<hr/>
-<h2 id="complete-project-communication-diagram">Complete Project Communication Diagram</h2>
-<pre><code class="language-text">                         User
+        <hr />
+        <h2 id="complete-project-communication-diagram">Complete Project
+                Communication Diagram</h2>
+        <pre><code class="language-text">                         User
                           │
                           ▼
                      React Router
@@ -428,98 +438,123 @@ Database → Repository → Service → Controller → HTTP 201 → Axios → Re
                           ▲
                         Browser
 </code></pre>
-<hr/>
-<h2 id="responsibility-matrix">Responsibility Matrix</h2>
-<table>
-<thead>
-<tr>
-<th>Layer</th>
-<th>Responsibility</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Pages</td>
-<td>Represent screens</td>
-</tr>
-<tr>
-<td>Components</td>
-<td>Build UI</td>
-</tr>
-<tr>
-<td>Layouts</td>
-<td>Shared page structure</td>
-</tr>
-<tr>
-<td>Hooks</td>
-<td>Reusable logic</td>
-</tr>
-<tr>
-<td>Context</td>
-<td>Global state</td>
-</tr>
-<tr>
-<td>Services</td>
-<td>Business rules</td>
-</tr>
-<tr>
-<td>APIs</td>
-<td>HTTP communication</td>
-</tr>
-<tr>
-<td>Axios</td>
-<td>Networking</td>
-</tr>
-<tr>
-<td>React Query</td>
-<td>Server state management</td>
-</tr>
-<tr>
-<td>Spring Controller</td>
-<td>Receive requests</td>
-</tr>
-<tr>
-<td>Spring Service</td>
-<td>Business processing</td>
-</tr>
-<tr>
-<td>Repository</td>
-<td>Database access</td>
-</tr>
-<tr>
-<td>Database</td>
-<td>Persist data</td>
-</tr>
-</tbody>
-</table>
-<hr/>
-<h2 id="best-practices--2">Best Practices</h2>
-<ul>
-<li>Keep components focused on presentation.</li>
-<li>Move business logic into services.</li>
-<li>Keep API files limited to HTTP communication.</li>
-<li>Reuse components whenever possible.</li>
-<li>Use custom hooks to reduce duplication.</li>
-<li>Use React Query for all server state.</li>
-<li>Keep layouts independent from business logic.</li>
-<li>Validate data before calling APIs.</li>
-<li>Never mix UI logic with networking code.</li>
-<li>Separate responsibilities between layers.</li>
-</ul>
-<hr/>
-<h2 id="common-mistakes--2">Common Mistakes</h2>
-<p>❌ Calling Axios directly inside every component.</p>
-<p>❌ Placing business logic inside pages.</p>
-<p>❌ Creating huge components with hundreds of lines.</p>
-<p>❌ Duplicating API calls.</p>
-<p>❌ Mixing authentication with UI code.</p>
-<p>❌ Ignoring loading and error states.</p>
-<p>❌ Passing props through many nested components instead of using Context when appropriate.</p>
-<p>❌ Creating utility functions inside components instead of using the <code>utils</code> folder.</p>
-<hr/>
-<h2 id="chapter-summary--2">Chapter Summary</h2>
-<p>An enterprise React application is built using <strong>layers</strong>, where each layer has a single responsibility.</p>
-<p>A user action flows from the UI through Components, Hooks, Services, APIs, Axios, and the Spring Boot backend before reaching the database. The response then travels back through the same layers until React updates only the necessary parts of the interface.</p>
-<p>By understanding how these layers interact—and by respecting the separation of concerns—you can confidently read, maintain, and build large-scale React applications integrated with Spring Boot.
-Once you understand this journey—from the user's click to the database and back—you can confidently read, debug, extend, and build professional React applications integrated with Spring Boot or any modern backend.</p>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-13" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-12"><span class="pager-label">← Previous chapter</span><strong>12 · Understanding Data Flow in React Applications</strong></a><a class="pager-card pager-card--next" href="#chapter-14"><span class="pager-label">Next chapter →</span><strong>14 · React Performance Optimization</strong></a></nav></section>
+        <hr />
+        <h2 id="responsibility-matrix">Responsibility Matrix</h2>
+        <table>
+                <thead>
+                        <tr>
+                                <th>Layer</th>
+                                <th>Responsibility</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                                <td>Pages</td>
+                                <td>Represent screens</td>
+                        </tr>
+                        <tr>
+                                <td>Components</td>
+                                <td>Build UI</td>
+                        </tr>
+                        <tr>
+                                <td>Layouts</td>
+                                <td>Shared page structure</td>
+                        </tr>
+                        <tr>
+                                <td>Hooks</td>
+                                <td>Reusable logic</td>
+                        </tr>
+                        <tr>
+                                <td>Context</td>
+                                <td>Global state</td>
+                        </tr>
+                        <tr>
+                                <td>Services</td>
+                                <td>Business rules</td>
+                        </tr>
+                        <tr>
+                                <td>APIs</td>
+                                <td>HTTP communication</td>
+                        </tr>
+                        <tr>
+                                <td>Axios</td>
+                                <td>Networking</td>
+                        </tr>
+                        <tr>
+                                <td>React Query</td>
+                                <td>Server state management</td>
+                        </tr>
+                        <tr>
+                                <td>Spring Controller</td>
+                                <td>Receive requests</td>
+                        </tr>
+                        <tr>
+                                <td>Spring Service</td>
+                                <td>Business processing</td>
+                        </tr>
+                        <tr>
+                                <td>Repository</td>
+                                <td>Database access</td>
+                        </tr>
+                        <tr>
+                                <td>Database</td>
+                                <td>Persist data</td>
+                        </tr>
+                </tbody>
+        </table>
+        <hr />
+        <h2 id="best-practices--2">Best Practices</h2>
+        <ul>
+                <li>Keep components focused on presentation.</li>
+                <li>Move business logic into services.</li>
+                <li>Keep API files limited to HTTP communication.</li>
+                <li>Reuse components whenever possible.</li>
+                <li>Use custom hooks to reduce duplication.</li>
+                <li>Use React Query for all server state.</li>
+                <li>Keep layouts independent from business logic.</li>
+                <li>Validate data before calling APIs.</li>
+                <li>Never mix UI logic with networking code.</li>
+                <li>Separate responsibilities between layers.</li>
+        </ul>
+        <hr />
+        <h2 id="common-mistakes--2">Common Mistakes</h2>
+        <p>❌ Calling Axios directly inside every component.</p>
+        <p>❌ Placing business logic inside pages.</p>
+        <p>❌ Creating huge components with hundreds of lines.</p>
+        <p>❌ Duplicating API calls.</p>
+        <p>❌ Mixing authentication with UI code.</p>
+        <p>❌ Ignoring loading and error states.</p>
+        <p>❌ Passing props through many nested components instead of using
+                Context when appropriate.</p>
+        <p>❌ Creating utility functions inside components instead of using the
+                <code>utils</code> folder.</p>
+        <hr />
+        <h2 id="chapter-summary--2">Chapter Summary</h2>
+        <p>An enterprise React application is built using
+                <strong>layers</strong>, where each layer has a single
+                responsibility.</p>
+        <p>A user action flows from the UI through Components, Hooks, Services,
+                APIs, Axios, and the Spring Boot backend before reaching the
+                database. The response then travels back through the same layers
+                until React updates only the necessary parts of the
+                interface.</p>
+        <p>By understanding how these layers interact—and by respecting the
+                separation of concerns—you can confidently read, maintain, and
+                build large-scale React applications integrated with Spring
+                Boot.
+                Once you understand this journey—from the user's click to the
+                database and back—you can confidently read, debug, extend, and
+                build professional React applications integrated with Spring
+                Boot or any modern backend.</p>
+        <div class="chapter-completion"><button aria-pressed="false"
+                        class="complete-chapter" data-complete="chapter-13"
+                        type="button">✓ Mark chapter complete</button></div><nav
+                aria-label="Chapter navigation" class="chapter-pager"><a
+                        class="pager-card pager-card--prev"
+                        href="#chapter-12"><span class="pager-label">← Previous
+                                chapter</span><strong>12 · Understanding Data
+                                Flow in React Applications</strong></a><a
+                        class="pager-card pager-card--next"
+                        href="#chapter-14"><span class="pager-label">Next
+                                chapter →</span><strong>14 · React Performance
+                                Optimization</strong></a></nav></section>

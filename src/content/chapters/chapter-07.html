@@ -1,55 +1,83 @@
 <section class="chapter" id="chapter-7" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">07</span>
-<h1 class="chapter-title" id="state-management-in-react">State Management in React</h1>
-</div>
-<h2 id="71-introduction-to-state-management">7.1 Introduction to State Management</h2>
-<h3 id="simple-explanation--7">Simple Explanation</h3>
-<p>State management is how you handle and share data across your React application. As applications grow, managing state becomes increasingly complex. You need to decide where to store data, how to update it, and how to share it between components.</p>
-<p>Think of state management like a library system:
-- <strong>Local State</strong>: Books on your personal shelf (component-specific)
-- <strong>Shared State</strong>: Books in a shared reading room (multiple components)
-- <strong>Global State</strong>: The main library catalog (entire application)</p>
-<h3 id="technical-explanation--7">Technical Explanation</h3>
-<p>State management encompasses all the patterns, tools, and practices for handling data in React applications. It includes:</p>
-<ol>
-<li><strong>Local State</strong>: Component-specific state using useState/useReducer</li>
-<li><strong>Shared State</strong>: State shared between components via props drilling</li>
-<li><strong>Global State</strong>: Application-wide state using Context or libraries</li>
-<li><strong>Server State</strong>: Data fetched from APIs (React Query, SWR)</li>
-<li><strong>URL State</strong>: Routing and query parameters</li>
-<li><strong>Persisted State</strong>: localStorage, sessionStorage, IndexedDB</li>
-</ol>
-<h3 id="professional-explanation--7">Professional Explanation</h3>
-<p>In enterprise React applications, state management is critical for:</p>
-<ul>
-<li><strong>Data Consistency</strong>: Ensuring all components show the same data</li>
-<li><strong>Performance</strong>: Optimizing re-renders and updates</li>
-<li><strong>Maintainability</strong>: Clear patterns for data flow</li>
-<li><strong>Scalability</strong>: Handling complex application state</li>
-<li><strong>Debugging</strong>: Tools and patterns for tracking state changes</li>
-<li><strong>Testing</strong>: Predictable state for testing</li>
-</ul>
-<h2 id="72-local-state-management">7.2 Local State Management</h2>
-<h3 id="simple-explanation_1--3">Simple Explanation</h3>
-<p>Local state is data that belongs to a single component. It's managed using <code>useState</code> or <code>useReducer</code> hooks. This is the simplest form of state management and should be your default choice.</p>
-<p>Think of local state like the memory of a single employee - they remember their own tasks, preferences, and current status without needing to share it with everyone else.</p>
-<h3 id="technical-explanation_1--3">Technical Explanation</h3>
-<p>Local state is component-specific state that doesn't need to be shared with other components. It's managed using React's built-in hooks and is the most straightforward approach to state management.</p>
-<p>Key characteristics:
-- <strong>Component-specific</strong>: Only relevant to one component
-- <strong>Simple</strong>: Easy to understand and implement
-- <strong>Encapsulated</strong>: Not accessible to other components
-- <strong>Reactive</strong>: Updates trigger re-renders</p>
-<h3 id="professional-explanation_1--3">Professional Explanation</h3>
-<p>Local state is the foundation of React state management. Always start with local state and lift state up only when needed.</p>
-<p>When to use local state:
-- <strong>UI state</strong>: Toggle states, form inputs, loading states
-- <strong>Component-specific data</strong>: Data only needed by one component
-- <strong>Temporary data</strong>: Data that doesn't persist beyond the component
-- <strong>Simple state</strong>: State that doesn't need complex logic</p>
-<h3 id="local-state-examples">Local State Examples</h3>
-<pre><code class="language-jsx">// Simple local state with useState
+    <div class="chapter-title-card">
+        <span class="chapter-num">07</span>
+        <h1 class="chapter-title" id="state-management-in-react">State
+            Management in React</h1>
+    </div>
+    <h2 id="71-introduction-to-state-management">7.1 Introduction to State
+        Management</h2>
+    <h3 id="simple-explanation--7">Simple Explanation</h3>
+    <p>State management is how you handle and share data across your React
+        application. As applications grow, managing state becomes increasingly
+        complex. You need to decide where to store data, how to update it, and
+        how to share it between components.</p>
+    <p>Think of state management like a library system:
+        - <strong>Local State</strong>: Books on your personal shelf
+        (component-specific)
+        - <strong>Shared State</strong>: Books in a shared reading room
+        (multiple components)
+        - <strong>Global State</strong>: The main library catalog (entire
+        application)</p>
+    <h3 id="technical-explanation--7">Technical Explanation</h3>
+    <p>State management encompasses all the patterns, tools, and practices for
+        handling data in React applications. It includes:</p>
+    <ol>
+        <li><strong>Local State</strong>: Component-specific state using
+            useState/useReducer</li>
+        <li><strong>Shared State</strong>: State shared between components via
+            props drilling</li>
+        <li><strong>Global State</strong>: Application-wide state using Context
+            or libraries</li>
+        <li><strong>Server State</strong>: Data fetched from APIs (React Query,
+            SWR)</li>
+        <li><strong>URL State</strong>: Routing and query parameters</li>
+        <li><strong>Persisted State</strong>: localStorage, sessionStorage,
+            IndexedDB</li>
+    </ol>
+    <h3 id="professional-explanation--7">Professional Explanation</h3>
+    <p>In enterprise React applications, state management is critical for:</p>
+    <ul>
+        <li><strong>Data Consistency</strong>: Ensuring all components show the
+            same data</li>
+        <li><strong>Performance</strong>: Optimizing re-renders and updates</li>
+        <li><strong>Maintainability</strong>: Clear patterns for data flow</li>
+        <li><strong>Scalability</strong>: Handling complex application
+            state</li>
+        <li><strong>Debugging</strong>: Tools and patterns for tracking state
+            changes</li>
+        <li><strong>Testing</strong>: Predictable state for testing</li>
+    </ul>
+    <h2 id="72-local-state-management">7.2 Local State Management</h2>
+    <h3 id="simple-explanation_1--3">Simple Explanation</h3>
+    <p>Local state is data that belongs to a single component. It's managed
+        using <code>useState</code> or <code>useReducer</code> hooks. This is
+        the simplest form of state management and should be your default
+        choice.</p>
+    <p>Think of local state like the memory of a single employee - they remember
+        their own tasks, preferences, and current status without needing to
+        share it with everyone else.</p>
+    <h3 id="technical-explanation_1--3">Technical Explanation</h3>
+    <p>Local state is component-specific state that doesn't need to be shared
+        with other components. It's managed using React's built-in hooks and is
+        the most straightforward approach to state management.</p>
+    <p>Key characteristics:
+        - <strong>Component-specific</strong>: Only relevant to one component
+        - <strong>Simple</strong>: Easy to understand and implement
+        - <strong>Encapsulated</strong>: Not accessible to other components
+        - <strong>Reactive</strong>: Updates trigger re-renders</p>
+    <h3 id="professional-explanation_1--3">Professional Explanation</h3>
+    <p>Local state is the foundation of React state management. Always start
+        with local state and lift state up only when needed.</p>
+    <p>When to use local state:
+        - <strong>UI state</strong>: Toggle states, form inputs, loading states
+        - <strong>Component-specific data</strong>: Data only needed by one
+        component
+        - <strong>Temporary data</strong>: Data that doesn't persist beyond the
+        component
+        - <strong>Simple state</strong>: State that doesn't need complex
+        logic</p>
+    <h3 id="local-state-examples">Local State Examples</h3>
+    <pre><code class="language-jsx">// Simple local state with useState
 function ToggleButton() {
     const [isOn, setIsOn] = useState(false);
 
@@ -134,26 +162,40 @@ function ShoppingCart() {
     );
 }
 </code></pre>
-<h2 id="73-lifting-state-up">7.3 Lifting State Up</h2>
-<h3 id="simple-explanation_2--3">Simple Explanation</h3>
-<p>Lifting state up means moving state from a child component to a parent component so multiple children can share it. This is a fundamental pattern for sharing state between components without external libraries.</p>
-<p>Think of it like a family meeting - instead of each child making their own decision, the parent makes the decision and tells all the children what to do.</p>
-<h3 id="technical-explanation_2--3">Technical Explanation</h3>
-<p>Lifting state up is the practice of moving state to the lowest common ancestor of components that need to share it. The parent component manages the state and passes it down via props, along with callbacks for updating it.</p>
-<p>Key characteristics:
-- <strong>Single source of truth</strong>: State is managed in one place
-- <strong>Controlled components</strong>: Parent controls child behavior
-- <strong>Unidirectional data flow</strong>: Data flows down, events flow up
-- <strong>Simple sharing</strong>: No external libraries needed</p>
-<h3 id="professional-explanation_2--3">Professional Explanation</h3>
-<p>Lifting state up is the most basic and often the most appropriate solution for sharing state between a few related components.</p>
-<p>When to lift state up:
-- <strong>Sibling components</strong>: Two or more siblings need the same data
-- <strong>Controlled inputs</strong>: Parent needs to control child inputs
-- <strong>Form validation</strong>: Multiple fields need validation together
-- <strong>Data synchronization</strong>: Keeping multiple components in sync</p>
-<h3 id="lifting-state-up-examples">Lifting State Up Examples</h3>
-<pre><code class="language-jsx">// Parent manages shared state
+    <h2 id="73-lifting-state-up">7.3 Lifting State Up</h2>
+    <h3 id="simple-explanation_2--3">Simple Explanation</h3>
+    <p>Lifting state up means moving state from a child component to a parent
+        component so multiple children can share it. This is a fundamental
+        pattern for sharing state between components without external
+        libraries.</p>
+    <p>Think of it like a family meeting - instead of each child making their
+        own decision, the parent makes the decision and tells all the children
+        what to do.</p>
+    <h3 id="technical-explanation_2--3">Technical Explanation</h3>
+    <p>Lifting state up is the practice of moving state to the lowest common
+        ancestor of components that need to share it. The parent component
+        manages the state and passes it down via props, along with callbacks for
+        updating it.</p>
+    <p>Key characteristics:
+        - <strong>Single source of truth</strong>: State is managed in one place
+        - <strong>Controlled components</strong>: Parent controls child behavior
+        - <strong>Unidirectional data flow</strong>: Data flows down, events
+        flow up
+        - <strong>Simple sharing</strong>: No external libraries needed</p>
+    <h3 id="professional-explanation_2--3">Professional Explanation</h3>
+    <p>Lifting state up is the most basic and often the most appropriate
+        solution for sharing state between a few related components.</p>
+    <p>When to lift state up:
+        - <strong>Sibling components</strong>: Two or more siblings need the
+        same data
+        - <strong>Controlled inputs</strong>: Parent needs to control child
+        inputs
+        - <strong>Form validation</strong>: Multiple fields need validation
+        together
+        - <strong>Data synchronization</strong>: Keeping multiple components in
+        sync</p>
+    <h3 id="lifting-state-up-examples">Lifting State Up Examples</h3>
+    <pre><code class="language-jsx">// Parent manages shared state
 function TemperatureConverter() {
     const [temperature, setTemperature] = useState('');
     const [scale, setScale] = useState('c');
@@ -259,31 +301,41 @@ function ShoppingApp() {
     );
 }
 </code></pre>
-<h2 id="74-context-api">7.4 Context API</h2>
-<h3 id="simple-explanation_3--3">Simple Explanation</h3>
-<p>The Context API provides a way to share data across the component tree without passing props down manually at every level. It's built into React and doesn't require any external libraries.</p>
-<p>Think of Context like a bulletin board in an office building - anyone can post information there, and anyone else can read it without having to go through intermediaries.</p>
-<h3 id="technical-explanation_3--3">Technical Explanation</h3>
-<p>Context provides a way to share values like themes, user authentication, or preferences across the component tree. It creates a provider-consumer pattern where components can access data without prop drilling.</p>
-<p>Key characteristics:
-- <strong>Avoids prop drilling</strong>: Data reaches deep components directly
-- <strong>Built-in</strong>: No external dependencies
-- <strong>Provider pattern</strong>: Wrap components with context providers
-- <strong>Dynamic updates</strong>: Context changes trigger re-renders
-- <strong>Multiple contexts</strong>: Use multiple contexts for different concerns</p>
-<h3 id="professional-explanation_3--3">Professional Explanation</h3>
-<p>Context API is suitable for:
-- <strong>Themes</strong>: Light/dark mode, branding
-- <strong>Authentication</strong>: User session and permissions
-- <strong>Language/Locale</strong>: Internationalization
-- <strong>Feature flags</strong>: A/B testing and feature toggles
-- <strong>Configuration</strong>: Application settings</p>
-<p>However, Context has limitations:
-- <strong>Performance</strong>: All consumers re-render on context changes
-- <strong>Complexity</strong>: Not ideal for complex state logic
-- <strong>Testing</strong>: Need to wrap components in providers</p>
-<h3 id="context-api-examples">Context API Examples</h3>
-<pre><code class="language-jsx">// Creating a context
+    <h2 id="74-context-api">7.4 Context API</h2>
+    <h3 id="simple-explanation_3--3">Simple Explanation</h3>
+    <p>The Context API provides a way to share data across the component tree
+        without passing props down manually at every level. It's built into
+        React and doesn't require any external libraries.</p>
+    <p>Think of Context like a bulletin board in an office building - anyone can
+        post information there, and anyone else can read it without having to go
+        through intermediaries.</p>
+    <h3 id="technical-explanation_3--3">Technical Explanation</h3>
+    <p>Context provides a way to share values like themes, user authentication,
+        or preferences across the component tree. It creates a provider-consumer
+        pattern where components can access data without prop drilling.</p>
+    <p>Key characteristics:
+        - <strong>Avoids prop drilling</strong>: Data reaches deep components
+        directly
+        - <strong>Built-in</strong>: No external dependencies
+        - <strong>Provider pattern</strong>: Wrap components with context
+        providers
+        - <strong>Dynamic updates</strong>: Context changes trigger re-renders
+        - <strong>Multiple contexts</strong>: Use multiple contexts for
+        different concerns</p>
+    <h3 id="professional-explanation_3--3">Professional Explanation</h3>
+    <p>Context API is suitable for:
+        - <strong>Themes</strong>: Light/dark mode, branding
+        - <strong>Authentication</strong>: User session and permissions
+        - <strong>Language/Locale</strong>: Internationalization
+        - <strong>Feature flags</strong>: A/B testing and feature toggles
+        - <strong>Configuration</strong>: Application settings</p>
+    <p>However, Context has limitations:
+        - <strong>Performance</strong>: All consumers re-render on context
+        changes
+        - <strong>Complexity</strong>: Not ideal for complex state logic
+        - <strong>Testing</strong>: Need to wrap components in providers</p>
+    <h3 id="context-api-examples">Context API Examples</h3>
+    <pre><code class="language-jsx">// Creating a context
 const ThemeContext = React.createContext('light');
 
 // Using context with Provider
@@ -416,32 +468,42 @@ function Dashboard() {
     );
 }
 </code></pre>
-<h2 id="75-redux-toolkit-rtk">7.5 Redux Toolkit (RTK)</h2>
-<h3 id="simple-explanation_4--3">Simple Explanation</h3>
-<p>Redux Toolkit is the official, recommended way to write Redux logic. It simplifies the Redux workflow by providing utilities to configure the store, create reducers, and write immutable updates. It's like Redux with training wheels, making it easier to use and maintain.</p>
-<p>Think of Redux Toolkit like a well-organized filing system - everything has its place, and it's easy to find what you need and update records.</p>
-<h3 id="technical-explanation_4--3">Technical Explanation</h3>
-<p>Redux Toolkit (RTK) is a set of tools and best practices for efficient Redux development. It includes utilities for:
-- <strong>Store Configuration</strong>: <code>configureStore</code> with good defaults
-- <strong>Slice Creation</strong>: <code>createSlice</code> for reducers and actions
-- <strong>Async Logic</strong>: <code>createAsyncThunk</code> for async actions
-- <strong>DevTools Integration</strong>: Redux DevTools out of the box
-- <strong>Immer Integration</strong>: Write mutable code that produces immutable updates</p>
-<h3 id="professional-explanation_4--3">Professional Explanation</h3>
-<p>Redux Toolkit is the standard for Redux in enterprise applications.</p>
-<p>Benefits:
-- <strong>Less Boilerplate</strong>: Less code than traditional Redux
-- <strong>Immutability</strong>: Built-in Immer for immutable updates
-- <strong>RTK Query</strong>: Powerful data fetching and caching
-- <strong>TypeScript</strong>: Excellent TypeScript support
-- <strong>DevTools</strong>: Redux DevTools integration</p>
-<p>When to use Redux Toolkit:
-- <strong>Large applications</strong>: Complex state needs
-- <strong>Multiple features</strong>: Shared state across features
-- <strong>Team development</strong>: Predictable patterns
-- <strong>Enterprise apps</strong>: Robust state management</p>
-<h3 id="redux-toolkit-examples">Redux Toolkit Examples</h3>
-<pre><code class="language-jsx">// Store Configuration
+    <h2 id="75-redux-toolkit-rtk">7.5 Redux Toolkit (RTK)</h2>
+    <h3 id="simple-explanation_4--3">Simple Explanation</h3>
+    <p>Redux Toolkit is the official, recommended way to write Redux logic. It
+        simplifies the Redux workflow by providing utilities to configure the
+        store, create reducers, and write immutable updates. It's like Redux
+        with training wheels, making it easier to use and maintain.</p>
+    <p>Think of Redux Toolkit like a well-organized filing system - everything
+        has its place, and it's easy to find what you need and update
+        records.</p>
+    <h3 id="technical-explanation_4--3">Technical Explanation</h3>
+    <p>Redux Toolkit (RTK) is a set of tools and best practices for efficient
+        Redux development. It includes utilities for:
+        - <strong>Store Configuration</strong>: <code>configureStore</code> with
+        good defaults
+        - <strong>Slice Creation</strong>: <code>createSlice</code> for reducers
+        and actions
+        - <strong>Async Logic</strong>: <code>createAsyncThunk</code> for async
+        actions
+        - <strong>DevTools Integration</strong>: Redux DevTools out of the box
+        - <strong>Immer Integration</strong>: Write mutable code that produces
+        immutable updates</p>
+    <h3 id="professional-explanation_4--3">Professional Explanation</h3>
+    <p>Redux Toolkit is the standard for Redux in enterprise applications.</p>
+    <p>Benefits:
+        - <strong>Less Boilerplate</strong>: Less code than traditional Redux
+        - <strong>Immutability</strong>: Built-in Immer for immutable updates
+        - <strong>RTK Query</strong>: Powerful data fetching and caching
+        - <strong>TypeScript</strong>: Excellent TypeScript support
+        - <strong>DevTools</strong>: Redux DevTools integration</p>
+    <p>When to use Redux Toolkit:
+        - <strong>Large applications</strong>: Complex state needs
+        - <strong>Multiple features</strong>: Shared state across features
+        - <strong>Team development</strong>: Predictable patterns
+        - <strong>Enterprise apps</strong>: Robust state management</p>
+    <h3 id="redux-toolkit-examples">Redux Toolkit Examples</h3>
+    <pre><code class="language-jsx">// Store Configuration
 // store/index.js
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './counterSlice';
@@ -712,32 +774,40 @@ function UserWithPosts({ userId }) {
     );
 }
 </code></pre>
-<h2 id="76-zustand">7.6 Zustand</h2>
-<h3 id="simple-explanation_5--3">Simple Explanation</h3>
-<p>Zustand is a small, fast, and scalable state management library. It's simpler than Redux but more powerful than Context. It uses a simple API where you create a store and use it directly in components.</p>
-<p>Think of Zustand like a personal assistant - you can access it anywhere, it's always available, and it handles your state with minimal ceremony.</p>
-<h3 id="technical-explanation_5--3">Technical Explanation</h3>
-<p>Zustand is a minimal state management library that uses hooks for accessing store state. It doesn't require providers or complex setup.</p>
-<p>Key characteristics:
-- <strong>Simple API</strong>: Create stores with <code>create</code>
-- <strong>No Providers</strong>: Directly import and use stores
-- <strong>Selectors</strong>: Use selectors to prevent unnecessary re-renders
-- <strong>Immutability</strong>: Built-in Immer for immutable updates
-- <strong>Middleware</strong>: Support for devtools, persistence, etc.</p>
-<h3 id="professional-explanation_5--3">Professional Explanation</h3>
-<p>Zustand is ideal for:
-- <strong>Small to medium applications</strong>: Less complexity
-- <strong>Gradual adoption</strong>: Can be added incrementally
-- <strong>Simple state needs</strong>: No complex boilerplate
-- <strong>Performance</strong>: Minimal overhead
-- <strong>TypeScript</strong>: Excellent TypeScript support</p>
-<p>When to use Zustand:
-- <strong>Startup projects</strong>: Quick development
-- <strong>Simple state</strong>: No complex logic
-- <strong>Performance</strong>: Minimal overhead
-- <strong>Developer experience</strong>: Simple API</p>
-<h3 id="zustand-examples">Zustand Examples</h3>
-<pre><code class="language-jsx">// Basic Zustand store
+    <h2 id="76-zustand">7.6 Zustand</h2>
+    <h3 id="simple-explanation_5--3">Simple Explanation</h3>
+    <p>Zustand is a small, fast, and scalable state management library. It's
+        simpler than Redux but more powerful than Context. It uses a simple API
+        where you create a store and use it directly in components.</p>
+    <p>Think of Zustand like a personal assistant - you can access it anywhere,
+        it's always available, and it handles your state with minimal
+        ceremony.</p>
+    <h3 id="technical-explanation_5--3">Technical Explanation</h3>
+    <p>Zustand is a minimal state management library that uses hooks for
+        accessing store state. It doesn't require providers or complex
+        setup.</p>
+    <p>Key characteristics:
+        - <strong>Simple API</strong>: Create stores with <code>create</code>
+        - <strong>No Providers</strong>: Directly import and use stores
+        - <strong>Selectors</strong>: Use selectors to prevent unnecessary
+        re-renders
+        - <strong>Immutability</strong>: Built-in Immer for immutable updates
+        - <strong>Middleware</strong>: Support for devtools, persistence,
+        etc.</p>
+    <h3 id="professional-explanation_5--3">Professional Explanation</h3>
+    <p>Zustand is ideal for:
+        - <strong>Small to medium applications</strong>: Less complexity
+        - <strong>Gradual adoption</strong>: Can be added incrementally
+        - <strong>Simple state needs</strong>: No complex boilerplate
+        - <strong>Performance</strong>: Minimal overhead
+        - <strong>TypeScript</strong>: Excellent TypeScript support</p>
+    <p>When to use Zustand:
+        - <strong>Startup projects</strong>: Quick development
+        - <strong>Simple state</strong>: No complex logic
+        - <strong>Performance</strong>: Minimal overhead
+        - <strong>Developer experience</strong>: Simple API</p>
+    <h3 id="zustand-examples">Zustand Examples</h3>
+    <pre><code class="language-jsx">// Basic Zustand store
 import { create } from 'zustand';
 
 const useCounterStore = create((set) =&gt; ({
@@ -924,32 +994,39 @@ const usePersistedStore = create(
     )
 );
 </code></pre>
-<h2 id="77-jotai">7.7 Jotai</h2>
-<h3 id="simple-explanation_6--3">Simple Explanation</h3>
-<p>Jotai is a state management library that takes an atomic approach. Instead of having a single global store, you create small, independent atoms that can be composed together. Think of atoms like LEGO pieces - you can build complex state by combining simple atoms.</p>
-<p>Think of Jotai like a toolbox full of small, specialized tools. Each atom does one thing well, and you can combine them to create complex behavior.</p>
-<h3 id="technical-explanation_6--3">Technical Explanation</h3>
-<p>Jotai is a primitive and flexible state management library inspired by Recoil. It uses atoms as units of state that can be combined and derived.</p>
-<p>Key characteristics:
-- <strong>Atomic</strong>: Each piece of state is an atom
-- <strong>No Providers</strong>: Atoms work without context providers
-- <strong>Derived atoms</strong>: Create computed state from other atoms
-- <strong>Async atoms</strong>: Handle async state natively
-- <strong>TypeScript</strong>: Excellent TypeScript support</p>
-<h3 id="professional-explanation_6--3">Professional Explanation</h3>
-<p>Jotai is suitable for:
-- <strong>Micro-frontends</strong>: Independent state pieces
-- <strong>Complex derivations</strong>: Computed state
-- <strong>Lazy loading</strong>: Atoms can be loaded on demand
-- <strong>Testing</strong>: Isolated atoms are easy to test
-- <strong>Performance</strong>: Fine-grained re-renders</p>
-<p>When to use Jotai:
-- <strong>Complex state logic</strong>: Derived and computed state
-- <strong>Small to medium applications</strong>: Quick development
-- <strong>Modular architecture</strong>: Independent state pieces
-- <strong>Performance</strong>: Fine-grained updates</p>
-<h3 id="jotai-examples">Jotai Examples</h3>
-<pre><code class="language-jsx">// Basic Jotai setup
+    <h2 id="77-jotai">7.7 Jotai</h2>
+    <h3 id="simple-explanation_6--3">Simple Explanation</h3>
+    <p>Jotai is a state management library that takes an atomic approach.
+        Instead of having a single global store, you create small, independent
+        atoms that can be composed together. Think of atoms like LEGO pieces -
+        you can build complex state by combining simple atoms.</p>
+    <p>Think of Jotai like a toolbox full of small, specialized tools. Each atom
+        does one thing well, and you can combine them to create complex
+        behavior.</p>
+    <h3 id="technical-explanation_6--3">Technical Explanation</h3>
+    <p>Jotai is a primitive and flexible state management library inspired by
+        Recoil. It uses atoms as units of state that can be combined and
+        derived.</p>
+    <p>Key characteristics:
+        - <strong>Atomic</strong>: Each piece of state is an atom
+        - <strong>No Providers</strong>: Atoms work without context providers
+        - <strong>Derived atoms</strong>: Create computed state from other atoms
+        - <strong>Async atoms</strong>: Handle async state natively
+        - <strong>TypeScript</strong>: Excellent TypeScript support</p>
+    <h3 id="professional-explanation_6--3">Professional Explanation</h3>
+    <p>Jotai is suitable for:
+        - <strong>Micro-frontends</strong>: Independent state pieces
+        - <strong>Complex derivations</strong>: Computed state
+        - <strong>Lazy loading</strong>: Atoms can be loaded on demand
+        - <strong>Testing</strong>: Isolated atoms are easy to test
+        - <strong>Performance</strong>: Fine-grained re-renders</p>
+    <p>When to use Jotai:
+        - <strong>Complex state logic</strong>: Derived and computed state
+        - <strong>Small to medium applications</strong>: Quick development
+        - <strong>Modular architecture</strong>: Independent state pieces
+        - <strong>Performance</strong>: Fine-grained updates</p>
+    <h3 id="jotai-examples">Jotai Examples</h3>
+    <pre><code class="language-jsx">// Basic Jotai setup
 import { atom, useAtom } from 'jotai';
 
 // Create atoms
@@ -1107,32 +1184,39 @@ function ShoppingCart() {
     );
 }
 </code></pre>
-<h2 id="78-recoil">7.8 Recoil</h2>
-<h3 id="simple-explanation_7--3">Simple Explanation</h3>
-<p>Recoil is a state management library developed by Facebook. It provides a React-like approach to state management with atoms and selectors. It's designed to be simple, powerful, and works seamlessly with React's concurrent features.</p>
-<p>Think of Recoil like a graph database - each piece of state (atom) is a node, and selectors create relationships between nodes to derive new state.</p>
-<h3 id="technical-explanation_7--3">Technical Explanation</h3>
-<p>Recoil provides a way to manage state using atoms and selectors. It's built with React in mind and supports concurrent rendering.</p>
-<p>Key characteristics:
-- <strong>Atoms</strong>: Units of state
-- <strong>Selectors</strong>: Derived state from atoms or other selectors
-- <strong>RecoilRoot</strong>: Provider for state
-- <strong>Concurrent Mode</strong>: Supports React's concurrent features
-- <strong>TypeScript</strong>: Good TypeScript support</p>
-<h3 id="professional-explanation_7--3">Professional Explanation</h3>
-<p>Recoil is suitable for:
-- <strong>Large applications</strong>: Complex state graphs
-- <strong>Performance</strong>: Fine-grained subscriptions
-- <strong>Derived state</strong>: Complex computed state
-- <strong>TypeScript</strong>: Good TypeScript support
-- <strong>React integration</strong>: Works well with React features</p>
-<p>When to use Recoil:
-- <strong>Complex applications</strong>: Multiple state dependencies
-- <strong>Performance</strong>: Fine-grained updates
-- <strong>Derived state</strong>: Complex computed state
-- <strong>Facebook scale</strong>: Proven at large scale</p>
-<h3 id="recoil-examples">Recoil Examples</h3>
-<pre><code class="language-jsx">// Basic Recoil setup
+    <h2 id="78-recoil">7.8 Recoil</h2>
+    <h3 id="simple-explanation_7--3">Simple Explanation</h3>
+    <p>Recoil is a state management library developed by Facebook. It provides a
+        React-like approach to state management with atoms and selectors. It's
+        designed to be simple, powerful, and works seamlessly with React's
+        concurrent features.</p>
+    <p>Think of Recoil like a graph database - each piece of state (atom) is a
+        node, and selectors create relationships between nodes to derive new
+        state.</p>
+    <h3 id="technical-explanation_7--3">Technical Explanation</h3>
+    <p>Recoil provides a way to manage state using atoms and selectors. It's
+        built with React in mind and supports concurrent rendering.</p>
+    <p>Key characteristics:
+        - <strong>Atoms</strong>: Units of state
+        - <strong>Selectors</strong>: Derived state from atoms or other
+        selectors
+        - <strong>RecoilRoot</strong>: Provider for state
+        - <strong>Concurrent Mode</strong>: Supports React's concurrent features
+        - <strong>TypeScript</strong>: Good TypeScript support</p>
+    <h3 id="professional-explanation_7--3">Professional Explanation</h3>
+    <p>Recoil is suitable for:
+        - <strong>Large applications</strong>: Complex state graphs
+        - <strong>Performance</strong>: Fine-grained subscriptions
+        - <strong>Derived state</strong>: Complex computed state
+        - <strong>TypeScript</strong>: Good TypeScript support
+        - <strong>React integration</strong>: Works well with React features</p>
+    <p>When to use Recoil:
+        - <strong>Complex applications</strong>: Multiple state dependencies
+        - <strong>Performance</strong>: Fine-grained updates
+        - <strong>Derived state</strong>: Complex computed state
+        - <strong>Facebook scale</strong>: Proven at large scale</p>
+    <h3 id="recoil-examples">Recoil Examples</h3>
+    <pre><code class="language-jsx">// Basic Recoil setup
 import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 // Atoms
@@ -1311,35 +1395,49 @@ function FilteredTodoList() {
     );
 }
 </code></pre>
-<h2 id="79-react-query">7.9 React Query</h2>
-<h3 id="simple-explanation_8--3">Simple Explanation</h3>
-<p>React Query is a library for fetching, caching, and updating server data. It's not a state management library per se, but it handles server state better than traditional state management. It handles loading states, error states, caching, pagination, and more.</p>
-<p>Think of React Query like a smart librarian - it fetches books (data) when needed, keeps track of what's available, and automatically updates when new books arrive.</p>
-<h3 id="technical-explanation_8--3">Technical Explanation</h3>
-<p>React Query provides hooks for fetching, caching, and updating asynchronous data. It manages server state with features like caching, background updates, and stale-while-revalidate.</p>
-<p>Key characteristics:
-- <strong>Data Fetching</strong>: Simple hooks for fetching data
-- <strong>Caching</strong>: Automatic caching of data
-- <strong>Background Updates</strong>: Re-fetch on focus, reconnect
-- <strong>Stale-While-Revalidate</strong>: Show stale data while updating
-- <strong>Pagination</strong>: Built-in pagination support
-- <strong>Infinite Queries</strong>: Infinite scrolling support
-- <strong>Optimistic Updates</strong>: Update UI before server confirms</p>
-<h3 id="professional-explanation_8--3">Professional Explanation</h3>
-<p>React Query is the recommended approach for server state in React applications.</p>
-<p>Benefits:
-- <strong>Reduced Complexity</strong>: No need to manage loading/error states
-- <strong>Performance</strong>: Automatic caching and deduplication
-- <strong>UX Improvements</strong>: Background updates and optimistic updates
-- <strong>Developer Experience</strong>: Simple API with powerful features
-- <strong>Integration</strong>: Works with any state management solution</p>
-<p>When to use React Query:
-- <strong>Server state</strong>: Data from APIs
-- <strong>Real-time data</strong>: Needs frequent updates
-- <strong>Complex caching</strong>: Multiple data dependencies
-- <strong>User experience</strong>: Smooth, responsive interfaces</p>
-<h3 id="react-query-examples">React Query Examples</h3>
-<pre><code class="language-jsx">// Basic React Query setup
+    <h2 id="79-react-query">7.9 React Query</h2>
+    <h3 id="simple-explanation_8--3">Simple Explanation</h3>
+    <p>React Query is a library for fetching, caching, and updating server data.
+        It's not a state management library per se, but it handles server state
+        better than traditional state management. It handles loading states,
+        error states, caching, pagination, and more.</p>
+    <p>Think of React Query like a smart librarian - it fetches books (data)
+        when needed, keeps track of what's available, and automatically updates
+        when new books arrive.</p>
+    <h3 id="technical-explanation_8--3">Technical Explanation</h3>
+    <p>React Query provides hooks for fetching, caching, and updating
+        asynchronous data. It manages server state with features like caching,
+        background updates, and stale-while-revalidate.</p>
+    <p>Key characteristics:
+        - <strong>Data Fetching</strong>: Simple hooks for fetching data
+        - <strong>Caching</strong>: Automatic caching of data
+        - <strong>Background Updates</strong>: Re-fetch on focus, reconnect
+        - <strong>Stale-While-Revalidate</strong>: Show stale data while
+        updating
+        - <strong>Pagination</strong>: Built-in pagination support
+        - <strong>Infinite Queries</strong>: Infinite scrolling support
+        - <strong>Optimistic Updates</strong>: Update UI before server
+        confirms</p>
+    <h3 id="professional-explanation_8--3">Professional Explanation</h3>
+    <p>React Query is the recommended approach for server state in React
+        applications.</p>
+    <p>Benefits:
+        - <strong>Reduced Complexity</strong>: No need to manage loading/error
+        states
+        - <strong>Performance</strong>: Automatic caching and deduplication
+        - <strong>UX Improvements</strong>: Background updates and optimistic
+        updates
+        - <strong>Developer Experience</strong>: Simple API with powerful
+        features
+        - <strong>Integration</strong>: Works with any state management
+        solution</p>
+    <p>When to use React Query:
+        - <strong>Server state</strong>: Data from APIs
+        - <strong>Real-time data</strong>: Needs frequent updates
+        - <strong>Complex caching</strong>: Multiple data dependencies
+        - <strong>User experience</strong>: Smooth, responsive interfaces</p>
+    <h3 id="react-query-examples">React Query Examples</h3>
+    <pre><code class="language-jsx">// Basic React Query setup
 import { QueryClient, QueryClientProvider, useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -1577,88 +1675,88 @@ function TodoOptimistic() {
     );
 }
 </code></pre>
-<h2 id="710-when-to-use-each-approach">7.10 When to Use Each Approach</h2>
-<h3 id="decision-matrix">Decision Matrix</h3>
-<table>
-<thead>
-<tr>
-<th>Approach</th>
-<th>Best For</th>
-<th>Complexity</th>
-<th>Learning Curve</th>
-<th>Performance</th>
-<th>Bundle Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Local State</strong></td>
-<td>Simple UI state, component-specific</td>
-<td>Low</td>
-<td>Minimal</td>
-<td>Excellent</td>
-<td>0 (built-in)</td>
-</tr>
-<tr>
-<td><strong>Lifting State Up</strong></td>
-<td>Sharing between few components</td>
-<td>Low</td>
-<td>Minimal</td>
-<td>Excellent</td>
-<td>0 (built-in)</td>
-</tr>
-<tr>
-<td><strong>Context API</strong></td>
-<td>Themes, auth, settings</td>
-<td>Low</td>
-<td>Low</td>
-<td>Good</td>
-<td>0 (built-in)</td>
-</tr>
-<tr>
-<td><strong>Redux Toolkit</strong></td>
-<td>Large apps, complex state</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Good</td>
-<td>~100KB</td>
-</tr>
-<tr>
-<td><strong>Zustand</strong></td>
-<td>Simple to medium apps</td>
-<td>Low</td>
-<td>Low</td>
-<td>Excellent</td>
-<td>~5KB</td>
-</tr>
-<tr>
-<td><strong>Jotai</strong></td>
-<td>Complex state with derivations</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Excellent</td>
-<td>~5KB</td>
-</tr>
-<tr>
-<td><strong>Recoil</strong></td>
-<td>Complex apps, Facebook scale</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Good</td>
-<td>~20KB</td>
-</tr>
-<tr>
-<td><strong>React Query</strong></td>
-<td>Server state, data fetching</td>
-<td>Low</td>
-<td>Low</td>
-<td>Excellent</td>
-<td>~20KB</td>
-</tr>
-</tbody>
-</table>
-<h3 id="decision-guide">Decision Guide</h3>
-<pre><code class="language-jsx">// When to use each approach:
+    <h2 id="710-when-to-use-each-approach">7.10 When to Use Each Approach</h2>
+    <h3 id="decision-matrix">Decision Matrix</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Approach</th>
+                <th>Best For</th>
+                <th>Complexity</th>
+                <th>Learning Curve</th>
+                <th>Performance</th>
+                <th>Bundle Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Local State</strong></td>
+                <td>Simple UI state, component-specific</td>
+                <td>Low</td>
+                <td>Minimal</td>
+                <td>Excellent</td>
+                <td>0 (built-in)</td>
+            </tr>
+            <tr>
+                <td><strong>Lifting State Up</strong></td>
+                <td>Sharing between few components</td>
+                <td>Low</td>
+                <td>Minimal</td>
+                <td>Excellent</td>
+                <td>0 (built-in)</td>
+            </tr>
+            <tr>
+                <td><strong>Context API</strong></td>
+                <td>Themes, auth, settings</td>
+                <td>Low</td>
+                <td>Low</td>
+                <td>Good</td>
+                <td>0 (built-in)</td>
+            </tr>
+            <tr>
+                <td><strong>Redux Toolkit</strong></td>
+                <td>Large apps, complex state</td>
+                <td>Medium</td>
+                <td>Medium</td>
+                <td>Good</td>
+                <td>~100KB</td>
+            </tr>
+            <tr>
+                <td><strong>Zustand</strong></td>
+                <td>Simple to medium apps</td>
+                <td>Low</td>
+                <td>Low</td>
+                <td>Excellent</td>
+                <td>~5KB</td>
+            </tr>
+            <tr>
+                <td><strong>Jotai</strong></td>
+                <td>Complex state with derivations</td>
+                <td>Medium</td>
+                <td>Medium</td>
+                <td>Excellent</td>
+                <td>~5KB</td>
+            </tr>
+            <tr>
+                <td><strong>Recoil</strong></td>
+                <td>Complex apps, Facebook scale</td>
+                <td>Medium</td>
+                <td>Medium</td>
+                <td>Good</td>
+                <td>~20KB</td>
+            </tr>
+            <tr>
+                <td><strong>React Query</strong></td>
+                <td>Server state, data fetching</td>
+                <td>Low</td>
+                <td>Low</td>
+                <td>Excellent</td>
+                <td>~20KB</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="decision-guide">Decision Guide</h3>
+    <pre><code class="language-jsx">// When to use each approach:
 
 // 1. Local State - Use this by default
 function SimpleComponent() {
@@ -1715,8 +1813,8 @@ function Users() {
 const countAtom = atom(0);
 const doubleCountAtom = atom((get) =&gt; get(countAtom) * 2);
 </code></pre>
-<h3 id="combined-approaches">Combined Approaches</h3>
-<pre><code class="language-jsx">// Combining approaches for optimal results
+    <h3 id="combined-approaches">Combined Approaches</h3>
+    <pre><code class="language-jsx">// Combining approaches for optimal results
 function CombinedApproach() {
     // 1. Local state for UI
     const [isLoading, setIsLoading] = useState(false);
@@ -1747,9 +1845,10 @@ function CombinedApproach() {
     );
 }
 </code></pre>
-<h2 id="711-common-mistakes-and-best-practices">7.11 Common Mistakes and Best Practices</h2>
-<h3 id="7111-common-mistakes">7.11.1 Common Mistakes</h3>
-<pre><code class="language-jsx">// ❌ Using Context for frequently changing state
+    <h2 id="711-common-mistakes-and-best-practices">7.11 Common Mistakes and
+        Best Practices</h2>
+    <h3 id="7111-common-mistakes">7.11.1 Common Mistakes</h3>
+    <pre><code class="language-jsx">// ❌ Using Context for frequently changing state
 const UserContext = createContext(null);
 function App() {
     const [user, setUser] = useState(null);
@@ -1803,8 +1902,8 @@ function GoodQuery() {
     return &lt;div&gt;{data}&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="7112-best-practices">7.11.2 Best Practices</h3>
-<pre><code class="language-jsx">// ✅ Keep state as local as possible
+    <h3 id="7112-best-practices">7.11.2 Best Practices</h3>
+    <pre><code class="language-jsx">// ✅ Keep state as local as possible
 function Component() {
     // Start with local state
     const [value, setValue] = useState('');
@@ -1860,25 +1959,30 @@ function DynamicAtoms() {
     // Each todo gets its own atom
 }
 </code></pre>
-<h2 id="712-interview-questions">7.12 Interview Questions</h2>
-<h3 id="junior-level-questions--7">Junior Level Questions</h3>
-<p><strong>Q: What is the difference between props and state?</strong></p>
-<p><strong>Answer</strong>:
-- <strong>Props</strong>: Read-only, passed from parent, immutable
-- <strong>State</strong>: Read/write, managed within component, mutable</p>
-<pre><code class="language-jsx">function Child({ prop }) {
+    <h2 id="712-interview-questions">7.12 Interview Questions</h2>
+    <h3 id="junior-level-questions--7">Junior Level Questions</h3>
+    <p><strong>Q: What is the difference between props and state?</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>Props</strong>: Read-only, passed from parent, immutable
+        - <strong>State</strong>: Read/write, managed within component,
+        mutable</p>
+    <pre><code class="language-jsx">function Child({ prop }) {
     const [state, setState] = useState(0);
     // prop comes from parent, state is local
 }
 </code></pre>
-<p><strong>Q: When would you lift state up?</strong></p>
-<p><strong>Answer</strong>: When multiple components need to share and synchronize the same state. The state is moved to their common parent, which manages it and passes it down via props.</p>
-<h3 id="mid-level-questions--7">Mid Level Questions</h3>
-<p><strong>Q: Compare Context API vs Redux.</strong></p>
-<p><strong>Answer</strong>:
-- <strong>Context API</strong>: Built-in, simpler, good for small apps, can cause unnecessary re-renders
-- <strong>Redux</strong>: External library, more powerful, better for large apps, predictable state</p>
-<pre><code class="language-jsx">// Context: Simple
+    <p><strong>Q: When would you lift state up?</strong></p>
+    <p><strong>Answer</strong>: When multiple components need to share and
+        synchronize the same state. The state is moved to their common parent,
+        which manages it and passes it down via props.</p>
+    <h3 id="mid-level-questions--7">Mid Level Questions</h3>
+    <p><strong>Q: Compare Context API vs Redux.</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>Context API</strong>: Built-in, simpler, good for small apps,
+        can cause unnecessary re-renders
+        - <strong>Redux</strong>: External library, more powerful, better for
+        large apps, predictable state</p>
+    <pre><code class="language-jsx">// Context: Simple
 const ThemeContext = createContext('light');
 
 // Redux: More powerful
@@ -1888,22 +1992,24 @@ const counterSlice = createSlice({
     reducers: { increment: (state) =&gt; { state.value += 1; } }
 });
 </code></pre>
-<p><strong>Q: When would you use Zustand over Redux?</strong></p>
-<p><strong>Answer</strong>: Zustand is simpler and lighter than Redux. Use Zustand for:
-- Smaller applications
-- Simple state needs
-- Faster development
-- When you want less boilerplate</p>
-<h3 id="senior-level-questions--7">Senior Level Questions</h3>
-<p><strong>Q: How do you handle server state in React applications?</strong></p>
-<p><strong>Answer</strong>: Use React Query or SWR for:
-1. Automatic caching
-2. Background updates
-3. Stale-while-revalidate
-4. Pagination and infinite scrolling
-5. Optimistic updates
-6. Error handling and retries</p>
-<pre><code class="language-jsx">function ServerStateExample() {
+    <p><strong>Q: When would you use Zustand over Redux?</strong></p>
+    <p><strong>Answer</strong>: Zustand is simpler and lighter than Redux. Use
+        Zustand for:
+        - Smaller applications
+        - Simple state needs
+        - Faster development
+        - When you want less boilerplate</p>
+    <h3 id="senior-level-questions--7">Senior Level Questions</h3>
+    <p><strong>Q: How do you handle server state in React
+            applications?</strong></p>
+    <p><strong>Answer</strong>: Use React Query or SWR for:
+        1. Automatic caching
+        2. Background updates
+        3. Stale-while-revalidate
+        4. Pagination and infinite scrolling
+        5. Optimistic updates
+        6. Error handling and retries</p>
+    <pre><code class="language-jsx">function ServerStateExample() {
     const { data, isLoading } = useQuery({
         queryKey: ['data'],
         queryFn: fetchData,
@@ -1912,16 +2018,21 @@ const counterSlice = createSlice({
     });
 }
 </code></pre>
-<p><strong>Q: How do you choose between different state management solutions?</strong></p>
-<p><strong>Answer</strong>: Consider:
-1. <strong>Application size</strong>: Small → useState/Context, Large → Redux/Zustand
-2. <strong>State complexity</strong>: Simple → useState, Complex → Redux/Jotai
-3. <strong>Team size</strong>: Small → Zustand, Large → Redux
-4. <strong>Performance needs</strong>: Fine-grained → Jotai/Recoil, Standard → Redux
-5. <strong>Server state</strong>: Always use React Query regardless of other choices</p>
-<h2 id="713-summary">7.13 Summary</h2>
-<h3 id="state-management-hierarchy">State Management Hierarchy</h3>
-<pre><code>Local State (useState/useReducer)
+    <p><strong>Q: How do you choose between different state management
+            solutions?</strong></p>
+    <p><strong>Answer</strong>: Consider:
+        1. <strong>Application size</strong>: Small → useState/Context, Large →
+        Redux/Zustand
+        2. <strong>State complexity</strong>: Simple → useState, Complex →
+        Redux/Jotai
+        3. <strong>Team size</strong>: Small → Zustand, Large → Redux
+        4. <strong>Performance needs</strong>: Fine-grained → Jotai/Recoil,
+        Standard → Redux
+        5. <strong>Server state</strong>: Always use React Query regardless of
+        other choices</p>
+    <h2 id="713-summary">7.13 Summary</h2>
+    <h3 id="state-management-hierarchy">State Management Hierarchy</h3>
+    <pre><code>Local State (useState/useReducer)
     ↓ (Lift up when needed)
 Lifted State (Shared between siblings)
     ↓ (When props drilling becomes excessive)
@@ -1934,8 +2045,8 @@ State Management Libraries
     ├── Recoil (Facebook, React-first)
     └── React Query (Server state)
 </code></pre>
-<h3 id="decision-flowchart">Decision Flowchart</h3>
-<pre><code class="language-mermaid">graph TD
+    <h3 id="decision-flowchart">Decision Flowchart</h3>
+    <pre><code class="language-mermaid">graph TD
     A[Start] --&gt; B{Is it server data?}
     B --&gt;|Yes| C[Use React Query]
     B --&gt;|No| D{Is it component-specific?}
@@ -1950,36 +2061,58 @@ State Management Libraries
     K --&gt;|Complex| M[Use Redux Toolkit]
     K --&gt;|Atomic| N[Use Jotai or Recoil]
 </code></pre>
-<h3 id="best-practices-summary--5">Best Practices Summary</h3>
-<ol>
-<li><strong>Start with local state</strong> - Use useState/useReducer first</li>
-<li><strong>Lift state up</strong> - When multiple components need it</li>
-<li><strong>Use Context sparingly</strong> - For themes, auth, settings</li>
-<li><strong>Choose appropriate library</strong> - Based on application needs</li>
-<li><strong>Use React Query for server state</strong> - Always</li>
-<li><strong>Keep state normalized</strong> - Avoid duplication</li>
-<li><strong>Use selectors</strong> - For derived and filtered data</li>
-<li><strong>Implement optimistic updates</strong> - For better UX</li>
-<li><strong>Handle loading and error states</strong> - Always</li>
-<li><strong>Test state logic</strong> - In isolation</li>
-</ol>
-<h3 id="key-takeaways--2">Key Takeaways</h3>
-<ul>
-<li><strong>Local state</strong> is always the best starting point</li>
-<li><strong>Lift state up</strong> when needed for sharing</li>
-<li><strong>Context API</strong> is built-in and sufficient for many cases</li>
-<li><strong>State management libraries</strong> provide additional features for complex needs</li>
-<li><strong>React Query</strong> is the standard for server state</li>
-<li><strong>Choose based on your needs</strong>, not on trends</li>
-<li><strong>Combine approaches</strong> for optimal results</li>
-</ul>
-<hr/>
-<p><em>End of Chapter 7</em></p>
-<p><strong>Next Chapter Preview</strong>: Chapter 8 will cover Routing with React Router, including nested routes, protected routes, dynamic routes, lazy loading, and code splitting.</p>
-<hr/>
-<p><em>This chapter provides comprehensive coverage of state management in React. Master these concepts to build scalable and maintainable applications with proper state handling.</em></p>
-<h1 id="the-complete-react-developer-course--7">The Complete React Developer Course</h1>
-<h2 id="from-beginner-to-professional--7">From Beginner to Professional</h2>
-<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--7">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
-<hr/>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-7" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-6"><span class="pager-label">← Previous chapter</span><strong>06 · React Hooks</strong></a><a class="pager-card pager-card--next" href="#chapter-8"><span class="pager-label">Next chapter →</span><strong>08 · Routing in React</strong></a></nav></section>
+    <h3 id="best-practices-summary--5">Best Practices Summary</h3>
+    <ol>
+        <li><strong>Start with local state</strong> - Use useState/useReducer
+            first</li>
+        <li><strong>Lift state up</strong> - When multiple components need
+            it</li>
+        <li><strong>Use Context sparingly</strong> - For themes, auth,
+            settings</li>
+        <li><strong>Choose appropriate library</strong> - Based on application
+            needs</li>
+        <li><strong>Use React Query for server state</strong> - Always</li>
+        <li><strong>Keep state normalized</strong> - Avoid duplication</li>
+        <li><strong>Use selectors</strong> - For derived and filtered data</li>
+        <li><strong>Implement optimistic updates</strong> - For better UX</li>
+        <li><strong>Handle loading and error states</strong> - Always</li>
+        <li><strong>Test state logic</strong> - In isolation</li>
+    </ol>
+    <h3 id="key-takeaways--2">Key Takeaways</h3>
+    <ul>
+        <li><strong>Local state</strong> is always the best starting point</li>
+        <li><strong>Lift state up</strong> when needed for sharing</li>
+        <li><strong>Context API</strong> is built-in and sufficient for many
+            cases</li>
+        <li><strong>State management libraries</strong> provide additional
+            features for complex needs</li>
+        <li><strong>React Query</strong> is the standard for server state</li>
+        <li><strong>Choose based on your needs</strong>, not on trends</li>
+        <li><strong>Combine approaches</strong> for optimal results</li>
+    </ul>
+    <hr />
+    <p><em>End of Chapter 7</em></p>
+    <p><strong>Next Chapter Preview</strong>: Chapter 8 will cover Routing with
+        React Router, including nested routes, protected routes, dynamic routes,
+        lazy loading, and code splitting.</p>
+    <hr />
+    <p><em>This chapter provides comprehensive coverage of state management in
+            React. Master these concepts to build scalable and maintainable
+            applications with proper state handling.</em></p>
+    <h1 id="the-complete-react-developer-course--7">The Complete React Developer
+        Course</h1>
+    <h2 id="from-beginner-to-professional--7">From Beginner to Professional</h2>
+    <h3
+        id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--7">A
+        Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+    <hr />
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-7" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-6"><span
+                class="pager-label">← Previous chapter</span><strong>06 · React
+                Hooks</strong></a><a class="pager-card pager-card--next"
+            href="#chapter-8"><span class="pager-label">Next chapter
+                →</span><strong>08 · Routing in
+                React</strong></a></nav></section>

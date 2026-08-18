@@ -6,18 +6,20 @@ Created and maintained by **Ayman Aljamal — أيمن الجمل** · [github.c
 
 ## Current Academy
 
-| Learning path | Content |
-|---|---:|
-| React | 18 chapters · 416 major sections |
-| Complete Java | 54 lessons |
-| Spring & Spring Boot | 77 lessons |
-| Postman API Testing | 25 lessons |
-| Python, AI & Machine Learning | 197 lessons · 17 stages · 9 capstones |
-| Firebase & Google Cloud | 46 lessons |
-| SQL | 23 lessons |
-| Database Optimization | 25 lessons |
-| Projects | 4 guided projects |
-| **Total** | **469 lessons across 9 paths** |
+| Learning path                   |                                            Content |
+| ------------------------------- | -------------------------------------------------: |
+| React                           | 18 original chapters · 1 interactive structure lab |
+| Next.js                         |                                         20 lessons |
+| File Extensions & Project Files |                           69 lessons · 12 chapters |
+| Complete Java                   |                                         54 lessons |
+| Spring & Spring Boot            |                                         77 lessons |
+| Postman API Testing             |                                         25 lessons |
+| Python, AI & Machine Learning   |              197 lessons · 17 stages · 9 capstones |
+| Firebase & Google Cloud         |                                         47 lessons |
+| SQL                             |                                         23 lessons |
+| Database Optimization           |                                         25 lessons |
+| Projects                        |                                  5 guided projects |
+| **Total**                       |    **562 lessons and experiences across 11 paths** |
 
 The Academy uses a red global identity. Each course keeps a separate accent color so course context remains visible without changing the product brand.
 
@@ -29,6 +31,9 @@ The Academy uses a red global identity. Each course keeps a separate accent colo
 - Personal roadmap builder based on goal, level, and weekly hours
 - Persistent course progress, bookmarks, notes, and daily activity
 - Global search, dashboard, smart review, quizzes, exam, and certificate
+- Dedicated Next.js continuation path beside the original React curriculum
+- Interactive, path-specific project structure labs with deep-linked files
+- Searchable File Extensions & Project Files course with 69 lessons
 - Notes export to JSON, Markdown, and printable PDF
 - React props/state render lab
 - Spring Boot request-pipeline lab
@@ -67,41 +72,47 @@ npm run validate:all           # all curriculum validations
 
 ## Scalable Architecture
 
-Source code is organized by responsibility. The browser still receives one optimized platform bundle, but contributors work in smaller ordered feature files.
+Source code is organized by responsibility, and the generated HTML is only a document shell. CSS, course data, the React reader, dashboard, catalog, and platform runtime are emitted as separate cacheable assets.
 
 ```text
 src/data/courses/*.js
-        │ course definitions with stable IDs
+        │ one file per learning path
         ▼
 src/features/course-catalog/
         │ official sources and cross-course relationships
         ▼
 src/platform/
         ├── 01-core.js              state, icons, routing primitives, header
-        ├── 02-home.js              home UI, roadmap builder, course cards
+        ├── 02-home.js              home UI, roadmap builder, file map, course cards
         ├── 03-course-reader.js     course and lesson rendering
         ├── 04-learner-tools.js     notes, search, toolbar, dashboard bindings
+        ├── 05-project-files.js     project trees, file explorer, runtime flows
         ├── 05-interactive-labs.js  React, Spring, Postman, SQL, DB, Python labs
         └── 06-pages-router.js       sources, about, render entry point
-        │
-        ▼
-scripts/source-manifest.mjs
-        │ declares ordered source and asset inputs
-        ▼
 scripts/build.mjs
-        ├── index.html    lightweight Academy application
-        ├── react.html    Academy plus original React curriculum
-        └── public/       Vercel deployment output
+        ├── index.html              lightweight Academy shell
+        ├── react.html              shell plus original React chapters
+        ├── assets/*.css|*.js       generated runtime parts
+        └── public/                 Vercel deployment output
 ```
 
-The numbered platform files intentionally share one private closure. Their order is declared once in `scripts/source-manifest.mjs`. The build concatenates them, and `scripts/check-platform.mjs` validates the combined syntax. This keeps runtime delivery simple while preventing a single application file from becoming a maintenance bottleneck.
+The numbered platform files intentionally share one private closure. Their order is declared once in `scripts/source-manifest.mjs`. The build validates and concatenates those fragments into `assets/platform-bundle.js`, while every other responsibility gets its own generated asset. This keeps `index.html` small without turning maintenance into another monolithic file.
+
+## File Distribution Map
+
+- One course per file keeps reviews focused and makes new paths easy to add.
+- Shared lesson generation lives in `src/data/courses/zz-lesson-content.js`.
+- Home, course, and page UI live in the numbered platform fragments.
+- React stays special because it preserves the original 18 chapters and lazy reader bundle.
+- Next.js now sits beside React as the modern continuation path.
 
 ## Project Structure
 
 ```text
 .
 ├── src/
-│   ├── index.template.html
+│   ├── home.template.html          # small Academy document shell
+│   ├── react.template.html         # original React reader shell
 │   ├── content/chapters/          # original React curriculum
 │   ├── data/courses/              # one file per learning path
 │   ├── features/course-catalog/   # sources and relationships
@@ -115,10 +126,10 @@ The numbered platform files intentionally share one private closure. Their order
 │   ├── validate-academy.mjs
 │   ├── verify.mjs
 │   └── serve.mjs
-├── assets/                        # PWA icons
+├── assets/                        # icons, highlighting, generated runtime parts
 ├── public/                        # generated deployment bundle, ignored
-├── index.html                     # generated Academy bundle
-├── react.html                     # generated React reader bundle
+├── index.html                     # generated Academy shell
+├── react.html                     # generated React curriculum shell
 ├── manifest.webmanifest
 ├── sw.js
 └── vercel.json
@@ -126,14 +137,14 @@ The numbered platform files intentionally share one private closure. Their order
 
 ### Editable and Generated Files
 
-| Type | Files | Rule |
-|---|---|---|
-| Application source | `src/platform/**`, `src/scripts/**`, `src/styles/**` | Edit here |
-| Course curricula | `src/data/courses/*.js` | Keep IDs and slugs stable |
-| Catalog metadata | `src/features/course-catalog/**` | Sources and relationships |
-| Build configuration | `scripts/source-manifest.mjs` | Register new source layers here |
-| Generated output | `index.html`, `react.html`, `public/**` | Never edit manually |
-| Deployment/PWA | `vercel.json`, `manifest.webmanifest`, `sw.js` | Update intentionally |
+| Type                | Files                                                | Rule                            |
+| ------------------- | ---------------------------------------------------- | ------------------------------- |
+| Application source  | `src/platform/**`, `src/scripts/**`, `src/styles/**` | Edit here                       |
+| Course curricula    | `src/data/courses/*.js`                              | Keep IDs and slugs stable       |
+| Catalog metadata    | `src/features/course-catalog/**`                     | Sources and relationships       |
+| Build configuration | `scripts/source-manifest.mjs`                        | Register new source layers here |
+| Generated output    | `index.html`, `react.html`, `assets/devpath-bundle.css`, `assets/*-bundle.js`, `assets/course-*.js`, `assets/catalog-*.js`, `assets/learning-dashboard.js`, `public/**` | Never edit manually |
+| Deployment/PWA      | `vercel.json`, `manifest.webmanifest`, `sw.js`       | Update intentionally            |
 
 ## Adding a Learning Path
 
@@ -163,12 +174,12 @@ The production build:
 
 1. Discovers all course files and 18 React chapters.
 2. Reads source order from the manifest.
-3. Validates and concatenates the six platform fragments.
+3. Validates and concatenates the seven platform fragments.
 4. Compacts CSS.
-5. Builds a lightweight home bundle and a lazy React reader.
-6. Copies PWA assets into `public/`.
+5. Emits small HTML shells plus seven independent CSS/JavaScript runtime assets.
+6. Copies the same offline-ready output into `public/`.
 
-The automated suite currently validates 469 lessons across 9 paths and more than 130 structural, routing, accessibility, content, PWA, theme, and feature regressions.
+The automated suite currently validates 562 lessons and experiences across 11 paths and more than 130 structural, routing, accessibility, content, PWA, theme, and feature regressions.
 
 ## Deployment
 

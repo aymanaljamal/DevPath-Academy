@@ -1,57 +1,73 @@
 <section class="chapter" id="chapter-9" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">09</span>
-<h1 class="chapter-title" id="api-integration-in-react">API Integration in React</h1>
-</div>
-<h2 id="91-introduction-to-api-integration">9.1 Introduction to API Integration</h2>
-<h3 id="simple-explanation--9">Simple Explanation</h3>
-<p>API integration is how your React application communicates with backend servers. It involves sending and receiving data over HTTP using methods like GET, POST, PUT, and DELETE. This is how your app fetches data, saves user input, and interacts with external services.</p>
-<p>Think of API integration like ordering food at a restaurant - you send a request (order) to the kitchen (server), they prepare it, and send back the food (response). The menu items are the available endpoints, and the order is the request.</p>
-<h3 id="technical-explanation--9">Technical Explanation</h3>
-<p>API integration in React typically involves making HTTP requests to backend services to fetch or manipulate data. Common approaches include:
-- <strong>Fetch API</strong>: Native browser API
-- <strong>Axios</strong>: Popular HTTP client library
-- <strong>React Query</strong>: Advanced data fetching library
-- <strong>SWR</strong>: Data fetching with stale-while-revalidate</p>
-<p>Key concepts:
-- <strong>Endpoints</strong>: URL paths for resources
-- <strong>HTTP Methods</strong>: GET, POST, PUT, DELETE, PATCH
-- <strong>Headers</strong>: Metadata sent with requests
-- <strong>Body</strong>: Data sent with requests
-- <strong>Status Codes</strong>: Response status (200, 404, 500, etc.)
-- <strong>Authentication</strong>: API keys, JWT tokens</p>
-<h3 id="professional-explanation--9">Professional Explanation</h3>
-<p>In enterprise React applications, API integration involves:
-- <strong>Centralized API Client</strong>: Single source for API calls
-- <strong>Error Handling</strong>: Consistent error handling patterns
-- <strong>Loading States</strong>: UI feedback during requests
-- <strong>Caching</strong>: Reducing unnecessary requests
-- <strong>Retry Logic</strong>: Handling transient failures
-- <strong>Authentication</strong>: Secure token management
-- <strong>Interceptors</strong>: Request/Response middleware
-- <strong>Validation</strong>: Data validation before/after requests</p>
-<h2 id="92-fetch-api">9.2 Fetch API</h2>
-<h3 id="simple-explanation_1--5">Simple Explanation</h3>
-<p>Fetch is a native JavaScript API for making HTTP requests. It's built into modern browsers and uses Promises. While more low-level than Axios, it's lightweight and doesn't require external dependencies.</p>
-<p>Think of Fetch like sending a letter through the postal service - you address it (URL), include content (body), and wait for a response.</p>
-<h3 id="technical-explanation_1--5">Technical Explanation</h3>
-<p>The Fetch API provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline. It's based on Promises and provides a more powerful and flexible feature set.</p>
-<p>Key characteristics:
-- <strong>Promise-based</strong>: Uses async/await or .then
-- <strong>Response Object</strong>: Contains status, headers, body
-- <strong>Request Object</strong>: Configure request details
-- <strong>Headers Object</strong>: Manage request/response headers
-- <strong>AbortController</strong>: Cancel requests
-- <strong>Credentials</strong>: Handle cookies</p>
-<h3 id="professional-explanation_1--5">Professional Explanation</h3>
-<p>While Fetch is built-in, it has limitations:
-- <strong>No Timeouts</strong>: No built-in timeout mechanism
-- <strong>No Request Cancellation</strong>: Need AbortController
-- <strong>No Interceptors</strong>: Need to implement manually
-- <strong>Error Handling</strong>: Only rejects on network errors, not HTTP errors
-- <strong>Complex Cookies</strong>: Some cookie handling needs configuration</p>
-<h3 id="fetch-examples">Fetch Examples</h3>
-<pre><code class="language-jsx">// Basic GET request
+    <div class="chapter-title-card">
+        <span class="chapter-num">09</span>
+        <h1 class="chapter-title" id="api-integration-in-react">API Integration
+            in React</h1>
+    </div>
+    <h2 id="91-introduction-to-api-integration">9.1 Introduction to API
+        Integration</h2>
+    <h3 id="simple-explanation--9">Simple Explanation</h3>
+    <p>API integration is how your React application communicates with backend
+        servers. It involves sending and receiving data over HTTP using methods
+        like GET, POST, PUT, and DELETE. This is how your app fetches data,
+        saves user input, and interacts with external services.</p>
+    <p>Think of API integration like ordering food at a restaurant - you send a
+        request (order) to the kitchen (server), they prepare it, and send back
+        the food (response). The menu items are the available endpoints, and the
+        order is the request.</p>
+    <h3 id="technical-explanation--9">Technical Explanation</h3>
+    <p>API integration in React typically involves making HTTP requests to
+        backend services to fetch or manipulate data. Common approaches include:
+        - <strong>Fetch API</strong>: Native browser API
+        - <strong>Axios</strong>: Popular HTTP client library
+        - <strong>React Query</strong>: Advanced data fetching library
+        - <strong>SWR</strong>: Data fetching with stale-while-revalidate</p>
+    <p>Key concepts:
+        - <strong>Endpoints</strong>: URL paths for resources
+        - <strong>HTTP Methods</strong>: GET, POST, PUT, DELETE, PATCH
+        - <strong>Headers</strong>: Metadata sent with requests
+        - <strong>Body</strong>: Data sent with requests
+        - <strong>Status Codes</strong>: Response status (200, 404, 500, etc.)
+        - <strong>Authentication</strong>: API keys, JWT tokens</p>
+    <h3 id="professional-explanation--9">Professional Explanation</h3>
+    <p>In enterprise React applications, API integration involves:
+        - <strong>Centralized API Client</strong>: Single source for API calls
+        - <strong>Error Handling</strong>: Consistent error handling patterns
+        - <strong>Loading States</strong>: UI feedback during requests
+        - <strong>Caching</strong>: Reducing unnecessary requests
+        - <strong>Retry Logic</strong>: Handling transient failures
+        - <strong>Authentication</strong>: Secure token management
+        - <strong>Interceptors</strong>: Request/Response middleware
+        - <strong>Validation</strong>: Data validation before/after requests</p>
+    <h2 id="92-fetch-api">9.2 Fetch API</h2>
+    <h3 id="simple-explanation_1--5">Simple Explanation</h3>
+    <p>Fetch is a native JavaScript API for making HTTP requests. It's built
+        into modern browsers and uses Promises. While more low-level than Axios,
+        it's lightweight and doesn't require external dependencies.</p>
+    <p>Think of Fetch like sending a letter through the postal service - you
+        address it (URL), include content (body), and wait for a response.</p>
+    <h3 id="technical-explanation_1--5">Technical Explanation</h3>
+    <p>The Fetch API provides a JavaScript interface for accessing and
+        manipulating parts of the HTTP pipeline. It's based on Promises and
+        provides a more powerful and flexible feature set.</p>
+    <p>Key characteristics:
+        - <strong>Promise-based</strong>: Uses async/await or .then
+        - <strong>Response Object</strong>: Contains status, headers, body
+        - <strong>Request Object</strong>: Configure request details
+        - <strong>Headers Object</strong>: Manage request/response headers
+        - <strong>AbortController</strong>: Cancel requests
+        - <strong>Credentials</strong>: Handle cookies</p>
+    <h3 id="professional-explanation_1--5">Professional Explanation</h3>
+    <p>While Fetch is built-in, it has limitations:
+        - <strong>No Timeouts</strong>: No built-in timeout mechanism
+        - <strong>No Request Cancellation</strong>: Need AbortController
+        - <strong>No Interceptors</strong>: Need to implement manually
+        - <strong>Error Handling</strong>: Only rejects on network errors, not
+        HTTP errors
+        - <strong>Complex Cookies</strong>: Some cookie handling needs
+        configuration</p>
+    <h3 id="fetch-examples">Fetch Examples</h3>
+    <pre><code class="language-jsx">// Basic GET request
 function fetchUsers() {
     return fetch('https://api.example.com/users')
         .then(response =&gt; {
@@ -191,31 +207,39 @@ function fetchWithTimeout(url, options = {}, timeout = 5000) {
         });
 }
 </code></pre>
-<h2 id="93-axios">9.3 Axios</h2>
-<h3 id="simple-explanation_2--5">Simple Explanation</h3>
-<p>Axios is a popular HTTP client library that works in both browsers and Node.js. It provides a more convenient and feature-rich API than Fetch. It automatically transforms JSON data, handles errors better, and supports request/response interceptors.</p>
-<p>Think of Axios like a premium courier service - it's more reliable, handles packaging and delivery automatically, and provides better tracking and error handling.</p>
-<h3 id="technical-explanation_2--5">Technical Explanation</h3>
-<p>Axios is a promise-based HTTP client with extensive features:</p>
-<p>Key characteristics:
-- <strong>Automatic JSON Transformation</strong>: Converts data to/from JSON
-- <strong>Interceptors</strong>: Request/Response interception
-- <strong>Cancellation</strong>: Request cancellation support
-- <strong>Timeouts</strong>: Built-in timeout handling
-- <strong>Progress Events</strong>: Upload/download progress
-- <strong>Multiple Environments</strong>: Browser and Node.js support
-- <strong>Error Handling</strong>: Better error handling than Fetch
-- <strong>Concurrent Requests</strong>: Multiple requests with Promise.all</p>
-<h3 id="professional-explanation_2--5">Professional Explanation</h3>
-<p>Axios is preferred in enterprise applications for:
-- <strong>Interceptors</strong>: Centralized logging, auth, error handling
-- <strong>Consistent API</strong>: Same API for browser and Node.js
-- <strong>Better Error Handling</strong>: More informative error objects
-- <strong>Backwards Compatibility</strong>: Works with older browsers
-- <strong>Configuration</strong>: Global defaults and instance creation
-- <strong>Testing</strong>: Easier to mock and test</p>
-<h3 id="axios-examples">Axios Examples</h3>
-<pre><code class="language-jsx">// Installation
+    <h2 id="93-axios">9.3 Axios</h2>
+    <h3 id="simple-explanation_2--5">Simple Explanation</h3>
+    <p>Axios is a popular HTTP client library that works in both browsers and
+        Node.js. It provides a more convenient and feature-rich API than Fetch.
+        It automatically transforms JSON data, handles errors better, and
+        supports request/response interceptors.</p>
+    <p>Think of Axios like a premium courier service - it's more reliable,
+        handles packaging and delivery automatically, and provides better
+        tracking and error handling.</p>
+    <h3 id="technical-explanation_2--5">Technical Explanation</h3>
+    <p>Axios is a promise-based HTTP client with extensive features:</p>
+    <p>Key characteristics:
+        - <strong>Automatic JSON Transformation</strong>: Converts data to/from
+        JSON
+        - <strong>Interceptors</strong>: Request/Response interception
+        - <strong>Cancellation</strong>: Request cancellation support
+        - <strong>Timeouts</strong>: Built-in timeout handling
+        - <strong>Progress Events</strong>: Upload/download progress
+        - <strong>Multiple Environments</strong>: Browser and Node.js support
+        - <strong>Error Handling</strong>: Better error handling than Fetch
+        - <strong>Concurrent Requests</strong>: Multiple requests with
+        Promise.all</p>
+    <h3 id="professional-explanation_2--5">Professional Explanation</h3>
+    <p>Axios is preferred in enterprise applications for:
+        - <strong>Interceptors</strong>: Centralized logging, auth, error
+        handling
+        - <strong>Consistent API</strong>: Same API for browser and Node.js
+        - <strong>Better Error Handling</strong>: More informative error objects
+        - <strong>Backwards Compatibility</strong>: Works with older browsers
+        - <strong>Configuration</strong>: Global defaults and instance creation
+        - <strong>Testing</strong>: Easier to mock and test</p>
+    <h3 id="axios-examples">Axios Examples</h3>
+    <pre><code class="language-jsx">// Installation
 // npm install axios
 
 // Basic GET request
@@ -409,36 +433,44 @@ function useCancelableRequest() {
     return { makeRequest, cancelRequest };
 }
 </code></pre>
-<h2 id="94-rest-api-integration">9.4 REST API Integration</h2>
-<h3 id="simple-explanation_3--5">Simple Explanation</h3>
-<p>REST (Representational State Transfer) is an architectural style for designing APIs. It uses HTTP methods (GET, POST, PUT, DELETE) to perform operations on resources. REST APIs are the most common type of API you'll integrate with in React applications.</p>
-<p>Think of REST like a library system - you can check out (GET) books, add new books (POST), update information (PUT), or remove books (DELETE).</p>
-<h3 id="technical-explanation_3--5">Technical Explanation</h3>
-<p>REST APIs are built around resources and HTTP verbs:
-- <strong>GET</strong>: Retrieve a resource
-- <strong>POST</strong>: Create a new resource
-- <strong>PUT</strong>: Update a resource
-- <strong>PATCH</strong>: Partial update of a resource
-- <strong>DELETE</strong>: Remove a resource</p>
-<p>Key concepts:
-- <strong>Resources</strong>: Represented by URLs (e.g., <code>/users</code>, <code>/posts/123</code>)
-- <strong>Methods</strong>: HTTP verbs for actions
-- <strong>Status Codes</strong>: 2xx success, 4xx client error, 5xx server error
-- <strong>Headers</strong>: Metadata like authentication, content type
-- <strong>Body</strong>: Data sent with POST, PUT, PATCH requests
-- <strong>Query Parameters</strong>: Filtering, sorting, pagination</p>
-<h3 id="professional-explanation_3--5">Professional Explanation</h3>
-<p>REST API best practices:
-- <strong>Versioning</strong>: <code>/api/v1/users</code>
-- <strong>Consistent Naming</strong>: Plural nouns for resources
-- <strong>Status Codes</strong>: Appropriate HTTP status codes
-- <strong>Error Handling</strong>: Consistent error responses
-- <strong>Pagination</strong>: <code>?page=1&amp;limit=10</code>
-- <strong>Filtering</strong>: <code>?status=active</code>
-- <strong>Sorting</strong>: <code>?sort=name&amp;order=asc</code>
-- <strong>Field Selection</strong>: <code>?fields=id,name,email</code></p>
-<h3 id="rest-api-examples">REST API Examples</h3>
-<pre><code class="language-jsx">// REST API service
+    <h2 id="94-rest-api-integration">9.4 REST API Integration</h2>
+    <h3 id="simple-explanation_3--5">Simple Explanation</h3>
+    <p>REST (Representational State Transfer) is an architectural style for
+        designing APIs. It uses HTTP methods (GET, POST, PUT, DELETE) to perform
+        operations on resources. REST APIs are the most common type of API
+        you'll integrate with in React applications.</p>
+    <p>Think of REST like a library system - you can check out (GET) books, add
+        new books (POST), update information (PUT), or remove books
+        (DELETE).</p>
+    <h3 id="technical-explanation_3--5">Technical Explanation</h3>
+    <p>REST APIs are built around resources and HTTP verbs:
+        - <strong>GET</strong>: Retrieve a resource
+        - <strong>POST</strong>: Create a new resource
+        - <strong>PUT</strong>: Update a resource
+        - <strong>PATCH</strong>: Partial update of a resource
+        - <strong>DELETE</strong>: Remove a resource</p>
+    <p>Key concepts:
+        - <strong>Resources</strong>: Represented by URLs (e.g.,
+        <code>/users</code>, <code>/posts/123</code>)
+        - <strong>Methods</strong>: HTTP verbs for actions
+        - <strong>Status Codes</strong>: 2xx success, 4xx client error, 5xx
+        server error
+        - <strong>Headers</strong>: Metadata like authentication, content type
+        - <strong>Body</strong>: Data sent with POST, PUT, PATCH requests
+        - <strong>Query Parameters</strong>: Filtering, sorting, pagination</p>
+    <h3 id="professional-explanation_3--5">Professional Explanation</h3>
+    <p>REST API best practices:
+        - <strong>Versioning</strong>: <code>/api/v1/users</code>
+        - <strong>Consistent Naming</strong>: Plural nouns for resources
+        - <strong>Status Codes</strong>: Appropriate HTTP status codes
+        - <strong>Error Handling</strong>: Consistent error responses
+        - <strong>Pagination</strong>: <code>?page=1&amp;limit=10</code>
+        - <strong>Filtering</strong>: <code>?status=active</code>
+        - <strong>Sorting</strong>: <code>?sort=name&amp;order=asc</code>
+        - <strong>Field Selection</strong>:
+        <code>?fields=id,name,email</code></p>
+    <h3 id="rest-api-examples">REST API Examples</h3>
+    <pre><code class="language-jsx">// REST API service
 class UserService {
     constructor(baseURL) {
         this.baseURL = baseURL;
@@ -650,35 +682,43 @@ function ProductCatalog() {
     );
 }
 </code></pre>
-<h2 id="95-authentication-and-authorization">9.5 Authentication and Authorization</h2>
-<h3 id="simple-explanation_4--5">Simple Explanation</h3>
-<p>Authentication is verifying who a user is (login), while authorization is determining what they can do (permissions). In React applications, this typically involves sending credentials to an API, receiving a token, and including that token in subsequent requests.</p>
-<p>Think of authentication like showing your ID at a secure building - you prove who you are, and then you're given access based on your clearance level.</p>
-<h3 id="technical-explanation_4--5">Technical Explanation</h3>
-<p>Authentication in React applications typically uses:
-- <strong>JWT (JSON Web Tokens)</strong>: Stateless authentication tokens
-- <strong>Bearer Tokens</strong>: Sent in Authorization header
-- <strong>Refresh Tokens</strong>: Long-lived tokens for refreshing session
-- <strong>Session Cookies</strong>: Traditional session management
-- <strong>OAuth2/OpenID Connect</strong>: Third-party authentication</p>
-<p>Key concepts:
-- <strong>Login</strong>: User provides credentials
-- <strong>Token</strong>: Server returns authentication token
-- <strong>Storage</strong>: Token stored in localStorage or memory
-- <strong>Interceptors</strong>: Automatically add token to requests
-- <strong>Refresh</strong>: Obtain new token when expired</p>
-<h3 id="professional-explanation_4--5">Professional Explanation</h3>
-<p>Authentication best practices:
-- <strong>Secure Storage</strong>: Use httpOnly cookies for production
-- <strong>Token Expiration</strong>: Short-lived access tokens
-- <strong>Refresh Tokens</strong>: Secure refresh mechanism
-- <strong>CSRF Protection</strong>: Prevent cross-site request forgery
-- <strong>Logout</strong>: Clear tokens and redirect
-- <strong>Session Management</strong>: Handle concurrent sessions
-- <strong>Role-Based Access</strong>: Different permissions per role
-- <strong>Route Protection</strong>: Guard protected routes</p>
-<h3 id="authentication-examples">Authentication Examples</h3>
-<pre><code class="language-jsx">// Auth service
+    <h2 id="95-authentication-and-authorization">9.5 Authentication and
+        Authorization</h2>
+    <h3 id="simple-explanation_4--5">Simple Explanation</h3>
+    <p>Authentication is verifying who a user is (login), while authorization is
+        determining what they can do (permissions). In React applications, this
+        typically involves sending credentials to an API, receiving a token, and
+        including that token in subsequent requests.</p>
+    <p>Think of authentication like showing your ID at a secure building - you
+        prove who you are, and then you're given access based on your clearance
+        level.</p>
+    <h3 id="technical-explanation_4--5">Technical Explanation</h3>
+    <p>Authentication in React applications typically uses:
+        - <strong>JWT (JSON Web Tokens)</strong>: Stateless authentication
+        tokens
+        - <strong>Bearer Tokens</strong>: Sent in Authorization header
+        - <strong>Refresh Tokens</strong>: Long-lived tokens for refreshing
+        session
+        - <strong>Session Cookies</strong>: Traditional session management
+        - <strong>OAuth2/OpenID Connect</strong>: Third-party authentication</p>
+    <p>Key concepts:
+        - <strong>Login</strong>: User provides credentials
+        - <strong>Token</strong>: Server returns authentication token
+        - <strong>Storage</strong>: Token stored in localStorage or memory
+        - <strong>Interceptors</strong>: Automatically add token to requests
+        - <strong>Refresh</strong>: Obtain new token when expired</p>
+    <h3 id="professional-explanation_4--5">Professional Explanation</h3>
+    <p>Authentication best practices:
+        - <strong>Secure Storage</strong>: Use httpOnly cookies for production
+        - <strong>Token Expiration</strong>: Short-lived access tokens
+        - <strong>Refresh Tokens</strong>: Secure refresh mechanism
+        - <strong>CSRF Protection</strong>: Prevent cross-site request forgery
+        - <strong>Logout</strong>: Clear tokens and redirect
+        - <strong>Session Management</strong>: Handle concurrent sessions
+        - <strong>Role-Based Access</strong>: Different permissions per role
+        - <strong>Route Protection</strong>: Guard protected routes</p>
+    <h3 id="authentication-examples">Authentication Examples</h3>
+    <pre><code class="language-jsx">// Auth service
 class AuthService {
     constructor() {
         this.token = localStorage.getItem('authToken');
@@ -980,34 +1020,38 @@ function App() {
     );
 }
 </code></pre>
-<h2 id="96-error-handling">9.6 Error Handling</h2>
-<h3 id="simple-explanation_5--5">Simple Explanation</h3>
-<p>Error handling is managing and displaying errors that occur during API requests. It involves catching errors, showing user-friendly messages, and implementing retry logic for transient failures.</p>
-<p>Think of error handling like a safety net - when something goes wrong, it catches the error and handles it gracefully instead of crashing your application.</p>
-<h3 id="technical-explanation_5--5">Technical Explanation</h3>
-<p>Error handling in API integration involves:
-- <strong>Network Errors</strong>: No internet connection, timeout
-- <strong>HTTP Errors</strong>: 4xx, 5xx status codes
-- <strong>Application Errors</strong>: Business logic errors
-- <strong>Validation Errors</strong>: Invalid input data</p>
-<p>Error handling strategies:
-- <strong>Try/Catch</strong>: Async/await error handling
-- <strong>Error Boundaries</strong>: Component-level error handling
-- <strong>Global Error Handlers</strong>: Centralized error handling
-- <strong>Retry Logic</strong>: Automatic retry for transient failures
-- <strong>User Feedback</strong>: Display error messages
-- <strong>Logging</strong>: Log errors for debugging</p>
-<h3 id="professional-explanation_5--5">Professional Explanation</h3>
-<p>Enterprise error handling:
-- <strong>Consistent Format</strong>: Standard error response structure
-- <strong>User-Friendly Messages</strong>: Avoid technical jargon
-- <strong>Error Logging</strong>: Send errors to monitoring service
-- <strong>Fallback UI</strong>: Show fallback content when errors occur
-- <strong>Retry Strategy</strong>: Exponential backoff
-- <strong>Error Recovery</strong>: Recover from errors gracefully
-- <strong>Error Monitoring</strong>: Track error rates and patterns</p>
-<h3 id="error-handling-examples">Error Handling Examples</h3>
-<pre><code class="language-jsx">// Error types
+    <h2 id="96-error-handling">9.6 Error Handling</h2>
+    <h3 id="simple-explanation_5--5">Simple Explanation</h3>
+    <p>Error handling is managing and displaying errors that occur during API
+        requests. It involves catching errors, showing user-friendly messages,
+        and implementing retry logic for transient failures.</p>
+    <p>Think of error handling like a safety net - when something goes wrong, it
+        catches the error and handles it gracefully instead of crashing your
+        application.</p>
+    <h3 id="technical-explanation_5--5">Technical Explanation</h3>
+    <p>Error handling in API integration involves:
+        - <strong>Network Errors</strong>: No internet connection, timeout
+        - <strong>HTTP Errors</strong>: 4xx, 5xx status codes
+        - <strong>Application Errors</strong>: Business logic errors
+        - <strong>Validation Errors</strong>: Invalid input data</p>
+    <p>Error handling strategies:
+        - <strong>Try/Catch</strong>: Async/await error handling
+        - <strong>Error Boundaries</strong>: Component-level error handling
+        - <strong>Global Error Handlers</strong>: Centralized error handling
+        - <strong>Retry Logic</strong>: Automatic retry for transient failures
+        - <strong>User Feedback</strong>: Display error messages
+        - <strong>Logging</strong>: Log errors for debugging</p>
+    <h3 id="professional-explanation_5--5">Professional Explanation</h3>
+    <p>Enterprise error handling:
+        - <strong>Consistent Format</strong>: Standard error response structure
+        - <strong>User-Friendly Messages</strong>: Avoid technical jargon
+        - <strong>Error Logging</strong>: Send errors to monitoring service
+        - <strong>Fallback UI</strong>: Show fallback content when errors occur
+        - <strong>Retry Strategy</strong>: Exponential backoff
+        - <strong>Error Recovery</strong>: Recover from errors gracefully
+        - <strong>Error Monitoring</strong>: Track error rates and patterns</p>
+    <h3 id="error-handling-examples">Error Handling Examples</h3>
+    <pre><code class="language-jsx">// Error types
 class AppError extends Error {
     constructor(message, code, status = 500) {
         super(message);
@@ -1298,29 +1342,35 @@ function DataFetcher() {
     return &lt;div&gt;{/* Render data */}&lt;/div&gt;;
 }
 </code></pre>
-<h2 id="97-file-upload-and-download">9.7 File Upload and Download</h2>
-<h3 id="simple-explanation_6--5">Simple Explanation</h3>
-<p>File upload is sending files from the browser to the server, while file download is receiving files from the server. This is common for profile pictures, documents, and other media.</p>
-<p>Think of file upload like sending a package through the mail - you package it up (multipart form-data), address it (API endpoint), and the server receives and processes it.</p>
-<h3 id="technical-explanation_6--5">Technical Explanation</h3>
-<p>File upload uses:
-- <strong>multipart/form-data</strong>: Encoding for file uploads
-- <strong>FormData</strong>: JavaScript object for constructing form data
-- <strong>File API</strong>: Handling file inputs
-- <strong>Blob/File</strong>: File data representation
-- <strong>Progress Events</strong>: Upload progress tracking
-- <strong>File Download</strong>: Binary data from server</p>
-<h3 id="professional-explanation_6--5">Professional Explanation</h3>
-<p>File handling best practices:
-- <strong>File Validation</strong>: Validate file type, size, and dimensions
-- <strong>Progress Indication</strong>: Show upload progress
-- <strong>Drag-and-Drop</strong>: Enhanced user experience
-- <strong>Chunked Upload</strong>: Large file uploads
-- <strong>Preview</strong>: Show preview before upload
-- <strong>Error Handling</strong>: Handle upload failures gracefully
-- <strong>Security</strong>: Validate files on server</p>
-<h3 id="file-upload-examples">File Upload Examples</h3>
-<pre><code class="language-jsx">// Basic file upload
+    <h2 id="97-file-upload-and-download">9.7 File Upload and Download</h2>
+    <h3 id="simple-explanation_6--5">Simple Explanation</h3>
+    <p>File upload is sending files from the browser to the server, while file
+        download is receiving files from the server. This is common for profile
+        pictures, documents, and other media.</p>
+    <p>Think of file upload like sending a package through the mail - you
+        package it up (multipart form-data), address it (API endpoint), and the
+        server receives and processes it.</p>
+    <h3 id="technical-explanation_6--5">Technical Explanation</h3>
+    <p>File upload uses:
+        - <strong>multipart/form-data</strong>: Encoding for file uploads
+        - <strong>FormData</strong>: JavaScript object for constructing form
+        data
+        - <strong>File API</strong>: Handling file inputs
+        - <strong>Blob/File</strong>: File data representation
+        - <strong>Progress Events</strong>: Upload progress tracking
+        - <strong>File Download</strong>: Binary data from server</p>
+    <h3 id="professional-explanation_6--5">Professional Explanation</h3>
+    <p>File handling best practices:
+        - <strong>File Validation</strong>: Validate file type, size, and
+        dimensions
+        - <strong>Progress Indication</strong>: Show upload progress
+        - <strong>Drag-and-Drop</strong>: Enhanced user experience
+        - <strong>Chunked Upload</strong>: Large file uploads
+        - <strong>Preview</strong>: Show preview before upload
+        - <strong>Error Handling</strong>: Handle upload failures gracefully
+        - <strong>Security</strong>: Validate files on server</p>
+    <h3 id="file-upload-examples">File Upload Examples</h3>
+    <pre><code class="language-jsx">// Basic file upload
 function FileUpload() {
     const [file, setFile] = useState(null);
     const [uploading, setUploading] = useState(false);
@@ -1720,39 +1770,45 @@ function DragAndDropUpload() {
     );
 }
 </code></pre>
-<h2 id="98-pagination-filtering-and-searching">9.8 Pagination, Filtering, and Searching</h2>
-<h3 id="simple-explanation_7--5">Simple Explanation</h3>
-<p>Pagination, filtering, and searching are essential for managing large datasets. They allow users to navigate through data, narrow down results, and find specific items efficiently.</p>
-<p>Think of pagination like flipping through pages of a catalog, filtering like using a sieve to separate items, and searching like using a magnifying glass to find something specific.</p>
-<h3 id="technical-explanation_7--5">Technical Explanation</h3>
-<p><strong>Pagination</strong>: Dividing data into pages
-- <strong>Page Number</strong>: Current page
-- <strong>Page Size</strong>: Items per page
-- <strong>Total Items</strong>: Total number of items
-- <strong>Total Pages</strong>: Calculated from total items / page size
-- <strong>Next/Previous</strong>: Navigation between pages
-- <strong>Skip/Offset</strong>: How many items to skip</p>
-<p><strong>Filtering</strong>: Narrowing down results
-- <strong>Server-side Filtering</strong>: Filter on server
-- <strong>Client-side Filtering</strong>: Filter on client
-- <strong>Multi-filter</strong>: Multiple filter criteria
-- <strong>Filter Operators</strong>: equals, contains, startsWith, etc.</p>
-<p><strong>Searching</strong>: Finding specific items
-- <strong>Text Search</strong>: Search in text fields
-- <strong>Debounce</strong>: Wait for user to stop typing
-- <strong>Empty State</strong>: Show when no results found
-- <strong>Highlighting</strong>: Highlight matching text</p>
-<h3 id="professional-explanation_7--5">Professional Explanation</h3>
-<p>Pagination and filtering best practices:
-- <strong>Consistent API</strong>: Standard query parameters
-- <strong>Caching</strong>: Cache results for performance
-- <strong>Infrastructure</strong>: Use React Query for caching
-- <strong>User Experience</strong>: Show loading states
-- <strong>Memory Usage</strong>: Limit in-memory data
-- <strong>Security</strong>: Validate parameters
-- <strong>Performance</strong>: Index database columns</p>
-<h3 id="pagination-examples">Pagination Examples</h3>
-<pre><code class="language-jsx">// Pagination component
+    <h2 id="98-pagination-filtering-and-searching">9.8 Pagination, Filtering,
+        and Searching</h2>
+    <h3 id="simple-explanation_7--5">Simple Explanation</h3>
+    <p>Pagination, filtering, and searching are essential for managing large
+        datasets. They allow users to navigate through data, narrow down
+        results, and find specific items efficiently.</p>
+    <p>Think of pagination like flipping through pages of a catalog, filtering
+        like using a sieve to separate items, and searching like using a
+        magnifying glass to find something specific.</p>
+    <h3 id="technical-explanation_7--5">Technical Explanation</h3>
+    <p><strong>Pagination</strong>: Dividing data into pages
+        - <strong>Page Number</strong>: Current page
+        - <strong>Page Size</strong>: Items per page
+        - <strong>Total Items</strong>: Total number of items
+        - <strong>Total Pages</strong>: Calculated from total items / page size
+        - <strong>Next/Previous</strong>: Navigation between pages
+        - <strong>Skip/Offset</strong>: How many items to skip</p>
+    <p><strong>Filtering</strong>: Narrowing down results
+        - <strong>Server-side Filtering</strong>: Filter on server
+        - <strong>Client-side Filtering</strong>: Filter on client
+        - <strong>Multi-filter</strong>: Multiple filter criteria
+        - <strong>Filter Operators</strong>: equals, contains, startsWith,
+        etc.</p>
+    <p><strong>Searching</strong>: Finding specific items
+        - <strong>Text Search</strong>: Search in text fields
+        - <strong>Debounce</strong>: Wait for user to stop typing
+        - <strong>Empty State</strong>: Show when no results found
+        - <strong>Highlighting</strong>: Highlight matching text</p>
+    <h3 id="professional-explanation_7--5">Professional Explanation</h3>
+    <p>Pagination and filtering best practices:
+        - <strong>Consistent API</strong>: Standard query parameters
+        - <strong>Caching</strong>: Cache results for performance
+        - <strong>Infrastructure</strong>: Use React Query for caching
+        - <strong>User Experience</strong>: Show loading states
+        - <strong>Memory Usage</strong>: Limit in-memory data
+        - <strong>Security</strong>: Validate parameters
+        - <strong>Performance</strong>: Index database columns</p>
+    <h3 id="pagination-examples">Pagination Examples</h3>
+    <pre><code class="language-jsx">// Pagination component
 function Pagination({ 
     currentPage, 
     totalItems, 
@@ -2106,9 +2162,10 @@ function InfiniteScroll() {
     );
 }
 </code></pre>
-<h2 id="99-common-mistakes-and-best-practices">9.9 Common Mistakes and Best Practices</h2>
-<h3 id="991-common-mistakes">9.9.1 Common Mistakes</h3>
-<pre><code class="language-jsx">// ❌ Not handling loading states
+    <h2 id="99-common-mistakes-and-best-practices">9.9 Common Mistakes and Best
+        Practices</h2>
+    <h3 id="991-common-mistakes">9.9.1 Common Mistakes</h3>
+    <pre><code class="language-jsx">// ❌ Not handling loading states
 function BadComponent() {
     const [data, setData] = useState(null);
 
@@ -2193,8 +2250,8 @@ function GoodAuth() {
     };
 }
 </code></pre>
-<h3 id="992-best-practices">9.9.2 Best Practices</h3>
-<pre><code class="language-jsx">// ✅ Use centralized API client
+    <h3 id="992-best-practices">9.9.2 Best Practices</h3>
+    <pre><code class="language-jsx">// ✅ Use centralized API client
 // api/client.js
 const client = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
@@ -2249,13 +2306,15 @@ function validateApiResponse(data) {
     return data;
 }
 </code></pre>
-<h2 id="910-interview-questions">9.10 Interview Questions</h2>
-<h3 id="junior-level-questions--9">Junior Level Questions</h3>
-<p><strong>Q: What is the difference between Fetch and Axios?</strong></p>
-<p><strong>Answer</strong>:
-- <strong>Fetch</strong>: Native browser API, requires JSON parsing, no timeouts
-- <strong>Axios</strong>: Third-party library, automatic JSON parsing, interceptors, timeouts</p>
-<pre><code class="language-jsx">// Fetch
+    <h2 id="910-interview-questions">9.10 Interview Questions</h2>
+    <h3 id="junior-level-questions--9">Junior Level Questions</h3>
+    <p><strong>Q: What is the difference between Fetch and Axios?</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>Fetch</strong>: Native browser API, requires JSON parsing, no
+        timeouts
+        - <strong>Axios</strong>: Third-party library, automatic JSON parsing,
+        interceptors, timeouts</p>
+    <pre><code class="language-jsx">// Fetch
 fetch('/api/users')
     .then(res =&gt; res.json())
     .then(data =&gt; console.log(data));
@@ -2264,17 +2323,19 @@ fetch('/api/users')
 axios.get('/api/users')
     .then(res =&gt; console.log(res.data));
 </code></pre>
-<p><strong>Q: How do you handle API errors in React?</strong></p>
-<p><strong>Answer</strong>: Use try/catch with async/await, check response status, show user-friendly error messages, and log errors for debugging.</p>
-<h3 id="mid-level-questions--9">Mid Level Questions</h3>
-<p><strong>Q: How do you implement token-based authentication?</strong></p>
-<p><strong>Answer</strong>:
-1. User logs in with credentials
-2. Server returns JWT token
-3. Store token securely
-4. Include token in Authorization header
-5. Handle token expiration with refresh tokens</p>
-<pre><code class="language-jsx">axios.interceptors.request.use(config =&gt; {
+    <p><strong>Q: How do you handle API errors in React?</strong></p>
+    <p><strong>Answer</strong>: Use try/catch with async/await, check response
+        status, show user-friendly error messages, and log errors for
+        debugging.</p>
+    <h3 id="mid-level-questions--9">Mid Level Questions</h3>
+    <p><strong>Q: How do you implement token-based authentication?</strong></p>
+    <p><strong>Answer</strong>:
+        1. User logs in with credentials
+        2. Server returns JWT token
+        3. Store token securely
+        4. Include token in Authorization header
+        5. Handle token expiration with refresh tokens</p>
+    <pre><code class="language-jsx">axios.interceptors.request.use(config =&gt; {
     const token = localStorage.getItem('token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -2282,30 +2343,33 @@ axios.get('/api/users')
     return config;
 });
 </code></pre>
-<p><strong>Q: What is the purpose of React Query?</strong></p>
-<p><strong>Answer</strong>: React Query handles server state by providing:
-- Automatic caching
-- Background updates
-- Stale-while-revalidate
-- Pagination and infinite queries
-- Mutations with optimistic updates</p>
-<h3 id="senior-level-questions--9">Senior Level Questions</h3>
-<p><strong>Q: How do you handle API caching in React applications?</strong></p>
-<p><strong>Answer</strong>: Use React Query or SWR for server state caching with features like:
-- Cache invalidation
-- Stale-while-revalidate
-- Cache persistence
-- Selective caching</p>
-<pre><code class="language-jsx">const { data } = useQuery({
+    <p><strong>Q: What is the purpose of React Query?</strong></p>
+    <p><strong>Answer</strong>: React Query handles server state by providing:
+        - Automatic caching
+        - Background updates
+        - Stale-while-revalidate
+        - Pagination and infinite queries
+        - Mutations with optimistic updates</p>
+    <h3 id="senior-level-questions--9">Senior Level Questions</h3>
+    <p><strong>Q: How do you handle API caching in React
+            applications?</strong></p>
+    <p><strong>Answer</strong>: Use React Query or SWR for server state caching
+        with features like:
+        - Cache invalidation
+        - Stale-while-revalidate
+        - Cache persistence
+        - Selective caching</p>
+    <pre><code class="language-jsx">const { data } = useQuery({
     queryKey: ['user', userId],
     queryFn: () =&gt; fetchUser(userId),
     staleTime: 5 * 60 * 1000, // 5 minutes
     cacheTime: 10 * 60 * 1000, // 10 minutes
 });
 </code></pre>
-<p><strong>Q: How do you implement optimistic updates?</strong></p>
-<p><strong>Answer</strong>: Update UI optimistically before server confirms, then rollback on error.</p>
-<pre><code class="language-jsx">const mutation = useMutation({
+    <p><strong>Q: How do you implement optimistic updates?</strong></p>
+    <p><strong>Answer</strong>: Update UI optimistically before server confirms,
+        then rollback on error.</p>
+    <pre><code class="language-jsx">const mutation = useMutation({
     mutationFn: updateTodo,
     onMutate: async (newTodo) =&gt; {
         await queryClient.cancelQueries(['todos']);
@@ -2318,127 +2382,143 @@ axios.get('/api/users')
     }
 });
 </code></pre>
-<h2 id="911-summary">9.11 Summary</h2>
-<h3 id="api-integration-methods">API Integration Methods</h3>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Pros</th>
-<th>Cons</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Fetch</strong></td>
-<td>Built-in, no dependencies</td>
-<td>No timeouts, less features</td>
-<td>Simple requests</td>
-</tr>
-<tr>
-<td><strong>Axios</strong></td>
-<td>Rich features, interceptors</td>
-<td>External dependency</td>
-<td>Enterprise apps</td>
-</tr>
-<tr>
-<td><strong>React Query</strong></td>
-<td>Caching, state management</td>
-<td>Learning curve</td>
-<td>Server state</td>
-</tr>
-</tbody>
-</table>
-<h3 id="http-methods">HTTP Methods</h3>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Purpose</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>GET</strong></td>
-<td>Retrieve data</td>
-<td><code>GET /users</code></td>
-</tr>
-<tr>
-<td><strong>POST</strong></td>
-<td>Create data</td>
-<td><code>POST /users</code></td>
-</tr>
-<tr>
-<td><strong>PUT</strong></td>
-<td>Update data</td>
-<td><code>PUT /users/1</code></td>
-</tr>
-<tr>
-<td><strong>DELETE</strong></td>
-<td>Delete data</td>
-<td><code>DELETE /users/1</code></td>
-</tr>
-<tr>
-<td><strong>PATCH</strong></td>
-<td>Partial update</td>
-<td><code>PATCH /users/1</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="authentication-methods">Authentication Methods</h3>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Description</th>
-<th>Security</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>JWT</strong></td>
-<td>Stateless tokens</td>
-<td>Good</td>
-</tr>
-<tr>
-<td><strong>OAuth2</strong></td>
-<td>Third-party auth</td>
-<td>Excellent</td>
-</tr>
-<tr>
-<td><strong>Session Cookies</strong></td>
-<td>Server-side sessions</td>
-<td>Good</td>
-</tr>
-<tr>
-<td><strong>API Keys</strong></td>
-<td>Simple auth</td>
-<td>Limited</td>
-</tr>
-</tbody>
-</table>
-<h3 id="best-practices-summary--7">Best Practices Summary</h3>
-<ol>
-<li><strong>Use a centralized API client</strong></li>
-<li><strong>Handle loading and error states</strong></li>
-<li><strong>Implement request cancellation</strong></li>
-<li><strong>Use interceptors for auth and logging</strong></li>
-<li><strong>Cache server state with React Query</strong></li>
-<li><strong>Debounce search inputs</strong></li>
-<li><strong>Implement retry logic</strong></li>
-<li><strong>Validate API responses</strong></li>
-<li><strong>Secure token storage</strong></li>
-<li><strong>Log errors for debugging</strong></li>
-</ol>
-<hr/>
-<p><em>End of Chapter 9</em></p>
-<p><strong>Next Chapter Preview</strong>: Chapter 10 will cover TypeScript in React, including types, interfaces, generics, utility types, and advanced TypeScript patterns for React.</p>
-<hr/>
-<p><em>This chapter provides comprehensive coverage of API integration in React. Master these concepts to build robust and scalable applications with reliable data fetching.</em></p>
-<h1 id="the-complete-react-developer-course--9">The Complete React Developer Course</h1>
-<h2 id="from-beginner-to-professional--9">From Beginner to Professional</h2>
-<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--9">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
-<hr/>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-9" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-8"><span class="pager-label">← Previous chapter</span><strong>08 · Routing in React</strong></a><a class="pager-card pager-card--next" href="#chapter-10"><span class="pager-label">Next chapter →</span><strong>10 · TypeScript in React</strong></a></nav></section>
+    <h2 id="911-summary">9.11 Summary</h2>
+    <h3 id="api-integration-methods">API Integration Methods</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Pros</th>
+                <th>Cons</th>
+                <th>Use Case</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Fetch</strong></td>
+                <td>Built-in, no dependencies</td>
+                <td>No timeouts, less features</td>
+                <td>Simple requests</td>
+            </tr>
+            <tr>
+                <td><strong>Axios</strong></td>
+                <td>Rich features, interceptors</td>
+                <td>External dependency</td>
+                <td>Enterprise apps</td>
+            </tr>
+            <tr>
+                <td><strong>React Query</strong></td>
+                <td>Caching, state management</td>
+                <td>Learning curve</td>
+                <td>Server state</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="http-methods">HTTP Methods</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>GET</strong></td>
+                <td>Retrieve data</td>
+                <td><code>GET /users</code></td>
+            </tr>
+            <tr>
+                <td><strong>POST</strong></td>
+                <td>Create data</td>
+                <td><code>POST /users</code></td>
+            </tr>
+            <tr>
+                <td><strong>PUT</strong></td>
+                <td>Update data</td>
+                <td><code>PUT /users/1</code></td>
+            </tr>
+            <tr>
+                <td><strong>DELETE</strong></td>
+                <td>Delete data</td>
+                <td><code>DELETE /users/1</code></td>
+            </tr>
+            <tr>
+                <td><strong>PATCH</strong></td>
+                <td>Partial update</td>
+                <td><code>PATCH /users/1</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="authentication-methods">Authentication Methods</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Description</th>
+                <th>Security</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>JWT</strong></td>
+                <td>Stateless tokens</td>
+                <td>Good</td>
+            </tr>
+            <tr>
+                <td><strong>OAuth2</strong></td>
+                <td>Third-party auth</td>
+                <td>Excellent</td>
+            </tr>
+            <tr>
+                <td><strong>Session Cookies</strong></td>
+                <td>Server-side sessions</td>
+                <td>Good</td>
+            </tr>
+            <tr>
+                <td><strong>API Keys</strong></td>
+                <td>Simple auth</td>
+                <td>Limited</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="best-practices-summary--7">Best Practices Summary</h3>
+    <ol>
+        <li><strong>Use a centralized API client</strong></li>
+        <li><strong>Handle loading and error states</strong></li>
+        <li><strong>Implement request cancellation</strong></li>
+        <li><strong>Use interceptors for auth and logging</strong></li>
+        <li><strong>Cache server state with React Query</strong></li>
+        <li><strong>Debounce search inputs</strong></li>
+        <li><strong>Implement retry logic</strong></li>
+        <li><strong>Validate API responses</strong></li>
+        <li><strong>Secure token storage</strong></li>
+        <li><strong>Log errors for debugging</strong></li>
+    </ol>
+    <hr />
+    <p><em>End of Chapter 9</em></p>
+    <p><strong>Next Chapter Preview</strong>: Chapter 10 will cover TypeScript
+        in React, including types, interfaces, generics, utility types, and
+        advanced TypeScript patterns for React.</p>
+    <hr />
+    <p><em>This chapter provides comprehensive coverage of API integration in
+            React. Master these concepts to build robust and scalable
+            applications with reliable data fetching.</em></p>
+    <h1 id="the-complete-react-developer-course--9">The Complete React Developer
+        Course</h1>
+    <h2 id="from-beginner-to-professional--9">From Beginner to Professional</h2>
+    <h3
+        id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--9">A
+        Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+    <hr />
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-9" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-8"><span
+                class="pager-label">← Previous chapter</span><strong>08 ·
+                Routing in React</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-10"><span
+                class="pager-label">Next chapter →</span><strong>10 · TypeScript
+                in React</strong></a></nav></section>

@@ -1,61 +1,109 @@
 <section class="chapter" id="chapter-5" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">05</span>
-<h1 class="chapter-title" id="react-fundamentals">React Fundamentals</h1>
-</div>
-<h2 id="51-introduction-to-react-fundamentals">5.1 Introduction to React Fundamentals</h2>
-<h3 id="simple-explanation--5">Simple Explanation</h3>
-<p>React Fundamentals are the building blocks of every React application. Think of them as the ABCs of React - once you master these concepts, you can build anything from a simple button to a complex enterprise application. These fundamentals include JSX (the HTML-like syntax), Components (the building blocks), Props (data passing), State (component memory), and the Component Lifecycle (birth, life, and death of components).</p>
-<p>Imagine building with LEGO blocks:
-- <strong>JSX</strong> is how you describe what each block looks like
-- <strong>Components</strong> are the individual LEGO blocks
-- <strong>Props</strong> are like the instructions for how blocks connect
-- <strong>State</strong> is like the memory of what's been built
-- <strong>Lifecycle</strong> is the process of building, changing, and dismantling</p>
-<h3 id="technical-explanation--5">Technical Explanation</h3>
-<p>React Fundamentals form the core API and patterns of React. These include:</p>
-<ol>
-<li><strong>JSX</strong>: A syntax extension that allows writing HTML-like code in JavaScript</li>
-<li><strong>Components</strong>: Functions or classes that return UI elements</li>
-<li><strong>Props</strong>: Read-only data passed from parent to child</li>
-<li><strong>State</strong>: Mutable data that triggers re-renders when changed</li>
-<li><strong>Lifecycle</strong>: The sequence of events from component creation to destruction</li>
-<li><strong>Rendering</strong>: The process of converting components to DOM elements</li>
-<li><strong>Conditional Rendering</strong>: Showing different UI based on conditions</li>
-<li><strong>Lists and Keys</strong>: Rendering collections of elements with unique identifiers</li>
-</ol>
-<h3 id="professional-explanation--5">Professional Explanation</h3>
-<p>In enterprise React development, mastering fundamentals is crucial for:</p>
-<ul>
-<li><strong>Performance Optimization</strong>: Understanding rendering cycles and memoization</li>
-<li><strong>Architecture Decisions</strong>: Choosing between patterns and approaches</li>
-<li><strong>Code Quality</strong>: Writing maintainable and testable components</li>
-<li><strong>Team Collaboration</strong>: Following consistent patterns and best practices</li>
-<li><strong>Debugging</strong>: Understanding the component tree and data flow</li>
-<li><strong>Scalability</strong>: Building components that grow with the application</li>
-</ul>
-<h2 id="52-jsx-javascript-xml">5.2 JSX (JavaScript XML)</h2>
-<h3 id="simple-explanation_1">Simple Explanation</h3>
-<p>JSX allows you to write HTML-like code inside your JavaScript files. It's a syntax extension that makes React code look like HTML, making it easier to understand and write. Under the hood, JSX gets transformed into regular JavaScript function calls.</p>
-<p>Think of JSX as a bridge between HTML and JavaScript - it lets you write what looks like HTML but with the full power of JavaScript embedded within.</p>
-<h3 id="technical-explanation_1">Technical Explanation</h3>
-<p>JSX is a syntax extension for JavaScript that resembles HTML. It allows you to write markup and logic together in a single file. JSX is transformed by tools like Babel into <code>React.createElement()</code> calls.</p>
-<p>Key characteristics:
-- <strong>HTML-like syntax</strong>: Closer to what you see in the browser
-- <strong>JavaScript expressions</strong>: Embed JavaScript inside <code>{}</code>
-- <strong>Self-closing tags</strong>: Tags can be self-closed like <code>&lt;img /&gt;</code>
-- <strong>Fragments</strong>: Empty tags <code>&lt;&gt;</code> for grouping without extra DOM nodes
-- <strong>Attributes</strong>: camelCase for properties (e.g., <code>className</code> instead of <code>class</code>)</p>
-<h3 id="professional-explanation_1">Professional Explanation</h3>
-<p>JSX is a compile-time syntactic sugar that follows the XML/HTML syntax. It provides type safety and linting capabilities when used with TypeScript and ESLint plugins. The JSX transform converts JSX to React.createElement calls, enabling React's virtual DOM reconciliation.</p>
-<p>JSX features for enterprise:
-- <strong>TypeScript integration</strong>: Type checking for props and attributes
-- <strong>Custom components</strong>: Capitalized names distinguish from HTML elements
-- <strong>Expression interpolation</strong>: Full JavaScript expressions in <code>{}</code>
-- <strong>Spread attributes</strong>: <code>{...props}</code> for passing multiple props
-- <strong>Conditional rendering</strong>: Using JavaScript expressions</p>
-<h3 id="jsx-examples">JSX Examples</h3>
-<pre><code class="language-jsx">// Basic JSX
+    <div class="chapter-title-card">
+        <span class="chapter-num">05</span>
+        <h1 class="chapter-title" id="react-fundamentals">React
+            Fundamentals</h1>
+    </div>
+    <h2 id="51-introduction-to-react-fundamentals">5.1 Introduction to React
+        Fundamentals</h2>
+    <h3 id="simple-explanation--5">Simple Explanation</h3>
+    <p>React Fundamentals are the building blocks of every React application.
+        Think of them as the ABCs of React - once you master these concepts, you
+        can build anything from a simple button to a complex enterprise
+        application. These fundamentals include JSX (the HTML-like syntax),
+        Components (the building blocks), Props (data passing), State (component
+        memory), and the Component Lifecycle (birth, life, and death of
+        components).</p>
+    <p>Imagine building with LEGO blocks:
+        - <strong>JSX</strong> is how you describe what each block looks like
+        - <strong>Components</strong> are the individual LEGO blocks
+        - <strong>Props</strong> are like the instructions for how blocks
+        connect
+        - <strong>State</strong> is like the memory of what's been built
+        - <strong>Lifecycle</strong> is the process of building, changing, and
+        dismantling</p>
+    <h3 id="technical-explanation--5">Technical Explanation</h3>
+    <p>React Fundamentals form the core API and patterns of React. These
+        include:</p>
+    <ol>
+        <li><strong>JSX</strong>: A syntax extension that allows writing
+            HTML-like code in JavaScript</li>
+        <li><strong>Components</strong>: Functions or classes that return UI
+            elements</li>
+        <li><strong>Props</strong>: Read-only data passed from parent to
+            child</li>
+        <li><strong>State</strong>: Mutable data that triggers re-renders when
+            changed</li>
+        <li><strong>Lifecycle</strong>: The sequence of events from component
+            creation to destruction</li>
+        <li><strong>Rendering</strong>: The process of converting components to
+            DOM elements</li>
+        <li><strong>Conditional Rendering</strong>: Showing different UI based
+            on conditions</li>
+        <li><strong>Lists and Keys</strong>: Rendering collections of elements
+            with unique identifiers</li>
+    </ol>
+    <h3 id="professional-explanation--5">Professional Explanation</h3>
+    <p>In enterprise React development, mastering fundamentals is crucial
+        for:</p>
+    <ul>
+        <li><strong>Performance Optimization</strong>: Understanding rendering
+            cycles and memoization</li>
+        <li><strong>Architecture Decisions</strong>: Choosing between patterns
+            and approaches</li>
+        <li><strong>Code Quality</strong>: Writing maintainable and testable
+            components</li>
+        <li><strong>Team Collaboration</strong>: Following consistent patterns
+            and best practices</li>
+        <li><strong>Debugging</strong>: Understanding the component tree and
+            data flow</li>
+        <li><strong>Scalability</strong>: Building components that grow with the
+            application</li>
+    </ul>
+    <h2 id="52-jsx-javascript-xml">5.2 JSX (JavaScript XML)</h2>
+    <h3 id="simple-explanation_1">Simple Explanation</h3>
+    <p>JSX allows you to write HTML-like code inside your JavaScript files. It's
+        a syntax extension that makes React code look like HTML, making it
+        easier to understand and write. Under the hood, JSX gets transformed
+        into regular JavaScript function calls.</p>
+    <p>Think of JSX as a bridge between HTML and JavaScript - it lets you write
+        what looks like HTML but with the full power of JavaScript embedded
+        within.</p>
+    <h3 id="technical-explanation_1">Technical Explanation</h3>
+    <p>JSX is a syntax extension for JavaScript that resembles HTML. It allows
+        you to write markup and logic together in a single file. JSX is
+        transformed by tools like Babel into <code>React.createElement()</code>
+        calls.</p>
+    <p>Key characteristics:
+        - <strong>HTML-like syntax</strong>: Closer to what you see in the
+        browser
+        - <strong>JavaScript expressions</strong>: Embed JavaScript inside
+        <code>{}</code>
+        - <strong>Self-closing tags</strong>: Tags can be self-closed like
+        <code>&lt;img /&gt;</code>
+        - <strong>Fragments</strong>: Empty tags <code>&lt;&gt;</code> for
+        grouping without extra DOM nodes
+        - <strong>Attributes</strong>: camelCase for properties (e.g.,
+        <code>className</code> instead of <code>class</code>)</p>
+    <h3 id="professional-explanation_1">Professional Explanation</h3>
+    <p>JSX is a compile-time syntactic sugar that follows the XML/HTML syntax.
+        It provides type safety and linting capabilities when used with
+        TypeScript and ESLint plugins. The JSX transform converts JSX to
+        React.createElement calls, enabling React's virtual DOM
+        reconciliation.</p>
+    <p>JSX features for enterprise:
+        - <strong>TypeScript integration</strong>: Type checking for props and
+        attributes
+        - <strong>Custom components</strong>: Capitalized names distinguish from
+        HTML elements
+        - <strong>Expression interpolation</strong>: Full JavaScript expressions
+        in <code>{}</code>
+        - <strong>Spread attributes</strong>: <code>{...props}</code> for
+        passing multiple props
+        - <strong>Conditional rendering</strong>: Using JavaScript
+        expressions</p>
+    <h3 id="jsx-examples">JSX Examples</h3>
+    <pre><code class="language-jsx">// Basic JSX
 const element = &lt;h1&gt;Hello, World!&lt;/h1&gt;;
 
 // JSX with JavaScript expression
@@ -143,8 +191,8 @@ const reactElement = React.createElement(
     'Hello'
 );
 </code></pre>
-<h3 id="jsx-rules-and-best-practices">JSX Rules and Best Practices</h3>
-<pre><code class="language-jsx">// ✅ DO: Use camelCase for attributes
+    <h3 id="jsx-rules-and-best-practices">JSX Rules and Best Practices</h3>
+    <pre><code class="language-jsx">// ✅ DO: Use camelCase for attributes
 &lt;input type="text" className="input" htmlFor="name" /&gt;
 
 // ❌ DON'T: Use HTML attribute names
@@ -195,29 +243,48 @@ const complexJSX = (
     &lt;/div&gt;
 );
 </code></pre>
-<h2 id="53-components">5.3 Components</h2>
-<h3 id="simple-explanation_2">Simple Explanation</h3>
-<p>Components are the heart of React. They are reusable pieces of UI that can be combined to build complex interfaces. Think of them as custom HTML elements that you create - each component has its own structure, style, and behavior.</p>
-<p>A React application is a tree of components, starting from a root component and branching out into smaller, more specialized components.</p>
-<h3 id="technical-explanation_2">Technical Explanation</h3>
-<p>Components are JavaScript functions or classes that accept inputs (props) and return React elements (JSX). They follow the principle of composition - building complex UIs from smaller, focused pieces.</p>
-<p>Component types:
-1. <strong>Functional Components</strong>: Simple functions that return JSX
-2. <strong>Class Components</strong>: ES6 classes with lifecycle methods (legacy)
-3. <strong>Pure Components</strong>: Components that implement shallow comparison
-4. <strong>Higher-Order Components (HOCs)</strong>: Functions that wrap components
-5. <strong>Render Props</strong>: Components that accept a function as a prop</p>
-<h3 id="professional-explanation_2">Professional Explanation</h3>
-<p>In enterprise React, components are the primary unit of code organization. They follow the Single Responsibility Principle, each handling a specific piece of UI and logic.</p>
-<p>Component architecture considerations:
-- <strong>Component Categories</strong>: Presentational vs Container components
-- <strong>Component Hierarchy</strong>: Smart vs Dumb components
-- <strong>Component Reusability</strong>: Designing for reuse across the application
-- <strong>Component Composition</strong>: Building complex components from simpler ones
-- <strong>Component Testing</strong>: Unit testing components in isolation
-- <strong>Component Documentation</strong>: Documenting props and usage</p>
-<h3 id="functional-components">Functional Components</h3>
-<pre><code class="language-jsx">// Basic functional component
+    <h2 id="53-components">5.3 Components</h2>
+    <h3 id="simple-explanation_2">Simple Explanation</h3>
+    <p>Components are the heart of React. They are reusable pieces of UI that
+        can be combined to build complex interfaces. Think of them as custom
+        HTML elements that you create - each component has its own structure,
+        style, and behavior.</p>
+    <p>A React application is a tree of components, starting from a root
+        component and branching out into smaller, more specialized
+        components.</p>
+    <h3 id="technical-explanation_2">Technical Explanation</h3>
+    <p>Components are JavaScript functions or classes that accept inputs (props)
+        and return React elements (JSX). They follow the principle of
+        composition - building complex UIs from smaller, focused pieces.</p>
+    <p>Component types:
+        1. <strong>Functional Components</strong>: Simple functions that return
+        JSX
+        2. <strong>Class Components</strong>: ES6 classes with lifecycle methods
+        (legacy)
+        3. <strong>Pure Components</strong>: Components that implement shallow
+        comparison
+        4. <strong>Higher-Order Components (HOCs)</strong>: Functions that wrap
+        components
+        5. <strong>Render Props</strong>: Components that accept a function as a
+        prop</p>
+    <h3 id="professional-explanation_2">Professional Explanation</h3>
+    <p>In enterprise React, components are the primary unit of code
+        organization. They follow the Single Responsibility Principle, each
+        handling a specific piece of UI and logic.</p>
+    <p>Component architecture considerations:
+        - <strong>Component Categories</strong>: Presentational vs Container
+        components
+        - <strong>Component Hierarchy</strong>: Smart vs Dumb components
+        - <strong>Component Reusability</strong>: Designing for reuse across the
+        application
+        - <strong>Component Composition</strong>: Building complex components
+        from simpler ones
+        - <strong>Component Testing</strong>: Unit testing components in
+        isolation
+        - <strong>Component Documentation</strong>: Documenting props and
+        usage</p>
+    <h3 id="functional-components">Functional Components</h3>
+    <pre><code class="language-jsx">// Basic functional component
 function Greeting() {
     return &lt;h1&gt;Hello, World!&lt;/h1&gt;;
 }
@@ -333,8 +400,8 @@ function UserProfile({ user, onSave, onDelete }) {
     );
 }
 </code></pre>
-<h3 id="class-components-legacy">Class Components (Legacy)</h3>
-<pre><code class="language-jsx">// Basic class component
+    <h3 id="class-components-legacy">Class Components (Legacy)</h3>
+    <pre><code class="language-jsx">// Basic class component
 class Greeting extends React.Component {
     render() {
         return &lt;h1&gt;Hello, World!&lt;/h1&gt;;
@@ -445,8 +512,8 @@ class UserCard extends React.Component {
     }
 }
 </code></pre>
-<h3 id="component-composition">Component Composition</h3>
-<pre><code class="language-jsx">// App component composed of multiple components
+    <h3 id="component-composition">Component Composition</h3>
+    <pre><code class="language-jsx">// App component composed of multiple components
 function App() {
     return (
         &lt;div className="app"&gt;
@@ -540,29 +607,40 @@ function ProductCard({ product }) {
     );
 }
 </code></pre>
-<h2 id="54-props">5.4 Props</h2>
-<h3 id="simple-explanation_3">Simple Explanation</h3>
-<p>Props (short for properties) are how components communicate with each other. They are like arguments you pass to a function - you send data from a parent component to a child component, and the child component uses that data to render itself.</p>
-<p>Think of props as the ingredients you give to a recipe. The recipe (component) uses these ingredients (props) to create the final dish (UI).</p>
-<h3 id="technical-explanation_3">Technical Explanation</h3>
-<p>Props are read-only inputs to React components. They flow from parent to child (unidirectional data flow). Props can be any JavaScript value: strings, numbers, booleans, arrays, objects, functions, or even React components.</p>
-<p>Key characteristics:
-- <strong>Read-only</strong>: Components cannot modify their own props
-- <strong>Immutability</strong>: Props should never be mutated
-- <strong>Type checking</strong>: PropTypes or TypeScript for validation
-- <strong>Default values</strong>: Can be defined for optional props
-- <strong>Children</strong>: Special prop for nested content</p>
-<h3 id="professional-explanation_3">Professional Explanation</h3>
-<p>Props are the primary mechanism for data flow in React applications. They implement a unidirectional data flow pattern, making the application predictable and easier to debug.</p>
-<p>Prop management strategies:
-- <strong>Prop Types</strong>: Runtime type checking with PropTypes
-- <strong>TypeScript</strong>: Compile-time type checking
-- <strong>Default Props</strong>: Default values for optional props
-- <strong>Prop Drilling</strong>: Passing props through multiple levels
-- <strong>Context API</strong>: For props needed in many components
-- <strong>Composition</strong>: Using children instead of passing many props</p>
-<h3 id="props-examples">Props Examples</h3>
-<pre><code class="language-jsx">// Passing and receiving basic props
+    <h2 id="54-props">5.4 Props</h2>
+    <h3 id="simple-explanation_3">Simple Explanation</h3>
+    <p>Props (short for properties) are how components communicate with each
+        other. They are like arguments you pass to a function - you send data
+        from a parent component to a child component, and the child component
+        uses that data to render itself.</p>
+    <p>Think of props as the ingredients you give to a recipe. The recipe
+        (component) uses these ingredients (props) to create the final dish
+        (UI).</p>
+    <h3 id="technical-explanation_3">Technical Explanation</h3>
+    <p>Props are read-only inputs to React components. They flow from parent to
+        child (unidirectional data flow). Props can be any JavaScript value:
+        strings, numbers, booleans, arrays, objects, functions, or even React
+        components.</p>
+    <p>Key characteristics:
+        - <strong>Read-only</strong>: Components cannot modify their own props
+        - <strong>Immutability</strong>: Props should never be mutated
+        - <strong>Type checking</strong>: PropTypes or TypeScript for validation
+        - <strong>Default values</strong>: Can be defined for optional props
+        - <strong>Children</strong>: Special prop for nested content</p>
+    <h3 id="professional-explanation_3">Professional Explanation</h3>
+    <p>Props are the primary mechanism for data flow in React applications. They
+        implement a unidirectional data flow pattern, making the application
+        predictable and easier to debug.</p>
+    <p>Prop management strategies:
+        - <strong>Prop Types</strong>: Runtime type checking with PropTypes
+        - <strong>TypeScript</strong>: Compile-time type checking
+        - <strong>Default Props</strong>: Default values for optional props
+        - <strong>Prop Drilling</strong>: Passing props through multiple levels
+        - <strong>Context API</strong>: For props needed in many components
+        - <strong>Composition</strong>: Using children instead of passing many
+        props</p>
+    <h3 id="props-examples">Props Examples</h3>
+    <pre><code class="language-jsx">// Passing and receiving basic props
 function Parent() {
     const user = {
         name: 'John',
@@ -718,8 +796,8 @@ UserList.defaultProps = {
     isLoading: false
 };
 </code></pre>
-<h3 id="props-patterns">Props Patterns</h3>
-<pre><code class="language-jsx">// Render props pattern
+    <h3 id="props-patterns">Props Patterns</h3>
+    <pre><code class="language-jsx">// Render props pattern
 function DataFetcher({ url, render }) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -797,28 +875,42 @@ function Users() {
     return &lt;UserListWithLoading isLoading={loading} users={users} /&gt;;
 }
 </code></pre>
-<h2 id="55-state">5.5 State</h2>
-<h3 id="simple-explanation_4">Simple Explanation</h3>
-<p>State is the memory of a component. It's data that can change over time and when it changes, React automatically re-renders the component to show the updated information. Unlike props (which come from a parent), state is internal to the component and can be changed by the component itself.</p>
-<p>Think of state as the current state of a toggled light switch - it can be on or off, and the component responds to changes by displaying the appropriate UI.</p>
-<h3 id="technical-explanation_4">Technical Explanation</h3>
-<p>State is mutable data that a component maintains over its lifetime. When state changes, React schedules a re-render to update the UI. State is local and private to the component that creates it.</p>
-<p>Key characteristics:
-- <strong>Mutable</strong>: Can be changed using setState or useState
-- <strong>Local</strong>: Belongs to the component that defines it
-- <strong>Asynchronous</strong>: State updates are batched and asynchronous
-- <strong>Triggers re-render</strong>: State changes cause component to re-render
-- <strong>Hook-based</strong>: Managed with useState or useReducer hooks</p>
-<h3 id="professional-explanation_4">Professional Explanation</h3>
-<p>State management is central to React applications. Understanding state helps create predictable, performant applications.</p>
-<p>State management strategies:
-- <strong>Local State</strong>: useState for component-specific data
-- <strong>Reducer State</strong>: useReducer for complex state logic
-- <strong>Global State</strong>: Context API or state management libraries
-- <strong>Server State</strong>: React Query for server data synchronization
-- <strong>URL State</strong>: Routing parameters and query strings</p>
-<h3 id="state-examples">State Examples</h3>
-<pre><code class="language-jsx">// useState hook
+    <h2 id="55-state">5.5 State</h2>
+    <h3 id="simple-explanation_4">Simple Explanation</h3>
+    <p>State is the memory of a component. It's data that can change over time
+        and when it changes, React automatically re-renders the component to
+        show the updated information. Unlike props (which come from a parent),
+        state is internal to the component and can be changed by the component
+        itself.</p>
+    <p>Think of state as the current state of a toggled light switch - it can be
+        on or off, and the component responds to changes by displaying the
+        appropriate UI.</p>
+    <h3 id="technical-explanation_4">Technical Explanation</h3>
+    <p>State is mutable data that a component maintains over its lifetime. When
+        state changes, React schedules a re-render to update the UI. State is
+        local and private to the component that creates it.</p>
+    <p>Key characteristics:
+        - <strong>Mutable</strong>: Can be changed using setState or useState
+        - <strong>Local</strong>: Belongs to the component that defines it
+        - <strong>Asynchronous</strong>: State updates are batched and
+        asynchronous
+        - <strong>Triggers re-render</strong>: State changes cause component to
+        re-render
+        - <strong>Hook-based</strong>: Managed with useState or useReducer
+        hooks</p>
+    <h3 id="professional-explanation_4">Professional Explanation</h3>
+    <p>State management is central to React applications. Understanding state
+        helps create predictable, performant applications.</p>
+    <p>State management strategies:
+        - <strong>Local State</strong>: useState for component-specific data
+        - <strong>Reducer State</strong>: useReducer for complex state logic
+        - <strong>Global State</strong>: Context API or state management
+        libraries
+        - <strong>Server State</strong>: React Query for server data
+        synchronization
+        - <strong>URL State</strong>: Routing parameters and query strings</p>
+    <h3 id="state-examples">State Examples</h3>
+    <pre><code class="language-jsx">// useState hook
 function Counter() {
     // Declare state variable
     const [count, setCount] = useState(0);
@@ -996,8 +1088,8 @@ function CounterFunctional() {
     );
 }
 </code></pre>
-<h3 id="usereducer-hook">useReducer Hook</h3>
-<pre><code class="language-jsx">// useReducer for complex state logic
+    <h3 id="usereducer-hook">useReducer Hook</h3>
+    <pre><code class="language-jsx">// useReducer for complex state logic
 const initialState = {
     count: 0,
     history: [],
@@ -1086,28 +1178,38 @@ function CounterWithReducer() {
     );
 }
 </code></pre>
-<h2 id="56-component-lifecycle">5.6 Component Lifecycle</h2>
-<h3 id="simple-explanation_5">Simple Explanation</h3>
-<p>The component lifecycle is the journey a component goes through from being created to being destroyed. React provides hooks (for functional components) and methods (for class components) that let you run code at specific points in this journey.</p>
-<p>Think of it like the life of a person:
-- <strong>Birth</strong>: The component is created (mounted)
-- <strong>Growth</strong>: The component changes (updates)
-- <strong>Death</strong>: The component is removed (unmounted)</p>
-<h3 id="technical-explanation_5">Technical Explanation</h3>
-<p>The lifecycle consists of three main phases:
-1. <strong>Mounting</strong>: Component is created and inserted into the DOM
-2. <strong>Updating</strong>: Component re-renders due to state or prop changes
-3. <strong>Unmounting</strong>: Component is removed from the DOM</p>
-<p>For functional components, these are managed with <code>useEffect</code> and other hooks. For class components, these are managed with lifecycle methods.</p>
-<h3 id="professional-explanation_5">Professional Explanation</h3>
-<p>Understanding the lifecycle is crucial for:
-- <strong>Data Fetching</strong>: When to fetch data (mounting)
-- <strong>DOM Manipulation</strong>: When to interact with the DOM
-- <strong>Resource Management</strong>: When to set up and clean up resources
-- <strong>Performance</strong>: When to optimize rendering
-- <strong>Debugging</strong>: Understanding component execution order</p>
-<h3 id="functional-component-lifecycle-with-hooks">Functional Component Lifecycle with Hooks</h3>
-<pre><code class="language-jsx">// useEffect for lifecycle management
+    <h2 id="56-component-lifecycle">5.6 Component Lifecycle</h2>
+    <h3 id="simple-explanation_5">Simple Explanation</h3>
+    <p>The component lifecycle is the journey a component goes through from
+        being created to being destroyed. React provides hooks (for functional
+        components) and methods (for class components) that let you run code at
+        specific points in this journey.</p>
+    <p>Think of it like the life of a person:
+        - <strong>Birth</strong>: The component is created (mounted)
+        - <strong>Growth</strong>: The component changes (updates)
+        - <strong>Death</strong>: The component is removed (unmounted)</p>
+    <h3 id="technical-explanation_5">Technical Explanation</h3>
+    <p>The lifecycle consists of three main phases:
+        1. <strong>Mounting</strong>: Component is created and inserted into the
+        DOM
+        2. <strong>Updating</strong>: Component re-renders due to state or prop
+        changes
+        3. <strong>Unmounting</strong>: Component is removed from the DOM</p>
+    <p>For functional components, these are managed with <code>useEffect</code>
+        and other hooks. For class components, these are managed with lifecycle
+        methods.</p>
+    <h3 id="professional-explanation_5">Professional Explanation</h3>
+    <p>Understanding the lifecycle is crucial for:
+        - <strong>Data Fetching</strong>: When to fetch data (mounting)
+        - <strong>DOM Manipulation</strong>: When to interact with the DOM
+        - <strong>Resource Management</strong>: When to set up and clean up
+        resources
+        - <strong>Performance</strong>: When to optimize rendering
+        - <strong>Debugging</strong>: Understanding component execution
+        order</p>
+    <h3 id="functional-component-lifecycle-with-hooks">Functional Component
+        Lifecycle with Hooks</h3>
+    <pre><code class="language-jsx">// useEffect for lifecycle management
 function LifecycleExample() {
     const [count, setCount] = useState(0);
     const [data, setData] = useState(null);
@@ -1184,8 +1286,9 @@ function LifecycleExample() {
     );
 }
 </code></pre>
-<h3 id="class-component-lifecycle-legacy">Class Component Lifecycle (Legacy)</h3>
-<pre><code class="language-jsx">class LifecycleClass extends React.Component {
+    <h3 id="class-component-lifecycle-legacy">Class Component Lifecycle
+        (Legacy)</h3>
+    <pre><code class="language-jsx">class LifecycleClass extends React.Component {
     constructor(props) {
         super(props);
         console.log('1. Constructor');
@@ -1282,27 +1385,34 @@ function LifecycleExample() {
     }
 }
 </code></pre>
-<h2 id="57-rendering">5.7 Rendering</h2>
-<h3 id="simple-explanation_6">Simple Explanation</h3>
-<p>Rendering is the process of converting React components into actual HTML that appears on the screen. When a component's state or props change, React "re-renders" the component to reflect the new data.</p>
-<p>Think of rendering like a magic whiteboard - you write something, and React makes it appear on the actual page. When you change what's written, React updates only the changed parts.</p>
-<h3 id="technical-explanation_6">Technical Explanation</h3>
-<p>Rendering in React involves:
-1. <strong>Initial Render</strong>: The first time a component is rendered
-2. <strong>Re-renders</strong>: When state or props change
-3. <strong>Reconciliation</strong>: Comparing new and old virtual DOM
-4. <strong>Commit Phase</strong>: Applying changes to the real DOM
-5. <strong>Batching</strong>: Grouping multiple updates</p>
-<h3 id="professional-explanation_6">Professional Explanation</h3>
-<p>Rendering performance is crucial for user experience. React's rendering system is designed for efficiency but requires understanding for optimization.</p>
-<p>Rendering concepts:
-- <strong>Rendering Phases</strong>: Render and Commit phases
-- <strong>Reconciliation</strong>: Virtual DOM diffing algorithm
-- <strong>Batching</strong>: Automatic batching of state updates
-- <strong>Scheduling</strong>: Prioritizing different render tasks
-- <strong>Concurrent Mode</strong>: Interruptible rendering</p>
-<h3 id="rendering-examples">Rendering Examples</h3>
-<pre><code class="language-jsx">// Basic rendering
+    <h2 id="57-rendering">5.7 Rendering</h2>
+    <h3 id="simple-explanation_6">Simple Explanation</h3>
+    <p>Rendering is the process of converting React components into actual HTML
+        that appears on the screen. When a component's state or props change,
+        React "re-renders" the component to reflect the new data.</p>
+    <p>Think of rendering like a magic whiteboard - you write something, and
+        React makes it appear on the actual page. When you change what's
+        written, React updates only the changed parts.</p>
+    <h3 id="technical-explanation_6">Technical Explanation</h3>
+    <p>Rendering in React involves:
+        1. <strong>Initial Render</strong>: The first time a component is
+        rendered
+        2. <strong>Re-renders</strong>: When state or props change
+        3. <strong>Reconciliation</strong>: Comparing new and old virtual DOM
+        4. <strong>Commit Phase</strong>: Applying changes to the real DOM
+        5. <strong>Batching</strong>: Grouping multiple updates</p>
+    <h3 id="professional-explanation_6">Professional Explanation</h3>
+    <p>Rendering performance is crucial for user experience. React's rendering
+        system is designed for efficiency but requires understanding for
+        optimization.</p>
+    <p>Rendering concepts:
+        - <strong>Rendering Phases</strong>: Render and Commit phases
+        - <strong>Reconciliation</strong>: Virtual DOM diffing algorithm
+        - <strong>Batching</strong>: Automatic batching of state updates
+        - <strong>Scheduling</strong>: Prioritizing different render tasks
+        - <strong>Concurrent Mode</strong>: Interruptible rendering</p>
+    <h3 id="rendering-examples">Rendering Examples</h3>
+    <pre><code class="language-jsx">// Basic rendering
 function BasicRender() {
     return &lt;div&gt;Hello, World!&lt;/div&gt;;
 }
@@ -1429,29 +1539,41 @@ function Parent() {
     );
 }
 </code></pre>
-<h2 id="58-conditional-rendering">5.8 Conditional Rendering</h2>
-<h3 id="simple-explanation_7">Simple Explanation</h3>
-<p>Conditional rendering is showing different UI based on different conditions. Just like you show different content to logged-in users vs guests, conditional rendering lets you show different components based on your application's state.</p>
-<p>Think of it like a choose-your-own-adventure book - based on the user's status, permissions, or data, React shows different pages or content.</p>
-<h3 id="technical-explanation_7">Technical Explanation</h3>
-<p>Conditional rendering allows components to render different outputs based on certain conditions. This is achieved using JavaScript operators and expressions.</p>
-<p>Methods for conditional rendering:
-1. <strong>if statements</strong>: For complex logic
-2. <strong>Ternary operators</strong>: For simple conditions
-3. <strong>Logical &amp;&amp; operators</strong>: For single elements
-4. <strong>Switch statements</strong>: For multiple conditions
-5. <strong>Immediately Invoked Function Expressions (IIFE)</strong>: For complex logic
-6. <strong>Element variables</strong>: Storing JSX in variables</p>
-<h3 id="professional-explanation_7">Professional Explanation</h3>
-<p>Conditional rendering is a fundamental pattern in React that affects component composition, reusability, and performance.</p>
-<p>Best practices:
-- <strong>Keep conditionals simple</strong>: Prefer ternary over if statements
-- <strong>Avoid too many conditionals</strong>: Consider component extraction
-- <strong>Use early returns</strong>: For loading and error states
-- <strong>Test all branches</strong>: Ensure all conditions are handled
-- <strong>Consider performance</strong>: Avoid expensive computations in conditionals</p>
-<h3 id="conditional-rendering-examples">Conditional Rendering Examples</h3>
-<pre><code class="language-jsx">// 1. if statement
+    <h2 id="58-conditional-rendering">5.8 Conditional Rendering</h2>
+    <h3 id="simple-explanation_7">Simple Explanation</h3>
+    <p>Conditional rendering is showing different UI based on different
+        conditions. Just like you show different content to logged-in users vs
+        guests, conditional rendering lets you show different components based
+        on your application's state.</p>
+    <p>Think of it like a choose-your-own-adventure book - based on the user's
+        status, permissions, or data, React shows different pages or
+        content.</p>
+    <h3 id="technical-explanation_7">Technical Explanation</h3>
+    <p>Conditional rendering allows components to render different outputs based
+        on certain conditions. This is achieved using JavaScript operators and
+        expressions.</p>
+    <p>Methods for conditional rendering:
+        1. <strong>if statements</strong>: For complex logic
+        2. <strong>Ternary operators</strong>: For simple conditions
+        3. <strong>Logical &amp;&amp; operators</strong>: For single elements
+        4. <strong>Switch statements</strong>: For multiple conditions
+        5. <strong>Immediately Invoked Function Expressions (IIFE)</strong>: For
+        complex logic
+        6. <strong>Element variables</strong>: Storing JSX in variables</p>
+    <h3 id="professional-explanation_7">Professional Explanation</h3>
+    <p>Conditional rendering is a fundamental pattern in React that affects
+        component composition, reusability, and performance.</p>
+    <p>Best practices:
+        - <strong>Keep conditionals simple</strong>: Prefer ternary over if
+        statements
+        - <strong>Avoid too many conditionals</strong>: Consider component
+        extraction
+        - <strong>Use early returns</strong>: For loading and error states
+        - <strong>Test all branches</strong>: Ensure all conditions are handled
+        - <strong>Consider performance</strong>: Avoid expensive computations in
+        conditionals</p>
+    <h3 id="conditional-rendering-examples">Conditional Rendering Examples</h3>
+    <pre><code class="language-jsx">// 1. if statement
 function IfStatement({ isLoggedIn, user }) {
     if (isLoggedIn) {
         return &lt;Dashboard user={user} /&gt;;
@@ -1582,28 +1704,38 @@ function ConditionalComposition({ user }) {
     );
 }
 </code></pre>
-<h2 id="59-lists-and-keys">5.9 Lists and Keys</h2>
-<h3 id="simple-explanation_8">Simple Explanation</h3>
-<p>Lists are used to render collections of data, like a list of users, products, or messages. Keys are special props that help React identify which items have changed, been added, or been removed.</p>
-<p>Think of keys like name tags at a party - they help React keep track of each item so it knows exactly what to update when the list changes.</p>
-<h3 id="technical-explanation_8">Technical Explanation</h3>
-<p>When rendering lists with <code>.map()</code>, each item needs a unique <code>key</code> prop. Keys help React with reconciliation - identifying which items have changed, been added, or removed.</p>
-<p>Key characteristics:
-- <strong>Unique</strong>: Keys must be unique among siblings
-- <strong>Stable</strong>: Keys should not change over time
-- <strong>Predictable</strong>: Keys should be predictable and consistent
-- <strong>String or number</strong>: Keys must be strings or numbers
-- <strong>Index as fallback</strong>: Use index only if no stable IDs exist</p>
-<h3 id="professional-explanation_8">Professional Explanation</h3>
-<p>Proper key usage is crucial for performance and preventing bugs.</p>
-<p>Best practices for keys:
-- <strong>Use stable IDs</strong>: Database IDs or unique identifiers
-- <strong>Avoid using index</strong>: Can cause issues with reordering
-- <strong>Keep keys consistent</strong>: Same item should always have same key
-- <strong>Don't use random values</strong>: Causes unnecessary re-renders
-- <strong>Use key for top-level elements</strong>: Apply to the outermost element</p>
-<h3 id="list-and-key-examples">List and Key Examples</h3>
-<pre><code class="language-jsx">// Basic list rendering
+    <h2 id="59-lists-and-keys">5.9 Lists and Keys</h2>
+    <h3 id="simple-explanation_8">Simple Explanation</h3>
+    <p>Lists are used to render collections of data, like a list of users,
+        products, or messages. Keys are special props that help React identify
+        which items have changed, been added, or been removed.</p>
+    <p>Think of keys like name tags at a party - they help React keep track of
+        each item so it knows exactly what to update when the list changes.</p>
+    <h3 id="technical-explanation_8">Technical Explanation</h3>
+    <p>When rendering lists with <code>.map()</code>, each item needs a unique
+        <code>key</code> prop. Keys help React with reconciliation - identifying
+        which items have changed, been added, or removed.</p>
+    <p>Key characteristics:
+        - <strong>Unique</strong>: Keys must be unique among siblings
+        - <strong>Stable</strong>: Keys should not change over time
+        - <strong>Predictable</strong>: Keys should be predictable and
+        consistent
+        - <strong>String or number</strong>: Keys must be strings or numbers
+        - <strong>Index as fallback</strong>: Use index only if no stable IDs
+        exist</p>
+    <h3 id="professional-explanation_8">Professional Explanation</h3>
+    <p>Proper key usage is crucial for performance and preventing bugs.</p>
+    <p>Best practices for keys:
+        - <strong>Use stable IDs</strong>: Database IDs or unique identifiers
+        - <strong>Avoid using index</strong>: Can cause issues with reordering
+        - <strong>Keep keys consistent</strong>: Same item should always have
+        same key
+        - <strong>Don't use random values</strong>: Causes unnecessary
+        re-renders
+        - <strong>Use key for top-level elements</strong>: Apply to the
+        outermost element</p>
+    <h3 id="list-and-key-examples">List and Key Examples</h3>
+    <pre><code class="language-jsx">// Basic list rendering
 function BasicList({ items }) {
     return (
         &lt;ul&gt;
@@ -1786,26 +1918,39 @@ function ReorderableList({ items, onReorder }) {
     );
 }
 </code></pre>
-<h2 id="510-children-and-composition">5.10 Children and Composition</h2>
-<h3 id="simple-explanation_9">Simple Explanation</h3>
-<p><code>props.children</code> is a special prop that allows you to pass components or elements as children to other components. This enables component composition - building complex components from simpler ones.</p>
-<p>Think of children like compartments in a container - you can put any content inside a component, and the component decides how to arrange that content.</p>
-<h3 id="technical-explanation_9">Technical Explanation</h3>
-<p>Children are the content between opening and closing tags of a component. The <code>children</code> prop allows components to be composed and nested, enabling flexible and reusable layouts.</p>
-<p>Key concepts:
-- <strong>Child content</strong>: Anything between the opening and closing tags
-- <strong>Render prop</strong>: A function as a child for controlling rendering
-- <strong>Nested components</strong>: Components inside other components
-- <strong>Composition over inheritance</strong>: Building components from smaller ones</p>
-<h3 id="professional-explanation_9">Professional Explanation</h3>
-<p>Children and composition are fundamental patterns in React that enable flexible component design.</p>
-<p>Composition patterns:
-- <strong>Slot pattern</strong>: Named slots for multiple content areas
-- <strong>Render props</strong>: Dynamic content generation
-- <strong>Context composition</strong>: Accessing context within children
-- <strong>HOC composition</strong>: Wrapping components for enhanced functionality</p>
-<h3 id="children-examples">Children Examples</h3>
-<pre><code class="language-jsx">// Basic children usage
+    <h2 id="510-children-and-composition">5.10 Children and Composition</h2>
+    <h3 id="simple-explanation_9">Simple Explanation</h3>
+    <p><code>props.children</code> is a special prop that allows you to pass
+        components or elements as children to other components. This enables
+        component composition - building complex components from simpler
+        ones.</p>
+    <p>Think of children like compartments in a container - you can put any
+        content inside a component, and the component decides how to arrange
+        that content.</p>
+    <h3 id="technical-explanation_9">Technical Explanation</h3>
+    <p>Children are the content between opening and closing tags of a component.
+        The <code>children</code> prop allows components to be composed and
+        nested, enabling flexible and reusable layouts.</p>
+    <p>Key concepts:
+        - <strong>Child content</strong>: Anything between the opening and
+        closing tags
+        - <strong>Render prop</strong>: A function as a child for controlling
+        rendering
+        - <strong>Nested components</strong>: Components inside other components
+        - <strong>Composition over inheritance</strong>: Building components
+        from smaller ones</p>
+    <h3 id="professional-explanation_9">Professional Explanation</h3>
+    <p>Children and composition are fundamental patterns in React that enable
+        flexible component design.</p>
+    <p>Composition patterns:
+        - <strong>Slot pattern</strong>: Named slots for multiple content areas
+        - <strong>Render props</strong>: Dynamic content generation
+        - <strong>Context composition</strong>: Accessing context within
+        children
+        - <strong>HOC composition</strong>: Wrapping components for enhanced
+        functionality</p>
+    <h3 id="children-examples">Children Examples</h3>
+    <pre><code class="language-jsx">// Basic children usage
 function Container({ children }) {
     return (
         &lt;div className="container"&gt;
@@ -1989,9 +2134,10 @@ function ConfirmDialog({ isOpen, onConfirm, onCancel, message }) {
     );
 }
 </code></pre>
-<h2 id="511-common-mistakes-and-best-practices">5.11 Common Mistakes and Best Practices</h2>
-<h3 id="5111-common-mistakes">5.11.1 Common Mistakes</h3>
-<pre><code class="language-jsx">// ❌ Mutating state directly
+    <h2 id="511-common-mistakes-and-best-practices">5.11 Common Mistakes and
+        Best Practices</h2>
+    <h3 id="5111-common-mistakes">5.11.1 Common Mistakes</h3>
+    <pre><code class="language-jsx">// ❌ Mutating state directly
 function BadState() {
     const [items, setItems] = useState([]);
 
@@ -2075,8 +2221,8 @@ function GoodHooks({ condition }) {
     }, [condition]);
 }
 </code></pre>
-<h3 id="5112-best-practices">5.11.2 Best Practices</h3>
-<pre><code class="language-jsx">// ✅ Component organization
+    <h3 id="5112-best-practices">5.11.2 Best Practices</h3>
+    <pre><code class="language-jsx">// ✅ Component organization
 function Component({ prop1, prop2 }) {
     // 1. Hooks
     const [state, setState] = useState();
@@ -2148,37 +2294,41 @@ function App() {
     );
 }
 </code></pre>
-<h2 id="512-interview-questions">5.12 Interview Questions</h2>
-<h3 id="junior-level-questions--5">Junior Level Questions</h3>
-<p><strong>Q: What is JSX and why use it?</strong></p>
-<p><strong>Answer</strong>: JSX is a syntax extension for JavaScript that allows writing HTML-like code in React. Benefits include:
-- Visual representation of UI
-- Error handling and debugging
-- Performance optimization
-- Type checking support</p>
-<pre><code class="language-jsx">// JSX
+    <h2 id="512-interview-questions">5.12 Interview Questions</h2>
+    <h3 id="junior-level-questions--5">Junior Level Questions</h3>
+    <p><strong>Q: What is JSX and why use it?</strong></p>
+    <p><strong>Answer</strong>: JSX is a syntax extension for JavaScript that
+        allows writing HTML-like code in React. Benefits include:
+        - Visual representation of UI
+        - Error handling and debugging
+        - Performance optimization
+        - Type checking support</p>
+    <pre><code class="language-jsx">// JSX
 const element = &lt;h1 className="title"&gt;Hello&lt;/h1&gt;;
 
 // Transpiled to
 const element = React.createElement('h1', { className: 'title' }, 'Hello');
 </code></pre>
-<p><strong>Q: What's the difference between props and state?</strong></p>
-<p><strong>Answer</strong>:
-- <strong>Props</strong>: Read-only, passed from parent, immutable
-- <strong>State</strong>: Read/write, internal to component, mutable</p>
-<pre><code class="language-jsx">function Component({ prop }) {
+    <p><strong>Q: What's the difference between props and state?</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>Props</strong>: Read-only, passed from parent, immutable
+        - <strong>State</strong>: Read/write, internal to component, mutable</p>
+    <pre><code class="language-jsx">function Component({ prop }) {
     const [state, setState] = useState(0);
     // Props come from parent
     // State is managed internally
 }
 </code></pre>
-<h3 id="mid-level-questions--5">Mid Level Questions</h3>
-<p><strong>Q: Explain the component lifecycle and how it's handled in functional components.</strong></p>
-<p><strong>Answer</strong>: The lifecycle consists of:
-1. <strong>Mounting</strong>: Component creation with useEffect([])
-2. <strong>Updating</strong>: Component updates with useEffect([dependencies])
-3. <strong>Unmounting</strong>: Cleanup with useEffect return function</p>
-<pre><code class="language-jsx">function Component() {
+    <h3 id="mid-level-questions--5">Mid Level Questions</h3>
+    <p><strong>Q: Explain the component lifecycle and how it's handled in
+            functional components.</strong></p>
+    <p><strong>Answer</strong>: The lifecycle consists of:
+        1. <strong>Mounting</strong>: Component creation with useEffect([])
+        2. <strong>Updating</strong>: Component updates with
+        useEffect([dependencies])
+        3. <strong>Unmounting</strong>: Cleanup with useEffect return
+        function</p>
+    <pre><code class="language-jsx">function Component() {
     // Mounting and unmounting
     useEffect(() =&gt; {
         console.log('Mounted');
@@ -2191,11 +2341,12 @@ const element = React.createElement('h1', { className: 'title' }, 'Hello');
     }, [count]);
 }
 </code></pre>
-<p><strong>Q: When should you use <code>useMemo</code> vs <code>useCallback</code>?</strong></p>
-<p><strong>Answer</strong>:
-- <code>useMemo</code>: Memoizes values/computations
-- <code>useCallback</code>: Memoizes functions</p>
-<pre><code class="language-jsx">function Component({ data }) {
+    <p><strong>Q: When should you use <code>useMemo</code> vs
+            <code>useCallback</code>?</strong></p>
+    <p><strong>Answer</strong>:
+        - <code>useMemo</code>: Memoizes values/computations
+        - <code>useCallback</code>: Memoizes functions</p>
+    <pre><code class="language-jsx">function Component({ data }) {
     // Memoize computed value
     const processed = useMemo(() =&gt; {
         return heavyComputation(data);
@@ -2209,28 +2360,33 @@ const element = React.createElement('h1', { className: 'title' }, 'Hello');
     return &lt;div&gt;{processed}&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="senior-level-questions--5">Senior Level Questions</h3>
-<p><strong>Q: Explain the reconciliation process and how keys affect it.</strong></p>
-<p><strong>Answer</strong>: Reconciliation is React's algorithm for updating the DOM efficiently. It compares the new virtual DOM with the previous one and determines what changes to make.</p>
-<p>Keys help React identify which items have changed:
-1. <strong>Unique keys</strong>: Help React track items across re-renders
-2. <strong>Stable keys</strong>: Same item always has same key
-3. <strong>Avoid index keys</strong>: Can cause issues with reordering</p>
-<pre><code class="language-jsx">// Good - unique ID
+    <h3 id="senior-level-questions--5">Senior Level Questions</h3>
+    <p><strong>Q: Explain the reconciliation process and how keys affect
+            it.</strong></p>
+    <p><strong>Answer</strong>: Reconciliation is React's algorithm for updating
+        the DOM efficiently. It compares the new virtual DOM with the previous
+        one and determines what changes to make.</p>
+    <p>Keys help React identify which items have changed:
+        1. <strong>Unique keys</strong>: Help React track items across
+        re-renders
+        2. <strong>Stable keys</strong>: Same item always has same key
+        3. <strong>Avoid index keys</strong>: Can cause issues with
+        reordering</p>
+    <pre><code class="language-jsx">// Good - unique ID
 &lt;li key={user.id}&gt;{user.name}&lt;/li&gt;
 
 // Bad - index (causes issues with reordering)
 &lt;li key={index}&gt;{user.name}&lt;/li&gt;
 </code></pre>
-<p><strong>Q: How do you optimize React component performance?</strong></p>
-<p><strong>Answer</strong>: 
-1. <strong>React.memo</strong>: Prevent unnecessary re-renders
-2. <strong>useMemo</strong>: Cache expensive computations
-3. <strong>useCallback</strong>: Memoize callback functions
-4. <strong>Code splitting</strong>: Lazy loading with React.lazy
-5. <strong>Virtualization</strong>: For large lists
-6. <strong>Debouncing</strong>: For frequent updates</p>
-<pre><code class="language-jsx">const MemoizedComponent = React.memo(({ data }) =&gt; {
+    <p><strong>Q: How do you optimize React component performance?</strong></p>
+    <p><strong>Answer</strong>:
+        1. <strong>React.memo</strong>: Prevent unnecessary re-renders
+        2. <strong>useMemo</strong>: Cache expensive computations
+        3. <strong>useCallback</strong>: Memoize callback functions
+        4. <strong>Code splitting</strong>: Lazy loading with React.lazy
+        5. <strong>Virtualization</strong>: For large lists
+        6. <strong>Debouncing</strong>: For frequent updates</p>
+    <pre><code class="language-jsx">const MemoizedComponent = React.memo(({ data }) =&gt; {
     const processed = useMemo(() =&gt; {
         return processData(data);
     }, [data]);
@@ -2242,90 +2398,108 @@ const element = React.createElement('h1', { className: 'title' }, 'Hello');
     return &lt;div onClick={handleClick}&gt;{processed}&lt;/div&gt;;
 });
 </code></pre>
-<h2 id="513-summary">5.13 Summary</h2>
-<h3 id="key-react-fundamentals">Key React Fundamentals</h3>
-<table>
-<thead>
-<tr>
-<th>Concept</th>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>JSX</strong></td>
-<td>HTML-like syntax in JavaScript</td>
-<td><code>&lt;div&gt;Hello&lt;/div&gt;</code></td>
-</tr>
-<tr>
-<td><strong>Components</strong></td>
-<td>Reusable UI building blocks</td>
-<td><code>function App() {}</code></td>
-</tr>
-<tr>
-<td><strong>Props</strong></td>
-<td>Read-only data from parent</td>
-<td><code>&lt;Child name="John" /&gt;</code></td>
-</tr>
-<tr>
-<td><strong>State</strong></td>
-<td>Mutable component data</td>
-<td><code>const [state, setState] = useState()</code></td>
-</tr>
-<tr>
-<td><strong>Lifecycle</strong></td>
-<td>Component birth, update, death</td>
-<td><code>useEffect(() =&gt; {}, [])</code></td>
-</tr>
-<tr>
-<td><strong>Conditional Rendering</strong></td>
-<td>Showing UI based on conditions</td>
-<td><code>{condition &amp;&amp; &lt;Component /&gt;}</code></td>
-</tr>
-<tr>
-<td><strong>Lists and Keys</strong></td>
-<td>Rendering collections</td>
-<td><code>items.map(item =&gt; &lt;li key={item.id} /&gt;)</code></td>
-</tr>
-<tr>
-<td><strong>Children</strong></td>
-<td>Nested content</td>
-<td><code>&lt;Card&gt;&lt;Content /&gt;&lt;/Card&gt;</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="best-practices-summary--3">Best Practices Summary</h3>
-<ol>
-<li><strong>Use functional components</strong> with hooks</li>
-<li><strong>Keep components focused</strong> (Single Responsibility)</li>
-<li><strong>Use proper key props</strong> in lists</li>
-<li><strong>Avoid direct state mutation</strong></li>
-<li><strong>Memoize expensive computations</strong> with useMemo</li>
-<li><strong>Memoize callbacks</strong> with useCallback</li>
-<li><strong>Clean up effects</strong> with return function</li>
-<li><strong>Use composition over inheritance</strong></li>
-<li><strong>Use proper prop types</strong> or TypeScript</li>
-<li><strong>Write tests</strong> for components</li>
-</ol>
-<h3 id="common-pitfalls-to-avoid">Common Pitfalls to Avoid</h3>
-<ol>
-<li>❌ Mutating state directly</li>
-<li>❌ Missing keys in lists</li>
-<li>❌ Using index as key</li>
-<li>❌ Calling hooks conditionally</li>
-<li>❌ Infinite loops in useEffect</li>
-<li>❌ Prop drilling</li>
-<li>❌ Ignoring cleanup functions</li>
-<li>❌ Inline functions in render</li>
-</ol>
-<hr/>
-<p><em>End of Chapter 5</em></p>
-<p><strong>Next Chapter Preview</strong>: Chapter 6 will cover React Hooks in detail, including useState, useEffect, useMemo, useCallback, and custom hooks, explaining when and how to use each one effectively.</p>
-<hr/>
-<p><em>This chapter provides the core React fundamentals needed for building applications. Master these concepts before moving to advanced topics.</em></p>
-<h1 id="the-complete-react-developer-course--5">The Complete React Developer Course</h1>
-<h2 id="from-beginner-to-professional--5">From Beginner to Professional</h2>
-<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--5">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
-<hr/>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-5" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-4"><span class="pager-label">← Previous chapter</span><strong>04 · CSS Required for React</strong></a><a class="pager-card pager-card--next" href="#chapter-6"><span class="pager-label">Next chapter →</span><strong>06 · React Hooks</strong></a></nav></section>
+    <h2 id="513-summary">5.13 Summary</h2>
+    <h3 id="key-react-fundamentals">Key React Fundamentals</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Concept</th>
+                <th>Description</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>JSX</strong></td>
+                <td>HTML-like syntax in JavaScript</td>
+                <td><code>&lt;div&gt;Hello&lt;/div&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>Components</strong></td>
+                <td>Reusable UI building blocks</td>
+                <td><code>function App() {}</code></td>
+            </tr>
+            <tr>
+                <td><strong>Props</strong></td>
+                <td>Read-only data from parent</td>
+                <td><code>&lt;Child name="John" /&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>State</strong></td>
+                <td>Mutable component data</td>
+                <td><code>const [state, setState] = useState()</code></td>
+            </tr>
+            <tr>
+                <td><strong>Lifecycle</strong></td>
+                <td>Component birth, update, death</td>
+                <td><code>useEffect(() =&gt; {}, [])</code></td>
+            </tr>
+            <tr>
+                <td><strong>Conditional Rendering</strong></td>
+                <td>Showing UI based on conditions</td>
+                <td><code>{condition &amp;&amp; &lt;Component /&gt;}</code></td>
+            </tr>
+            <tr>
+                <td><strong>Lists and Keys</strong></td>
+                <td>Rendering collections</td>
+                <td><code>items.map(item =&gt; &lt;li key={item.id}
+                        /&gt;)</code></td>
+            </tr>
+            <tr>
+                <td><strong>Children</strong></td>
+                <td>Nested content</td>
+                <td><code>&lt;Card&gt;&lt;Content /&gt;&lt;/Card&gt;</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="best-practices-summary--3">Best Practices Summary</h3>
+    <ol>
+        <li><strong>Use functional components</strong> with hooks</li>
+        <li><strong>Keep components focused</strong> (Single
+            Responsibility)</li>
+        <li><strong>Use proper key props</strong> in lists</li>
+        <li><strong>Avoid direct state mutation</strong></li>
+        <li><strong>Memoize expensive computations</strong> with useMemo</li>
+        <li><strong>Memoize callbacks</strong> with useCallback</li>
+        <li><strong>Clean up effects</strong> with return function</li>
+        <li><strong>Use composition over inheritance</strong></li>
+        <li><strong>Use proper prop types</strong> or TypeScript</li>
+        <li><strong>Write tests</strong> for components</li>
+    </ol>
+    <h3 id="common-pitfalls-to-avoid">Common Pitfalls to Avoid</h3>
+    <ol>
+        <li>❌ Mutating state directly</li>
+        <li>❌ Missing keys in lists</li>
+        <li>❌ Using index as key</li>
+        <li>❌ Calling hooks conditionally</li>
+        <li>❌ Infinite loops in useEffect</li>
+        <li>❌ Prop drilling</li>
+        <li>❌ Ignoring cleanup functions</li>
+        <li>❌ Inline functions in render</li>
+    </ol>
+    <hr />
+    <p><em>End of Chapter 5</em></p>
+    <p><strong>Next Chapter Preview</strong>: Chapter 6 will cover React Hooks
+        in detail, including useState, useEffect, useMemo, useCallback, and
+        custom hooks, explaining when and how to use each one effectively.</p>
+    <hr />
+    <p><em>This chapter provides the core React fundamentals needed for building
+            applications. Master these concepts before moving to advanced
+            topics.</em></p>
+    <h1 id="the-complete-react-developer-course--5">The Complete React Developer
+        Course</h1>
+    <h2 id="from-beginner-to-professional--5">From Beginner to Professional</h2>
+    <h3
+        id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--5">A
+        Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+    <hr />
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-5" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-4"><span
+                class="pager-label">← Previous chapter</span><strong>04 · CSS
+                Required for React</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-6"><span
+                class="pager-label">Next chapter →</span><strong>06 · React
+                Hooks</strong></a></nav></section>

@@ -1,41 +1,74 @@
 <section class="chapter" id="chapter-1" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">01</span>
-<h1 class="chapter-title" id="introduction-to-react">Introduction to React</h1>
-</div>
-<h2 id="11-what-is-react">1.1 What is React?</h2>
-<h3 id="simple-explanation">Simple Explanation</h3>
-<p>React is a JavaScript library for building user interfaces. Think of it as a tool that helps you create interactive web pages by breaking them down into small, reusable pieces called "components."</p>
-<p>Imagine building a house with LEGO blocks. Instead of building the entire house as one solid piece, you build it using individual LEGO pieces that can be reused and rearranged. React works the same way - you build your web application using reusable components that can be combined to create complex user interfaces.</p>
-<h3 id="technical-explanation">Technical Explanation</h3>
-<p>React is a declarative, component-based JavaScript library developed by Facebook (now Meta) for building interactive user interfaces. It follows a unidirectional data flow pattern and uses a virtual DOM for efficient rendering. React operates on the principle of "learn once, write anywhere" and can be used to build web applications, mobile applications (React Native), and desktop applications.</p>
-<p>Key technical characteristics:
-- <strong>Declarative</strong>: You describe what the UI should look like, and React handles the "how"
-- <strong>Component-Based</strong>: UI is built from encapsulated components
-- <strong>Virtual DOM</strong>: Lightweight representation of the actual DOM for performance
-- <strong>Unidirectional Data Flow</strong>: Data flows in one direction (parent to child)
-- <strong>JSX</strong>: JavaScript XML syntax extension for writing components</p>
-<h3 id="professional-explanation">Professional Explanation</h3>
-<p>React is a production-grade UI library that implements a component-based architecture with a virtual DOM diffing algorithm. It uses a fiber reconciler to enable incremental rendering and supports concurrent mode features. React's architecture enables predictable state management through unidirectional data flow and provides powerful performance optimization capabilities through memoization and selective rendering.</p>
-<p>At its core, React implements:
-1. <strong>Fiber Architecture</strong>: A reconciliation algorithm that supports incremental rendering
-2. <strong>Scheduler</strong>: Prioritizes updates for better user experience
-3. <strong>Event System</strong>: Synthetic event system for cross-browser compatibility
-4. <strong>Hooks System</strong>: State and lifecycle management without classes
-5. <strong>Concurrent Mode</strong>: Enables interruptible rendering</p>
-<h2 id="12-why-was-react-created">1.2 Why Was React Created?</h2>
-<h3 id="problem-context">Problem Context</h3>
-<p>Before React, building complex user interfaces was challenging due to:</p>
-<ol>
-<li><strong>DOM Manipulation Complexity</strong>: Direct DOM manipulation was verbose and error-prone</li>
-<li><strong>State Management</strong>: Managing application state across components was difficult</li>
-<li><strong>Performance Issues</strong>: Updating the UI required manual optimization</li>
-<li><strong>Code Maintainability</strong>: Large applications became spaghetti code</li>
-<li><strong>Reusability</strong>: UI components couldn't be easily reused</li>
-</ol>
-<h3 id="the-solution">The Solution</h3>
-<p>React was created to solve these problems by introducing:</p>
-<pre><code class="language-javascript">// Traditional DOM manipulation (vanilla JS)
+    <div class="chapter-title-card">
+        <span class="chapter-num">01</span>
+        <h1 class="chapter-title" id="introduction-to-react">Introduction to
+            React</h1>
+    </div>
+    <h2 id="11-what-is-react">1.1 What is React?</h2>
+    <h3 id="simple-explanation">Simple Explanation</h3>
+    <p>React is a JavaScript library for building user interfaces. Think of it
+        as a tool that helps you create interactive web pages by breaking them
+        down into small, reusable pieces called "components."</p>
+    <p>Imagine building a house with LEGO blocks. Instead of building the entire
+        house as one solid piece, you build it using individual LEGO pieces that
+        can be reused and rearranged. React works the same way - you build your
+        web application using reusable components that can be combined to create
+        complex user interfaces.</p>
+    <h3 id="technical-explanation">Technical Explanation</h3>
+    <p>React is a declarative, component-based JavaScript library developed by
+        Facebook (now Meta) for building interactive user interfaces. It follows
+        a unidirectional data flow pattern and uses a virtual DOM for efficient
+        rendering. React operates on the principle of
+        "learn once, write anywhere" and can be used to build web applications,
+        mobile applications (React Native), and desktop applications.</p>
+    <p>Key technical characteristics:
+        - <strong>Declarative</strong>: You شdescribe what the UI should look
+        like, and React handles the "how"
+        - <strong>Component-Based</strong>: UI is built from encapsulated
+        components
+        - <strong>Virtual DOM</strong>: Lightweight representation of the actual
+        DOM for performance
+        - <strong>Unidirectional Data Flow</strong>: Data flows in one direction
+        (parent to child)
+        - <strong>JSX</strong>: JavaScript XML syntax extension for writing
+        components</p>
+    <h3 id="professional-explanation">Professional Explanation</h3>
+    <p>React is a production-grade UI library that implements a component-based
+        architecture with a virtual DOM diffing algorithm. It uses a fiber
+        reconciler to enable incremental rendering and supports concurrent mode
+        features. React's architecture enables predictable state management
+        through unidirectional data flow and provides powerful performance
+        optimization capabilities through memoization and selective
+        rendering.</p>
+    <p>At its core, React implements:
+        1. <strong>Fiber Architecture</strong>: A reconciliation algorithm that
+        supports incremental rendering
+        2. <strong>Scheduler</strong>: Prioritizes updates for better user
+        experience
+        3. <strong>Event System</strong>: Synthetic event system for
+        cross-browser compatibility
+        4. <strong>Hooks System</strong>: State and lifecycle management without
+        classes
+        5. <strong>Concurrent Mode</strong>: Enables interruptible rendering</p>
+    <h2 id="12-why-was-react-created">1.2 Why Was React Created?</h2>
+    <h3 id="problem-context">Problem Context</h3>
+    <p>Before React, building complex user interfaces was challenging due
+        to:</p>
+    <ol>
+        <li><strong>DOM Manipulation Complexity</strong>: Direct DOM
+            manipulation was verbose and error-prone</li>
+        <li><strong>State Management</strong>: Managing application state across
+            components was difficult</li>
+        <li><strong>Performance Issues</strong>: Updating the UI required manual
+            optimization</li>
+        <li><strong>Code Maintainability</strong>: Large applications became
+            spaghetti code</li>
+        <li><strong>Reusability</strong>: UI components couldn't be easily
+            reused</li>
+    </ol>
+    <h3 id="the-solution">The Solution</h3>
+    <p>React was created to solve these problems by introducing:</p>
+    <pre><code class="language-javascript">// Traditional DOM manipulation (vanilla JS)
 const element = document.getElementById('user-profile');
 element.innerHTML = `
     &lt;div class="profile"&gt;
@@ -56,11 +89,13 @@ function UserProfile({ user }) {
     );
 }
 </code></pre>
-<h2 id="13-problems-react-solves">1.3 Problems React Solves</h2>
-<h3 id="131-dom-manipulation">1.3.1 DOM Manipulation</h3>
-<p><strong>Problem</strong>: Direct DOM manipulation is slow and tedious.</p>
-<p><strong>Solution</strong>: React's Virtual DOM handles DOM updates efficiently.</p>
-<pre><code class="language-javascript">// Vanilla JS - Manual DOM update
+    <h2 id="13-problems-react-solves">1.3 Problems React Solves</h2>
+    <h3 id="131-dom-manipulation">1.3.1 DOM Manipulation</h3>
+    <p><strong>Problem</strong>: Direct DOM manipulation is slow and
+        tedious.</p>
+    <p><strong>Solution</strong>: React's Virtual DOM handles DOM updates
+        efficiently.</p>
+    <pre><code class="language-javascript">// Vanilla JS - Manual DOM update
 function updateUserList(users) {
     const list = document.getElementById('user-list');
     list.innerHTML = '';
@@ -82,10 +117,12 @@ function UserList({ users }) {
     );
 }
 </code></pre>
-<h3 id="132-state-management">1.3.2 State Management</h3>
-<p><strong>Problem</strong>: Managing state across multiple components was complex.</p>
-<p><strong>Solution</strong>: React provides a unified state management system.</p>
-<pre><code class="language-javascript">// Vanilla JS - State management is manual
+    <h3 id="132-state-management">1.3.2 State Management</h3>
+    <p><strong>Problem</strong>: Managing state across multiple components was
+        complex.</p>
+    <p><strong>Solution</strong>: React provides a unified state management
+        system.</p>
+    <pre><code class="language-javascript">// Vanilla JS - State management is manual
 let state = { count: 0 };
 function updateState(newState) {
     state = newState;
@@ -98,10 +135,11 @@ function Counter() {
     return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;;
 }
 </code></pre>
-<h3 id="133-component-reusability">1.3.3 Component Reusability</h3>
-<p><strong>Problem</strong>: UI components couldn't be easily reused.</p>
-<p><strong>Solution</strong>: React components are self-contained and reusable.</p>
-<pre><code class="language-javascript">// Reusable Button Component
+    <h3 id="133-component-reusability">1.3.3 Component Reusability</h3>
+    <p><strong>Problem</strong>: UI components couldn't be easily reused.</p>
+    <p><strong>Solution</strong>: React components are self-contained and
+        reusable.</p>
+    <pre><code class="language-javascript">// Reusable Button Component
 function Button({ children, variant, onClick }) {
     const styles = {
         primary: 'bg-blue-500 text-white',
@@ -136,10 +174,12 @@ function App() {
     );
 }
 </code></pre>
-<h3 id="134-performance">1.3.4 Performance</h3>
-<p><strong>Problem</strong>: Re-rendering entire DOM tree was inefficient.</p>
-<p><strong>Solution</strong>: React's diffing algorithm updates only changed elements.</p>
-<pre><code class="language-mermaid">graph TD
+    <h3 id="134-performance">1.3.4 Performance</h3>
+    <p><strong>Problem</strong>: Re-rendering entire DOM tree was
+        inefficient.</p>
+    <p><strong>Solution</strong>: React's diffing algorithm updates only changed
+        elements.</p>
+    <pre><code class="language-mermaid">graph TD
     A[Application State Change] --&gt; B[Virtual DOM Update]
     B --&gt; C[Diff: Compare VDOM with Real DOM]
     C --&gt; D{Changes Detected?}
@@ -147,15 +187,19 @@ function App() {
     D --&gt;|No| F[Skip Update]
     E --&gt; G[Real DOM Updated]
 </code></pre>
-<h2 id="14-virtual-dom-dom-and-real-dom">1.4 Virtual DOM, DOM, and Real DOM</h2>
-<h3 id="141-real-dom-document-object-model">1.4.1 Real DOM (Document Object Model)</h3>
-<p>The DOM is a programming interface for HTML documents. It represents the page so that programs can change the document structure, style, and content.</p>
-<p><strong>Characteristics</strong>:
-- Tree structure
-- Each node represents an HTML element
-- Modifications affect the entire tree
-- Performance-heavy for frequent updates</p>
-<pre><code class="language-html">&lt;!-- HTML Document --&gt;
+    <h2 id="14-virtual-dom-dom-and-real-dom">1.4 Virtual DOM, DOM, and Real
+        DOM</h2>
+    <h3 id="141-real-dom-document-object-model">1.4.1 Real DOM (Document Object
+        Model)</h3>
+    <p>The DOM is a programming interface for HTML documents. It represents the
+        page so that programs can change the document structure, style, and
+        content.</p>
+    <p><strong>Characteristics</strong>:
+        - Tree structure
+        - Each node represents an HTML element
+        - Modifications affect the entire tree
+        - Performance-heavy for frequent updates</p>
+    <pre><code class="language-html">&lt;!-- HTML Document --&gt;
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
@@ -169,8 +213,8 @@ function App() {
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p><strong>DOM Tree Representation</strong>:</p>
-<pre><code>Document
+    <p><strong>DOM Tree Representation</strong>:</p>
+    <pre><code>Document
   ├── html
   │   ├── head
   │   │   └── title
@@ -182,21 +226,22 @@ function App() {
   │           └── p
   │               └── "This is a paragraph"
 </code></pre>
-<h3 id="142-virtual-dom">1.4.2 Virtual DOM</h3>
-<p>The Virtual DOM (VDOM) is a lightweight JavaScript representation of the Real DOM. It's an in-memory cache of the actual DOM structure.</p>
-<p><strong>Characteristics</strong>:
-- Lightweight
-- In-memory representation
-- Synchronized with Real DOM
-- Allows efficient updates</p>
-<p><strong>How Virtual DOM Works</strong>:</p>
-<pre><code class="language-mermaid">graph LR
+    <h3 id="142-virtual-dom">1.4.2 Virtual DOM</h3>
+    <p>The Virtual DOM (VDOM) is a lightweight JavaScript representation of the
+        Real DOM. It's an in-memory cache of the actual DOM structure.</p>
+    <p><strong>Characteristics</strong>:
+        - Lightweight
+        - In-memory representation
+        - Synchronized with Real DOM
+        - Allows efficient updates</p>
+    <p><strong>How Virtual DOM Works</strong>:</p>
+    <pre><code class="language-mermaid">graph LR
     A[Component Render] --&gt; B[Create Virtual DOM Tree]
     B --&gt; C[Compare with Previous VDOM]
     C --&gt; D[Calculate Differences]
     D --&gt; E[Update Real DOM]
 </code></pre>
-<pre><code class="language-javascript">// Simplified Virtual DOM Representation
+    <pre><code class="language-javascript">// Simplified Virtual DOM Representation
 const vdom = {
     type: 'div',
     props: {
@@ -217,51 +262,52 @@ const vdom = {
     ]
 };
 </code></pre>
-<h3 id="143-dom-vs-virtual-dom-comparison">1.4.3 DOM vs Virtual DOM Comparison</h3>
-<table>
-<thead>
-<tr>
-<th>Aspect</th>
-<th>Real DOM</th>
-<th>Virtual DOM</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Nature</td>
-<td>Actual browser representation</td>
-<td>In-memory JavaScript object</td>
-</tr>
-<tr>
-<td>Update Speed</td>
-<td>Slow (direct browser manipulation)</td>
-<td>Fast (JavaScript object manipulation)</td>
-</tr>
-<tr>
-<td>Memory Usage</td>
-<td>High</td>
-<td>Lower (lightweight representation)</td>
-</tr>
-<tr>
-<td>Rendering</td>
-<td>Re-renders entire tree</td>
-<td>Updates only changed nodes</td>
-</tr>
-<tr>
-<td>Accessibility</td>
-<td>Directly accessible</td>
-<td>Accessed through React</td>
-</tr>
-<tr>
-<td>Performance</td>
-<td>Lower for frequent updates</td>
-<td>Higher for frequent updates</td>
-</tr>
-</tbody>
-</table>
-<h3 id="144-rendering-process">1.4.4 Rendering Process</h3>
-<p><strong>React's Rendering Pipeline</strong>:</p>
-<pre><code class="language-mermaid">graph TD
+    <h3 id="143-dom-vs-virtual-dom-comparison">1.4.3 DOM vs Virtual DOM
+        Comparison</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Aspect</th>
+                <th>Real DOM</th>
+                <th>Virtual DOM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nature</td>
+                <td>Actual browser representation</td>
+                <td>In-memory JavaScript object</td>
+            </tr>
+            <tr>
+                <td>Update Speed</td>
+                <td>Slow (direct browser manipulation)</td>
+                <td>Fast (JavaScript object manipulation)</td>
+            </tr>
+            <tr>
+                <td>Memory Usage</td>
+                <td>High</td>
+                <td>Lower (lightweight representation)</td>
+            </tr>
+            <tr>
+                <td>Rendering</td>
+                <td>Re-renders entire tree</td>
+                <td>Updates only changed nodes</td>
+            </tr>
+            <tr>
+                <td>Accessibility</td>
+                <td>Directly accessible</td>
+                <td>Accessed through React</td>
+            </tr>
+            <tr>
+                <td>Performance</td>
+                <td>Lower for frequent updates</td>
+                <td>Higher for frequent updates</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="144-rendering-process">1.4.4 Rendering Process</h3>
+    <p><strong>React's Rendering Pipeline</strong>:</p>
+    <pre><code class="language-mermaid">graph TD
     A[Component Renders] --&gt; B[Creates Virtual DOM]
     B --&gt; C[Diffing Algorithm Compares]
     C --&gt; D[Previous VDOM vs New VDOM]
@@ -270,8 +316,8 @@ const vdom = {
     F --&gt; G[Applies Changes to Real DOM]
     G --&gt; H[Browser Renders]
 </code></pre>
-<p><strong>Example of React's Rendering</strong>:</p>
-<pre><code class="language-javascript">import React, { useState, useEffect } from 'react';
+    <p><strong>Example of React's Rendering</strong>:</p>
+    <pre><code class="language-javascript">import React, { useState, useEffect } from 'react';
 
 function App() {
     const [count, setCount] = useState(0);
@@ -311,17 +357,20 @@ function App() {
 // 6. Only the count text and button are updated
 // 7. The list remains unchanged
 </code></pre>
-<h2 id="15-component-based-architecture">1.5 Component-Based Architecture</h2>
-<h3 id="151-understanding-components">1.5.1 Understanding Components</h3>
-<p>Components are the building blocks of React applications. Each component is a self-contained piece of UI that can be composed together to build complex interfaces.</p>
-<p><strong>Component Characteristics</strong>:
-- <strong>Self-contained</strong>: Has its own logic and styling
-- <strong>Reusable</strong>: Can be used multiple times
-- <strong>Composable</strong>: Can be combined with other components
-- <strong>Maintainable</strong>: Easy to update and debug
-- <strong>Testable</strong>: Can be tested in isolation</p>
-<p><strong>Component Hierarchy Example</strong>:</p>
-<pre><code>App
+    <h2 id="15-component-based-architecture">1.5 Component-Based
+        Architecture</h2>
+    <h3 id="151-understanding-components">1.5.1 Understanding Components</h3>
+    <p>Components are the building blocks of React applications. Each component
+        is a self-contained piece of UI that can be composed together to build
+        complex interfaces.</p>
+    <p><strong>Component Characteristics</strong>:
+        - <strong>Self-contained</strong>: Has its own logic and styling
+        - <strong>Reusable</strong>: Can be used multiple times
+        - <strong>Composable</strong>: Can be combined with other components
+        - <strong>Maintainable</strong>: Easy to update and debug
+        - <strong>Testable</strong>: Can be tested in isolation</p>
+    <p><strong>Component Hierarchy Example</strong>:</p>
+    <pre><code>App
 ├── Header
 │   ├── Logo
 │   └── Navigation
@@ -345,9 +394,9 @@ function App() {
     ├── FooterLink
     └── Copyright
 </code></pre>
-<h3 id="152-component-types">1.5.2 Component Types</h3>
-<p><strong>1. Functional Components</strong> (Modern Approach):</p>
-<pre><code class="language-javascript">// Basic functional component
+    <h3 id="152-component-types">1.5.2 Component Types</h3>
+    <p><strong>1. Functional Components</strong> (Modern Approach):</p>
+    <pre><code class="language-javascript">// Basic functional component
 function Welcome({ name }) {
     return &lt;h1&gt;Hello, {name}!&lt;/h1&gt;;
 }
@@ -365,8 +414,8 @@ function UserCard({ user, onEdit, onDelete }) {
     );
 }
 </code></pre>
-<p><strong>2. Class Components</strong> (Legacy Approach):</p>
-<pre><code class="language-javascript">// Basic class component
+    <p><strong>2. Class Components</strong> (Legacy Approach):</p>
+    <pre><code class="language-javascript">// Basic class component
 class Welcome extends React.Component {
     render() {
         return &lt;h1&gt;Hello, {this.props.name}!&lt;/h1&gt;;
@@ -400,9 +449,9 @@ class UserCard extends React.Component {
     }
 }
 </code></pre>
-<h3 id="153-component-communication">1.5.3 Component Communication</h3>
-<p><strong>1. Props (Parent to Child)</strong>:</p>
-<pre><code class="language-javascript">// Parent component passes data to child
+    <h3 id="153-component-communication">1.5.3 Component Communication</h3>
+    <p><strong>1. Props (Parent to Child)</strong>:</p>
+    <pre><code class="language-javascript">// Parent component passes data to child
 function ParentComponent() {
     const userData = {
         name: 'John Doe',
@@ -424,8 +473,8 @@ function ChildComponent({ user }) {
     );
 }
 </code></pre>
-<p><strong>2. Callbacks (Child to Parent)</strong>:</p>
-<pre><code class="language-javascript">// Parent component provides callback
+    <p><strong>2. Callbacks (Child to Parent)</strong>:</p>
+    <pre><code class="language-javascript">// Parent component provides callback
 function ParentComponent() {
     const handleChildData = (data) =&gt; {
         console.log('Received from child:', data);
@@ -443,8 +492,8 @@ function ChildComponent({ onSendData }) {
     return &lt;button onClick={sendData}&gt;Send Data&lt;/button&gt;;
 }
 </code></pre>
-<p><strong>3. Context (Global Communication)</strong>:</p>
-<pre><code class="language-javascript">// Create context
+    <p><strong>3. Context (Global Communication)</strong>:</p>
+    <pre><code class="language-javascript">// Create context
 const ThemeContext = React.createContext('light');
 
 // Provider component
@@ -463,15 +512,16 @@ function Header() {
     return &lt;header className={`header-${theme}`}&gt;Header&lt;/header&gt;;
 }
 </code></pre>
-<h2 id="16-spa-vs-mpa">1.6 SPA vs MPA</h2>
-<h3 id="161-single-page-application-spa">1.6.1 Single Page Application (SPA)</h3>
-<p><strong>Characteristics</strong>:
-- Single HTML page
-- Dynamic content loading
-- Client-side routing
-- Faster navigation
-- Better user experience</p>
-<pre><code class="language-mermaid">graph TD
+    <h2 id="16-spa-vs-mpa">1.6 SPA vs MPA</h2>
+    <h3 id="161-single-page-application-spa">1.6.1 Single Page Application
+        (SPA)</h3>
+    <p><strong>Characteristics</strong>:
+        - Single HTML page
+        - Dynamic content loading
+        - Client-side routing
+        - Faster navigation
+        - Better user experience</p>
+    <pre><code class="language-mermaid">graph TD
     A[User Request] --&gt; B[Single HTML Load]
     B --&gt; C[JavaScript Bundle]
     C --&gt; D[Client-Side Rendering]
@@ -479,8 +529,8 @@ function Header() {
     E --&gt; F[Client-Side Routing]
     F --&gt; G[No Page Reload]
 </code></pre>
-<p><strong>React SPA Example</strong>:</p>
-<pre><code class="language-javascript">// React Router SPA Setup
+    <p><strong>React SPA Example</strong>:</p>
+    <pre><code class="language-javascript">// React Router SPA Setup
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -511,14 +561,15 @@ function Contact() {
     return &lt;h1&gt;Contact Page&lt;/h1&gt;;
 }
 </code></pre>
-<h3 id="162-multi-page-application-mpa">1.6.2 Multi Page Application (MPA)</h3>
-<p><strong>Characteristics</strong>:
-- Multiple HTML pages
-- Server-side rendering
-- Full page reloads
-- Traditional approach
-- SEO friendly</p>
-<pre><code class="language-mermaid">graph TD
+    <h3 id="162-multi-page-application-mpa">1.6.2 Multi Page Application
+        (MPA)</h3>
+    <p><strong>Characteristics</strong>:
+        - Multiple HTML pages
+        - Server-side rendering
+        - Full page reloads
+        - Traditional approach
+        - SEO friendly</p>
+    <pre><code class="language-mermaid">graph TD
     A[User Request] --&gt; B[Server Receives Request]
     B --&gt; C[Server Renders HTML]
     C --&gt; D[Full HTML Response]
@@ -527,56 +578,56 @@ function Contact() {
     F --&gt; G[New Request to Server]
     G --&gt; B
 </code></pre>
-<h3 id="163-spa-vs-mpa-comparison">1.6.3 SPA vs MPA Comparison</h3>
-<table>
-<thead>
-<tr>
-<th>Aspect</th>
-<th>SPA</th>
-<th>MPA</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Architecture</td>
-<td>One HTML page</td>
-<td>Multiple HTML pages</td>
-</tr>
-<tr>
-<td>Navigation</td>
-<td>Instant (no page reload)</td>
-<td>Requires page reload</td>
-</tr>
-<tr>
-<td>Performance</td>
-<td>Fast after initial load</td>
-<td>Varies per page</td>
-</tr>
-<tr>
-<td>SEO</td>
-<td>Requires additional setup</td>
-<td>Better out of the box</td>
-</tr>
-<tr>
-<td>Development</td>
-<td>Modern framework required</td>
-<td>Traditional approach</td>
-</tr>
-<tr>
-<td>State Management</td>
-<td>Complex but manageable</td>
-<td>Simple per page</td>
-</tr>
-<tr>
-<td>User Experience</td>
-<td>App-like</td>
-<td>Traditional website</td>
-</tr>
-</tbody>
-</table>
-<h2 id="17-react-history-and-evolution">1.7 React History and Evolution</h2>
-<h3 id="171-timeline">1.7.1 Timeline</h3>
-<pre><code>2011 - React Created (Facebook)
+    <h3 id="163-spa-vs-mpa-comparison">1.6.3 SPA vs MPA Comparison</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Aspect</th>
+                <th>SPA</th>
+                <th>MPA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Architecture</td>
+                <td>One HTML page</td>
+                <td>Multiple HTML pages</td>
+            </tr>
+            <tr>
+                <td>Navigation</td>
+                <td>Instant (no page reload)</td>
+                <td>Requires page reload</td>
+            </tr>
+            <tr>
+                <td>Performance</td>
+                <td>Fast after initial load</td>
+                <td>Varies per page</td>
+            </tr>
+            <tr>
+                <td>SEO</td>
+                <td>Requires additional setup</td>
+                <td>Better out of the box</td>
+            </tr>
+            <tr>
+                <td>Development</td>
+                <td>Modern framework required</td>
+                <td>Traditional approach</td>
+            </tr>
+            <tr>
+                <td>State Management</td>
+                <td>Complex but manageable</td>
+                <td>Simple per page</td>
+            </tr>
+            <tr>
+                <td>User Experience</td>
+                <td>App-like</td>
+                <td>Traditional website</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 id="17-react-history-and-evolution">1.7 React History and Evolution</h2>
+    <h3 id="171-timeline">1.7.1 Timeline</h3>
+    <pre><code>2011 - React Created (Facebook)
   ↓
 2013 - Open Source Release
   ↓
@@ -596,9 +647,9 @@ function Contact() {
   ↓
 2023 - React 18.3 (Continued Improvements)
 </code></pre>
-<h3 id="172-version-features">1.7.2 Version Features</h3>
-<p><strong>React 16 (Fiber Architecture)</strong>:</p>
-<pre><code class="language-javascript">// Before Fiber - Stack Reconciliation
+    <h3 id="172-version-features">1.7.2 Version Features</h3>
+    <p><strong>React 16 (Fiber Architecture)</strong>:</p>
+    <pre><code class="language-javascript">// Before Fiber - Stack Reconciliation
 // Render was synchronous and blocking
 
 // After Fiber - Incremental Rendering
@@ -617,8 +668,8 @@ function App() {
     );
 }
 </code></pre>
-<p><strong>React 16.8 (Hooks)</strong>:</p>
-<pre><code class="language-javascript">// Before Hooks - Class Components
+    <p><strong>React 16.8 (Hooks)</strong>:</p>
+    <pre><code class="language-javascript">// Before Hooks - Class Components
 class Counter extends React.Component {
     state = { count: 0 };
     componentDidMount() {
@@ -647,8 +698,8 @@ function Counter() {
     );
 }
 </code></pre>
-<p><strong>React 18 (Concurrent Mode)</strong>:</p>
-<pre><code class="language-javascript">// React 18 Features
+    <p><strong>React 18 (Concurrent Mode)</strong>:</p>
+    <pre><code class="language-javascript">// React 18 Features
 import { startTransition, useDeferredValue } from 'react';
 
 function SearchApp() {
@@ -674,9 +725,9 @@ function SearchApp() {
     );
 }
 </code></pre>
-<h2 id="18-react-ecosystem">1.8 React Ecosystem</h2>
-<h3 id="181-core-libraries">1.8.1 Core Libraries</h3>
-<pre><code class="language-javascript">// React + ReactDOM
+    <h2 id="18-react-ecosystem">1.8 React Ecosystem</h2>
+    <h3 id="181-core-libraries">1.8.1 Core Libraries</h3>
+    <pre><code class="language-javascript">// React + ReactDOM
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -697,8 +748,8 @@ import { useForm, Controller } from 'react-hook-form';
 // Testing
 import { render, screen, fireEvent } from '@testing-library/react';
 </code></pre>
-<h3 id="182-ecosystem-map">1.8.2 Ecosystem Map</h3>
-<pre><code class="language-mermaid">graph TD
+    <h3 id="182-ecosystem-map">1.8.2 Ecosystem Map</h3>
+    <pre><code class="language-mermaid">graph TD
     A[React] --&gt; B[State Management]
     A --&gt; C[Routing]
     A --&gt; D[Data Fetching]
@@ -735,9 +786,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
     H --&gt; H2[Webpack]
     H --&gt; H3[Create React App]
 </code></pre>
-<h3 id="183-popular-libraries-by-category">1.8.3 Popular Libraries by Category</h3>
-<p><strong>State Management</strong>:</p>
-<pre><code class="language-javascript">// Redux Toolkit (RTK)
+    <h3 id="183-popular-libraries-by-category">1.8.3 Popular Libraries by
+        Category</h3>
+    <p><strong>State Management</strong>:</p>
+    <pre><code class="language-javascript">// Redux Toolkit (RTK)
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
 const counterSlice = createSlice({
@@ -756,8 +808,8 @@ const useStore = create((set) =&gt; ({
     increment: () =&gt; set((state) =&gt; ({ count: state.count + 1 })),
 }));
 </code></pre>
-<p><strong>Data Fetching</strong>:</p>
-<pre><code class="language-javascript">// React Query
+    <p><strong>Data Fetching</strong>:</p>
+    <pre><code class="language-javascript">// React Query
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 function Users() {
@@ -784,10 +836,10 @@ function Users() {
     );
 }
 </code></pre>
-<h2 id="19-common-mistakes-in-react">1.9 Common Mistakes in React</h2>
-<h3 id="191-direct-state-mutation">1.9.1 Direct State Mutation</h3>
-<p><strong>Incorrect</strong>:</p>
-<pre><code class="language-javascript">function Component() {
+    <h2 id="19-common-mistakes-in-react">1.9 Common Mistakes in React</h2>
+    <h3 id="191-direct-state-mutation">1.9.1 Direct State Mutation</h3>
+    <p><strong>Incorrect</strong>:</p>
+    <pre><code class="language-javascript">function Component() {
     const [state, setState] = useState({ name: 'John', age: 30 });
 
     // ❌ Direct mutation
@@ -799,8 +851,8 @@ function Users() {
     return &lt;div&gt;{state.name}&lt;/div&gt;;
 }
 </code></pre>
-<p><strong>Correct</strong>:</p>
-<pre><code class="language-javascript">function Component() {
+    <p><strong>Correct</strong>:</p>
+    <pre><code class="language-javascript">function Component() {
     const [state, setState] = useState({ name: 'John', age: 30 });
 
     // ✅ Create new object
@@ -813,9 +865,9 @@ function Users() {
     return &lt;div&gt;{state.name}&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="192-missing-keys-in-lists">1.9.2 Missing Keys in Lists</h3>
-<p><strong>Incorrect</strong>:</p>
-<pre><code class="language-javascript">function UserList({ users }) {
+    <h3 id="192-missing-keys-in-lists">1.9.2 Missing Keys in Lists</h3>
+    <p><strong>Incorrect</strong>:</p>
+    <pre><code class="language-javascript">function UserList({ users }) {
     return (
         &lt;ul&gt;
             {/* ❌ Missing key */}
@@ -826,8 +878,8 @@ function Users() {
     );
 }
 </code></pre>
-<p><strong>Correct</strong>:</p>
-<pre><code class="language-javascript">function UserList({ users }) {
+    <p><strong>Correct</strong>:</p>
+    <pre><code class="language-javascript">function UserList({ users }) {
     return (
         &lt;ul&gt;
             {/* ✅ Unique key */}
@@ -838,9 +890,10 @@ function Users() {
     );
 }
 </code></pre>
-<h3 id="193-incorrect-useeffect-dependencies">1.9.3 Incorrect useEffect Dependencies</h3>
-<p><strong>Incorrect</strong>:</p>
-<pre><code class="language-javascript">function Component({ userId }) {
+    <h3 id="193-incorrect-useeffect-dependencies">1.9.3 Incorrect useEffect
+        Dependencies</h3>
+    <p><strong>Incorrect</strong>:</p>
+    <pre><code class="language-javascript">function Component({ userId }) {
     const [user, setUser] = useState(null);
 
     // ❌ Missing dependency
@@ -851,8 +904,8 @@ function Users() {
     return &lt;div&gt;{user?.name}&lt;/div&gt;;
 }
 </code></pre>
-<p><strong>Correct</strong>:</p>
-<pre><code class="language-javascript">function Component({ userId }) {
+    <p><strong>Correct</strong>:</p>
+    <pre><code class="language-javascript">function Component({ userId }) {
     const [user, setUser] = useState(null);
 
     // ✅ All dependencies included
@@ -863,9 +916,9 @@ function Users() {
     return &lt;div&gt;{user?.name}&lt;/div&gt;;
 }
 </code></pre>
-<h2 id="110-best-practices">1.10 Best Practices</h2>
-<h3 id="1101-component-organization">1.10.1 Component Organization</h3>
-<pre><code class="language-javascript">// ✅ Proper component organization
+    <h2 id="110-best-practices">1.10 Best Practices</h2>
+    <h3 id="1101-component-organization">1.10.1 Component Organization</h3>
+    <pre><code class="language-javascript">// ✅ Proper component organization
 // components/UserCard/UserCard.jsx
 import styles from './UserCard.module.css';
 import { useUser } from './hooks/useUser';
@@ -891,8 +944,8 @@ function UserCard({ userId }) {
 // Export only the main component
 export default UserCard;
 </code></pre>
-<h3 id="1102-hooks-best-practices">1.10.2 Hooks Best Practices</h3>
-<pre><code class="language-javascript">// ✅ Custom hooks with proper error handling
+    <h3 id="1102-hooks-best-practices">1.10.2 Hooks Best Practices</h3>
+    <pre><code class="language-javascript">// ✅ Custom hooks with proper error handling
 function useFetchData(url) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
@@ -933,8 +986,8 @@ function useFetchData(url) {
     return { data, error, isLoading };
 }
 </code></pre>
-<h3 id="1103-performance-optimization">1.10.3 Performance Optimization</h3>
-<pre><code class="language-javascript">// ✅ Memoized components and callbacks
+    <h3 id="1103-performance-optimization">1.10.3 Performance Optimization</h3>
+    <pre><code class="language-javascript">// ✅ Memoized components and callbacks
 import React, { memo, useCallback, useMemo } from 'react';
 
 // Memoized component
@@ -973,9 +1026,9 @@ function UserList({ users }) {
     );
 }
 </code></pre>
-<h2 id="111-enterprise-practices">1.11 Enterprise Practices</h2>
-<h3 id="1111-error-boundaries">1.11.1 Error Boundaries</h3>
-<pre><code class="language-javascript">class ErrorBoundary extends React.Component {
+    <h2 id="111-enterprise-practices">1.11 Enterprise Practices</h2>
+    <h3 id="1111-error-boundaries">1.11.1 Error Boundaries</h3>
+    <pre><code class="language-javascript">class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
         this.state = { hasError: false, error: null };
@@ -1016,8 +1069,9 @@ function App() {
     );
 }
 </code></pre>
-<h3 id="1112-code-splitting-and-lazy-loading">1.11.2 Code Splitting and Lazy Loading</h3>
-<pre><code class="language-javascript">// ✅ Lazy loading for route-based code splitting
+    <h3 id="1112-code-splitting-and-lazy-loading">1.11.2 Code Splitting and Lazy
+        Loading</h3>
+    <pre><code class="language-javascript">// ✅ Lazy loading for route-based code splitting
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -1040,8 +1094,9 @@ function App() {
     );
 }
 </code></pre>
-<h3 id="1113-monitoring-and-observability">1.11.3 Monitoring and Observability</h3>
-<pre><code class="language-javascript">// ✅ Performance monitoring
+    <h3 id="1113-monitoring-and-observability">1.11.3 Monitoring and
+        Observability</h3>
+    <pre><code class="language-javascript">// ✅ Performance monitoring
 import { Profiler } from 'react';
 
 function onRenderCallback(
@@ -1071,44 +1126,53 @@ function App() {
     );
 }
 </code></pre>
-<h2 id="112-interview-questions">1.12 Interview Questions</h2>
-<h3 id="junior-level-questions">Junior Level Questions</h3>
-<p><strong>Q1: What is React and why use it?</strong></p>
-<p><strong>Answer</strong>: React is a JavaScript library for building user interfaces. It's used because:
-1. Component-based architecture promotes reusability
-2. Virtual DOM ensures efficient updates
-3. Unidirectional data flow makes state management predictable
-4. Huge ecosystem and community support
-5. Supports both web and mobile development (React Native)</p>
-<p><strong>Q2: What is JSX?</strong></p>
-<p><strong>Answer</strong>: JSX (JavaScript XML) is a syntax extension that allows writing HTML-like code in JavaScript. It's transformed into regular JavaScript at build time.</p>
-<pre><code class="language-javascript">// JSX
+    <h2 id="112-interview-questions">1.12 Interview Questions</h2>
+    <h3 id="junior-level-questions">Junior Level Questions</h3>
+    <p><strong>Q1: What is React and why use it?</strong></p>
+    <p><strong>Answer</strong>: React is a JavaScript library for building user
+        interfaces. It's used because:
+        1. Component-based architecture promotes reusability
+        2. Virtual DOM ensures efficient updates
+        3. Unidirectional data flow makes state management predictable
+        4. Huge ecosystem and community support
+        5. Supports both web and mobile development (React Native)</p>
+    <p><strong>Q2: What is JSX?</strong></p>
+    <p><strong>Answer</strong>: JSX (JavaScript XML) is a syntax extension that
+        allows writing HTML-like code in JavaScript. It's transformed into
+        regular JavaScript at build time.</p>
+    <pre><code class="language-javascript">// JSX
 const element = &lt;h1 className="greeting"&gt;Hello World&lt;/h1&gt;;
 
 // Transpiled to
 const element = React.createElement('h1', { className: 'greeting' }, 'Hello World');
 </code></pre>
-<h3 id="mid-level-questions">Mid Level Questions</h3>
-<p><strong>Q3: Explain Virtual DOM and how it works.</strong></p>
-<p><strong>Answer</strong>: The Virtual DOM is a lightweight JavaScript representation of the Real DOM. It works through:</p>
-<ol>
-<li><strong>Rendering</strong>: When component state changes, React creates a new Virtual DOM tree</li>
-<li><strong>Diffing</strong>: React compares the new VDOM with the previous one</li>
-<li><strong>Reconciliation</strong>: React calculates the minimal set of DOM operations</li>
-<li><strong>Batching</strong>: React batches all updates and applies them to the Real DOM</li>
-</ol>
-<pre><code class="language-mermaid">graph LR
+    <h3 id="mid-level-questions">Mid Level Questions</h3>
+    <p><strong>Q3: Explain Virtual DOM and how it works.</strong></p>
+    <p><strong>Answer</strong>: The Virtual DOM is a lightweight JavaScript
+        representation of the Real DOM. It works through:</p>
+    <ol>
+        <li><strong>Rendering</strong>: When component state changes, React
+            creates a new Virtual DOM tree</li>
+        <li><strong>Diffing</strong>: React compares the new VDOM with the
+            previous one</li>
+        <li><strong>Reconciliation</strong>: React calculates the minimal set of
+            DOM operations</li>
+        <li><strong>Batching</strong>: React batches all updates and applies
+            them to the Real DOM</li>
+    </ol>
+    <pre><code class="language-mermaid">graph LR
     A[State Change] --&gt; B[New VDOM]
     B --&gt; C[Diff]
     C --&gt; D[Reconciliation]
     D --&gt; E[Batch Update]
     E --&gt; F[Real DOM]
 </code></pre>
-<p><strong>Q4: What are props and state in React?</strong></p>
-<p><strong>Answer</strong>: 
-- <strong>Props</strong>: Immutable data passed from parent to child components
-- <strong>State</strong>: Mutable data managed within a component</p>
-<pre><code class="language-javascript">function ParentComponent() {
+    <p><strong>Q4: What are props and state in React?</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>Props</strong>: Immutable data passed from parent to child
+        components
+        - <strong>State</strong>: Mutable data managed within a component</p>
+    <pre><code class="language-javascript">function ParentComponent() {
     const [count, setCount] = useState(0); // State
 
     return (
@@ -1128,24 +1192,27 @@ function ChildComponent({ count, onUpdate }) { // Receiving props
     );
 }
 </code></pre>
-<h3 id="senior-level-questions">Senior Level Questions</h3>
-<p><strong>Q5: Explain the reconciliation process in React.</strong></p>
-<p><strong>Answer</strong>: Reconciliation is the process React uses to update the DOM efficiently. It involves:</p>
-<ol>
-<li>
-<p><strong>Diffing Algorithm</strong>: Compares two VDOM trees
-   - Different element types =&gt; destroy and rebuild
-   - Same element type =&gt; update attributes and recurse on children
-   - Keys for lists =&gt; identify changed items</p>
-</li>
-<li>
-<p><strong>Fiber Architecture</strong>: Implements incremental rendering
-   - Breaks render work into units
-   - Can pause, abort, or prioritize work
-   - Allows concurrent rendering</p>
-</li>
-</ol>
-<pre><code class="language-javascript">// Key-based reconciliation example
+    <h3 id="senior-level-questions">Senior Level Questions</h3>
+    <p><strong>Q5: Explain the reconciliation process in React.</strong></p>
+    <p><strong>Answer</strong>: Reconciliation is the process React uses to
+        update the DOM efficiently. It involves:</p>
+    <ol>
+        <li>
+            <p><strong>Diffing Algorithm</strong>: Compares two VDOM trees
+                - Different element types =&gt; destroy and rebuild
+                - Same element type =&gt; update attributes and recurse on
+                children
+                - Keys for lists =&gt; identify changed items</p>
+        </li>
+        <li>
+            <p><strong>Fiber Architecture</strong>: Implements incremental
+                rendering
+                - Breaks render work into units
+                - Can pause, abort, or prioritize work
+                - Allows concurrent rendering</p>
+        </li>
+    </ol>
+    <pre><code class="language-javascript">// Key-based reconciliation example
 function List({ items }) {
     return (
         &lt;ul&gt;
@@ -1164,13 +1231,15 @@ function List({ items }) {
 // 3. Which have changed content
 // 4. Minimize DOM operations
 </code></pre>
-<h3 id="architecture-questions">Architecture Questions</h3>
-<p><strong>Q6: How would you architect a large-scale React application?</strong></p>
-<p><strong>Answer</strong>: For a large-scale React application, I would:</p>
-<ol>
-<li><strong>Feature-based Structure</strong>:</li>
-</ol>
-<pre><code>src/
+    <h3 id="architecture-questions">Architecture Questions</h3>
+    <p><strong>Q6: How would you architect a large-scale React
+            application?</strong></p>
+    <p><strong>Answer</strong>: For a large-scale React application, I
+        would:</p>
+    <ol>
+        <li><strong>Feature-based Structure</strong>:</li>
+    </ol>
+    <pre><code>src/
 ├── features/
 │   ├── auth/
 │   │   ├── components/
@@ -1188,131 +1257,143 @@ function List({ items }) {
 ├── config/
 └── store/
 </code></pre>
-<ol start="2">
-<li>
-<p><strong>State Management Strategy</strong>:
-   - Server state: React Query
-   - Client state: Redux Toolkit or Zustand
-   - Local state: React useState/useReducer</p>
-</li>
-<li>
-<p><strong>Performance Strategy</strong>:
-   - Code splitting with React.lazy
-   - Memoization with useMemo and useCallback
-   - Virtualization for large lists
-   - Bundle optimization</p>
-</li>
-<li>
-<p><strong>Testing Strategy</strong>:
-   - Unit tests: Jest
-   - Component tests: React Testing Library
-   - Integration tests: Cypress
-   - E2E tests: Playwright</p>
-</li>
-<li>
-<p><strong>CI/CD Pipeline</strong>:
-   - Linting and type checking
-   - Unit and integration tests
-   - Build and bundle analysis
-   - Deployment to staging/production</p>
-</li>
-</ol>
-<h2 id="113-summary">1.13 Summary</h2>
-<h3 id="key-takeaways">Key Takeaways</h3>
-<ol>
-<li>
-<p><strong>React Fundamentals</strong>:
-   - React is a declarative, component-based UI library
-   - Uses Virtual DOM for efficient updates
-   - Follows unidirectional data flow</p>
-</li>
-<li>
-<p><strong>Core Concepts</strong>:
-   - Components are the building blocks
-   - Props for parent-to-child communication
-   - State for component-specific data
-   - Hooks for state and lifecycle management</p>
-</li>
-<li>
-<p><strong>Performance</strong>:
-   - Virtual DOM minimizes DOM operations
-   - Memoization prevents unnecessary re-renders
-   - Code splitting improves initial load time</p>
-</li>
-<li>
-<p><strong>Best Practices</strong>:
-   - Keep components focused and reusable
-   - Use proper key props in lists
-   - Avoid direct state mutation
-   - Clean up effects and subscriptions</p>
-</li>
-<li>
-<p><strong>Enterprise Ready</strong>:
-   - Error boundaries for graceful failure
-   - Proper state management strategy
-   - Comprehensive testing coverage
-   - Performance monitoring
-   - Code splitting and lazy loading</p>
-</li>
-</ol>
-<h3 id="quick-reference">Quick Reference</h3>
-<table>
-<thead>
-<tr>
-<th>Concept</th>
-<th>Purpose</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Props</td>
-<td>Pass data from parent to child</td>
-<td><code>&lt;Child name="John" /&gt;</code></td>
-</tr>
-<tr>
-<td>State</td>
-<td>Manage component data</td>
-<td><code>const [count, setCount] = useState(0)</code></td>
-</tr>
-<tr>
-<td>useEffect</td>
-<td>Side effects</td>
-<td><code>useEffect(() =&gt; { fetchData() }, [])</code></td>
-</tr>
-<tr>
-<td>Context</td>
-<td>Global state</td>
-<td><code>useContext(ThemeContext)</code></td>
-</tr>
-<tr>
-<td>useMemo</td>
-<td>Cache computations</td>
-<td><code>useMemo(() =&gt; expensive(), [dep])</code></td>
-</tr>
-<tr>
-<td>useCallback</td>
-<td>Cache functions</td>
-<td><code>useCallback(() =&gt; handle(), [dep])</code></td>
-</tr>
-<tr>
-<td>React.memo</td>
-<td>Prevent re-renders</td>
-<td><code>memo(Component)</code></td>
-</tr>
-<tr>
-<td>React.lazy</td>
-<td>Code splitting</td>
-<td><code>lazy(() =&gt; import('./Component'))</code></td>
-</tr>
-</tbody>
-</table>
-<hr/>
-<p><strong>Next Chapter Preview</strong>: Chapter 2 will cover JavaScript Required for React, including ES6+ features, functions, objects, arrays, and more advanced concepts like closures, promises, and async/await that are essential for React development.</p>
-<hr/>
-<p><em>End of Chapter 1</em></p>
-<h1 id="the-complete-react-developer-course">The Complete React Developer Course</h1>
-<h2 id="from-beginner-to-professional">From Beginner to Professional</h2>
-<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
-<hr/>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-1" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--next" href="#chapter-2"><span class="pager-label">Next chapter →</span><strong>02 · JavaScript Required for React</strong></a></nav></section>
+    <ol start="2">
+        <li>
+            <p><strong>State Management Strategy</strong>:
+                - Server state: React Query
+                - Client state: Redux Toolkit or Zustand
+                - Local state: React useState/useReducer</p>
+        </li>
+        <li>
+            <p><strong>Performance Strategy</strong>:
+                - Code splitting with React.lazy
+                - Memoization with useMemo and useCallback
+                - Virtualization for large lists
+                - Bundle optimization</p>
+        </li>
+        <li>
+            <p><strong>Testing Strategy</strong>:
+                - Unit tests: Jest
+                - Component tests: React Testing Library
+                - Integration tests: Cypress
+                - E2E tests: Playwright</p>
+        </li>
+        <li>
+            <p><strong>CI/CD Pipeline</strong>:
+                - Linting and type checking
+                - Unit and integration tests
+                - Build and bundle analysis
+                - Deployment to staging/production</p>
+        </li>
+    </ol>
+    <h2 id="113-summary">1.13 Summary</h2>
+    <h3 id="key-takeaways">Key Takeaways</h3>
+    <ol>
+        <li>
+            <p><strong>React Fundamentals</strong>:
+                - React is a declarative, component-based UI library
+                - Uses Virtual DOM for efficient updates
+                - Follows unidirectional data flow</p>
+        </li>
+        <li>
+            <p><strong>Core Concepts</strong>:
+                - Components are the building blocks
+                - Props for parent-to-child communication
+                - State for component-specific data
+                - Hooks for state and lifecycle management</p>
+        </li>
+        <li>
+            <p><strong>Performance</strong>:
+                - Virtual DOM minimizes DOM operations
+                - Memoization prevents unnecessary re-renders
+                - Code splitting improves initial load time</p>
+        </li>
+        <li>
+            <p><strong>Best Practices</strong>:
+                - Keep components focused and reusable
+                - Use proper key props in lists
+                - Avoid direct state mutation
+                - Clean up effects and subscriptions</p>
+        </li>
+        <li>
+            <p><strong>Enterprise Ready</strong>:
+                - Error boundaries for graceful failure
+                - Proper state management strategy
+                - Comprehensive testing coverage
+                - Performance monitoring
+                - Code splitting and lazy loading</p>
+        </li>
+    </ol>
+    <h3 id="quick-reference">Quick Reference</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Concept</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Props</td>
+                <td>Pass data from parent to child</td>
+                <td><code>&lt;Child name="John" /&gt;</code></td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td>Manage component data</td>
+                <td><code>const [count, setCount] = useState(0)</code></td>
+            </tr>
+            <tr>
+                <td>useEffect</td>
+                <td>Side effects</td>
+                <td><code>useEffect(() =&gt; { fetchData() }, [])</code></td>
+            </tr>
+            <tr>
+                <td>Context</td>
+                <td>Global state</td>
+                <td><code>useContext(ThemeContext)</code></td>
+            </tr>
+            <tr>
+                <td>useMemo</td>
+                <td>Cache computations</td>
+                <td><code>useMemo(() =&gt; expensive(), [dep])</code></td>
+            </tr>
+            <tr>
+                <td>useCallback</td>
+                <td>Cache functions</td>
+                <td><code>useCallback(() =&gt; handle(), [dep])</code></td>
+            </tr>
+            <tr>
+                <td>React.memo</td>
+                <td>Prevent re-renders</td>
+                <td><code>memo(Component)</code></td>
+            </tr>
+            <tr>
+                <td>React.lazy</td>
+                <td>Code splitting</td>
+                <td><code>lazy(() =&gt; import('./Component'))</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <p><strong>Next Chapter Preview</strong>: Chapter 2 will cover JavaScript
+        Required for React, including ES6+ features, functions, objects, arrays,
+        and more advanced concepts like closures, promises, and async/await that
+        are essential for React development.</p>
+    <hr />
+    <p><em>End of Chapter 1</em></p>
+    <h1 id="the-complete-react-developer-course">The Complete React Developer
+        Course</h1>
+    <h2 id="from-beginner-to-professional">From Beginner to Professional</h2>
+    <h3
+        id="a-comprehensive-guide-to-building-enterprise-grade-react-applications">A
+        Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+    <hr />
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-1" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--next" href="#chapter-2"><span
+                class="pager-label">Next chapter →</span><strong>02 · JavaScript
+                Required for React</strong></a></nav></section>

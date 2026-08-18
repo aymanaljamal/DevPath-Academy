@@ -1,49 +1,87 @@
 <section class="chapter" id="chapter-6" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">06</span>
-<h1 class="chapter-title" id="react-hooks">React Hooks</h1>
-</div>
-<h2 id="61-introduction-to-react-hooks">6.1 Introduction to React Hooks</h2>
-<h3 id="simple-explanation--6">Simple Explanation</h3>
-<p>Hooks are functions that let you "hook into" React state and lifecycle features from functional components. Before Hooks, you could only use state and lifecycle methods in class components. Hooks were introduced in React 16.8 to make functional components just as powerful as class components.</p>
-<p>Think of Hooks as special tools in your React toolbox. Each hook serves a specific purpose - some manage state, others handle side effects, and others optimize performance. You can even create your own custom hooks to reuse logic across components.</p>
-<h3 id="technical-explanation--6">Technical Explanation</h3>
-<p>Hooks are JavaScript functions that allow you to use React features without writing classes. They provide a more direct API to React concepts like state, lifecycle, context, and refs. Hooks follow two main rules:
-1. <strong>Only call hooks at the top level</strong> (not inside loops, conditions, or nested functions)
-2. <strong>Only call hooks from React functions</strong> (functional components or custom hooks)</p>
-<p>React provides built-in hooks for common use cases and allows you to create custom hooks for reusable logic.</p>
-<h3 id="professional-explanation--6">Professional Explanation</h3>
-<p>Hooks represent a paradigm shift in React development, enabling functional components to handle complex state management and side effects. They promote:</p>
-<ul>
-<li><strong>Logic Reusability</strong>: Custom hooks encapsulate and share stateful logic</li>
-<li><strong>Code Organization</strong>: Related logic stays together in hooks</li>
-<li><strong>Simpler Testing</strong>: Hooks can be tested in isolation</li>
-<li><strong>Better TypeScript Support</strong>: Improved type inference with hooks</li>
-<li><strong>Reduced Boilerplate</strong>: No more classes, constructors, or bind methods</li>
-</ul>
-<p>In enterprise development, hooks are the standard for writing React components. They enable cleaner code organization, better separation of concerns, and easier maintenance.</p>
-<h2 id="62-usestate-hook">6.2 useState Hook</h2>
-<h3 id="simple-explanation_1--2">Simple Explanation</h3>
-<p>useState is the most basic hook. It lets you add state to functional components. You call it with an initial value, and it returns an array with two things: the current state value and a function to update it.</p>
-<p>Think of useState like a box where you can store a value. The box has two handles: one to see what's inside (the current value) and one to put something new inside (the update function).</p>
-<h3 id="technical-explanation_1--2">Technical Explanation</h3>
-<p>useState is a hook that manages local state in functional components. It returns a stateful value and a function to update it. The update function can accept either a new value or a function that receives the previous state.</p>
-<p>Key characteristics:
-- <strong>Initial value</strong>: Can be any JavaScript value or a function
-- <strong>Lazy initialization</strong>: Use a function for expensive computations
-- <strong>Functional updates</strong>: Use previous state for reliable updates
-- <strong>Multiple states</strong>: Use multiple useState calls
-- <strong>State batching</strong>: Updates are batched for performance</p>
-<h3 id="professional-explanation_1--2">Professional Explanation</h3>
-<p>useState is the foundation of React's state management. Understanding its behavior is crucial for building reliable components.</p>
-<p>Important concepts:
-- <strong>State isolation</strong>: Each useState call is independent
-- <strong>Update scheduling</strong>: State updates are asynchronous
-- <strong>Merge behavior</strong>: useState replaces state (unlike setState in classes)
-- <strong>Optimization</strong>: Use multiple useState calls for unrelated state
-- <strong>TypeScript</strong>: Generics allow type-safe state management</p>
-<h3 id="usestate-examples">useState Examples</h3>
-<pre><code class="language-jsx">// Basic usage
+    <div class="chapter-title-card">
+        <span class="chapter-num">06</span>
+        <h1 class="chapter-title" id="react-hooks">React Hooks</h1>
+    </div>
+    <h2 id="61-introduction-to-react-hooks">6.1 Introduction to React Hooks</h2>
+    <h3 id="simple-explanation--6">Simple Explanation</h3>
+    <p>Hooks are functions that let you "hook into" React state and lifecycle
+        features from functional components. Before Hooks, you could only use
+        state and lifecycle methods in class components. Hooks were introduced
+        in React 16.8 to make functional components just as powerful as class
+        components.</p>
+    <p>Think of Hooks as special tools in your React toolbox. Each hook serves a
+        specific purpose - some manage state, others handle side effects, and
+        others optimize performance. You can even create your own custom hooks
+        to reuse logic across components.</p>
+    <h3 id="technical-explanation--6">Technical Explanation</h3>
+    <p>Hooks are JavaScript functions that allow you to use React features
+        without writing classes. They provide a more direct API to React
+        concepts like state, lifecycle, context, and refs. Hooks follow two main
+        rules:
+        1. <strong>Only call hooks at the top level</strong> (not inside loops,
+        conditions, or nested functions)
+        2. <strong>Only call hooks from React functions</strong> (functional
+        components or custom hooks)</p>
+    <p>React provides built-in hooks for common use cases and allows you to
+        create custom hooks for reusable logic.</p>
+    <h3 id="professional-explanation--6">Professional Explanation</h3>
+    <p>Hooks represent a paradigm shift in React development, enabling
+        functional components to handle complex state management and side
+        effects. They promote:</p>
+    <ul>
+        <li><strong>Logic Reusability</strong>: Custom hooks encapsulate and
+            share stateful logic</li>
+        <li><strong>Code Organization</strong>: Related logic stays together in
+            hooks</li>
+        <li><strong>Simpler Testing</strong>: Hooks can be tested in
+            isolation</li>
+        <li><strong>Better TypeScript Support</strong>: Improved type inference
+            with hooks</li>
+        <li><strong>Reduced Boilerplate</strong>: No more classes, constructors,
+            or bind methods</li>
+    </ul>
+    <p>In enterprise development, hooks are the standard for writing React
+        components. They enable cleaner code organization, better separation of
+        concerns, and easier maintenance.</p>
+    <h2 id="62-usestate-hook">6.2 useState Hook</h2>
+    <h3 id="simple-explanation_1--2">Simple Explanation</h3>
+    <p>useState is the most basic hook. It lets you add state to functional
+        components. You call it with an initial value, and it returns an array
+        with two things: the current state value and a function to update
+        it.</p>
+    <p>Think of useState like a box where you can store a value. The box has two
+        handles: one to see what's inside (the current value) and one to put
+        something new inside (the update function).</p>
+    <h3 id="technical-explanation_1--2">Technical Explanation</h3>
+    <p>useState is a hook that manages local state in functional components. It
+        returns a stateful value and a function to update it. The update
+        function can accept either a new value or a function that receives the
+        previous state.</p>
+    <p>Key characteristics:
+        - <strong>Initial value</strong>: Can be any JavaScript value or a
+        function
+        - <strong>Lazy initialization</strong>: Use a function for expensive
+        computations
+        - <strong>Functional updates</strong>: Use previous state for reliable
+        updates
+        - <strong>Multiple states</strong>: Use multiple useState calls
+        - <strong>State batching</strong>: Updates are batched for
+        performance</p>
+    <h3 id="professional-explanation_1--2">Professional Explanation</h3>
+    <p>useState is the foundation of React's state management. Understanding its
+        behavior is crucial for building reliable components.</p>
+    <p>Important concepts:
+        - <strong>State isolation</strong>: Each useState call is independent
+        - <strong>Update scheduling</strong>: State updates are asynchronous
+        - <strong>Merge behavior</strong>: useState replaces state (unlike
+        setState in classes)
+        - <strong>Optimization</strong>: Use multiple useState calls for
+        unrelated state
+        - <strong>TypeScript</strong>: Generics allow type-safe state
+        management</p>
+    <h3 id="usestate-examples">useState Examples</h3>
+    <pre><code class="language-jsx">// Basic usage
 function Counter() {
     const [count, setCount] = useState(0);
 
@@ -173,28 +211,40 @@ function CounterWithFunctionalUpdates() {
     );
 }
 </code></pre>
-<h2 id="63-useeffect-hook">6.3 useEffect Hook</h2>
-<h3 id="simple-explanation_2--2">Simple Explanation</h3>
-<p>useEffect lets you perform side effects in functional components. Side effects are things like fetching data, setting up subscriptions, or manually changing the DOM. You can think of useEffect as a way to tell React to do something after the component renders.</p>
-<p>Think of useEffect as a "do this after rendering" function. It runs after the browser has painted the screen, so you can safely perform operations that affect the DOM or external systems.</p>
-<h3 id="technical-explanation_2--2">Technical Explanation</h3>
-<p>useEffect is a hook that handles side effects in functional components. It runs after the component renders and can optionally clean up before the component unmounts or before the next effect runs.</p>
-<p>Key characteristics:
-- <strong>Timing</strong>: Runs after the browser paints (by default)
-- <strong>Dependencies</strong>: Controls when the effect runs
-- <strong>Cleanup</strong>: Return function for cleaning up subscriptions
-- <strong>Multiple effects</strong>: Can use multiple useEffect calls
-- <strong>Scheduling</strong>: useLayoutEffect for synchronous effects</p>
-<h3 id="professional-explanation_2--2">Professional Explanation</h3>
-<p>Understanding useEffect is crucial for handling side effects correctly. Common pitfalls include dependency arrays and cleanup functions.</p>
-<p>Common use cases:
-- <strong>Data fetching</strong>: API calls on mount or when dependencies change
-- <strong>Subscriptions</strong>: Event listeners, WebSocket connections
-- <strong>DOM manipulation</strong>: Interacting with the DOM after render
-- <strong>Logging</strong>: Analytics and debugging
-- <strong>Timers</strong>: setTimeout, setInterval</p>
-<h3 id="useeffect-examples">useEffect Examples</h3>
-<pre><code class="language-jsx">// Basic useEffect
+    <h2 id="63-useeffect-hook">6.3 useEffect Hook</h2>
+    <h3 id="simple-explanation_2--2">Simple Explanation</h3>
+    <p>useEffect lets you perform side effects in functional components. Side
+        effects are things like fetching data, setting up subscriptions, or
+        manually changing the DOM. You can think of useEffect as a way to tell
+        React to do something after the component renders.</p>
+    <p>Think of useEffect as a "do this after rendering" function. It runs after
+        the browser has painted the screen, so you can safely perform operations
+        that affect the DOM or external systems.</p>
+    <h3 id="technical-explanation_2--2">Technical Explanation</h3>
+    <p>useEffect is a hook that handles side effects in functional components.
+        It runs after the component renders and can optionally clean up before
+        the component unmounts or before the next effect runs.</p>
+    <p>Key characteristics:
+        - <strong>Timing</strong>: Runs after the browser paints (by default)
+        - <strong>Dependencies</strong>: Controls when the effect runs
+        - <strong>Cleanup</strong>: Return function for cleaning up
+        subscriptions
+        - <strong>Multiple effects</strong>: Can use multiple useEffect calls
+        - <strong>Scheduling</strong>: useLayoutEffect for synchronous
+        effects</p>
+    <h3 id="professional-explanation_2--2">Professional Explanation</h3>
+    <p>Understanding useEffect is crucial for handling side effects correctly.
+        Common pitfalls include dependency arrays and cleanup functions.</p>
+    <p>Common use cases:
+        - <strong>Data fetching</strong>: API calls on mount or when
+        dependencies change
+        - <strong>Subscriptions</strong>: Event listeners, WebSocket connections
+        - <strong>DOM manipulation</strong>: Interacting with the DOM after
+        render
+        - <strong>Logging</strong>: Analytics and debugging
+        - <strong>Timers</strong>: setTimeout, setInterval</p>
+    <h3 id="useeffect-examples">useEffect Examples</h3>
+    <pre><code class="language-jsx">// Basic useEffect
 function DocumentTitle() {
     const [count, setCount] = useState(0);
 
@@ -375,31 +425,40 @@ function ResizeListener() {
     );
 }
 </code></pre>
-<h2 id="64-usememo-hook">6.4 useMemo Hook</h2>
-<h3 id="simple-explanation_3--2">Simple Explanation</h3>
-<p>useMemo is a performance optimization hook that memoizes the result of a computation. It "remembers" the value from the previous render and only recomputes it when its dependencies change.</p>
-<p>Think of useMemo like a cache - if the inputs haven't changed, use the cached result instead of recomputing everything. This is especially useful for expensive calculations.</p>
-<h3 id="technical-explanation_3--2">Technical Explanation</h3>
-<p>useMemo memoizes the result of a function and returns the cached value when dependencies haven't changed. It runs during rendering and should be used for expensive computations.</p>
-<p>Key characteristics:
-- <strong>Memoization</strong>: Caches computed values
-- <strong>Dependencies</strong>: Controls when to recompute
-- <strong>Performance</strong>: Optimizes expensive calculations
-- <strong>Render phase</strong>: Runs during rendering
-- <strong>Type safety</strong>: Returns the value type</p>
-<h3 id="professional-explanation_3--2">Professional Explanation</h3>
-<p>useMemo is essential for performance optimization but should be used judiciously.</p>
-<p>When to use useMemo:
-- <strong>Expensive computations</strong>: Large data processing
-- <strong>Reference equality</strong>: Maintaining stable object references
-- <strong>Complex derivations</strong>: Derived state that's expensive
-- <strong>Preventing re-renders</strong>: Used with React.memo</p>
-<p>When NOT to use useMemo:
-- <strong>Simple values</strong>: Primitive values and simple operations
-- <strong>Every computation</strong>: The overhead of memoization might be higher
-- <strong>Side effects</strong>: Use useEffect for side effects</p>
-<h3 id="usememo-examples">useMemo Examples</h3>
-<pre><code class="language-jsx">// Basic useMemo
+    <h2 id="64-usememo-hook">6.4 useMemo Hook</h2>
+    <h3 id="simple-explanation_3--2">Simple Explanation</h3>
+    <p>useMemo is a performance optimization hook that memoizes the result of a
+        computation. It "remembers" the value from the previous render and only
+        recomputes it when its dependencies change.</p>
+    <p>Think of useMemo like a cache - if the inputs haven't changed, use the
+        cached result instead of recomputing everything. This is especially
+        useful for expensive calculations.</p>
+    <h3 id="technical-explanation_3--2">Technical Explanation</h3>
+    <p>useMemo memoizes the result of a function and returns the cached value
+        when dependencies haven't changed. It runs during rendering and should
+        be used for expensive computations.</p>
+    <p>Key characteristics:
+        - <strong>Memoization</strong>: Caches computed values
+        - <strong>Dependencies</strong>: Controls when to recompute
+        - <strong>Performance</strong>: Optimizes expensive calculations
+        - <strong>Render phase</strong>: Runs during rendering
+        - <strong>Type safety</strong>: Returns the value type</p>
+    <h3 id="professional-explanation_3--2">Professional Explanation</h3>
+    <p>useMemo is essential for performance optimization but should be used
+        judiciously.</p>
+    <p>When to use useMemo:
+        - <strong>Expensive computations</strong>: Large data processing
+        - <strong>Reference equality</strong>: Maintaining stable object
+        references
+        - <strong>Complex derivations</strong>: Derived state that's expensive
+        - <strong>Preventing re-renders</strong>: Used with React.memo</p>
+    <p>When NOT to use useMemo:
+        - <strong>Simple values</strong>: Primitive values and simple operations
+        - <strong>Every computation</strong>: The overhead of memoization might
+        be higher
+        - <strong>Side effects</strong>: Use useEffect for side effects</p>
+    <h3 id="usememo-examples">useMemo Examples</h3>
+    <pre><code class="language-jsx">// Basic useMemo
 function ExpensiveComponent({ numbers }) {
     // Only recompute when numbers changes
     const sum = useMemo(() =&gt; {
@@ -522,31 +581,42 @@ function LargeDataset({ dataset, filters }) {
     return &lt;DataGrid data={processedData} /&gt;;
 }
 </code></pre>
-<h2 id="65-usecallback-hook">6.5 useCallback Hook</h2>
-<h3 id="simple-explanation_4--2">Simple Explanation</h3>
-<p>useCallback is similar to useMemo but for functions. It memoizes a function reference, so it doesn't get recreated on every render. This is useful when passing callbacks to child components that might otherwise re-render unnecessarily.</p>
-<p>Think of useCallback as a way to "remember" a function. If the dependencies haven't changed, use the same function instance instead of creating a new one.</p>
-<h3 id="technical-explanation_4--2">Technical Explanation</h3>
-<p>useCallback returns a memoized version of the callback that only changes if one of the dependencies has changed. It prevents unnecessary function re-creation and can optimize child component rendering.</p>
-<p>Key characteristics:
-- <strong>Memoization</strong>: Caches function references
-- <strong>Dependencies</strong>: Controls when to create new function
-- <strong>Performance</strong>: Prevents unnecessary re-renders
-- <strong>Stable references</strong>: Maintains function identity
-- <strong>Common with React.memo</strong>: Used together for optimization</p>
-<h3 id="professional-explanation_4--2">Professional Explanation</h3>
-<p>useCallback is crucial for optimizing React applications with many components.</p>
-<p>When to use useCallback:
-- <strong>Child components</strong>: When using React.memo
-- <strong>Event handlers</strong>: Functions passed as props
-- <strong>Custom hooks</strong>: Returning stable callbacks
-- <strong>Dependency arrays</strong>: Used in useEffect dependencies</p>
-<p>When NOT to use useCallback:
-- <strong>Simple components</strong>: No child components that need optimization
-- <strong>Over-optimization</strong>: The overhead might not be worth it
-- <strong>No dependencies</strong>: Function doesn't depend on any state</p>
-<h3 id="usecallback-examples">useCallback Examples</h3>
-<pre><code class="language-jsx">// Basic useCallback
+    <h2 id="65-usecallback-hook">6.5 useCallback Hook</h2>
+    <h3 id="simple-explanation_4--2">Simple Explanation</h3>
+    <p>useCallback is similar to useMemo but for functions. It memoizes a
+        function reference, so it doesn't get recreated on every render. This is
+        useful when passing callbacks to child components that might otherwise
+        re-render unnecessarily.</p>
+    <p>Think of useCallback as a way to "remember" a function. If the
+        dependencies haven't changed, use the same function instance instead of
+        creating a new one.</p>
+    <h3 id="technical-explanation_4--2">Technical Explanation</h3>
+    <p>useCallback returns a memoized version of the callback that only changes
+        if one of the dependencies has changed. It prevents unnecessary function
+        re-creation and can optimize child component rendering.</p>
+    <p>Key characteristics:
+        - <strong>Memoization</strong>: Caches function references
+        - <strong>Dependencies</strong>: Controls when to create new function
+        - <strong>Performance</strong>: Prevents unnecessary re-renders
+        - <strong>Stable references</strong>: Maintains function identity
+        - <strong>Common with React.memo</strong>: Used together for
+        optimization</p>
+    <h3 id="professional-explanation_4--2">Professional Explanation</h3>
+    <p>useCallback is crucial for optimizing React applications with many
+        components.</p>
+    <p>When to use useCallback:
+        - <strong>Child components</strong>: When using React.memo
+        - <strong>Event handlers</strong>: Functions passed as props
+        - <strong>Custom hooks</strong>: Returning stable callbacks
+        - <strong>Dependency arrays</strong>: Used in useEffect dependencies</p>
+    <p>When NOT to use useCallback:
+        - <strong>Simple components</strong>: No child components that need
+        optimization
+        - <strong>Over-optimization</strong>: The overhead might not be worth it
+        - <strong>No dependencies</strong>: Function doesn't depend on any
+        state</p>
+    <h3 id="usecallback-examples">useCallback Examples</h3>
+    <pre><code class="language-jsx">// Basic useCallback
 function Parent() {
     const [count, setCount] = useState(0);
     const [otherState, setOtherState] = useState(0);
@@ -695,29 +765,42 @@ function AsyncExample() {
     return &lt;SearchBar onSearch={handleSearch} loading={loading} error={error} /&gt;;
 }
 </code></pre>
-<h2 id="66-useref-hook">6.6 useRef Hook</h2>
-<h3 id="simple-explanation_5--2">Simple Explanation</h3>
-<p>useRef creates a mutable reference that persists for the entire lifecycle of the component. It's like a "storage box" that can hold any value and doesn't cause re-renders when changed. It's commonly used to access DOM elements directly.</p>
-<p>Think of useRef as a way to "point to" something - like a physical pointer that stays the same even as the component re-renders. You can use it to store values that shouldn't trigger re-renders or to interact with DOM elements directly.</p>
-<h3 id="technical-explanation_5--2">Technical Explanation</h3>
-<p>useRef returns a mutable object with a <code>current</code> property. The object persists for the component's lifetime and doesn't cause re-renders when updated. It's commonly used for DOM references, timers, and storing mutable values.</p>
-<p>Key characteristics:
-- <strong>Mutable</strong>: Can change <code>current</code> value without re-rendering
-- <strong>Persistent</strong>: Same reference across renders
-- <strong>DOM access</strong>: Access and manipulate DOM elements
-- <strong>Stable references</strong>: Useful for keeping values without re-renders
-- <strong>No dependencies</strong>: Doesn't trigger effects</p>
-<h3 id="professional-explanation_5--2">Professional Explanation</h3>
-<p>useRef is versatile and has several important use cases in enterprise applications:</p>
-<p>Common use cases:
-- <strong>DOM manipulation</strong>: Direct access to DOM elements
-- <strong>Imperative API</strong>: Integrating with non-React libraries
-- <strong>Value persistence</strong>: Storing values across renders
-- <strong>Avoiding re-renders</strong>: Storing values that don't affect UI
-- <strong>Previous values</strong>: Tracking previous props or state
-- <strong>Focus management</strong>: Controlling input focus</p>
-<h3 id="useref-examples">useRef Examples</h3>
-<pre><code class="language-jsx">// Basic DOM reference
+    <h2 id="66-useref-hook">6.6 useRef Hook</h2>
+    <h3 id="simple-explanation_5--2">Simple Explanation</h3>
+    <p>useRef creates a mutable reference that persists for the entire lifecycle
+        of the component. It's like a "storage box" that can hold any value and
+        doesn't cause re-renders when changed. It's commonly used to access DOM
+        elements directly.</p>
+    <p>Think of useRef as a way to "point to" something - like a physical
+        pointer that stays the same even as the component re-renders. You can
+        use it to store values that shouldn't trigger re-renders or to interact
+        with DOM elements directly.</p>
+    <h3 id="technical-explanation_5--2">Technical Explanation</h3>
+    <p>useRef returns a mutable object with a <code>current</code> property. The
+        object persists for the component's lifetime and doesn't cause
+        re-renders when updated. It's commonly used for DOM references, timers,
+        and storing mutable values.</p>
+    <p>Key characteristics:
+        - <strong>Mutable</strong>: Can change <code>current</code> value
+        without re-rendering
+        - <strong>Persistent</strong>: Same reference across renders
+        - <strong>DOM access</strong>: Access and manipulate DOM elements
+        - <strong>Stable references</strong>: Useful for keeping values without
+        re-renders
+        - <strong>No dependencies</strong>: Doesn't trigger effects</p>
+    <h3 id="professional-explanation_5--2">Professional Explanation</h3>
+    <p>useRef is versatile and has several important use cases in enterprise
+        applications:</p>
+    <p>Common use cases:
+        - <strong>DOM manipulation</strong>: Direct access to DOM elements
+        - <strong>Imperative API</strong>: Integrating with non-React libraries
+        - <strong>Value persistence</strong>: Storing values across renders
+        - <strong>Avoiding re-renders</strong>: Storing values that don't affect
+        UI
+        - <strong>Previous values</strong>: Tracking previous props or state
+        - <strong>Focus management</strong>: Controlling input focus</p>
+    <h3 id="useref-examples">useRef Examples</h3>
+    <pre><code class="language-jsx">// Basic DOM reference
 function FocusInput() {
     const inputRef = useRef(null);
 
@@ -889,33 +972,48 @@ function FocusManagement() {
     );
 }
 </code></pre>
-<h2 id="67-usecontext-hook">6.7 useContext Hook</h2>
-<h3 id="simple-explanation_6--2">Simple Explanation</h3>
-<p>useContext provides a way to share data across components without passing props down through every level of the component tree. It's like having a "global" state that any component can access directly.</p>
-<p>Think of Context like a shared bulletin board - any component can post information there, and any component can read from it without going through intermediaries.</p>
-<h3 id="technical-explanation_6--2">Technical Explanation</h3>
-<p>useContext is a hook that reads and subscribes to context changes. It accepts a context object (created with <code>React.createContext</code>) and returns the current context value. When the context changes, components using useContext re-render.</p>
-<p>Key characteristics:
-- <strong>Global state</strong>: Share data across component tree
-- <strong>Avoid prop drilling</strong>: No need to pass props through intermediate components
-- <strong>Dynamic updates</strong>: Components re-render when context changes
-- <strong>Multiple contexts</strong>: Use multiple contexts for different concerns
-- <strong>Provider pattern</strong>: Wrap components to provide context values</p>
-<h3 id="professional-explanation_6--2">Professional Explanation</h3>
-<p>Context is essential for enterprise React applications for managing:</p>
-<ul>
-<li><strong>Theme</strong>: Light/dark mode, branding</li>
-<li><strong>Authentication</strong>: User session, permissions</li>
-<li><strong>Internationalization</strong>: Language, locale</li>
-<li><strong>Configuration</strong>: Feature flags, settings</li>
-<li><strong>State management</strong>: Replacing or complementing libraries</li>
-</ul>
-<p>However, context should be used judiciously:
-- <strong>Performance</strong>: Context updates cause all consumers to re-render
-- <strong>Overuse</strong>: Too many contexts can make code harder to follow
-- <strong>State management</strong>: For complex state, consider state management libraries</p>
-<h3 id="usecontext-examples">useContext Examples</h3>
-<pre><code class="language-jsx">// Creating a context
+    <h2 id="67-usecontext-hook">6.7 useContext Hook</h2>
+    <h3 id="simple-explanation_6--2">Simple Explanation</h3>
+    <p>useContext provides a way to share data across components without passing
+        props down through every level of the component tree. It's like having a
+        "global" state that any component can access directly.</p>
+    <p>Think of Context like a shared bulletin board - any component can post
+        information there, and any component can read from it without going
+        through intermediaries.</p>
+    <h3 id="technical-explanation_6--2">Technical Explanation</h3>
+    <p>useContext is a hook that reads and subscribes to context changes. It
+        accepts a context object (created with <code>React.createContext</code>)
+        and returns the current context value. When the context changes,
+        components using useContext re-render.</p>
+    <p>Key characteristics:
+        - <strong>Global state</strong>: Share data across component tree
+        - <strong>Avoid prop drilling</strong>: No need to pass props through
+        intermediate components
+        - <strong>Dynamic updates</strong>: Components re-render when context
+        changes
+        - <strong>Multiple contexts</strong>: Use multiple contexts for
+        different concerns
+        - <strong>Provider pattern</strong>: Wrap components to provide context
+        values</p>
+    <h3 id="professional-explanation_6--2">Professional Explanation</h3>
+    <p>Context is essential for enterprise React applications for managing:</p>
+    <ul>
+        <li><strong>Theme</strong>: Light/dark mode, branding</li>
+        <li><strong>Authentication</strong>: User session, permissions</li>
+        <li><strong>Internationalization</strong>: Language, locale</li>
+        <li><strong>Configuration</strong>: Feature flags, settings</li>
+        <li><strong>State management</strong>: Replacing or complementing
+            libraries</li>
+    </ul>
+    <p>However, context should be used judiciously:
+        - <strong>Performance</strong>: Context updates cause all consumers to
+        re-render
+        - <strong>Overuse</strong>: Too many contexts can make code harder to
+        follow
+        - <strong>State management</strong>: For complex state, consider state
+        management libraries</p>
+    <h3 id="usecontext-examples">useContext Examples</h3>
+    <pre><code class="language-jsx">// Creating a context
 const ThemeContext = React.createContext('light');
 
 // Using useContext
@@ -1079,35 +1177,51 @@ function CounterComponent() {
     );
 }
 </code></pre>
-<h2 id="68-usereducer-hook">6.8 useReducer Hook</h2>
-<h3 id="simple-explanation_7--2">Simple Explanation</h3>
-<p>useReducer is like useState but more powerful. It's used for managing complex state logic where the next state depends on the previous state and an action. Think of it as a state machine - you define how state changes in response to actions.</p>
-<p>If useState is like a simple light switch (on/off), useReducer is like a sophisticated traffic light (red, yellow, green) with clear rules for how to change states.</p>
-<h3 id="technical-explanation_7--2">Technical Explanation</h3>
-<p>useReducer is a hook that manages state with a reducer function. It's similar to useState but more suitable for complex state logic with multiple sub-values or when the next state depends on the previous state.</p>
-<p>Key characteristics:
-- <strong>Reducer function</strong>: Pure function that takes state and action, returns new state
-- <strong>Action dispatch</strong>: Send actions to update state
-- <strong>Predictable updates</strong>: State transitions are defined in one place
-- <strong>Complex state</strong>: Good for objects with multiple fields
-- <strong>Testing</strong>: Reducers are pure functions, easy to test</p>
-<h3 id="professional-explanation_7--2">Professional Explanation</h3>
-<p>useReducer is ideal for:</p>
-<ul>
-<li><strong>Complex state</strong>: Multiple fields that are interdependent</li>
-<li><strong>State transitions</strong>: Clear patterns for state changes</li>
-<li><strong>Global state</strong>: Used with Context for larger applications</li>
-<li><strong>Redux-like patterns</strong>: Familiar to developers with Redux experience</li>
-<li><strong>Performance</strong>: Can be more performant than useState for complex state</li>
-</ul>
-<p>Common patterns:
-- <strong>Counter</strong>: Simple increment/decrement
-- <strong>Form state</strong>: Managing multiple form fields
-- <strong>Fetch state</strong>: Loading, success, error states
-- <strong>Shopping cart</strong>: Adding, removing, updating items
-- <strong>Game state</strong>: Complex game mechanics</p>
-<h3 id="usereducer-examples">useReducer Examples</h3>
-<pre><code class="language-jsx">// Basic useReducer
+    <h2 id="68-usereducer-hook">6.8 useReducer Hook</h2>
+    <h3 id="simple-explanation_7--2">Simple Explanation</h3>
+    <p>useReducer is like useState but more powerful. It's used for managing
+        complex state logic where the next state depends on the previous state
+        and an action. Think of it as a state machine - you define how state
+        changes in response to actions.</p>
+    <p>If useState is like a simple light switch (on/off), useReducer is like a
+        sophisticated traffic light (red, yellow, green) with clear rules for
+        how to change states.</p>
+    <h3 id="technical-explanation_7--2">Technical Explanation</h3>
+    <p>useReducer is a hook that manages state with a reducer function. It's
+        similar to useState but more suitable for complex state logic with
+        multiple sub-values or when the next state depends on the previous
+        state.</p>
+    <p>Key characteristics:
+        - <strong>Reducer function</strong>: Pure function that takes state and
+        action, returns new state
+        - <strong>Action dispatch</strong>: Send actions to update state
+        - <strong>Predictable updates</strong>: State transitions are defined in
+        one place
+        - <strong>Complex state</strong>: Good for objects with multiple fields
+        - <strong>Testing</strong>: Reducers are pure functions, easy to
+        test</p>
+    <h3 id="professional-explanation_7--2">Professional Explanation</h3>
+    <p>useReducer is ideal for:</p>
+    <ul>
+        <li><strong>Complex state</strong>: Multiple fields that are
+            interdependent</li>
+        <li><strong>State transitions</strong>: Clear patterns for state
+            changes</li>
+        <li><strong>Global state</strong>: Used with Context for larger
+            applications</li>
+        <li><strong>Redux-like patterns</strong>: Familiar to developers with
+            Redux experience</li>
+        <li><strong>Performance</strong>: Can be more performant than useState
+            for complex state</li>
+    </ul>
+    <p>Common patterns:
+        - <strong>Counter</strong>: Simple increment/decrement
+        - <strong>Form state</strong>: Managing multiple form fields
+        - <strong>Fetch state</strong>: Loading, success, error states
+        - <strong>Shopping cart</strong>: Adding, removing, updating items
+        - <strong>Game state</strong>: Complex game mechanics</p>
+    <h3 id="usereducer-examples">useReducer Examples</h3>
+    <pre><code class="language-jsx">// Basic useReducer
 const counterReducer = (state, action) =&gt; {
     switch (action.type) {
         case 'INCREMENT':
@@ -1285,33 +1399,46 @@ function AsyncDataFetcher() {
     return &lt;pre&gt;{JSON.stringify(state.data, null, 2)}&lt;/pre&gt;;
 }
 </code></pre>
-<h2 id="69-uselayouteffect-hook">6.9 useLayoutEffect Hook</h2>
-<h3 id="simple-explanation_8--2">Simple Explanation</h3>
-<p>useLayoutEffect is similar to useEffect, but it runs synchronously after all DOM mutations and before the browser paints. This means you can use it to measure or manipulate the DOM before the user sees any visual updates.</p>
-<p>Think of useLayoutEffect as a "do this right before painting" function. It's useful when you need to read layout or synchronously re-render to avoid flickering.</p>
-<h3 id="technical-explanation_8--2">Technical Explanation</h3>
-<p>useLayoutEffect runs synchronously after DOM mutations but before the browser paints. It's useful for DOM measurements, layout modifications, and preventing visual flickering. However, it can impact performance if used heavily.</p>
-<p>Key characteristics:
-- <strong>Synchronous</strong>: Runs before the browser paints
-- <strong>DOM access</strong>: Can safely read and modify DOM
-- <strong>Visual flicker</strong>: Prevents visual flickering
-- <strong>Performance</strong>: Can impact performance if not used carefully
-- <strong>Server-side</strong>: Not available during server-side rendering</p>
-<h3 id="professional-explanation_8--2">Professional Explanation</h3>
-<p>When to use useLayoutEffect:
-- <strong>DOM measurements</strong>: Reading element dimensions
-- <strong>Layout animations</strong>: Animations that depend on layout
-- <strong>DOM mutations</strong>: Mutations that must happen before paint
-- <strong>Integration</strong>: Third-party libraries that need DOM access
-- <strong>Preventing flicker</strong>: Updates that need to be synchronous</p>
-<p>When to use useEffect:
-- Most side effects
-- Data fetching
-- Subscriptions
-- Timers
-- Analytics</p>
-<h3 id="uselayouteffect-examples">useLayoutEffect Examples</h3>
-<pre><code class="language-jsx">// Measuring DOM elements
+    <h2 id="69-uselayouteffect-hook">6.9 useLayoutEffect Hook</h2>
+    <h3 id="simple-explanation_8--2">Simple Explanation</h3>
+    <p>useLayoutEffect is similar to useEffect, but it runs synchronously after
+        all DOM mutations and before the browser paints. This means you can use
+        it to measure or manipulate the DOM before the user sees any visual
+        updates.</p>
+    <p>Think of useLayoutEffect as a "do this right before painting" function.
+        It's useful when you need to read layout or synchronously re-render to
+        avoid flickering.</p>
+    <h3 id="technical-explanation_8--2">Technical Explanation</h3>
+    <p>useLayoutEffect runs synchronously after DOM mutations but before the
+        browser paints. It's useful for DOM measurements, layout modifications,
+        and preventing visual flickering. However, it can impact performance if
+        used heavily.</p>
+    <p>Key characteristics:
+        - <strong>Synchronous</strong>: Runs before the browser paints
+        - <strong>DOM access</strong>: Can safely read and modify DOM
+        - <strong>Visual flicker</strong>: Prevents visual flickering
+        - <strong>Performance</strong>: Can impact performance if not used
+        carefully
+        - <strong>Server-side</strong>: Not available during server-side
+        rendering</p>
+    <h3 id="professional-explanation_8--2">Professional Explanation</h3>
+    <p>When to use useLayoutEffect:
+        - <strong>DOM measurements</strong>: Reading element dimensions
+        - <strong>Layout animations</strong>: Animations that depend on layout
+        - <strong>DOM mutations</strong>: Mutations that must happen before
+        paint
+        - <strong>Integration</strong>: Third-party libraries that need DOM
+        access
+        - <strong>Preventing flicker</strong>: Updates that need to be
+        synchronous</p>
+    <p>When to use useEffect:
+        - Most side effects
+        - Data fetching
+        - Subscriptions
+        - Timers
+        - Analytics</p>
+    <h3 id="uselayouteffect-examples">useLayoutEffect Examples</h3>
+    <pre><code class="language-jsx">// Measuring DOM elements
 function MeasureWithLayout() {
     const [element, setElement] = useState(null);
     const [height, setHeight] = useState(0);
@@ -1418,27 +1545,35 @@ function LayoutRecalculation() {
     );
 }
 </code></pre>
-<h2 id="610-useimperativehandle-hook">6.10 useImperativeHandle Hook</h2>
-<h3 id="simple-explanation_9--2">Simple Explanation</h3>
-<p>useImperativeHandle allows you to customize the instance value that's exposed to parent components when using refs. It's used with forwardRef to control what methods or properties are accessible from the parent.</p>
-<p>Think of it like controlling which buttons are available on a remote control. You decide what the parent component can do with the ref.</p>
-<h3 id="technical-explanation_9--2">Technical Explanation</h3>
-<p>useImperativeHandle customizes the ref handle exposed to parent components. It's used with <code>forwardRef</code> to limit what parent components can do with the ref, exposing only a specific API.</p>
-<p>Key characteristics:
-- <strong>Controlled access</strong>: Limit what parent components can access
-- <strong>ForwardRef</strong>: Used with forwardRef for ref forwarding
-- <strong>Clean API</strong>: Expose only necessary methods
-- <strong>Encapsulation</strong>: Hide internal implementation details
-- <strong>Testing</strong>: Easier to test specific methods</p>
-<h3 id="professional-explanation_9--2">Professional Explanation</h3>
-<p>Use cases for useImperativeHandle:
-- <strong>Form components</strong>: Expose validation or reset methods
-- <strong>Animation libraries</strong>: Control animation methods
-- <strong>Third-party integration</strong>: Controlled access to external libraries
-- <strong>DOM manipulation</strong>: Controlled access to DOM elements
-- <strong>Imperative API</strong>: When you need imperative methods</p>
-<h3 id="useimperativehandle-examples">useImperativeHandle Examples</h3>
-<pre><code class="language-jsx">// Basic useImperativeHandle
+    <h2 id="610-useimperativehandle-hook">6.10 useImperativeHandle Hook</h2>
+    <h3 id="simple-explanation_9--2">Simple Explanation</h3>
+    <p>useImperativeHandle allows you to customize the instance value that's
+        exposed to parent components when using refs. It's used with forwardRef
+        to control what methods or properties are accessible from the
+        parent.</p>
+    <p>Think of it like controlling which buttons are available on a remote
+        control. You decide what the parent component can do with the ref.</p>
+    <h3 id="technical-explanation_9--2">Technical Explanation</h3>
+    <p>useImperativeHandle customizes the ref handle exposed to parent
+        components. It's used with <code>forwardRef</code> to limit what parent
+        components can do with the ref, exposing only a specific API.</p>
+    <p>Key characteristics:
+        - <strong>Controlled access</strong>: Limit what parent components can
+        access
+        - <strong>ForwardRef</strong>: Used with forwardRef for ref forwarding
+        - <strong>Clean API</strong>: Expose only necessary methods
+        - <strong>Encapsulation</strong>: Hide internal implementation details
+        - <strong>Testing</strong>: Easier to test specific methods</p>
+    <h3 id="professional-explanation_9--2">Professional Explanation</h3>
+    <p>Use cases for useImperativeHandle:
+        - <strong>Form components</strong>: Expose validation or reset methods
+        - <strong>Animation libraries</strong>: Control animation methods
+        - <strong>Third-party integration</strong>: Controlled access to
+        external libraries
+        - <strong>DOM manipulation</strong>: Controlled access to DOM elements
+        - <strong>Imperative API</strong>: When you need imperative methods</p>
+    <h3 id="useimperativehandle-examples">useImperativeHandle Examples</h3>
+    <pre><code class="language-jsx">// Basic useImperativeHandle
 const FancyInput = forwardRef((props, ref) =&gt; {
     const inputRef = useRef(null);
 
@@ -1603,35 +1738,44 @@ function ValidatedForm() {
     );
 }
 </code></pre>
-<h2 id="611-usetransition-and-usedeferredvalue">6.11 useTransition and useDeferredValue</h2>
-<h3 id="simple-explanation_10">Simple Explanation</h3>
-<p>useTransition and useDeferredValue are hooks for improving performance by managing how updates are scheduled. They allow you to mark certain updates as non-urgent, so React can prioritize other updates that are more important for user interaction.</p>
-<p>Think of these hooks as traffic controllers - they help decide which updates are urgent (like typing in an input) and which can wait (like rendering search results).</p>
-<h3 id="technical-explanation_10">Technical Explanation</h3>
-<p>These hooks are part of React's Concurrent Mode features, allowing you to mark updates as "transitions" or "deferred" to improve user experience.</p>
-<p><strong>useTransition</strong>:
-- Returns a pending state and a startTransition function
-- Allows marking updates as non-urgent
-- Shows pending state during transitions
-- Keeps UI responsive during heavy updates</p>
-<p><strong>useDeferredValue</strong>:
-- Returns a deferred version of a value
-- Updates the deferred value later if more urgent updates occur
-- Useful for showing stale data during updates
-- Similar to debouncing but integrated with React's scheduling</p>
-<h3 id="professional-explanation_10">Professional Explanation</h3>
-<p>When to use useTransition:
-- <strong>Search/Filter</strong>: Heavy filtering while typing
-- <strong>Large lists</strong>: Rendering large data sets
-- <strong>Complex transitions</strong>: Navigation between pages
-- <strong>Data fetching</strong>: Loading data without blocking UI</p>
-<p>When to use useDeferredValue:
-- <strong>Real-time updates</strong>: Data updates that can be delayed
-- <strong>Search results</strong>: Showing results while typing
-- <strong>Large computations</strong>: Expensive calculations that can be delayed
-- <strong>Smooth UI</strong>: Maintaining smooth user experience</p>
-<h3 id="usetransition-examples">useTransition Examples</h3>
-<pre><code class="language-jsx">// Basic useTransition
+    <h2 id="611-usetransition-and-usedeferredvalue">6.11 useTransition and
+        useDeferredValue</h2>
+    <h3 id="simple-explanation_10">Simple Explanation</h3>
+    <p>useTransition and useDeferredValue are hooks for improving performance by
+        managing how updates are scheduled. They allow you to mark certain
+        updates as non-urgent, so React can prioritize other updates that are
+        more important for user interaction.</p>
+    <p>Think of these hooks as traffic controllers - they help decide which
+        updates are urgent (like typing in an input) and which can wait (like
+        rendering search results).</p>
+    <h3 id="technical-explanation_10">Technical Explanation</h3>
+    <p>These hooks are part of React's Concurrent Mode features, allowing you to
+        mark updates as "transitions" or "deferred" to improve user
+        experience.</p>
+    <p><strong>useTransition</strong>:
+        - Returns a pending state and a startTransition function
+        - Allows marking updates as non-urgent
+        - Shows pending state during transitions
+        - Keeps UI responsive during heavy updates</p>
+    <p><strong>useDeferredValue</strong>:
+        - Returns a deferred version of a value
+        - Updates the deferred value later if more urgent updates occur
+        - Useful for showing stale data during updates
+        - Similar to debouncing but integrated with React's scheduling</p>
+    <h3 id="professional-explanation_10">Professional Explanation</h3>
+    <p>When to use useTransition:
+        - <strong>Search/Filter</strong>: Heavy filtering while typing
+        - <strong>Large lists</strong>: Rendering large data sets
+        - <strong>Complex transitions</strong>: Navigation between pages
+        - <strong>Data fetching</strong>: Loading data without blocking UI</p>
+    <p>When to use useDeferredValue:
+        - <strong>Real-time updates</strong>: Data updates that can be delayed
+        - <strong>Search results</strong>: Showing results while typing
+        - <strong>Large computations</strong>: Expensive calculations that can
+        be delayed
+        - <strong>Smooth UI</strong>: Maintaining smooth user experience</p>
+    <h3 id="usetransition-examples">useTransition Examples</h3>
+    <pre><code class="language-jsx">// Basic useTransition
 function SearchApp() {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
@@ -1792,27 +1936,34 @@ function AdvancedSearch() {
     );
 }
 </code></pre>
-<h2 id="612-useid-hook">6.12 useId Hook</h2>
-<h3 id="simple-explanation_11">Simple Explanation</h3>
-<p>useId is a hook for generating unique IDs for accessibility (ARIA) attributes. It creates stable IDs that are unique across the application, preventing ID collisions and hydration mismatches.</p>
-<p>Think of useId like a ticket machine - it gives each element a unique number that won't conflict with any other element in the application.</p>
-<h3 id="technical-explanation_11">Technical Explanation</h3>
-<p>useId generates unique IDs that are consistent between server and client rendering. It's designed for accessibility attributes like <code>aria-describedby</code>, <code>aria-labelledby</code>, and HTML <code>for</code>/<code>id</code> attributes.</p>
-<p>Key characteristics:
-- <strong>Unique IDs</strong>: Generates unique identifiers
-- <strong>Stable</strong>: Consistent between renders
-- <strong>Hydration-safe</strong>: Works with server-side rendering
-- <strong>Prefix support</strong>: Can generate IDs with custom prefixes
-- <strong>Accessibility</strong>: Ideal for ARIA attributes</p>
-<h3 id="professional-explanation_11">Professional Explanation</h3>
-<p>Use cases for useId:
-- <strong>Form labels</strong>: Connecting labels to inputs
-- <strong>ARIA labels</strong>: Describing elements for screen readers
-- <strong>Complex components</strong>: Multiple related elements
-- <strong>Hydration</strong>: Consistent IDs in SSR
-- <strong>Accessibility</strong>: Properly associating elements</p>
-<h3 id="useid-examples">useId Examples</h3>
-<pre><code class="language-jsx">// Basic useId
+    <h2 id="612-useid-hook">6.12 useId Hook</h2>
+    <h3 id="simple-explanation_11">Simple Explanation</h3>
+    <p>useId is a hook for generating unique IDs for accessibility (ARIA)
+        attributes. It creates stable IDs that are unique across the
+        application, preventing ID collisions and hydration mismatches.</p>
+    <p>Think of useId like a ticket machine - it gives each element a unique
+        number that won't conflict with any other element in the
+        application.</p>
+    <h3 id="technical-explanation_11">Technical Explanation</h3>
+    <p>useId generates unique IDs that are consistent between server and client
+        rendering. It's designed for accessibility attributes like
+        <code>aria-describedby</code>, <code>aria-labelledby</code>, and HTML
+        <code>for</code>/<code>id</code> attributes.</p>
+    <p>Key characteristics:
+        - <strong>Unique IDs</strong>: Generates unique identifiers
+        - <strong>Stable</strong>: Consistent between renders
+        - <strong>Hydration-safe</strong>: Works with server-side rendering
+        - <strong>Prefix support</strong>: Can generate IDs with custom prefixes
+        - <strong>Accessibility</strong>: Ideal for ARIA attributes</p>
+    <h3 id="professional-explanation_11">Professional Explanation</h3>
+    <p>Use cases for useId:
+        - <strong>Form labels</strong>: Connecting labels to inputs
+        - <strong>ARIA labels</strong>: Describing elements for screen readers
+        - <strong>Complex components</strong>: Multiple related elements
+        - <strong>Hydration</strong>: Consistent IDs in SSR
+        - <strong>Accessibility</strong>: Properly associating elements</p>
+    <h3 id="useid-examples">useId Examples</h3>
+    <pre><code class="language-jsx">// Basic useId
 function FormField({ label, ...props }) {
     const id = useId();
 
@@ -1911,33 +2062,39 @@ function AddressForm() {
     );
 }
 </code></pre>
-<h2 id="613-custom-hooks">6.13 Custom Hooks</h2>
-<h3 id="simple-explanation_12">Simple Explanation</h3>
-<p>Custom Hooks let you extract reusable logic from components into reusable functions. They allow you to share stateful logic across multiple components without duplicating code.</p>
-<p>Think of custom hooks like recipe templates - instead of writing the same code over and over, you create a reusable "recipe" that you can use in different components.</p>
-<h3 id="technical-explanation_12">Technical Explanation</h3>
-<p>Custom hooks are JavaScript functions that use React hooks. They allow you to extract component logic into reusable functions. Custom hooks follow the same rules as built-in hooks and can use other hooks.</p>
-<p>Key characteristics:
-- <strong>Reusable</strong>: Share logic across components
-- <strong>Composable</strong>: Can use other hooks
-- <strong>Encapsulated</strong>: Hide implementation details
-- <strong>Testable</strong>: Can be tested independently
-- <strong>Naming</strong>: Must start with "use"</p>
-<h3 id="professional-explanation_12">Professional Explanation</h3>
-<p>Best practices for custom hooks:
-- <strong>Single responsibility</strong>: Do one thing well
-- <strong>Composable</strong>: Build complex hooks from simple ones
-- <strong>Documented</strong>: Clear purpose and API
-- <strong>Tested</strong>: Unit tests for hook logic
-- <strong>Type-safe</strong>: Use TypeScript for type safety</p>
-<p>Common custom hook examples:
-- <strong>useLocalStorage</strong>: Sync with localStorage
-- <strong>useFetch</strong>: Data fetching with loading/error states
-- <strong>useDebounce</strong>: Debounce values
-- <strong>useToggle</strong>: Boolean state management
-- <strong>useMediaQuery</strong>: Responsive design helpers</p>
-<h3 id="custom-hooks-examples">Custom Hooks Examples</h3>
-<pre><code class="language-jsx">// useLocalStorage - Persist state in localStorage
+    <h2 id="613-custom-hooks">6.13 Custom Hooks</h2>
+    <h3 id="simple-explanation_12">Simple Explanation</h3>
+    <p>Custom Hooks let you extract reusable logic from components into reusable
+        functions. They allow you to share stateful logic across multiple
+        components without duplicating code.</p>
+    <p>Think of custom hooks like recipe templates - instead of writing the same
+        code over and over, you create a reusable "recipe" that you can use in
+        different components.</p>
+    <h3 id="technical-explanation_12">Technical Explanation</h3>
+    <p>Custom hooks are JavaScript functions that use React hooks. They allow
+        you to extract component logic into reusable functions. Custom hooks
+        follow the same rules as built-in hooks and can use other hooks.</p>
+    <p>Key characteristics:
+        - <strong>Reusable</strong>: Share logic across components
+        - <strong>Composable</strong>: Can use other hooks
+        - <strong>Encapsulated</strong>: Hide implementation details
+        - <strong>Testable</strong>: Can be tested independently
+        - <strong>Naming</strong>: Must start with "use"</p>
+    <h3 id="professional-explanation_12">Professional Explanation</h3>
+    <p>Best practices for custom hooks:
+        - <strong>Single responsibility</strong>: Do one thing well
+        - <strong>Composable</strong>: Build complex hooks from simple ones
+        - <strong>Documented</strong>: Clear purpose and API
+        - <strong>Tested</strong>: Unit tests for hook logic
+        - <strong>Type-safe</strong>: Use TypeScript for type safety</p>
+    <p>Common custom hook examples:
+        - <strong>useLocalStorage</strong>: Sync with localStorage
+        - <strong>useFetch</strong>: Data fetching with loading/error states
+        - <strong>useDebounce</strong>: Debounce values
+        - <strong>useToggle</strong>: Boolean state management
+        - <strong>useMediaQuery</strong>: Responsive design helpers</p>
+    <h3 id="custom-hooks-examples">Custom Hooks Examples</h3>
+    <pre><code class="language-jsx">// useLocalStorage - Persist state in localStorage
 function useLocalStorage(key, initialValue) {
     const [storedValue, setStoredValue] = useState(() =&gt; {
         try {
@@ -2155,9 +2312,10 @@ function ModalControl() {
     );
 }
 </code></pre>
-<h2 id="614-common-mistakes-and-best-practices">6.14 Common Mistakes and Best Practices</h2>
-<h3 id="6141-common-mistakes">6.14.1 Common Mistakes</h3>
-<pre><code class="language-jsx">// ❌ Calling hooks conditionally
+    <h2 id="614-common-mistakes-and-best-practices">6.14 Common Mistakes and
+        Best Practices</h2>
+    <h3 id="6141-common-mistakes">6.14.1 Common Mistakes</h3>
+    <pre><code class="language-jsx">// ❌ Calling hooks conditionally
 function BadComponent({ condition }) {
     const [count, setCount] = useState(0); // ✅ Always runs
 
@@ -2245,8 +2403,8 @@ function GoodRef() {
     return &lt;div&gt;{ref.current}&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="6142-best-practices">6.14.2 Best Practices</h3>
-<pre><code class="language-jsx">// ✅ Use multiple useState for unrelated state
+    <h3 id="6142-best-practices">6.14.2 Best Practices</h3>
+    <pre><code class="language-jsx">// ✅ Use multiple useState for unrelated state
 function GoodStateManagement() {
     const [count, setCount] = useState(0);
     const [name, setName] = useState('');
@@ -2327,15 +2485,17 @@ function GoodEffectWithCleanup() {
     }, []);
 }
 </code></pre>
-<h2 id="615-interview-questions">6.15 Interview Questions</h2>
-<h3 id="junior-level-questions--6">Junior Level Questions</h3>
-<p><strong>Q: What are React Hooks and why were they introduced?</strong></p>
-<p><strong>Answer</strong>: Hooks are functions that let you use React features from functional components. They were introduced to:
-1. Use state and lifecycle in functional components
-2. Share logic between components
-3. Reduce complexity compared to classes
-4. Better performance and readability</p>
-<pre><code class="language-jsx">// Before: Class component
+    <h2 id="615-interview-questions">6.15 Interview Questions</h2>
+    <h3 id="junior-level-questions--6">Junior Level Questions</h3>
+    <p><strong>Q: What are React Hooks and why were they
+            introduced?</strong></p>
+    <p><strong>Answer</strong>: Hooks are functions that let you use React
+        features from functional components. They were introduced to:
+        1. Use state and lifecycle in functional components
+        2. Share logic between components
+        3. Reduce complexity compared to classes
+        4. Better performance and readability</p>
+    <pre><code class="language-jsx">// Before: Class component
 class Counter extends React.Component {
     state = { count: 0 };
     render() {
@@ -2351,26 +2511,31 @@ function Counter() {
     return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;;
 }
 </code></pre>
-<p><strong>Q: What are the rules of Hooks?</strong></p>
-<p><strong>Answer</strong>: 
-1. <strong>Only call hooks at the top level</strong> - Not inside loops, conditions, or nested functions
-2. <strong>Only call hooks from React functions</strong> - Functional components or custom hooks</p>
-<h3 id="mid-level-questions--6">Mid Level Questions</h3>
-<p><strong>Q: Explain the difference between <code>useState</code> and <code>useReducer</code>.</strong></p>
-<p><strong>Answer</strong>:
-- <strong>useState</strong>: For simple state, single value, or object
-- <strong>useReducer</strong>: For complex state logic, multiple sub-values, or when next state depends on previous</p>
-<pre><code class="language-jsx">// useState
+    <p><strong>Q: What are the rules of Hooks?</strong></p>
+    <p><strong>Answer</strong>:
+        1. <strong>Only call hooks at the top level</strong> - Not inside loops,
+        conditions, or nested functions
+        2. <strong>Only call hooks from React functions</strong> - Functional
+        components or custom hooks</p>
+    <h3 id="mid-level-questions--6">Mid Level Questions</h3>
+    <p><strong>Q: Explain the difference between <code>useState</code> and
+            <code>useReducer</code>.</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>useState</strong>: For simple state, single value, or object
+        - <strong>useReducer</strong>: For complex state logic, multiple
+        sub-values, or when next state depends on previous</p>
+    <pre><code class="language-jsx">// useState
 const [count, setCount] = useState(0);
 
 // useReducer
 const [state, dispatch] = useReducer(reducer, { count: 0 });
 </code></pre>
-<p><strong>Q: When should you use <code>useMemo</code> vs <code>useCallback</code>?</strong></p>
-<p><strong>Answer</strong>:
-- <strong>useMemo</strong>: Memoizes values/computations
-- <strong>useCallback</strong>: Memoizes functions</p>
-<pre><code class="language-jsx">// useMemo for values
+    <p><strong>Q: When should you use <code>useMemo</code> vs
+            <code>useCallback</code>?</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>useMemo</strong>: Memoizes values/computations
+        - <strong>useCallback</strong>: Memoizes functions</p>
+    <pre><code class="language-jsx">// useMemo for values
 const processedData = useMemo(() =&gt; {
     return heavyComputation(data);
 }, [data]);
@@ -2380,14 +2545,18 @@ const handleClick = useCallback(() =&gt; {
     console.log('Clicked');
 }, []);
 </code></pre>
-<h3 id="senior-level-questions--6">Senior Level Questions</h3>
-<p><strong>Q: Explain the dependency array in <code>useEffect</code> and common pitfalls.</strong></p>
-<p><strong>Answer</strong>: The dependency array controls when the effect runs. Common pitfalls include:
-1. <strong>Missing dependencies</strong>: Leading to stale closures
-2. <strong>Including unnecessary dependencies</strong>: Causing unnecessary re-runs
-3. <strong>Using objects/arrays</strong>: Causing infinite loops
-4. <strong>Using functions</strong>: Need to use <code>useCallback</code></p>
-<pre><code class="language-jsx">// ✅ Correct dependencies
+    <h3 id="senior-level-questions--6">Senior Level Questions</h3>
+    <p><strong>Q: Explain the dependency array in <code>useEffect</code> and
+            common pitfalls.</strong></p>
+    <p><strong>Answer</strong>: The dependency array controls when the effect
+        runs. Common pitfalls include:
+        1. <strong>Missing dependencies</strong>: Leading to stale closures
+        2. <strong>Including unnecessary dependencies</strong>: Causing
+        unnecessary re-runs
+        3. <strong>Using objects/arrays</strong>: Causing infinite loops
+        4. <strong>Using functions</strong>: Need to use
+        <code>useCallback</code></p>
+    <pre><code class="language-jsx">// ✅ Correct dependencies
 useEffect(() =&gt; {
     fetchUser(userId);
 }, [userId]);
@@ -2403,127 +2572,155 @@ useEffect(() =&gt; {
     fetchUser(memoizedUser);
 }, [memoizedUser]);
 </code></pre>
-<p><strong>Q: How do you optimize performance with hooks?</strong></p>
-<p><strong>Answer</strong>:
-1. <strong>useMemo</strong>: Cache expensive computations
-2. <strong>useCallback</strong>: Memoize callbacks
-3. <strong>React.memo</strong>: Prevent re-renders
-4. <strong>useTransition</strong>: Mark non-urgent updates
-5. <strong>useDeferredValue</strong>: Defer heavy updates
-6. <strong>useId</strong>: Stable IDs for accessibility</p>
-<pre><code class="language-jsx">const MemoizedComponent = React.memo(({ data }) =&gt; {
+    <p><strong>Q: How do you optimize performance with hooks?</strong></p>
+    <p><strong>Answer</strong>:
+        1. <strong>useMemo</strong>: Cache expensive computations
+        2. <strong>useCallback</strong>: Memoize callbacks
+        3. <strong>React.memo</strong>: Prevent re-renders
+        4. <strong>useTransition</strong>: Mark non-urgent updates
+        5. <strong>useDeferredValue</strong>: Defer heavy updates
+        6. <strong>useId</strong>: Stable IDs for accessibility</p>
+    <pre><code class="language-jsx">const MemoizedComponent = React.memo(({ data }) =&gt; {
     const processed = useMemo(() =&gt; processData(data), [data]);
     const handleClick = useCallback(() =&gt; handleItem(data.id), [data.id]);
 
     return &lt;div onClick={handleClick}&gt;{processed}&lt;/div&gt;;
 });
 </code></pre>
-<h2 id="616-summary">6.16 Summary</h2>
-<h3 id="key-hooks-reference">Key Hooks Reference</h3>
-<table>
-<thead>
-<tr>
-<th>Hook</th>
-<th>Purpose</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>useState</strong></td>
-<td>Local state</td>
-<td><code>const [state, setState] = useState(initial)</code></td>
-</tr>
-<tr>
-<td><strong>useEffect</strong></td>
-<td>Side effects</td>
-<td><code>useEffect(() =&gt; {}, [deps])</code></td>
-</tr>
-<tr>
-<td><strong>useMemo</strong></td>
-<td>Memoize values</td>
-<td><code>const value = useMemo(() =&gt; compute(), [deps])</code></td>
-</tr>
-<tr>
-<td><strong>useCallback</strong></td>
-<td>Memoize functions</td>
-<td><code>const fn = useCallback(() =&gt; {}, [deps])</code></td>
-</tr>
-<tr>
-<td><strong>useRef</strong></td>
-<td>Mutable references</td>
-<td><code>const ref = useRef(initialValue)</code></td>
-</tr>
-<tr>
-<td><strong>useContext</strong></td>
-<td>Context values</td>
-<td><code>const value = useContext(Context)</code></td>
-</tr>
-<tr>
-<td><strong>useReducer</strong></td>
-<td>Complex state</td>
-<td><code>const [state, dispatch] = useReducer(reducer, init)</code></td>
-</tr>
-<tr>
-<td><strong>useLayoutEffect</strong></td>
-<td>Synchronous effects</td>
-<td><code>useLayoutEffect(() =&gt; {}, [deps])</code></td>
-</tr>
-<tr>
-<td><strong>useImperativeHandle</strong></td>
-<td>Custom refs</td>
-<td><code>useImperativeHandle(ref, () =&gt; ({}))</code></td>
-</tr>
-<tr>
-<td><strong>useTransition</strong></td>
-<td>Non-urgent updates</td>
-<td><code>const [pending, startTransition] = useTransition()</code></td>
-</tr>
-<tr>
-<td><strong>useDeferredValue</strong></td>
-<td>Deferred values</td>
-<td><code>const deferred = useDeferredValue(value)</code></td>
-</tr>
-<tr>
-<td><strong>useId</strong></td>
-<td>Unique IDs</td>
-<td><code>const id = useId()</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="best-practices-summary--4">Best Practices Summary</h3>
-<ol>
-<li><strong>Follow hooks rules</strong>: Top-level and from React functions</li>
-<li><strong>Keep components focused</strong>: Extract logic to custom hooks</li>
-<li><strong>Optimize performance</strong>: Use memoization appropriately</li>
-<li><strong>Clean up effects</strong>: Return cleanup functions</li>
-<li><strong>Use proper dependencies</strong>: Include all dependencies in useEffect</li>
-<li><strong>Avoid unnecessary re-renders</strong>: Use React.memo and useCallback</li>
-<li><strong>Test hooks</strong>: Write unit tests for custom hooks</li>
-<li><strong>Document custom hooks</strong>: Clear purpose and API</li>
-<li><strong>Use TypeScript</strong>: Type-safe hooks</li>
-<li><strong>Monitor performance</strong>: Use React DevTools Profiler</li>
-</ol>
-<h3 id="common-mistakes-to-avoid">Common Mistakes to Avoid</h3>
-<ol>
-<li>❌ Calling hooks conditionally</li>
-<li>❌ Missing dependencies in useEffect</li>
-<li>❌ Stale closures in useEffect</li>
-<li>❌ Mutating state directly</li>
-<li>❌ Using index as key in lists</li>
-<li>❌ Over-memoization</li>
-<li>❌ Not cleaning up effects</li>
-<li>❌ Mutating refs during render</li>
-<li>❌ Creating new objects in render</li>
-<li>❌ Ignoring performance implications</li>
-</ol>
-<hr/>
-<p><em>End of Chapter 6</em></p>
-<p><strong>Next Chapter Preview</strong>: Chapter 7 will cover State Management including Local State, Global State, Context API, Redux Toolkit, Zustand, Jotai, Recoil, and React Query, explaining when to use each approach.</p>
-<hr/>
-<p><em>This chapter provides comprehensive coverage of React Hooks. Master these concepts to build efficient, maintainable, and performant React applications.</em></p>
-<h1 id="the-complete-react-developer-course--6">The Complete React Developer Course</h1>
-<h2 id="from-beginner-to-professional--6">From Beginner to Professional</h2>
-<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--6">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
-<hr/>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-6" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-5"><span class="pager-label">← Previous chapter</span><strong>05 · React Fundamentals</strong></a><a class="pager-card pager-card--next" href="#chapter-7"><span class="pager-label">Next chapter →</span><strong>07 · State Management in React</strong></a></nav></section>
+    <h2 id="616-summary">6.16 Summary</h2>
+    <h3 id="key-hooks-reference">Key Hooks Reference</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Hook</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>useState</strong></td>
+                <td>Local state</td>
+                <td><code>const [state, setState] =
+                        useState(initial)</code></td>
+            </tr>
+            <tr>
+                <td><strong>useEffect</strong></td>
+                <td>Side effects</td>
+                <td><code>useEffect(() =&gt; {}, [deps])</code></td>
+            </tr>
+            <tr>
+                <td><strong>useMemo</strong></td>
+                <td>Memoize values</td>
+                <td><code>const value = useMemo(() =&gt; compute(),
+                        [deps])</code></td>
+            </tr>
+            <tr>
+                <td><strong>useCallback</strong></td>
+                <td>Memoize functions</td>
+                <td><code>const fn = useCallback(() =&gt; {},
+                        [deps])</code></td>
+            </tr>
+            <tr>
+                <td><strong>useRef</strong></td>
+                <td>Mutable references</td>
+                <td><code>const ref = useRef(initialValue)</code></td>
+            </tr>
+            <tr>
+                <td><strong>useContext</strong></td>
+                <td>Context values</td>
+                <td><code>const value = useContext(Context)</code></td>
+            </tr>
+            <tr>
+                <td><strong>useReducer</strong></td>
+                <td>Complex state</td>
+                <td><code>const [state, dispatch] = useReducer(reducer,
+                        init)</code></td>
+            </tr>
+            <tr>
+                <td><strong>useLayoutEffect</strong></td>
+                <td>Synchronous effects</td>
+                <td><code>useLayoutEffect(() =&gt; {}, [deps])</code></td>
+            </tr>
+            <tr>
+                <td><strong>useImperativeHandle</strong></td>
+                <td>Custom refs</td>
+                <td><code>useImperativeHandle(ref, () =&gt; ({}))</code></td>
+            </tr>
+            <tr>
+                <td><strong>useTransition</strong></td>
+                <td>Non-urgent updates</td>
+                <td><code>const [pending, startTransition] =
+                        useTransition()</code></td>
+            </tr>
+            <tr>
+                <td><strong>useDeferredValue</strong></td>
+                <td>Deferred values</td>
+                <td><code>const deferred = useDeferredValue(value)</code></td>
+            </tr>
+            <tr>
+                <td><strong>useId</strong></td>
+                <td>Unique IDs</td>
+                <td><code>const id = useId()</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="best-practices-summary--4">Best Practices Summary</h3>
+    <ol>
+        <li><strong>Follow hooks rules</strong>: Top-level and from React
+            functions</li>
+        <li><strong>Keep components focused</strong>: Extract logic to custom
+            hooks</li>
+        <li><strong>Optimize performance</strong>: Use memoization
+            appropriately</li>
+        <li><strong>Clean up effects</strong>: Return cleanup functions</li>
+        <li><strong>Use proper dependencies</strong>: Include all dependencies
+            in useEffect</li>
+        <li><strong>Avoid unnecessary re-renders</strong>: Use React.memo and
+            useCallback</li>
+        <li><strong>Test hooks</strong>: Write unit tests for custom hooks</li>
+        <li><strong>Document custom hooks</strong>: Clear purpose and API</li>
+        <li><strong>Use TypeScript</strong>: Type-safe hooks</li>
+        <li><strong>Monitor performance</strong>: Use React DevTools
+            Profiler</li>
+    </ol>
+    <h3 id="common-mistakes-to-avoid">Common Mistakes to Avoid</h3>
+    <ol>
+        <li>❌ Calling hooks conditionally</li>
+        <li>❌ Missing dependencies in useEffect</li>
+        <li>❌ Stale closures in useEffect</li>
+        <li>❌ Mutating state directly</li>
+        <li>❌ Using index as key in lists</li>
+        <li>❌ Over-memoization</li>
+        <li>❌ Not cleaning up effects</li>
+        <li>❌ Mutating refs during render</li>
+        <li>❌ Creating new objects in render</li>
+        <li>❌ Ignoring performance implications</li>
+    </ol>
+    <hr />
+    <p><em>End of Chapter 6</em></p>
+    <p><strong>Next Chapter Preview</strong>: Chapter 7 will cover State
+        Management including Local State, Global State, Context API, Redux
+        Toolkit, Zustand, Jotai, Recoil, and React Query, explaining when to use
+        each approach.</p>
+    <hr />
+    <p><em>This chapter provides comprehensive coverage of React Hooks. Master
+            these concepts to build efficient, maintainable, and performant
+            React applications.</em></p>
+    <h1 id="the-complete-react-developer-course--6">The Complete React Developer
+        Course</h1>
+    <h2 id="from-beginner-to-professional--6">From Beginner to Professional</h2>
+    <h3
+        id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--6">A
+        Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+    <hr />
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-6" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-5"><span
+                class="pager-label">← Previous chapter</span><strong>05 · React
+                Fundamentals</strong></a><a class="pager-card pager-card--next"
+            href="#chapter-7"><span class="pager-label">Next chapter
+                →</span><strong>07 · State Management in
+                React</strong></a></nav></section>

@@ -1,33 +1,51 @@
 <section class="chapter" id="chapter-2" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">02</span>
-<h1 class="chapter-title" id="javascript-required-for-react">JavaScript Required for React</h1>
-</div>
-<h2 id="21-introduction-to-javascript-for-react">2.1 Introduction to JavaScript for React</h2>
-<h3 id="simple-explanation--2">Simple Explanation</h3>
-<p>JavaScript is the foundation of React. Before learning React, you need to understand JavaScript well, just like you need to know how to read and write before writing a book. This chapter covers all the JavaScript concepts you'll need to build professional React applications.</p>
-<p>Think of JavaScript as the engine that powers your React application. Every React component, every interaction, every data fetch - it all relies on JavaScript.</p>
-<h3 id="technical-explanation--2">Technical Explanation</h3>
-<p>React is built on modern JavaScript (ES6+). Understanding JavaScript thoroughly is essential because:</p>
-<ol>
-<li><strong>React Components</strong> are JavaScript functions or classes</li>
-<li><strong>JSX</strong> is transformed into JavaScript function calls</li>
-<li><strong>State Management</strong> relies on JavaScript objects and functions</li>
-<li><strong>Event Handling</strong> uses JavaScript event system</li>
-<li><strong>Data Flow</strong> is managed through JavaScript data structures</li>
-</ol>
-<h3 id="professional-explanation--2">Professional Explanation</h3>
-<p>In enterprise React development, JavaScript proficiency is non-negotiable. You'll need to understand:</p>
-<ul>
-<li><strong>Functional Programming Concepts</strong>: Immutability, pure functions, composition</li>
-<li><strong>Asynchronous Programming</strong>: Promises, async/await, event loop</li>
-<li><strong>Memory Management</strong>: Garbage collection, memory leaks prevention</li>
-<li><strong>Type Systems</strong>: TypeScript interfaces, generics, utility types</li>
-<li><strong>Module Systems</strong>: ES modules, dynamic imports, code splitting</li>
-</ul>
-<h2 id="22-variables-and-scope">2.2 Variables and Scope</h2>
-<h3 id="221-variable-declarations">2.2.1 Variable Declarations</h3>
-<pre><code class="language-javascript">// var - Function-scoped (Legacy, avoid using)
+    <div class="chapter-title-card">
+        <span class="chapter-num">02</span>
+        <h1 class="chapter-title" id="javascript-required-for-react">JavaScript
+            Required for React</h1>
+    </div>
+    <h2 id="21-introduction-to-javascript-for-react">2.1 Introduction to
+        JavaScript for React</h2>
+    <h3 id="simple-explanation--2">Simple Explanation</h3>
+    <p>JavaScript is the foundation of React. Before learning React, you need to
+        understand JavaScript well, just like you need to know how to read and
+        write before writing a book. This chapter covers all the JavaScript
+        concepts you'll need to build professional React applications.</p>
+    <p>Think of JavaScript as the engine that powers your React application.
+        Every React component, every interaction, every data fetch - it all
+        relies on JavaScript.</p>
+    <h3 id="technical-explanation--2">Technical Explanation</h3>
+    <p>React is built on modern JavaScript (ES6+). Understanding JavaScript
+        thoroughly is essential because:</p>
+    <ol>
+        <li><strong>React Components</strong> are JavaScript functions or
+            classes</li>
+        <li><strong>JSX</strong> is transformed into JavaScript function
+            calls</li>
+        <li><strong>State Management</strong> relies on JavaScript objects and
+            functions</li>
+        <li><strong>Event Handling</strong> uses JavaScript event system</li>
+        <li><strong>Data Flow</strong> is managed through JavaScript data
+            structures</li>
+    </ol>
+    <h3 id="professional-explanation--2">Professional Explanation</h3>
+    <p>In enterprise React development, JavaScript proficiency is
+        non-negotiable. You'll need to understand:</p>
+    <ul>
+        <li><strong>Functional Programming Concepts</strong>: Immutability, pure
+            functions, composition</li>
+        <li><strong>Asynchronous Programming</strong>: Promises, async/await,
+            event loop</li>
+        <li><strong>Memory Management</strong>: Garbage collection, memory leaks
+            prevention</li>
+        <li><strong>Type Systems</strong>: TypeScript interfaces, generics,
+            utility types</li>
+        <li><strong>Module Systems</strong>: ES modules, dynamic imports, code
+            splitting</li>
+    </ul>
+    <h2 id="22-variables-and-scope">2.2 Variables and Scope</h2>
+    <h3 id="221-variable-declarations">2.2.1 Variable Declarations</h3>
+    <pre><code class="language-javascript">// var - Function-scoped (Legacy, avoid using)
 var oldWay = "I'm function scoped";
 console.log(oldWay); // Works
 
@@ -58,9 +76,9 @@ if (true) {
 console.log(functionScoped); // ✅ Works
 // console.log(blockScoped); // ❌ ReferenceError
 </code></pre>
-<h3 id="222-scope-types">2.2.2 Scope Types</h3>
-<p><strong>Global Scope</strong>:</p>
-<pre><code class="language-javascript">// Variables declared outside any function
+    <h3 id="222-scope-types">2.2.2 Scope Types</h3>
+    <p><strong>Global Scope</strong>:</p>
+    <pre><code class="language-javascript">// Variables declared outside any function
 const globalVar = "I'm global";
 
 function showGlobal() {
@@ -70,8 +88,8 @@ function showGlobal() {
 // In React, avoid polluting global scope
 // Instead, use modules and imports
 </code></pre>
-<p><strong>Function Scope</strong>:</p>
-<pre><code class="language-javascript">function createUser() {
+    <p><strong>Function Scope</strong>:</p>
+    <pre><code class="language-javascript">function createUser() {
     // Function-scoped variables
     const username = "john_doe";
     const password = "secret123";
@@ -86,8 +104,8 @@ function showGlobal() {
     return validate();
 }
 </code></pre>
-<p><strong>Block Scope</strong>:</p>
-<pre><code class="language-javascript">// Variables declared with let and const are block-scoped
+    <p><strong>Block Scope</strong>:</p>
+    <pre><code class="language-javascript">// Variables declared with let and const are block-scoped
 if (true) {
     let blockVar = "I'm in a block";
     const anotherBlockVar = "Me too";
@@ -101,8 +119,8 @@ for (let i = 0; i &lt; 5; i++) {
 }
 // console.log(i); // ❌ ReferenceError
 </code></pre>
-<h3 id="223-hoisting">2.2.3 Hoisting</h3>
-<pre><code class="language-javascript">// Hoisting with var
+    <h3 id="223-hoisting">2.2.3 Hoisting</h3>
+    <pre><code class="language-javascript">// Hoisting with var
 console.log(hoistedVar); // undefined (not ReferenceError)
 var hoistedVar = "I'm hoisted";
 
@@ -131,9 +149,9 @@ const sayGoodbye = function() {
 // sayHi(); // ❌ ReferenceError
 const sayHi = () =&gt; console.log("Hi!");
 </code></pre>
-<h2 id="23-functions">2.3 Functions</h2>
-<h3 id="231-function-declarations">2.3.1 Function Declarations</h3>
-<pre><code class="language-javascript">// Traditional function declaration
+    <h2 id="23-functions">2.3 Functions</h2>
+    <h3 id="231-function-declarations">2.3.1 Function Declarations</h3>
+    <pre><code class="language-javascript">// Traditional function declaration
 function calculateTotal(items) {
     let total = 0;
     for (let i = 0; i &lt; items.length; i++) {
@@ -148,8 +166,8 @@ function ShoppingCart({ items }) {
     return &lt;div&gt;Total: ${total}&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="232-function-expressions">2.3.2 Function Expressions</h3>
-<pre><code class="language-javascript">// Function expression
+    <h3 id="232-function-expressions">2.3.2 Function Expressions</h3>
+    <pre><code class="language-javascript">// Function expression
 const greet = function(name) {
     return `Hello, ${name}!`;
 };
@@ -164,8 +182,8 @@ const calculateDiscount = function discount(price, percentage) {
     return price * (1 - percentage / 100);
 };
 </code></pre>
-<h3 id="233-arrow-functions">2.3.3 Arrow Functions</h3>
-<pre><code class="language-javascript">// Basic arrow function
+    <h3 id="233-arrow-functions">2.3.3 Arrow Functions</h3>
+    <pre><code class="language-javascript">// Basic arrow function
 const add = (a, b) =&gt; {
     return a + b;
 };
@@ -204,8 +222,9 @@ function SearchBar() {
     return &lt;input onChange={handleSearch} /&gt;;
 }
 </code></pre>
-<h3 id="234-functions-vs-arrow-functions-this-binding">2.3.4 Functions vs Arrow Functions - <code>this</code> Binding</h3>
-<pre><code class="language-javascript">// Traditional function - has its own 'this'
+    <h3 id="234-functions-vs-arrow-functions-this-binding">2.3.4 Functions vs
+        Arrow Functions - <code>this</code> Binding</h3>
+    <pre><code class="language-javascript">// Traditional function - has its own 'this'
 function User(name) {
     this.name = name;
     this.greet = function() {
@@ -247,9 +266,9 @@ class Counter extends React.Component {
     }
 }
 </code></pre>
-<h2 id="24-objects">2.4 Objects</h2>
-<h3 id="241-object-creation">2.4.1 Object Creation</h3>
-<pre><code class="language-javascript">// Object literal
+    <h2 id="24-objects">2.4 Objects</h2>
+    <h3 id="241-object-creation">2.4.1 Object Creation</h3>
+    <pre><code class="language-javascript">// Object literal
 const user = {
     name: "John Doe",
     email: "john@example.com",
@@ -289,8 +308,9 @@ class Product {
 
 const laptop = new Product("Laptop", 999, "Electronics");
 </code></pre>
-<h3 id="242-object-methods-and-properties">2.4.2 Object Methods and Properties</h3>
-<pre><code class="language-javascript">const user = {
+    <h3 id="242-object-methods-and-properties">2.4.2 Object Methods and
+        Properties</h3>
+    <pre><code class="language-javascript">const user = {
     firstName: "John",
     lastName: "Doe",
     email: "john@example.com",
@@ -332,8 +352,8 @@ Object.defineProperty(config, 'maxRetries', {
     configurable: true
 });
 </code></pre>
-<h3 id="243-object-manipulation">2.4.3 Object Manipulation</h3>
-<pre><code class="language-javascript">const user = {
+    <h3 id="243-object-manipulation">2.4.3 Object Manipulation</h3>
+    <pre><code class="language-javascript">const user = {
     name: "John",
     age: 30,
     city: "New York"
@@ -374,9 +394,10 @@ const userData = {
 const frozenUser = Object.freeze(user);
 // frozenUser.name = 'Jane'; // ❌ Cannot modify
 </code></pre>
-<h2 id="25-arrays">2.5 Arrays</h2>
-<h3 id="251-array-creation-and-methods">2.5.1 Array Creation and Methods</h3>
-<pre><code class="language-javascript">// Array creation
+    <h2 id="25-arrays">2.5 Arrays</h2>
+    <h3 id="251-array-creation-and-methods">2.5.1 Array Creation and
+        Methods</h3>
+    <pre><code class="language-javascript">// Array creation
 const numbers = [1, 2, 3, 4, 5];
 const mixed = [1, 'two', { three: 3 }, [4, 5]];
 
@@ -410,8 +431,8 @@ const foundIndex = arr.findIndex(x =&gt; x &gt; 3); // 3
 // Checking array type
 console.log(Array.isArray(arr)); // true
 </code></pre>
-<h3 id="252-array-iteration-methods">2.5.2 Array Iteration Methods</h3>
-<pre><code class="language-javascript">const users = [
+    <h3 id="252-array-iteration-methods">2.5.2 Array Iteration Methods</h3>
+    <pre><code class="language-javascript">const users = [
     { id: 1, name: 'John', age: 25 },
     { id: 2, name: 'Jane', age: 30 },
     { id: 3, name: 'Bob', age: 35 }
@@ -467,8 +488,9 @@ const firstAdult = users.find(user =&gt; user.age &gt;= 18);
 // findIndex - Find index of first matching element
 const adultIndex = users.findIndex(user =&gt; user.age &gt;= 18);
 </code></pre>
-<h3 id="253-array-sorting-and-combining">2.5.3 Array Sorting and Combining</h3>
-<pre><code class="language-javascript">const numbers = [3, 1, 4, 1, 5, 9, 2, 6];
+    <h3 id="253-array-sorting-and-combining">2.5.3 Array Sorting and
+        Combining</h3>
+    <pre><code class="language-javascript">const numbers = [3, 1, 4, 1, 5, 9, 2, 6];
 const words = ['apple', 'banana', 'cherry', 'date'];
 
 // Sorting
@@ -504,9 +526,9 @@ const phrases = ['hello world', 'good morning'];
 const words2 = phrases.flatMap(phrase =&gt; phrase.split(' '));
 // ['hello', 'world', 'good', 'morning']
 </code></pre>
-<h2 id="26-destructuring">2.6 Destructuring</h2>
-<h3 id="261-object-destructuring">2.6.1 Object Destructuring</h3>
-<pre><code class="language-javascript">// Basic object destructuring
+    <h2 id="26-destructuring">2.6 Destructuring</h2>
+    <h3 id="261-object-destructuring">2.6.1 Object Destructuring</h3>
+    <pre><code class="language-javascript">// Basic object destructuring
 const user = {
     name: 'John Doe',
     email: 'john@example.com',
@@ -560,8 +582,8 @@ function createUser({ name, email, age = 18 }) {
     };
 }
 </code></pre>
-<h3 id="262-array-destructuring">2.6.2 Array Destructuring</h3>
-<pre><code class="language-javascript">// Basic array destructuring
+    <h3 id="262-array-destructuring">2.6.2 Array Destructuring</h3>
+    <pre><code class="language-javascript">// Basic array destructuring
 const colors = ['red', 'green', 'blue'];
 const [first, second, third] = colors;
 console.log(first, second, third); // red green blue
@@ -597,8 +619,8 @@ const [formData, setFormData] = useState({
     rememberMe: false
 });
 </code></pre>
-<h3 id="263-advanced-destructuring">2.6.3 Advanced Destructuring</h3>
-<pre><code class="language-javascript">// Destructuring with rest operator
+    <h3 id="263-advanced-destructuring">2.6.3 Advanced Destructuring</h3>
+    <pre><code class="language-javascript">// Destructuring with rest operator
 const user = {
     id: 1,
     name: 'John',
@@ -642,10 +664,10 @@ function useCounter(initialValue = 0) {
 // In component
 const { count, increment, decrement, reset } = useCounter(10);
 </code></pre>
-<h2 id="27-spread-and-rest-operators">2.7 Spread and Rest Operators</h2>
-<h3 id="271-spread-operator">2.7.1 Spread Operator (...)</h3>
-<p><strong>Spread with Arrays</strong>:</p>
-<pre><code class="language-javascript">// Copy arrays
+    <h2 id="27-spread-and-rest-operators">2.7 Spread and Rest Operators</h2>
+    <h3 id="271-spread-operator">2.7.1 Spread Operator (...)</h3>
+    <p><strong>Spread with Arrays</strong>:</p>
+    <pre><code class="language-javascript">// Copy arrays
 const arr1 = [1, 2, 3];
 const arr2 = [...arr1]; // [1, 2, 3]
 console.log(arr1 === arr2); // false (different reference)
@@ -677,8 +699,8 @@ function TodoList() {
     );
 }
 </code></pre>
-<p><strong>Spread with Objects</strong>:</p>
-<pre><code class="language-javascript">// Copy objects
+    <p><strong>Spread with Objects</strong>:</p>
+    <pre><code class="language-javascript">// Copy objects
 const user = { name: 'John', age: 30 };
 const userCopy = { ...user }; // { name: 'John', age: 30 }
 
@@ -724,9 +746,9 @@ function UserProfile() {
     updateNested('theme', 'light');
 }
 </code></pre>
-<h3 id="272-rest-operator">2.7.2 Rest Operator (...)</h3>
-<p><strong>Rest with Arrays</strong>:</p>
-<pre><code class="language-javascript">// Collect remaining elements
+    <h3 id="272-rest-operator">2.7.2 Rest Operator (...)</h3>
+    <p><strong>Rest with Arrays</strong>:</p>
+    <pre><code class="language-javascript">// Collect remaining elements
 const [first, second, ...rest] = [1, 2, 3, 4, 5];
 console.log(first); // 1
 console.log(second); // 2
@@ -757,8 +779,8 @@ function useFetch(url, ...dependencies) {
 const { data: posts } = useFetch('/api/posts');
 const { data: users } = useFetch('/api/users', userId, active);
 </code></pre>
-<p><strong>Rest with Objects</strong>:</p>
-<pre><code class="language-javascript">// Destructure and collect remaining properties
+    <p><strong>Rest with Objects</strong>:</p>
+    <pre><code class="language-javascript">// Destructure and collect remaining properties
 const user = {
     id: 1,
     name: 'John',
@@ -785,9 +807,9 @@ function Input({ type = 'text', placeholder, ...props }) {
     onChange={() =&gt; {}}
 /&gt;
 </code></pre>
-<h2 id="28-map-filter-reduce">2.8 Map, Filter, Reduce</h2>
-<h3 id="281-map-transform-arrays">2.8.1 Map - Transform Arrays</h3>
-<pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5];
+    <h2 id="28-map-filter-reduce">2.8 Map, Filter, Reduce</h2>
+    <h3 id="281-map-transform-arrays">2.8.1 Map - Transform Arrays</h3>
+    <pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5];
 
 // Basic map
 const doubled = numbers.map(n =&gt; n * 2);
@@ -831,8 +853,9 @@ const transformed = numbers
     .map(n =&gt; n + 1);
 // [3, 5, 7, 9, 11]
 </code></pre>
-<h3 id="282-filter-select-array-elements">2.8.2 Filter - Select Array Elements</h3>
-<pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    <h3 id="282-filter-select-array-elements">2.8.2 Filter - Select Array
+        Elements</h3>
+    <pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 // Basic filter
 const evens = numbers.filter(n =&gt; n % 2 === 0);
@@ -878,8 +901,8 @@ const activeUserNames = users
     .map(user =&gt; user.name.toUpperCase());
 // ['JOHN', 'BOB', 'ALICE']
 </code></pre>
-<h3 id="283-reduce-accumulate-values">2.8.3 Reduce - Accumulate Values</h3>
-<pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5];
+    <h3 id="283-reduce-accumulate-values">2.8.3 Reduce - Accumulate Values</h3>
+    <pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5];
 
 // Sum of numbers
 const sum = numbers.reduce((acc, curr) =&gt; acc + curr, 0);
@@ -954,8 +977,8 @@ const userObject = userArray.reduce((obj, [key, value]) =&gt; {
 }, {});
 // { id: 1, name: 'John', email: 'john@example.com' }
 </code></pre>
-<h3 id="284-practical-examples">2.8.4 Practical Examples</h3>
-<pre><code class="language-javascript">// Product catalog example
+    <h3 id="284-practical-examples">2.8.4 Practical Examples</h3>
+    <pre><code class="language-javascript">// Product catalog example
 const products = [
     { id: 1, name: 'Laptop', price: 999, category: 'Electronics', stock: 5 },
     { id: 2, name: 'Shirt', price: 29, category: 'Clothing', stock: 10 },
@@ -1051,9 +1074,9 @@ function ProductDashboard({ products }) {
     );
 }
 </code></pre>
-<h2 id="29-promises">2.9 Promises</h2>
-<h3 id="291-understanding-promises">2.9.1 Understanding Promises</h3>
-<pre><code class="language-javascript">// Creating a Promise
+    <h2 id="29-promises">2.9 Promises</h2>
+    <h3 id="291-understanding-promises">2.9.1 Understanding Promises</h3>
+    <pre><code class="language-javascript">// Creating a Promise
 const myPromise = new Promise((resolve, reject) =&gt; {
     // Async operation
     setTimeout(() =&gt; {
@@ -1086,8 +1109,8 @@ const rejectedPromise = Promise.reject('Rejected'); // Rejected
 // Checking promise state
 console.log(Promise.resolve() instanceof Promise); // true
 </code></pre>
-<h3 id="292-promise-chaining">2.9.2 Promise Chaining</h3>
-<pre><code class="language-javascript">// Chaining promises
+    <h3 id="292-promise-chaining">2.9.2 Promise Chaining</h3>
+    <pre><code class="language-javascript">// Chaining promises
 function getUser(id) {
     return new Promise((resolve) =&gt; {
         setTimeout(() =&gt; {
@@ -1177,8 +1200,8 @@ function UserProfile({ userId }) {
     return &lt;div&gt;{user.name}&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="293-promise-methods">2.9.3 Promise Methods</h3>
-<pre><code class="language-javascript">// Promise.all - Wait for all promises to resolve
+    <h3 id="293-promise-methods">2.9.3 Promise Methods</h3>
+    <pre><code class="language-javascript">// Promise.all - Wait for all promises to resolve
 const promise1 = Promise.resolve(1);
 const promise2 = Promise.resolve(2);
 const promise3 = Promise.resolve(3);
@@ -1250,9 +1273,9 @@ const anyPromises = [
 Promise.any(anyPromises)
     .then(result =&gt; console.log(result)); // 'Another success' (first to resolve)
 </code></pre>
-<h2 id="210-asyncawait">2.10 Async/Await</h2>
-<h3 id="2101-basic-asyncawait">2.10.1 Basic Async/Await</h3>
-<pre><code class="language-javascript">// Async function declaration
+    <h2 id="210-asyncawait">2.10 Async/Await</h2>
+    <h3 id="2101-basic-asyncawait">2.10.1 Basic Async/Await</h3>
+    <pre><code class="language-javascript">// Async function declaration
 async function fetchData() {
     // Always returns a Promise
     return 'Data fetched';
@@ -1307,8 +1330,9 @@ function UserProfile({ userId }) {
     // Render logic...
 }
 </code></pre>
-<h3 id="2102-advanced-asyncawait-patterns">2.10.2 Advanced Async/Await Patterns</h3>
-<pre><code class="language-javascript">// Parallel requests with async/await
+    <h3 id="2102-advanced-asyncawait-patterns">2.10.2 Advanced Async/Await
+        Patterns</h3>
+    <pre><code class="language-javascript">// Parallel requests with async/await
 async function fetchDashboardData() {
     try {
         // Start all requests in parallel
@@ -1406,8 +1430,9 @@ function DataFetcher({ url }) {
     return &lt;DataDisplay data={data} /&gt;;
 }
 </code></pre>
-<h3 id="2103-error-handling-in-asyncawait">2.10.3 Error Handling in Async/Await</h3>
-<pre><code class="language-javascript">// Try-catch with specific error types
+    <h3 id="2103-error-handling-in-asyncawait">2.10.3 Error Handling in
+        Async/Await</h3>
+    <pre><code class="language-javascript">// Try-catch with specific error types
 class NetworkError extends Error {
     constructor(message) {
         super(message);
@@ -1533,9 +1558,10 @@ function LoginForm() {
     );
 }
 </code></pre>
-<h2 id="211-modules-and-importsexports">2.11 Modules and Imports/Exports</h2>
-<h3 id="2111-export-types">2.11.1 Export Types</h3>
-<pre><code class="language-javascript">// Named exports (components/api.js)
+    <h2 id="211-modules-and-importsexports">2.11 Modules and
+        Imports/Exports</h2>
+    <h3 id="2111-export-types">2.11.1 Export Types</h3>
+    <pre><code class="language-javascript">// Named exports (components/api.js)
 export const API_BASE_URL = 'https://api.example.com';
 
 export function fetchUsers() {
@@ -1564,8 +1590,8 @@ export { default as UserCard } from './UserCard';
 export { default as UserList } from './UserList';
 export * from './api';
 </code></pre>
-<h3 id="2112-import-types">2.11.2 Import Types</h3>
-<pre><code class="language-javascript">// Named imports
+    <h3 id="2112-import-types">2.11.2 Import Types</h3>
+    <pre><code class="language-javascript">// Named imports
 import { API_BASE_URL, fetchUsers, UserService } from './api';
 
 // Default import
@@ -1599,8 +1625,8 @@ function Avatar() {
     return &lt;img src={profilePic} alt="Profile" /&gt;;
 }
 </code></pre>
-<h3 id="2113-module-patterns">2.11.3 Module Patterns</h3>
-<pre><code class="language-javascript">// Configuration module (config/index.js)
+    <h3 id="2113-module-patterns">2.11.3 Module Patterns</h3>
+    <pre><code class="language-javascript">// Configuration module (config/index.js)
 export const config = {
     apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:3000',
     timeout: 5000,
@@ -1714,9 +1740,9 @@ export const apiClient = {
     delete: (endpoint) =&gt; this.request(endpoint, { method: 'DELETE' })
 };
 </code></pre>
-<h2 id="212-closures">2.12 Closures</h2>
-<h3 id="2121-understanding-closures">2.12.1 Understanding Closures</h3>
-<pre><code class="language-javascript">// Basic closure
+    <h2 id="212-closures">2.12 Closures</h2>
+    <h3 id="2121-understanding-closures">2.12.1 Understanding Closures</h3>
+    <pre><code class="language-javascript">// Basic closure
 function outerFunction(outerVariable) {
     // Inner function has access to outerVariable
     function innerFunction(innerVariable) {
@@ -1776,8 +1802,8 @@ console.log(counter.increment()); // 2
 console.log(counter.getValue()); // 2
 // console.log(counter.count); // undefined (private)
 </code></pre>
-<h3 id="2122-closure-in-react-hooks">2.12.2 Closure in React Hooks</h3>
-<pre><code class="language-javascript">// UseState uses closures
+    <h3 id="2122-closure-in-react-hooks">2.12.2 Closure in React Hooks</h3>
+    <pre><code class="language-javascript">// UseState uses closures
 function ComponentWithClosure() {
     const [value, setValue] = useState(0);
 
@@ -1855,9 +1881,11 @@ function useCounter(initialValue = 0) {
     return { count, increment, decrement, reset };
 }
 </code></pre>
-<h2 id="213-event-loop-and-execution-context">2.13 Event Loop and Execution Context</h2>
-<h3 id="2131-understanding-the-event-loop">2.13.1 Understanding the Event Loop</h3>
-<pre><code class="language-javascript">// Visualizing the event loop
+    <h2 id="213-event-loop-and-execution-context">2.13 Event Loop and Execution
+        Context</h2>
+    <h3 id="2131-understanding-the-event-loop">2.13.1 Understanding the Event
+        Loop</h3>
+    <pre><code class="language-javascript">// Visualizing the event loop
 console.log('1: Start');
 
 setTimeout(() =&gt; {
@@ -1927,8 +1955,9 @@ function EventLoopExample() {
     return &lt;div&gt;{data}&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="2132-execution-context-and-this">2.13.2 Execution Context and This</h3>
-<pre><code class="language-javascript">// Execution Context
+    <h3 id="2132-execution-context-and-this">2.13.2 Execution Context and
+        This</h3>
+    <pre><code class="language-javascript">// Execution Context
 function example() {
     // Function execution context
     let x = 10;
@@ -2004,9 +2033,10 @@ class ReactComponent extends React.Component {
     }
 }
 </code></pre>
-<h2 id="214-memory-and-garbage-collection">2.14 Memory and Garbage Collection</h2>
-<h3 id="2141-memory-management">2.14.1 Memory Management</h3>
-<pre><code class="language-javascript">// Memory allocation
+    <h2 id="214-memory-and-garbage-collection">2.14 Memory and Garbage
+        Collection</h2>
+    <h3 id="2141-memory-management">2.14.1 Memory Management</h3>
+    <pre><code class="language-javascript">// Memory allocation
 let number = 10; // Allocates memory for number
 let string = 'Hello'; // Allocates memory for string
 let object = { name: 'John' }; // Allocates memory for object
@@ -2082,8 +2112,8 @@ function ImageLoader({ src }) {
     return image ? &lt;img src={image} alt="Loaded" /&gt; : &lt;div&gt;Loading...&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="2142-garbage-collection">2.14.2 Garbage Collection</h3>
-<pre><code class="language-javascript">// Garbage collection basics
+    <h3 id="2142-garbage-collection">2.14.2 Garbage Collection</h3>
+    <pre><code class="language-javascript">// Garbage collection basics
 function createObject() {
     let obj = { data: 'some data' };
     return obj;
@@ -2144,9 +2174,9 @@ function MyComponent() {
     return &lt;div&gt;My Component&lt;/div&gt;;
 }
 </code></pre>
-<h2 id="215-es6-features-for-react">2.15 ES6+ Features for React</h2>
-<h3 id="2151-template-literals">2.15.1 Template Literals</h3>
-<pre><code class="language-javascript">// Basic template literals
+    <h2 id="215-es6-features-for-react">2.15 ES6+ Features for React</h2>
+    <h3 id="2151-template-literals">2.15.1 Template Literals</h3>
+    <pre><code class="language-javascript">// Basic template literals
 const name = 'John';
 const age = 30;
 const greeting = `Hello, ${name}! You are ${age} years old.`;
@@ -2186,8 +2216,8 @@ function StyledComponent() {
     return &lt;div className="container"&gt;Content&lt;/div&gt;;
 }
 </code></pre>
-<h3 id="2152-optional-chaining">2.15.2 Optional Chaining (?.)</h3>
-<pre><code class="language-javascript">// Accessing nested properties safely
+    <h3 id="2152-optional-chaining">2.15.2 Optional Chaining (?.)</h3>
+    <pre><code class="language-javascript">// Accessing nested properties safely
 const user = {
     name: 'John',
     address: {
@@ -2224,8 +2254,8 @@ function UserProfile({ user }) {
     );
 }
 </code></pre>
-<h3 id="2153-nullish-coalescing">2.15.3 Nullish Coalescing (??)</h3>
-<pre><code class="language-javascript">// Nullish coalescing - only works for null or undefined
+    <h3 id="2153-nullish-coalescing">2.15.3 Nullish Coalescing (??)</h3>
+    <pre><code class="language-javascript">// Nullish coalescing - only works for null or undefined
 const value = null ?? 'default';
 console.log(value); // 'default'
 
@@ -2263,9 +2293,9 @@ function Component({ data, settings }) {
 // Combining with optional chaining
 const result = user?.preferences?.theme ?? 'default-theme';
 </code></pre>
-<h2 id="216-classes-and-prototypes">2.16 Classes and Prototypes</h2>
-<h3 id="2161-class-basics">2.16.1 Class Basics</h3>
-<pre><code class="language-javascript">// Class declaration
+    <h2 id="216-classes-and-prototypes">2.16 Classes and Prototypes</h2>
+    <h3 id="2161-class-basics">2.16.1 Class Basics</h3>
+    <pre><code class="language-javascript">// Class declaration
 class User {
     // Constructor
     constructor(name, email) {
@@ -2324,8 +2354,9 @@ const admin = new AdminUser('Jane', 'jane@example.com', ['read', 'write', 'delet
 console.log(admin.getInfo()); // Admin: Jane (jane@example.com)
 console.log(admin.hasPermission('delete')); // true
 </code></pre>
-<h3 id="2162-prototypes-and-prototype-chain">2.16.2 Prototypes and Prototype Chain</h3>
-<pre><code class="language-javascript">// Understanding prototypes
+    <h3 id="2162-prototypes-and-prototype-chain">2.16.2 Prototypes and Prototype
+        Chain</h3>
+    <pre><code class="language-javascript">// Understanding prototypes
 function Animal(name) {
     this.name = name;
 }
@@ -2389,9 +2420,11 @@ function Welcome({ name }) {
     return &lt;h1&gt;Hello, {name}&lt;/h1&gt;;
 }
 </code></pre>
-<h2 id="217-practical-react-javascript-examples">2.17 Practical React JavaScript Examples</h2>
-<h3 id="2171-creating-a-custom-hook-with-javascript">2.17.1 Creating a Custom Hook with JavaScript</h3>
-<pre><code class="language-javascript">// Custom hook using all JavaScript features
+    <h2 id="217-practical-react-javascript-examples">2.17 Practical React
+        JavaScript Examples</h2>
+    <h3 id="2171-creating-a-custom-hook-with-javascript">2.17.1 Creating a
+        Custom Hook with JavaScript</h3>
+    <pre><code class="language-javascript">// Custom hook using all JavaScript features
 function useFetchData(url, options = {}) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -2453,8 +2486,9 @@ function UserList() {
     );
 }
 </code></pre>
-<h3 id="2172-data-transformation-patterns">2.17.2 Data Transformation Patterns</h3>
-<pre><code class="language-javascript">// Complex data transformation
+    <h3 id="2172-data-transformation-patterns">2.17.2 Data Transformation
+        Patterns</h3>
+    <pre><code class="language-javascript">// Complex data transformation
 const rawData = {
     users: [
         { id: 1, name: 'John Doe', email: 'john@example.com', status: 'active' },
@@ -2530,9 +2564,11 @@ function Dashboard({ data }) {
     );
 }
 </code></pre>
-<h2 id="218-common-mistakes-and-best-practices">2.18 Common Mistakes and Best Practices</h2>
-<h3 id="2181-common-javascript-mistakes-in-react">2.18.1 Common JavaScript Mistakes in React</h3>
-<pre><code class="language-javascript">// ❌ Mutating state directly
+    <h2 id="218-common-mistakes-and-best-practices">2.18 Common Mistakes and
+        Best Practices</h2>
+    <h3 id="2181-common-javascript-mistakes-in-react">2.18.1 Common JavaScript
+        Mistakes in React</h3>
+    <pre><code class="language-javascript">// ❌ Mutating state directly
 function BadComponent() {
     const [items, setItems] = useState([1, 2, 3]);
 
@@ -2611,8 +2647,8 @@ function GoodEffect() {
     }, []);
 }
 </code></pre>
-<h3 id="2182-best-practices">2.18.2 Best Practices</h3>
-<pre><code class="language-javascript">// ✅ Use descriptive variable names
+    <h3 id="2182-best-practices">2.18.2 Best Practices</h3>
+    <pre><code class="language-javascript">// ✅ Use descriptive variable names
 // Bad: const d = new Date();
 // Good: const currentDate = new Date();
 
@@ -2675,14 +2711,18 @@ function useLocalStorage(key, initialValue) {
     return [value, setValue];
 }
 </code></pre>
-<h2 id="219-interview-questions">2.19 Interview Questions</h2>
-<h3 id="junior-level-questions--2">Junior Level Questions</h3>
-<p><strong>Q: What's the difference between let, const, and var?</strong></p>
-<p><strong>Answer</strong>: 
-- <code>var</code>: Function-scoped, can be redeclared, hoisted with undefined
-- <code>let</code>: Block-scoped, cannot be redeclared, hoisted but not initialized
-- <code>const</code>: Block-scoped, cannot be reassigned, hoisted but not initialized</p>
-<pre><code class="language-javascript">console.log(x); // undefined
+    <h2 id="219-interview-questions">2.19 Interview Questions</h2>
+    <h3 id="junior-level-questions--2">Junior Level Questions</h3>
+    <p><strong>Q: What's the difference between let, const, and
+            var?</strong></p>
+    <p><strong>Answer</strong>:
+        - <code>var</code>: Function-scoped, can be redeclared, hoisted with
+        undefined
+        - <code>let</code>: Block-scoped, cannot be redeclared, hoisted but not
+        initialized
+        - <code>const</code>: Block-scoped, cannot be reassigned, hoisted but
+        not initialized</p>
+    <pre><code class="language-javascript">console.log(x); // undefined
 var x = 1;
 
 // console.log(y); // ReferenceError
@@ -2691,20 +2731,23 @@ let y = 2;
 // console.log(z); // ReferenceError
 const z = 3;
 </code></pre>
-<p><strong>Q: What is the difference between == and ===?</strong></p>
-<p><strong>Answer</strong>: 
-- <code>==</code>: Loose equality, performs type coercion
-- <code>===</code>: Strict equality, checks both value and type</p>
-<pre><code class="language-javascript">console.log(5 == '5'); // true (string converted to number)
+    <p><strong>Q: What is the difference between == and ===?</strong></p>
+    <p><strong>Answer</strong>:
+        - <code>==</code>: Loose equality, performs type coercion
+        - <code>===</code>: Strict equality, checks both value and type</p>
+    <pre><code class="language-javascript">console.log(5 == '5'); // true (string converted to number)
 console.log(5 === '5'); // false (different types)
 console.log(null == undefined); // true
 console.log(null === undefined); // false
 </code></pre>
-<h3 id="mid-level-questions--2">Mid Level Questions</h3>
-<p><strong>Q: Explain arrow functions and their advantages.</strong></p>
-<p><strong>Answer</strong>:
-Arrow functions provide a shorter syntax and lexical <code>this</code> binding. They don't have their own <code>this</code>, <code>arguments</code>, <code>super</code>, or <code>new.target</code>.</p>
-<pre><code class="language-javascript">// Shorter syntax
+    <h3 id="mid-level-questions--2">Mid Level Questions</h3>
+    <p><strong>Q: Explain arrow functions and their advantages.</strong></p>
+    <p><strong>Answer</strong>:
+        Arrow functions provide a shorter syntax and lexical <code>this</code>
+        binding. They don't have their own <code>this</code>,
+        <code>arguments</code>, <code>super</code>, or
+        <code>new.target</code>.</p>
+    <pre><code class="language-javascript">// Shorter syntax
 const add = (a, b) =&gt; a + b;
 
 // Lexical 'this'
@@ -2717,10 +2760,11 @@ const obj = {
     }
 };
 </code></pre>
-<p><strong>Q: What are closures and how are they used in React?</strong></p>
-<p><strong>Answer</strong>:
-Closures are functions that have access to variables from their outer scope. In React, closures are fundamental to hooks and callbacks.</p>
-<pre><code class="language-javascript">function Counter() {
+    <p><strong>Q: What are closures and how are they used in React?</strong></p>
+    <p><strong>Answer</strong>:
+        Closures are functions that have access to variables from their outer
+        scope. In React, closures are fundamental to hooks and callbacks.</p>
+    <pre><code class="language-javascript">function Counter() {
     const [count, setCount] = useState(0);
 
     // This function forms a closure over count
@@ -2731,11 +2775,14 @@ Closures are functions that have access to variables from their outer scope. In 
     return &lt;button onClick={handleClick}&gt;{count}&lt;/button&gt;;
 }
 </code></pre>
-<h3 id="senior-level-questions--2">Senior Level Questions</h3>
-<p><strong>Q: Explain the event loop and how it affects React performance.</strong></p>
-<p><strong>Answer</strong>:
-The event loop handles asynchronous operations in JavaScript. React's performance can be affected by blocking the event loop with heavy computations.</p>
-<pre><code class="language-javascript">// ❌ Blocking the event loop
+    <h3 id="senior-level-questions--2">Senior Level Questions</h3>
+    <p><strong>Q: Explain the event loop and how it affects React
+            performance.</strong></p>
+    <p><strong>Answer</strong>:
+        The event loop handles asynchronous operations in JavaScript. React's
+        performance can be affected by blocking the event loop with heavy
+        computations.</p>
+    <pre><code class="language-javascript">// ❌ Blocking the event loop
 function HeavyComponent() {
     useEffect(() =&gt; {
         // This blocks the event loop
@@ -2758,15 +2805,17 @@ function HeavyComponent() {
     }, []);
 }
 </code></pre>
-<p><strong>Q: How do you handle memory leaks in React applications?</strong></p>
-<p><strong>Answer</strong>:
-Memory leaks occur when resources aren't properly cleaned up. Solutions include:
-1. Cleanup in useEffect return
-2. Proper subscription management
-3. Avoiding stale closures
-4. Using AbortController for fetch
-5. Proper handling of DOM references</p>
-<pre><code class="language-javascript">function useResourceCleanup() {
+    <p><strong>Q: How do you handle memory leaks in React
+            applications?</strong></p>
+    <p><strong>Answer</strong>:
+        Memory leaks occur when resources aren't properly cleaned up. Solutions
+        include:
+        1. Cleanup in useEffect return
+        2. Proper subscription management
+        3. Avoiding stale closures
+        4. Using AbortController for fetch
+        5. Proper handling of DOM references</p>
+    <pre><code class="language-javascript">function useResourceCleanup() {
     useEffect(() =&gt; {
         const subscription = subscribe();
         const timer = setTimeout(() =&gt; {}, 1000);
@@ -2782,89 +2831,111 @@ Memory leaks occur when resources aren't properly cleaned up. Solutions include:
     }, []);
 }
 </code></pre>
-<h2 id="220-summary">2.20 Summary</h2>
-<h3 id="key-javascript-concepts-for-react">Key JavaScript Concepts for React</h3>
-<table>
-<thead>
-<tr>
-<th>Concept</th>
-<th>Use in React</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>let/const</strong></td>
-<td>State variables, props</td>
-<td><code>const [state, setState] = useState()</code></td>
-</tr>
-<tr>
-<td><strong>Arrow Functions</strong></td>
-<td>Components, event handlers</td>
-<td><code>const Component = () =&gt; {}</code></td>
-</tr>
-<tr>
-<td><strong>Destructuring</strong></td>
-<td>Props, state, imports</td>
-<td><code>const { user } = props</code></td>
-</tr>
-<tr>
-<td><strong>Spread/Rest</strong></td>
-<td>State updates, arrays</td>
-<td><code>setState([...items, new])</code></td>
-</tr>
-<tr>
-<td><strong>Map/Filter/Reduce</strong></td>
-<td>Data transformation</td>
-<td><code>users.map(user =&gt; user.name)</code></td>
-</tr>
-<tr>
-<td><strong>Promises/Async</strong></td>
-<td>API calls, data fetching</td>
-<td><code>const data = await fetch('/api')</code></td>
-</tr>
-<tr>
-<td><strong>Modules</strong></td>
-<td>Component organization</td>
-<td><code>import Component from './Component'</code></td>
-</tr>
-<tr>
-<td><strong>Closures</strong></td>
-<td>Hooks, callbacks</td>
-<td><code>useEffect(() =&gt; {}, [])</code></td>
-</tr>
-<tr>
-<td><strong>Event Loop</strong></td>
-<td>Async operations</td>
-<td><code>setTimeout(() =&gt; {}, 0)</code></td>
-</tr>
-<tr>
-<td><strong>Memory Management</strong></td>
-<td>Cleanup, unmounting</td>
-<td><code>return () =&gt; cleanup()</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="best-practices-summary">Best Practices Summary</h3>
-<ol>
-<li><strong>Always use const by default, let only when necessary</strong></li>
-<li><strong>Use arrow functions for concise syntax and lexical this</strong></li>
-<li><strong>Destructure props and state for cleaner code</strong></li>
-<li><strong>Use spread operator for immutability</strong></li>
-<li><strong>Use array methods instead of loops for transformations</strong></li>
-<li><strong>Handle promises properly with try/catch</strong></li>
-<li><strong>Clean up side effects and subscriptions</strong></li>
-<li><strong>Use optional chaining for safe nested property access</strong></li>
-<li><strong>Write reusable custom hooks</strong></li>
-<li><strong>Understand JavaScript's event loop for performance</strong></li>
-</ol>
-<hr/>
-<p><em>End of Chapter 2</em></p>
-<p><strong>Next Chapter Preview</strong>: Chapter 3 will cover Everything About HTML Required for React, including semantic HTML, accessibility, forms, and how React interacts with HTML elements and attributes.</p>
-<hr/>
-<p><em>This chapter provides the JavaScript foundation needed for React development. Master these concepts before proceeding to React-specific features.</em></p>
-<h1 id="the-complete-react-developer-course--2">The Complete React Developer Course</h1>
-<h2 id="from-beginner-to-professional--2">From Beginner to Professional</h2>
-<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--2">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
-<hr/>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-2" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-1"><span class="pager-label">← Previous chapter</span><strong>01 · Introduction to React</strong></a><a class="pager-card pager-card--next" href="#chapter-3"><span class="pager-label">Next chapter →</span><strong>03 · HTML Required for React</strong></a></nav></section>
+    <h2 id="220-summary">2.20 Summary</h2>
+    <h3 id="key-javascript-concepts-for-react">Key JavaScript Concepts for
+        React</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Concept</th>
+                <th>Use in React</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>let/const</strong></td>
+                <td>State variables, props</td>
+                <td><code>const [state, setState] = useState()</code></td>
+            </tr>
+            <tr>
+                <td><strong>Arrow Functions</strong></td>
+                <td>Components, event handlers</td>
+                <td><code>const Component = () =&gt; {}</code></td>
+            </tr>
+            <tr>
+                <td><strong>Destructuring</strong></td>
+                <td>Props, state, imports</td>
+                <td><code>const { user } = props</code></td>
+            </tr>
+            <tr>
+                <td><strong>Spread/Rest</strong></td>
+                <td>State updates, arrays</td>
+                <td><code>setState([...items, new])</code></td>
+            </tr>
+            <tr>
+                <td><strong>Map/Filter/Reduce</strong></td>
+                <td>Data transformation</td>
+                <td><code>users.map(user =&gt; user.name)</code></td>
+            </tr>
+            <tr>
+                <td><strong>Promises/Async</strong></td>
+                <td>API calls, data fetching</td>
+                <td><code>const data = await fetch('/api')</code></td>
+            </tr>
+            <tr>
+                <td><strong>Modules</strong></td>
+                <td>Component organization</td>
+                <td><code>import Component from './Component'</code></td>
+            </tr>
+            <tr>
+                <td><strong>Closures</strong></td>
+                <td>Hooks, callbacks</td>
+                <td><code>useEffect(() =&gt; {}, [])</code></td>
+            </tr>
+            <tr>
+                <td><strong>Event Loop</strong></td>
+                <td>Async operations</td>
+                <td><code>setTimeout(() =&gt; {}, 0)</code></td>
+            </tr>
+            <tr>
+                <td><strong>Memory Management</strong></td>
+                <td>Cleanup, unmounting</td>
+                <td><code>return () =&gt; cleanup()</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="best-practices-summary">Best Practices Summary</h3>
+    <ol>
+        <li><strong>Always use const by default, let only when
+                necessary</strong></li>
+        <li><strong>Use arrow functions for concise syntax and lexical
+                this</strong></li>
+        <li><strong>Destructure props and state for cleaner code</strong></li>
+        <li><strong>Use spread operator for immutability</strong></li>
+        <li><strong>Use array methods instead of loops for
+                transformations</strong></li>
+        <li><strong>Handle promises properly with try/catch</strong></li>
+        <li><strong>Clean up side effects and subscriptions</strong></li>
+        <li><strong>Use optional chaining for safe nested property
+                access</strong></li>
+        <li><strong>Write reusable custom hooks</strong></li>
+        <li><strong>Understand JavaScript's event loop for
+                performance</strong></li>
+    </ol>
+    <hr />
+    <p><em>End of Chapter 2</em></p>
+    <p><strong>Next Chapter Preview</strong>: Chapter 3 will cover Everything
+        About HTML Required for React, including semantic HTML, accessibility,
+        forms, and how React interacts with HTML elements and attributes.</p>
+    <hr />
+    <p><em>This chapter provides the JavaScript foundation needed for React
+            development. Master these concepts before proceeding to
+            React-specific features.</em></p>
+    <h1 id="the-complete-react-developer-course--2">The Complete React Developer
+        Course</h1>
+    <h2 id="from-beginner-to-professional--2">From Beginner to Professional</h2>
+    <h3
+        id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--2">A
+        Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+    <hr />
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-2" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-1"><span
+                class="pager-label">← Previous chapter</span><strong>01 ·
+                Introduction to React</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-3"><span
+                class="pager-label">Next chapter →</span><strong>03 · HTML
+                Required for React</strong></a></nav></section>

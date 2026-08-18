@@ -1,49 +1,63 @@
 <section class="chapter" id="chapter-8" style="--accent:#B91C1C">
-<div class="chapter-title-card">
-<span class="chapter-num">08</span>
-<h1 class="chapter-title" id="routing-in-react">Routing in React</h1>
-</div>
-<h2 id="81-introduction-to-routing">8.1 Introduction to Routing</h2>
-<h3 id="simple-explanation--8">Simple Explanation</h3>
-<p>Routing is how you navigate between different pages or views in a React application. Just like a website has different pages (Home, About, Contact), a React app needs to show different components based on the URL. React Router is the most popular library for handling routing in React applications.</p>
-<p>Think of routing like a GPS navigation system - the URL is your current location, and React Router helps you determine which "screen" (component) to show based on that location.</p>
-<h3 id="technical-explanation--8">Technical Explanation</h3>
-<p>Routing in React involves mapping URLs to components. When a user navigates to a specific URL, the router renders the corresponding component. React Router provides declarative routing for React applications.</p>
-<p>Key concepts:
-- <strong>Routes</strong>: Mapping between URLs and components
-- <strong>Navigation</strong>: Programmatic and declarative navigation
-- <strong>Nested Routes</strong>: Routes within routes
-- <strong>Protected Routes</strong>: Routes that require authentication
-- <strong>Dynamic Routes</strong>: Routes with parameters
-- <strong>Lazy Loading</strong>: Loading routes only when needed</p>
-<h3 id="professional-explanation--8">Professional Explanation</h3>
-<p>In enterprise React applications, routing is crucial for:
-- <strong>User Experience</strong>: Smooth navigation between views
-- <strong>State Management</strong>: Preserving state during navigation
-- <strong>Code Splitting</strong>: Loading code on demand
-- <strong>Deep Linking</strong>: Sharing specific application states
-- <strong>SEO</strong>: Server-side rendering for search engines
-- <strong>Analytics</strong>: Tracking user navigation patterns</p>
-<h2 id="82-react-router-setup">8.2 React Router Setup</h2>
-<h3 id="simple-explanation_1--4">Simple Explanation</h3>
-<p>React Router is the standard routing library for React. Setting it up involves installing the package and wrapping your app with a router component. Then you define routes using Route components.</p>
-<p>Think of React Router like a traffic controller - you tell it which URL patterns should show which components, and it handles all the routing logic for you.</p>
-<h3 id="technical-explanation_1--4">Technical Explanation</h3>
-<p>React Router v6 is the latest version with significant improvements over previous versions. It provides a declarative API for routing.</p>
-<p>Core components:
-- <strong>BrowserRouter</strong>: The router implementation for web
-- <strong>Routes</strong>: Container for Route components
-- <strong>Route</strong>: Defines a mapping between URL and component
-- <strong>Link</strong>: Declarative navigation component
-- <strong>useNavigate</strong>: Hook for programmatic navigation</p>
-<h3 id="professional-explanation_1--4">Professional Explanation</h3>
-<p>React Router setup varies based on application needs:
-- <strong>BrowserRouter</strong>: Standard web applications
-- <strong>HashRouter</strong>: Static file hosting
-- <strong>StaticRouter</strong>: Server-side rendering
-- <strong>MemoryRouter</strong>: Testing environment</p>
-<h3 id="react-router-setup-examples">React Router Setup Examples</h3>
-<pre><code class="language-jsx">// Installation
+    <div class="chapter-title-card">
+        <span class="chapter-num">08</span>
+        <h1 class="chapter-title" id="routing-in-react">Routing in React</h1>
+    </div>
+    <h2 id="81-introduction-to-routing">8.1 Introduction to Routing</h2>
+    <h3 id="simple-explanation--8">Simple Explanation</h3>
+    <p>Routing is how you navigate between different pages or views in a React
+        application. Just like a website has different pages (Home, About,
+        Contact), a React app needs to show different components based on the
+        URL. React Router is the most popular library for handling routing in
+        React applications.</p>
+    <p>Think of routing like a GPS navigation system - the URL is your current
+        location, and React Router helps you determine which "screen"
+        (component) to show based on that location.</p>
+    <h3 id="technical-explanation--8">Technical Explanation</h3>
+    <p>Routing in React involves mapping URLs to components. When a user
+        navigates to a specific URL, the router renders the corresponding
+        component. React Router provides declarative routing for React
+        applications.</p>
+    <p>Key concepts:
+        - <strong>Routes</strong>: Mapping between URLs and components
+        - <strong>Navigation</strong>: Programmatic and declarative navigation
+        - <strong>Nested Routes</strong>: Routes within routes
+        - <strong>Protected Routes</strong>: Routes that require authentication
+        - <strong>Dynamic Routes</strong>: Routes with parameters
+        - <strong>Lazy Loading</strong>: Loading routes only when needed</p>
+    <h3 id="professional-explanation--8">Professional Explanation</h3>
+    <p>In enterprise React applications, routing is crucial for:
+        - <strong>User Experience</strong>: Smooth navigation between views
+        - <strong>State Management</strong>: Preserving state during navigation
+        - <strong>Code Splitting</strong>: Loading code on demand
+        - <strong>Deep Linking</strong>: Sharing specific application states
+        - <strong>SEO</strong>: Server-side rendering for search engines
+        - <strong>Analytics</strong>: Tracking user navigation patterns</p>
+    <h2 id="82-react-router-setup">8.2 React Router Setup</h2>
+    <h3 id="simple-explanation_1--4">Simple Explanation</h3>
+    <p>React Router is the standard routing library for React. Setting it up
+        involves installing the package and wrapping your app with a router
+        component. Then you define routes using Route components.</p>
+    <p>Think of React Router like a traffic controller - you tell it which URL
+        patterns should show which components, and it handles all the routing
+        logic for you.</p>
+    <h3 id="technical-explanation_1--4">Technical Explanation</h3>
+    <p>React Router v6 is the latest version with significant improvements over
+        previous versions. It provides a declarative API for routing.</p>
+    <p>Core components:
+        - <strong>BrowserRouter</strong>: The router implementation for web
+        - <strong>Routes</strong>: Container for Route components
+        - <strong>Route</strong>: Defines a mapping between URL and component
+        - <strong>Link</strong>: Declarative navigation component
+        - <strong>useNavigate</strong>: Hook for programmatic navigation</p>
+    <h3 id="professional-explanation_1--4">Professional Explanation</h3>
+    <p>React Router setup varies based on application needs:
+        - <strong>BrowserRouter</strong>: Standard web applications
+        - <strong>HashRouter</strong>: Static file hosting
+        - <strong>StaticRouter</strong>: Server-side rendering
+        - <strong>MemoryRouter</strong>: Testing environment</p>
+    <h3 id="react-router-setup-examples">React Router Setup Examples</h3>
+    <pre><code class="language-jsx">// Installation
 // npm install react-router-dom
 
 // Basic setup
@@ -106,26 +120,32 @@ function AppWithNavigation() {
     );
 }
 </code></pre>
-<h2 id="83-basic-routes">8.3 Basic Routes</h2>
-<h3 id="simple-explanation_2--4">Simple Explanation</h3>
-<p>Routes are the building blocks of routing. Each Route component defines a path and the component to render when that path matches the current URL. The Routes component contains all the routes and decides which one to render.</p>
-<p>Think of Routes like a switch statement - it checks each route from top to bottom and renders the first one that matches the current URL.</p>
-<h3 id="technical-explanation_2--4">Technical Explanation</h3>
-<p>A Route component matches a path pattern and renders a component when the URL matches. The Routes component selects the best match among its children.</p>
-<p>Route types:
-- <strong>Exact routes</strong>: Match exactly (default in v6)
-- <strong>Nested routes</strong>: Routes within routes
-- <strong>Dynamic routes</strong>: Routes with parameters
-- <strong>Index routes</strong>: Default routes for parent paths
-- <strong>Fallback routes</strong>: Catch-all for unmatched paths</p>
-<h3 id="professional-explanation_2--4">Professional Explanation</h3>
-<p>Route matching in React Router v6:
-- Routes are matched by the best match, not by order
-- Nested routes are matched relative to their parent
-- Index routes render at parent paths
-- Wildcards for catch-all routes</p>
-<h3 id="basic-routes-examples">Basic Routes Examples</h3>
-<pre><code class="language-jsx">// Simple routes
+    <h2 id="83-basic-routes">8.3 Basic Routes</h2>
+    <h3 id="simple-explanation_2--4">Simple Explanation</h3>
+    <p>Routes are the building blocks of routing. Each Route component defines a
+        path and the component to render when that path matches the current URL.
+        The Routes component contains all the routes and decides which one to
+        render.</p>
+    <p>Think of Routes like a switch statement - it checks each route from top
+        to bottom and renders the first one that matches the current URL.</p>
+    <h3 id="technical-explanation_2--4">Technical Explanation</h3>
+    <p>A Route component matches a path pattern and renders a component when the
+        URL matches. The Routes component selects the best match among its
+        children.</p>
+    <p>Route types:
+        - <strong>Exact routes</strong>: Match exactly (default in v6)
+        - <strong>Nested routes</strong>: Routes within routes
+        - <strong>Dynamic routes</strong>: Routes with parameters
+        - <strong>Index routes</strong>: Default routes for parent paths
+        - <strong>Fallback routes</strong>: Catch-all for unmatched paths</p>
+    <h3 id="professional-explanation_2--4">Professional Explanation</h3>
+    <p>Route matching in React Router v6:
+        - Routes are matched by the best match, not by order
+        - Nested routes are matched relative to their parent
+        - Index routes render at parent paths
+        - Wildcards for catch-all routes</p>
+    <h3 id="basic-routes-examples">Basic Routes Examples</h3>
+    <pre><code class="language-jsx">// Simple routes
 function App() {
     return (
         &lt;BrowserRouter&gt;
@@ -222,26 +242,33 @@ function AppWithMultipleLayouts() {
     );
 }
 </code></pre>
-<h2 id="84-dynamic-routes">8.4 Dynamic Routes</h2>
-<h3 id="simple-explanation_3--4">Simple Explanation</h3>
-<p>Dynamic routes allow you to capture URL parameters and use them in your components. This is useful for user profiles, blog posts, product pages, and other pages where the content depends on an ID or slug.</p>
-<p>Think of dynamic routes like templates - the route pattern defines the structure, and the actual value in the URL determines what content to show.</p>
-<h3 id="technical-explanation_3--4">Technical Explanation</h3>
-<p>Dynamic routes use parameters that are captured from the URL. These parameters can be accessed using the useParams hook or the useMatches hook.</p>
-<p>Features:
-- <strong>Path parameters</strong>: URL segments like <code>/users/:id</code>
-- <strong>Optional parameters</strong>: Optional segments
-- <strong>Wildcards</strong>: Catch-all routes
-- <strong>Nested routes</strong>: Routes with dynamic segments</p>
-<h3 id="professional-explanation_3--4">Professional Explanation</h3>
-<p>Dynamic routes are essential for:
-- <strong>CRUD Operations</strong>: Managing resources
-- <strong>User Profiles</strong>: Displaying user-specific content
-- <strong>Blog/Content</strong>: Showing articles
-- <strong>E-commerce</strong>: Product pages
-- <strong>SEO</strong>: Clean, descriptive URLs</p>
-<h3 id="dynamic-routes-examples">Dynamic Routes Examples</h3>
-<pre><code class="language-jsx">// Basic dynamic route
+    <h2 id="84-dynamic-routes">8.4 Dynamic Routes</h2>
+    <h3 id="simple-explanation_3--4">Simple Explanation</h3>
+    <p>Dynamic routes allow you to capture URL parameters and use them in your
+        components. This is useful for user profiles, blog posts, product pages,
+        and other pages where the content depends on an ID or slug.</p>
+    <p>Think of dynamic routes like templates - the route pattern defines the
+        structure, and the actual value in the URL determines what content to
+        show.</p>
+    <h3 id="technical-explanation_3--4">Technical Explanation</h3>
+    <p>Dynamic routes use parameters that are captured from the URL. These
+        parameters can be accessed using the useParams hook or the useMatches
+        hook.</p>
+    <p>Features:
+        - <strong>Path parameters</strong>: URL segments like
+        <code>/users/:id</code>
+        - <strong>Optional parameters</strong>: Optional segments
+        - <strong>Wildcards</strong>: Catch-all routes
+        - <strong>Nested routes</strong>: Routes with dynamic segments</p>
+    <h3 id="professional-explanation_3--4">Professional Explanation</h3>
+    <p>Dynamic routes are essential for:
+        - <strong>CRUD Operations</strong>: Managing resources
+        - <strong>User Profiles</strong>: Displaying user-specific content
+        - <strong>Blog/Content</strong>: Showing articles
+        - <strong>E-commerce</strong>: Product pages
+        - <strong>SEO</strong>: Clean, descriptive URLs</p>
+    <h3 id="dynamic-routes-examples">Dynamic Routes Examples</h3>
+    <pre><code class="language-jsx">// Basic dynamic route
 function App() {
     return (
         &lt;BrowserRouter&gt;
@@ -356,27 +383,36 @@ function ProductPage() {
     );
 }
 </code></pre>
-<h2 id="85-nested-routes">8.5 Nested Routes</h2>
-<h3 id="simple-explanation_4--4">Simple Explanation</h3>
-<p>Nested routes are routes within other routes. They allow you to create complex layouts where different parts of the page change independently. The Outlet component is used to render nested routes.</p>
-<p>Think of nested routes like nesting dolls - each route can contain other routes, and the Outlet component marks where the nested routes should appear.</p>
-<h3 id="technical-explanation_4--4">Technical Explanation</h3>
-<p>Nested routes allow you to compose UI layouts and keep related routes together. The Outlet component is a placeholder that renders the matched child route.</p>
-<p>Key concepts:
-- <strong>Outlet</strong>: Renders the matched child route
-- <strong>Relative routes</strong>: Routes inherit parent path
-- <strong>Layout routes</strong>: Routes that provide a layout
-- <strong>Index routes</strong>: Default child routes
-- <strong>Nested routing</strong>: Routes can be nested infinitely</p>
-<h3 id="professional-explanation_4--4">Professional Explanation</h3>
-<p>Nested routes are powerful for:
-- <strong>Complex layouts</strong>: Different sections with their own routing
-- <strong>Feature modules</strong>: Self-contained routing
-- <strong>Code organization</strong>: Keeping routes close to components
-- <strong>State preservation</strong>: Maintaining state in parent layouts
-- <strong>User experience</strong>: Smooth transitions between sections</p>
-<h3 id="nested-routes-examples">Nested Routes Examples</h3>
-<pre><code class="language-jsx">// Basic nested routes
+    <h2 id="85-nested-routes">8.5 Nested Routes</h2>
+    <h3 id="simple-explanation_4--4">Simple Explanation</h3>
+    <p>Nested routes are routes within other routes. They allow you to create
+        complex layouts where different parts of the page change independently.
+        The Outlet component is used to render nested routes.</p>
+    <p>Think of nested routes like nesting dolls - each route can contain other
+        routes, and the Outlet component marks where the nested routes should
+        appear.</p>
+    <h3 id="technical-explanation_4--4">Technical Explanation</h3>
+    <p>Nested routes allow you to compose UI layouts and keep related routes
+        together. The Outlet component is a placeholder that renders the matched
+        child route.</p>
+    <p>Key concepts:
+        - <strong>Outlet</strong>: Renders the matched child route
+        - <strong>Relative routes</strong>: Routes inherit parent path
+        - <strong>Layout routes</strong>: Routes that provide a layout
+        - <strong>Index routes</strong>: Default child routes
+        - <strong>Nested routing</strong>: Routes can be nested infinitely</p>
+    <h3 id="professional-explanation_4--4">Professional Explanation</h3>
+    <p>Nested routes are powerful for:
+        - <strong>Complex layouts</strong>: Different sections with their own
+        routing
+        - <strong>Feature modules</strong>: Self-contained routing
+        - <strong>Code organization</strong>: Keeping routes close to components
+        - <strong>State preservation</strong>: Maintaining state in parent
+        layouts
+        - <strong>User experience</strong>: Smooth transitions between
+        sections</p>
+    <h3 id="nested-routes-examples">Nested Routes Examples</h3>
+    <pre><code class="language-jsx">// Basic nested routes
 function AppWithNestedRoutes() {
     return (
         &lt;BrowserRouter&gt;
@@ -507,26 +543,40 @@ function AppWithDeepNesting() {
     );
 }
 </code></pre>
-<h2 id="86-protected-routes">8.6 Protected Routes</h2>
-<h3 id="simple-explanation_5--4">Simple Explanation</h3>
-<p>Protected routes are routes that require the user to be authenticated before accessing them. If the user is not authenticated, they are redirected to the login page. This is essential for applications with private content.</p>
-<p>Think of protected routes like a VIP section at a club - only authorized people (authenticated users) can enter. If you're not on the list, you're redirected to the entrance (login page).</p>
-<h3 id="technical-explanation_5--4">Technical Explanation</h3>
-<p>Protected routes are implemented by checking authentication status before rendering the route. If the user is not authenticated, they are redirected to the login page or shown an unauthorized message.</p>
-<p>Implementation approaches:
-- <strong>Layout wrapper</strong>: Wrap protected routes in a layout that checks auth
-- <strong>Route guard</strong>: Create a component that checks auth before rendering
-- <strong>Conditional rendering</strong>: Show different content based on auth status
-- <strong>Redirect component</strong>: Redirect to login if not authenticated</p>
-<h3 id="professional-explanation_5--4">Professional Explanation</h3>
-<p>Protected routes are essential for:
-- <strong>User authentication</strong>: Restricting access to logged-in users
-- <strong>Authorization</strong>: Different access levels for different users
-- <strong>Security</strong>: Protecting sensitive data
-- <strong>User experience</strong>: Guiding users through authentication flow
-- <strong>Analytics</strong>: Tracking authenticated user behavior</p>
-<h3 id="protected-routes-examples">Protected Routes Examples</h3>
-<pre><code class="language-jsx">// Protected route component
+    <h2 id="86-protected-routes">8.6 Protected Routes</h2>
+    <h3 id="simple-explanation_5--4">Simple Explanation</h3>
+    <p>Protected routes are routes that require the user to be authenticated
+        before accessing them. If the user is not authenticated, they are
+        redirected to the login page. This is essential for applications with
+        private content.</p>
+    <p>Think of protected routes like a VIP section at a club - only authorized
+        people (authenticated users) can enter. If you're not on the list,
+        you're redirected to the entrance (login page).</p>
+    <h3 id="technical-explanation_5--4">Technical Explanation</h3>
+    <p>Protected routes are implemented by checking authentication status before
+        rendering the route. If the user is not authenticated, they are
+        redirected to the login page or shown an unauthorized message.</p>
+    <p>Implementation approaches:
+        - <strong>Layout wrapper</strong>: Wrap protected routes in a layout
+        that checks auth
+        - <strong>Route guard</strong>: Create a component that checks auth
+        before rendering
+        - <strong>Conditional rendering</strong>: Show different content based
+        on auth status
+        - <strong>Redirect component</strong>: Redirect to login if not
+        authenticated</p>
+    <h3 id="professional-explanation_5--4">Professional Explanation</h3>
+    <p>Protected routes are essential for:
+        - <strong>User authentication</strong>: Restricting access to logged-in
+        users
+        - <strong>Authorization</strong>: Different access levels for different
+        users
+        - <strong>Security</strong>: Protecting sensitive data
+        - <strong>User experience</strong>: Guiding users through authentication
+        flow
+        - <strong>Analytics</strong>: Tracking authenticated user behavior</p>
+    <h3 id="protected-routes-examples">Protected Routes Examples</h3>
+    <pre><code class="language-jsx">// Protected route component
 function ProtectedRoute({ children }) {
     const { user, loading } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -738,27 +788,35 @@ function AuthProvider({ children }) {
     );
 }
 </code></pre>
-<h2 id="87-lazy-loading-and-code-splitting">8.7 Lazy Loading and Code Splitting</h2>
-<h3 id="simple-explanation_6--4">Simple Explanation</h3>
-<p>Lazy loading means loading components only when they're needed, rather than loading everything upfront. This makes your application load faster initially. React.lazy and Suspense make this easy.</p>
-<p>Think of lazy loading like a buffet - instead of putting all the food out at once, you put out the main dishes first and bring out specialty items when someone asks for them.</p>
-<h3 id="technical-explanation_6--4">Technical Explanation</h3>
-<p>Lazy loading allows you to split your code into chunks that are loaded on demand. React.lazy is a function that lets you load components dynamically. Suspense is a component that shows a fallback while loading.</p>
-<p>Key concepts:
-- <strong>React.lazy</strong>: Dynamic import for components
-- <strong>Suspense</strong>: Fallback UI while loading
-- <strong>Code splitting</strong>: Breaking bundle into smaller chunks
-- <strong>Chunk loading</strong>: Loading chunks on demand
-- <strong>Route-based splitting</strong>: Splitting by routes</p>
-<h3 id="professional-explanation_6--4">Professional Explanation</h3>
-<p>Lazy loading is essential for:
-- <strong>Performance</strong>: Faster initial load times
-- <strong>User experience</strong>: Progressive loading
-- <strong>Bandwidth</strong>: Less data transferred initially
-- <strong>SEO</strong>: Better Core Web Vitals
-- <strong>Maintainability</strong>: Smaller, focused bundles</p>
-<h3 id="lazy-loading-examples">Lazy Loading Examples</h3>
-<pre><code class="language-jsx">// Basic lazy loading
+    <h2 id="87-lazy-loading-and-code-splitting">8.7 Lazy Loading and Code
+        Splitting</h2>
+    <h3 id="simple-explanation_6--4">Simple Explanation</h3>
+    <p>Lazy loading means loading components only when they're needed, rather
+        than loading everything upfront. This makes your application load faster
+        initially. React.lazy and Suspense make this easy.</p>
+    <p>Think of lazy loading like a buffet - instead of putting all the food out
+        at once, you put out the main dishes first and bring out specialty items
+        when someone asks for them.</p>
+    <h3 id="technical-explanation_6--4">Technical Explanation</h3>
+    <p>Lazy loading allows you to split your code into chunks that are loaded on
+        demand. React.lazy is a function that lets you load components
+        dynamically. Suspense is a component that shows a fallback while
+        loading.</p>
+    <p>Key concepts:
+        - <strong>React.lazy</strong>: Dynamic import for components
+        - <strong>Suspense</strong>: Fallback UI while loading
+        - <strong>Code splitting</strong>: Breaking bundle into smaller chunks
+        - <strong>Chunk loading</strong>: Loading chunks on demand
+        - <strong>Route-based splitting</strong>: Splitting by routes</p>
+    <h3 id="professional-explanation_6--4">Professional Explanation</h3>
+    <p>Lazy loading is essential for:
+        - <strong>Performance</strong>: Faster initial load times
+        - <strong>User experience</strong>: Progressive loading
+        - <strong>Bandwidth</strong>: Less data transferred initially
+        - <strong>SEO</strong>: Better Core Web Vitals
+        - <strong>Maintainability</strong>: Smaller, focused bundles</p>
+    <h3 id="lazy-loading-examples">Lazy Loading Examples</h3>
+    <pre><code class="language-jsx">// Basic lazy loading
 import { lazy, Suspense } from 'react';
 
 const Home = lazy(() =&gt; import('./pages/Home'));
@@ -899,26 +957,31 @@ function FeaturePage() {
     );
 }
 </code></pre>
-<h2 id="88-navigation">8.8 Navigation</h2>
-<h3 id="simple-explanation_7--4">Simple Explanation</h3>
-<p>Navigation in React Router can be done in two ways: declaratively (with the Link component) or programmatically (with the useNavigate hook). Links are like regular HTML links but they handle routing without page reloads.</p>
-<p>Think of Link like a navigation button that changes the URL without refreshing the page. useNavigate is like a remote control that lets you navigate programmatically.</p>
-<h3 id="technical-explanation_7--4">Technical Explanation</h3>
-<p>Navigation in React Router is handled through:
-- <strong>Link</strong>: Declarative navigation component
-- <strong>NavLink</strong>: Enhanced link with active state
-- <strong>useNavigate</strong>: Programmatic navigation hook
-- <strong>useLocation</strong>: Access current location
-- <strong>useHistory</strong>: Navigate in history (legacy)</p>
-<h3 id="professional-explanation_7--4">Professional Explanation</h3>
-<p>Navigation patterns:
-- <strong>Declarative</strong>: Using Link and NavLink
-- <strong>Programmatic</strong>: Using useNavigate
-- <strong>Redirects</strong>: Redirecting after actions
-- <strong>History</strong>: Navigating backward/forward
-- <strong>State</strong>: Passing state during navigation</p>
-<h3 id="navigation-examples">Navigation Examples</h3>
-<pre><code class="language-jsx">// Basic navigation with Link
+    <h2 id="88-navigation">8.8 Navigation</h2>
+    <h3 id="simple-explanation_7--4">Simple Explanation</h3>
+    <p>Navigation in React Router can be done in two ways: declaratively (with
+        the Link component) or programmatically (with the useNavigate hook).
+        Links are like regular HTML links but they handle routing without page
+        reloads.</p>
+    <p>Think of Link like a navigation button that changes the URL without
+        refreshing the page. useNavigate is like a remote control that lets you
+        navigate programmatically.</p>
+    <h3 id="technical-explanation_7--4">Technical Explanation</h3>
+    <p>Navigation in React Router is handled through:
+        - <strong>Link</strong>: Declarative navigation component
+        - <strong>NavLink</strong>: Enhanced link with active state
+        - <strong>useNavigate</strong>: Programmatic navigation hook
+        - <strong>useLocation</strong>: Access current location
+        - <strong>useHistory</strong>: Navigate in history (legacy)</p>
+    <h3 id="professional-explanation_7--4">Professional Explanation</h3>
+    <p>Navigation patterns:
+        - <strong>Declarative</strong>: Using Link and NavLink
+        - <strong>Programmatic</strong>: Using useNavigate
+        - <strong>Redirects</strong>: Redirecting after actions
+        - <strong>History</strong>: Navigating backward/forward
+        - <strong>State</strong>: Passing state during navigation</p>
+    <h3 id="navigation-examples">Navigation Examples</h3>
+    <pre><code class="language-jsx">// Basic navigation with Link
 function Navigation() {
     return (
         &lt;nav&gt;
@@ -1104,26 +1167,35 @@ function UnsavedChangesGuard({ isDirty }) {
     );
 }
 </code></pre>
-<h2 id="89-scroll-management">8.9 Scroll Management</h2>
-<h3 id="simple-explanation_8--4">Simple Explanation</h3>
-<p>Scroll management controls where the page scrolls to when navigating between routes. By default, React Router doesn't automatically scroll to the top when navigating, which can be confusing for users.</p>
-<p>Think of scroll management like bookmarks - when you change pages, you want to start at the top of the new page, not where you were on the previous page.</p>
-<h3 id="technical-explanation_8--4">Technical Explanation</h3>
-<p>Scroll management involves controlling the scroll position during navigation. React Router v6 provides a ScrollRestoration component for this, or you can implement custom scroll management.</p>
-<p>Key concepts:
-- <strong>Scroll restoration</strong>: Remembering scroll position when going back
-- <strong>Scroll to top</strong>: Scrolling to top on navigation
-- <strong>Hash scrolling</strong>: Scrolling to elements with IDs
-- <strong>Custom scroll</strong>: Implementing custom scroll behavior</p>
-<h3 id="professional-explanation_8--4">Professional Explanation</h3>
-<p>Scroll management is important for:
-- <strong>User experience</strong>: Consistent navigation behavior
-- <strong>Accessibility</strong>: Keyboard navigation
-- <strong>Single-page apps</strong>: Handling scroll like traditional pages
-- <strong>Hash links</strong>: Navigating to specific content
-- <strong>History</strong>: Maintaining scroll position in history</p>
-<h3 id="scroll-management-examples">Scroll Management Examples</h3>
-<pre><code class="language-jsx">// Basic scroll to top with useEffect
+    <h2 id="89-scroll-management">8.9 Scroll Management</h2>
+    <h3 id="simple-explanation_8--4">Simple Explanation</h3>
+    <p>Scroll management controls where the page scrolls to when navigating
+        between routes. By default, React Router doesn't automatically scroll to
+        the top when navigating, which can be confusing for users.</p>
+    <p>Think of scroll management like bookmarks - when you change pages, you
+        want to start at the top of the new page, not where you were on the
+        previous page.</p>
+    <h3 id="technical-explanation_8--4">Technical Explanation</h3>
+    <p>Scroll management involves controlling the scroll position during
+        navigation. React Router v6 provides a ScrollRestoration component for
+        this, or you can implement custom scroll management.</p>
+    <p>Key concepts:
+        - <strong>Scroll restoration</strong>: Remembering scroll position when
+        going back
+        - <strong>Scroll to top</strong>: Scrolling to top on navigation
+        - <strong>Hash scrolling</strong>: Scrolling to elements with IDs
+        - <strong>Custom scroll</strong>: Implementing custom scroll
+        behavior</p>
+    <h3 id="professional-explanation_8--4">Professional Explanation</h3>
+    <p>Scroll management is important for:
+        - <strong>User experience</strong>: Consistent navigation behavior
+        - <strong>Accessibility</strong>: Keyboard navigation
+        - <strong>Single-page apps</strong>: Handling scroll like traditional
+        pages
+        - <strong>Hash links</strong>: Navigating to specific content
+        - <strong>History</strong>: Maintaining scroll position in history</p>
+    <h3 id="scroll-management-examples">Scroll Management Examples</h3>
+    <pre><code class="language-jsx">// Basic scroll to top with useEffect
 function ScrollToTop() {
     const { pathname } = useLocation();
 
@@ -1247,9 +1319,10 @@ function ArticlePage() {
     return &lt;div&gt;{/* Article content */}&lt;/div&gt;;
 }
 </code></pre>
-<h2 id="810-common-mistakes-and-best-practices">8.10 Common Mistakes and Best Practices</h2>
-<h3 id="8101-common-mistakes">8.10.1 Common Mistakes</h3>
-<pre><code class="language-jsx">// ❌ Not wrapping app with Router
+    <h2 id="810-common-mistakes-and-best-practices">8.10 Common Mistakes and
+        Best Practices</h2>
+    <h3 id="8101-common-mistakes">8.10.1 Common Mistakes</h3>
+    <pre><code class="language-jsx">// ❌ Not wrapping app with Router
 function BadApp() {
     return (
         &lt;Routes&gt;
@@ -1336,8 +1409,8 @@ function GoodAppWith404() {
     );
 }
 </code></pre>
-<h3 id="8102-best-practices">8.10.2 Best Practices</h3>
-<pre><code class="language-jsx">// ✅ Organize routes in a separate file
+    <h3 id="8102-best-practices">8.10.2 Best Practices</h3>
+    <pre><code class="language-jsx">// ✅ Organize routes in a separate file
 // routes.js
 import { lazy } from 'react';
 
@@ -1418,17 +1491,19 @@ function AppWithLazyRoutes() {
     );
 }
 </code></pre>
-<h2 id="811-interview-questions">8.11 Interview Questions</h2>
-<h3 id="junior-level-questions--8">Junior Level Questions</h3>
-<p><strong>Q: What is React Router and why use it?</strong></p>
-<p><strong>Answer</strong>: React Router is the standard routing library for React. It enables navigation between different views/components in a React application. Benefits include:
-- Declarative routing
-- Nested routes
-- Dynamic routes
-- URL parameters
-- Programmatic navigation
-- Lazy loading support</p>
-<pre><code class="language-jsx">// Basic React Router setup
+    <h2 id="811-interview-questions">8.11 Interview Questions</h2>
+    <h3 id="junior-level-questions--8">Junior Level Questions</h3>
+    <p><strong>Q: What is React Router and why use it?</strong></p>
+    <p><strong>Answer</strong>: React Router is the standard routing library for
+        React. It enables navigation between different views/components in a
+        React application. Benefits include:
+        - Declarative routing
+        - Nested routes
+        - Dynamic routes
+        - URL parameters
+        - Programmatic navigation
+        - Lazy loading support</p>
+    <pre><code class="language-jsx">// Basic React Router setup
 &lt;BrowserRouter&gt;
     &lt;Routes&gt;
         &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
@@ -1436,11 +1511,11 @@ function AppWithLazyRoutes() {
     &lt;/Routes&gt;
 &lt;/BrowserRouter&gt;
 </code></pre>
-<p><strong>Q: What is the difference between Link and NavLink?</strong></p>
-<p><strong>Answer</strong>:
-- <strong>Link</strong>: Basic navigation component
-- <strong>NavLink</strong>: Enhanced Link with active state styling</p>
-<pre><code class="language-jsx">&lt;Link to="/about"&gt;About&lt;/Link&gt;
+    <p><strong>Q: What is the difference between Link and NavLink?</strong></p>
+    <p><strong>Answer</strong>:
+        - <strong>Link</strong>: Basic navigation component
+        - <strong>NavLink</strong>: Enhanced Link with active state styling</p>
+    <pre><code class="language-jsx">&lt;Link to="/about"&gt;About&lt;/Link&gt;
 &lt;NavLink 
     to="/about"
     className={({ isActive }) =&gt; isActive ? 'active' : ''}
@@ -1448,10 +1523,13 @@ function AppWithLazyRoutes() {
     About
 &lt;/NavLink&gt;
 </code></pre>
-<h3 id="mid-level-questions--8">Mid Level Questions</h3>
-<p><strong>Q: How do you handle protected routes in React Router?</strong></p>
-<p><strong>Answer</strong>: Protected routes are implemented by checking authentication status before rendering the route. If not authenticated, redirect to login.</p>
-<pre><code class="language-jsx">function ProtectedRoute({ children }) {
+    <h3 id="mid-level-questions--8">Mid Level Questions</h3>
+    <p><strong>Q: How do you handle protected routes in React
+            Router?</strong></p>
+    <p><strong>Answer</strong>: Protected routes are implemented by checking
+        authentication status before rendering the route. If not authenticated,
+        redirect to login.</p>
+    <pre><code class="language-jsx">function ProtectedRoute({ children }) {
     const { user } = useAuth();
     const navigate = useNavigate();
 
@@ -1464,18 +1542,23 @@ function AppWithLazyRoutes() {
     return user ? children : null;
 }
 </code></pre>
-<p><strong>Q: What are nested routes and when would you use them?</strong></p>
-<p><strong>Answer</strong>: Nested routes allow you to have routes within routes, creating complex layouts where different parts of the page change independently.</p>
-<pre><code class="language-jsx">&lt;Route path="/dashboard" element={&lt;Dashboard /&gt;}&gt;
+    <p><strong>Q: What are nested routes and when would you use
+            them?</strong></p>
+    <p><strong>Answer</strong>: Nested routes allow you to have routes within
+        routes, creating complex layouts where different parts of the page
+        change independently.</p>
+    <pre><code class="language-jsx">&lt;Route path="/dashboard" element={&lt;Dashboard /&gt;}&gt;
     &lt;Route index element={&lt;Home /&gt;} /&gt;
     &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
     &lt;Route path="profile" element={&lt;Profile /&gt;} /&gt;
 &lt;/Route&gt;
 </code></pre>
-<h3 id="senior-level-questions--8">Senior Level Questions</h3>
-<p><strong>Q: How do you implement lazy loading with React Router?</strong></p>
-<p><strong>Answer</strong>: Use React.lazy with dynamic imports and wrap with Suspense.</p>
-<pre><code class="language-jsx">const Dashboard = lazy(() =&gt; import('./pages/Dashboard'));
+    <h3 id="senior-level-questions--8">Senior Level Questions</h3>
+    <p><strong>Q: How do you implement lazy loading with React
+            Router?</strong></p>
+    <p><strong>Answer</strong>: Use React.lazy with dynamic imports and wrap
+        with Suspense.</p>
+    <pre><code class="language-jsx">const Dashboard = lazy(() =&gt; import('./pages/Dashboard'));
 
 function App() {
     return (
@@ -1487,9 +1570,11 @@ function App() {
     );
 }
 </code></pre>
-<p><strong>Q: How do you handle scroll restoration in React Router?</strong></p>
-<p><strong>Answer</strong>: React Router v6 provides ScrollRestoration, or you can implement custom scroll management.</p>
-<pre><code class="language-jsx">import { ScrollRestoration } from 'react-router-dom';
+    <p><strong>Q: How do you handle scroll restoration in React
+            Router?</strong></p>
+    <p><strong>Answer</strong>: React Router v6 provides ScrollRestoration, or
+        you can implement custom scroll management.</p>
+    <pre><code class="language-jsx">import { ScrollRestoration } from 'react-router-dom';
 
 function App() {
     return (
@@ -1502,122 +1587,144 @@ function App() {
     );
 }
 </code></pre>
-<h2 id="812-summary">8.12 Summary</h2>
-<h3 id="react-router-components">React Router Components</h3>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Purpose</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>BrowserRouter</strong></td>
-<td>Router implementation</td>
-<td><code>&lt;BrowserRouter&gt;</code></td>
-</tr>
-<tr>
-<td><strong>Routes</strong></td>
-<td>Container for routes</td>
-<td><code>&lt;Routes&gt;</code></td>
-</tr>
-<tr>
-<td><strong>Route</strong></td>
-<td>Defines route mapping</td>
-<td><code>&lt;Route path="/" element={&lt;Home /&gt;} /&gt;</code></td>
-</tr>
-<tr>
-<td><strong>Link</strong></td>
-<td>Navigation link</td>
-<td><code>&lt;Link to="/about"&gt;About&lt;/Link&gt;</code></td>
-</tr>
-<tr>
-<td><strong>NavLink</strong></td>
-<td>Navigation with active state</td>
-<td><code>&lt;NavLink to="/about"&gt;About&lt;/NavLink&gt;</code></td>
-</tr>
-<tr>
-<td><strong>Outlet</strong></td>
-<td>Nested route placeholder</td>
-<td><code>&lt;Outlet /&gt;</code></td>
-</tr>
-<tr>
-<td><strong>Suspense</strong></td>
-<td>Fallback for lazy loading</td>
-<td><code>&lt;Suspense fallback={&lt;Loading /&gt;}&gt;</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="react-router-hooks">React Router Hooks</h3>
-<table>
-<thead>
-<tr>
-<th>Hook</th>
-<th>Purpose</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>useNavigate</strong></td>
-<td>Programmatic navigation</td>
-<td><code>const navigate = useNavigate()</code></td>
-</tr>
-<tr>
-<td><strong>useParams</strong></td>
-<td>Access URL parameters</td>
-<td><code>const { id } = useParams()</code></td>
-</tr>
-<tr>
-<td><strong>useLocation</strong></td>
-<td>Access location object</td>
-<td><code>const location = useLocation()</code></td>
-</tr>
-<tr>
-<td><strong>useSearchParams</strong></td>
-<td>Access query parameters</td>
-<td><code>const [params] = useSearchParams()</code></td>
-</tr>
-<tr>
-<td><strong>useMatches</strong></td>
-<td>Access matched routes</td>
-<td><code>const matches = useMatches()</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="routing-patterns">Routing Patterns</h3>
-<ol>
-<li><strong>Basic Routes</strong>: Simple route mapping</li>
-<li><strong>Nested Routes</strong>: Routes within routes</li>
-<li><strong>Dynamic Routes</strong>: URL parameters</li>
-<li><strong>Protected Routes</strong>: Authentication guard</li>
-<li><strong>Lazy Loading</strong>: Code splitting</li>
-<li><strong>Programmatic Navigation</strong>: useNavigate</li>
-<li><strong>Query Parameters</strong>: useSearchParams</li>
-<li><strong>Scroll Management</strong>: ScrollRestoration</li>
-</ol>
-<h3 id="best-practices-summary--6">Best Practices Summary</h3>
-<ol>
-<li><strong>Wrap app with Router</strong> - Always use BrowserRouter</li>
-<li><strong>Order routes correctly</strong> - Specific routes before general</li>
-<li><strong>Handle 404</strong> - Include catch-all route</li>
-<li><strong>Lazy load routes</strong> - Use React.lazy and Suspense</li>
-<li><strong>Use constants</strong> - For route paths</li>
-<li><strong>Implement protected routes</strong> - For authentication</li>
-<li><strong>Use NavLink for active states</strong> - For navigation</li>
-<li><strong>Handle scroll restoration</strong> - For good UX</li>
-<li><strong>Organize routes</strong> - Keep routes organized</li>
-<li><strong>Test routes</strong> - Ensure all routes work correctly</li>
-</ol>
-<hr/>
-<p><em>End of Chapter 8</em></p>
-<p><strong>Next Chapter Preview</strong>: Chapter 9 will cover API Integration including Axios, Fetch, REST, JSON, JWT, Authentication, Authorization, and Error Handling.</p>
-<hr/>
-<p><em>This chapter provides comprehensive coverage of routing in React. Master these concepts to build navigable and well-structured React applications.</em></p>
-<h1 id="the-complete-react-developer-course--8">The Complete React Developer Course</h1>
-<h2 id="from-beginner-to-professional--8">From Beginner to Professional</h2>
-<h3 id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--8">A Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
-<hr/>
-<div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-8" type="button">✓ Mark chapter complete</button></div><nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev" href="#chapter-7"><span class="pager-label">← Previous chapter</span><strong>07 · State Management in React</strong></a><a class="pager-card pager-card--next" href="#chapter-9"><span class="pager-label">Next chapter →</span><strong>09 · API Integration in React</strong></a></nav></section>
+    <h2 id="812-summary">8.12 Summary</h2>
+    <h3 id="react-router-components">React Router Components</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Component</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>BrowserRouter</strong></td>
+                <td>Router implementation</td>
+                <td><code>&lt;BrowserRouter&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>Routes</strong></td>
+                <td>Container for routes</td>
+                <td><code>&lt;Routes&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>Route</strong></td>
+                <td>Defines route mapping</td>
+                <td><code>&lt;Route path="/" element={&lt;Home /&gt;}
+                        /&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>Link</strong></td>
+                <td>Navigation link</td>
+                <td><code>&lt;Link to="/about"&gt;About&lt;/Link&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>NavLink</strong></td>
+                <td>Navigation with active state</td>
+                <td><code>&lt;NavLink
+                        to="/about"&gt;About&lt;/NavLink&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>Outlet</strong></td>
+                <td>Nested route placeholder</td>
+                <td><code>&lt;Outlet /&gt;</code></td>
+            </tr>
+            <tr>
+                <td><strong>Suspense</strong></td>
+                <td>Fallback for lazy loading</td>
+                <td><code>&lt;Suspense fallback={&lt;Loading
+                        /&gt;}&gt;</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="react-router-hooks">React Router Hooks</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Hook</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>useNavigate</strong></td>
+                <td>Programmatic navigation</td>
+                <td><code>const navigate = useNavigate()</code></td>
+            </tr>
+            <tr>
+                <td><strong>useParams</strong></td>
+                <td>Access URL parameters</td>
+                <td><code>const { id } = useParams()</code></td>
+            </tr>
+            <tr>
+                <td><strong>useLocation</strong></td>
+                <td>Access location object</td>
+                <td><code>const location = useLocation()</code></td>
+            </tr>
+            <tr>
+                <td><strong>useSearchParams</strong></td>
+                <td>Access query parameters</td>
+                <td><code>const [params] = useSearchParams()</code></td>
+            </tr>
+            <tr>
+                <td><strong>useMatches</strong></td>
+                <td>Access matched routes</td>
+                <td><code>const matches = useMatches()</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="routing-patterns">Routing Patterns</h3>
+    <ol>
+        <li><strong>Basic Routes</strong>: Simple route mapping</li>
+        <li><strong>Nested Routes</strong>: Routes within routes</li>
+        <li><strong>Dynamic Routes</strong>: URL parameters</li>
+        <li><strong>Protected Routes</strong>: Authentication guard</li>
+        <li><strong>Lazy Loading</strong>: Code splitting</li>
+        <li><strong>Programmatic Navigation</strong>: useNavigate</li>
+        <li><strong>Query Parameters</strong>: useSearchParams</li>
+        <li><strong>Scroll Management</strong>: ScrollRestoration</li>
+    </ol>
+    <h3 id="best-practices-summary--6">Best Practices Summary</h3>
+    <ol>
+        <li><strong>Wrap app with Router</strong> - Always use
+            BrowserRouter</li>
+        <li><strong>Order routes correctly</strong> - Specific routes before
+            general</li>
+        <li><strong>Handle 404</strong> - Include catch-all route</li>
+        <li><strong>Lazy load routes</strong> - Use React.lazy and Suspense</li>
+        <li><strong>Use constants</strong> - For route paths</li>
+        <li><strong>Implement protected routes</strong> - For
+            authentication</li>
+        <li><strong>Use NavLink for active states</strong> - For navigation</li>
+        <li><strong>Handle scroll restoration</strong> - For good UX</li>
+        <li><strong>Organize routes</strong> - Keep routes organized</li>
+        <li><strong>Test routes</strong> - Ensure all routes work correctly</li>
+    </ol>
+    <hr />
+    <p><em>End of Chapter 8</em></p>
+    <p><strong>Next Chapter Preview</strong>: Chapter 9 will cover API
+        Integration including Axios, Fetch, REST, JSON, JWT, Authentication,
+        Authorization, and Error Handling.</p>
+    <hr />
+    <p><em>This chapter provides comprehensive coverage of routing in React.
+            Master these concepts to build navigable and well-structured React
+            applications.</em></p>
+    <h1 id="the-complete-react-developer-course--8">The Complete React Developer
+        Course</h1>
+    <h2 id="from-beginner-to-professional--8">From Beginner to Professional</h2>
+    <h3
+        id="a-comprehensive-guide-to-building-enterprise-grade-react-applications--8">A
+        Comprehensive Guide to Building Enterprise-Grade React Applications</h3>
+    <hr />
+    <div class="chapter-completion"><button aria-pressed="false"
+            class="complete-chapter" data-complete="chapter-8" type="button">✓
+            Mark chapter complete</button></div><nav
+        aria-label="Chapter navigation" class="chapter-pager"><a
+            class="pager-card pager-card--prev" href="#chapter-7"><span
+                class="pager-label">← Previous chapter</span><strong>07 · State
+                Management in React</strong></a><a
+            class="pager-card pager-card--next" href="#chapter-9"><span
+                class="pager-label">Next chapter →</span><strong>09 · API
+                Integration in React</strong></a></nav></section>
