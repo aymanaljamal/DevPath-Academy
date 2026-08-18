@@ -491,8 +491,10 @@ function setupPythonTools() {
           try {
             rows = JSON.parse(
                 localStorage.getItem('devpath-python-ai-experiments-v1') ||
-                '[]')
+                '[]');
+            if (!Array.isArray(rows)) rows = [];
           } catch {
+            rows = [];
           }
           if (saved)
             saved.innerHTML = rows.length ?
@@ -585,8 +587,10 @@ function setupPythonTools() {
     let rows = [];
     try {
       rows = JSON.parse(
-          localStorage.getItem('devpath-python-ai-experiments-v1') || '[]')
+          localStorage.getItem('devpath-python-ai-experiments-v1') || '[]');
+      if (!Array.isArray(rows)) rows = [];
     } catch {
+      rows = [];
     }
     rows.push({
       date: new Date().toISOString(),
@@ -595,8 +599,12 @@ function setupPythonTools() {
       best: best.name,
       scored
     });
-    localStorage.setItem(
-        'devpath-python-ai-experiments-v1', JSON.stringify(rows.slice(-20)));
+    try {
+      localStorage.setItem(
+          'devpath-python-ai-experiments-v1', JSON.stringify(rows.slice(-20)));
+    } catch {
+      toast('Experiment results could not be saved on this device');
+    }
     renderSaved();
   });
 }

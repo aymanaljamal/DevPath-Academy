@@ -54,7 +54,7 @@
      <pre><code class="language-bash">npm run dev
 </code></pre>
      <p>Example</p>
-     <pre><code>http://localhost:5173
+     <pre><code class="language-text">http://localhost:5173
 </code></pre>
      <hr />
      <h3 id="production">Production</h3>
@@ -105,7 +105,10 @@
      <p>Everything inside <code>dist</code> is production-ready.</p>
      <hr />
      <h2 id="what-happens-during-build">What Happens During Build?</h2>
-     <p>Vite performs many optimizations.</p>
+     <p>Vite delegates the production bundle to Rollup and applies optimizations
+          such as minification, dead-code removal, chunking, and asset hashing.
+          Inspect the generated output instead of assuming a chunk name or
+          size.</p>
      <h4 id="minification">Minification</h4>
      <p>Before</p>
      <pre><code class="language-javascript">function calculatePrice(price) {
@@ -115,22 +118,23 @@
 }
 </code></pre>
      <p>After</p>
-     <pre><code class="language-javascript">function a(b){return.16*b}
+     <pre><code class="language-javascript">function a(b){return b*.16}
 </code></pre>
      <p>Smaller files download faster.</p>
      <hr />
      <h4 id="tree-shaking">Tree Shaking</h4>
      <p>Unused code is removed.</p>
-     <p>Example</p>
-     <p>Imported:</p>
-     <pre><code>100 Functions
+     <p>Tree shaking works with statically analyzable ES module exports:</p>
+     <pre><code class="language-javascript">// pricing.js
+export const subtotal = items =&gt;
+  items.reduce((sum, item) =&gt; sum + item.price, 0);
+export const internalDebugReport = () =&gt; {/* not imported */};
 </code></pre>
-     <p>Used:</p>
-     <pre><code>5 Functions
+     <pre><code class="language-jsx">// Checkout.jsx — only subtotal is reachable from this entry
+import { subtotal } from './pricing.js';
 </code></pre>
-     <p>Output:</p>
-     <pre><code>Only 5 Functions
-</code></pre>
+     <p>Confirm the result with a bundle visualizer; side effects and CommonJS
+          packages can prevent unused code from being removed.</p>
      <hr />
      <h4 id="code-splitting--2">Code Splitting</h4>
      <p>Instead of</p>
@@ -155,19 +159,27 @@
      <p>All optimized for production.</p>
      <hr />
      <h2 id="environment-variables">Environment Variables</h2>
-     <p>Applications should never hardcode:</p>
+     <p>Frontend applications should avoid hardcoding environment-specific
+          public configuration such as:</p>
      <ul>
           <li>API URLs</li>
-          <li>Secrets</li>
-          <li>API Keys</li>
-          <li>Tokens</li>
+          <li>Public analytics identifiers</li>
+          <li>Feature flags</li>
      </ul>
-     <p>Instead use environment variables.</p>
+     <p>Use Vite environment variables only for public build-time
+          configuration. Every value exposed through
+          <code>import.meta.env</code> is shipped to the browser.</p>
      <p>Example:</p>
      <pre><code class="language-env">VITE_API_URL=http://localhost:8080
 </code></pre>
-     <p>Access inside React:</p>
-     <pre><code class="language-ts">const url = import.meta.env.VITE_API_URL;
+     <p>Validate required configuration before the application starts:</p>
+     <pre><code class="language-ts">const apiUrl = import.meta.env.VITE_API_URL;
+
+if (!apiUrl) {
+  throw new Error('VITE_API_URL is required');
+}
+
+export const config = { apiUrl };
 </code></pre>
      <hr />
      <h2 id="common-environment-files">Common Environment Files</h2>
@@ -202,7 +214,7 @@
      <p>Useful for:</p>
      <ul>
           <li>Local API URLs</li>
-          <li>Personal tokens</li>
+           <li>Non-secret developer-specific flags</li>
           <li>Developer-specific configuration</li>
      </ul>
      <hr />
@@ -214,6 +226,8 @@
      <p>Users can inspect JavaScript.</p>
      <p>Frontend secrets are <strong>not secret</strong>.</p>
      <p>Only public values belong in React environment variables.</p>
+     <p>Database passwords, private API keys, signing keys, and privileged
+          tokens belong in a trusted backend or deployment secret store.</p>
      <hr />
      <h2 id="static-hosting">Static Hosting</h2>
      <p>React produces static files.</p>
@@ -230,8 +244,18 @@
           <li>GitHub Pages</li>
           <li>Netlify</li>
           <li>Vercel</li>
-          <li>Firebase Hosting</li>
-     </ul>
+           <li>Firebase Hosting</li>
+      </ul>
+     <p>A client-side router also needs a navigation fallback so refreshing
+          <code>/dashboard</code> serves <code>index.html</code> while missing
+          assets still return a real 404 response.</p>
+     <pre><code class="language-nginx">location / {
+  try_files $uri $uri/ /index.html;
+}
+
+location /assets/ {
+  try_files $uri =404;
+}</code></pre>
      <hr />
      <h2 id="nginx">Nginx</h2>
      <p>Nginx is a web server.</p>
@@ -254,10 +278,10 @@
      <hr />
      <h2 id="reverse-proxy">Reverse Proxy</h2>
      <p>React</p>
-     <pre><code>https://company.com
+     <pre><code class="language-text">https://company.com
 </code></pre>
      <p>Backend</p>
-     <pre><code>http://localhost:8080
+     <pre><code class="language-text">http://localhost:8080
 </code></pre>
      <p>Instead of exposing Spring Boot directly:</p>
      <pre><code class="language-text">Browser → Nginx → Spring Boot
@@ -273,7 +297,7 @@
      <h2 id="docker">Docker</h2>
      <p>Docker packages an application with everything it needs.</p>
      <p>Without Docker</p>
-     <pre><code>Works On My Machine
+     <pre><code class="language-text">Works On My Machine
 </code></pre>
      <p>Problem:</p>
      <p>Different computers</p>
@@ -296,20 +320,22 @@
      <p>Runs the same everywhere.</p>
      <hr />
      <h2 id="dockerfile">Dockerfile</h2>
-     <p>Example structure</p>
-     <pre><code class="language-text">Project
-│
-├── Dockerfile
-├── package.json
-└── src
-</code></pre>
-     <p>Dockerfile defines:</p>
-     <ul>
-          <li>Base image</li>
-          <li>Install dependencies</li>
-          <li>Build application</li>
-          <li>Serve production files</li>
-     </ul>
+     <p>A multi-stage image keeps Node and development dependencies out of the
+          runtime image:</p>
+     <pre><code class="language-dockerfile">FROM node:22-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:1.27-alpine AS runtime
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+HEALTHCHECK CMD wget -qO- http://127.0.0.1/ || exit 1</code></pre>
+     <p>Pin reviewed image versions, scan dependencies and the final image, and
+          never copy local secret files into the build context.</p>
      <hr />
      <h2 id="multi-stage-docker-build">Multi-Stage Docker Build</h2>
      <p>Professional projects use multiple stages.</p>
@@ -360,10 +386,33 @@
 </code></pre>
      <hr />
      <h2 id="github-actions">GitHub Actions</h2>
-     <p>GitHub Actions automates workflows.</p>
-     <p>Example</p>
-     <pre><code class="language-text">Push → Workflow → Install Node → Install Packages → Run Tests → Build → Deploy
+     <p>GitHub Actions can reproduce the same clean install, tests, and build
+          used locally:</p>
+     <pre><code class="language-yaml">name: verify-react
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
 </code></pre>
+     <p>Deployment should use a protected environment, least-privilege
+          credentials, and an explicit approval or promotion policy.</p>
      <hr />
      <h2 id="typical-github-actions-workflow">Typical GitHub Actions
           Workflow</h2>

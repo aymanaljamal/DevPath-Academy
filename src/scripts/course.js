@@ -1,6 +1,11 @@
 (() => {
   'use strict';
 
+  if (location.hash.startsWith('#/')) {
+    location.replace(new URL('index.html' + location.hash, location.href));
+    return;
+  }
+
   const qs = (selector, root = document) => root.querySelector(selector);
   const qsa = (selector, root = document) =>
       Array.from(root.querySelectorAll(selector));
@@ -58,11 +63,14 @@
   function drainDeferredBlocks(deadline) {
     deferredWork = 0;
     let processed = 0;
-    while (deferredBlocks.length && processed < 8 &&
-           (!deadline || deadline.didTimeout || deadline.timeRemaining() > 4)) {
+    while (deferredBlocks.length && processed < 4) {
+      if (processed > 0 && deadline && !deadline.didTimeout &&
+          deadline.timeRemaining() <= 4)
+        break;
       const pre = deferredBlocks.shift();
       delete pre.dataset.codeBlockQueued;
-      if (pre.isConnected) enhanceCodeBlock(pre);
+      if (pre.isConnected && !pre.closest('.chapter[hidden]'))
+        enhanceCodeBlock(pre);
       processed += 1;
     }
     if (deferredBlocks.length) scheduleDeferredBlocks();
@@ -80,8 +88,9 @@
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
           codeBlockObserver.unobserve(entry.target);
-          delete entry.target.dataset.codeBlockQueued;
-          enhanceCodeBlock(entry.target);
+          if (!deferredBlocks.includes(entry.target))
+            deferredBlocks.push(entry.target);
+          scheduleDeferredBlocks();
         });
       }, {rootMargin: '180px 0px'}) : null;
 
@@ -149,7 +158,14 @@
     });
   }
 
+  let activeChapterId = '';
+  let activeSectionId = '';
   function setActive(chapterId, sectionId = null) {
+    const nextSectionId = sectionId || '';
+    if (activeChapterId === chapterId && activeSectionId === nextSectionId)
+      return;
+    activeChapterId = chapterId;
+    activeSectionId = nextSectionId;
     qsa('.nav-link')
         .forEach(
             link => link.classList.toggle(
@@ -160,26 +176,22 @@
                 'active', !!sectionId && link.dataset.section === sectionId));
     expandChapter(chapterId);
     const active = qs('.subnav-link.active') || qs('.nav-link.active');
-    active?.scrollIntoView(
-        {block: 'nearest', behavior: reducedMotion ? 'auto' : 'smooth'});
+    const sidebar = qs('#sidebar');
+    if (active && sidebar) {
+      const top = active.offsetTop;
+      const bottom = top + active.offsetHeight;
+      if (top < sidebar.scrollTop)
+        sidebar.scrollTop = Math.max(0, top - 24);
+      else if (bottom > sidebar.scrollTop + sidebar.clientHeight)
+        sidebar.scrollTop = bottom - sidebar.clientHeight + 24;
+    }
+    dispatchEvent(new CustomEvent('reactsectionchange', {
+      detail: {chapterId, sectionId: sectionId || chapterId}
+    }));
   }
 
   function initScrollSpy() {
     if (!('IntersectionObserver' in window)) return;
-    const chapterEls = qsa('.chapter');
-    const sectionEls = qsa('.chapter h2[id]');
-    let activeChapter = null;
-
-    const chapterObserver = new IntersectionObserver(entries => {
-      const visible =
-          entries.filter(e => e.isIntersecting)
-              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
-      activeChapter = visible.target.id;
-      setActive(activeChapter, null);
-    }, {rootMargin: '-12% 0px -72% 0px', threshold: [0, .05, .2]});
-    chapterEls.forEach(el => chapterObserver.observe(el));
-
     const sectionObserver = new IntersectionObserver(entries => {
       const visible = entries.filter(e => e.isIntersecting)
                           .sort(
@@ -188,19 +200,30 @@
       if (!visible) return;
       const chapter = visible.target.closest('.chapter');
       if (!chapter) return;
-      activeChapter = chapter.id;
       setActive(chapter.id, visible.target.id);
       if (history.replaceState)
         history.replaceState(null, '', '#' + visible.target.id);
     }, {rootMargin: '-16% 0px -68% 0px', threshold: [0, .01]});
-    sectionEls.forEach(el => sectionObserver.observe(el));
+    let observedChapter = null;
+    const observeChapter = chapter => {
+      if (!chapter || chapter === observedChapter) return;
+      sectionObserver.disconnect();
+      observedChapter = chapter;
+      setActive(chapter.id, null);
+      qsa('h2[id]', chapter).forEach(el => sectionObserver.observe(el));
+    };
+    observeChapter(qs('.chapter:not([hidden])') || qs('.chapter'));
+    addEventListener(
+        'reactchapterprepare', event => observeChapter(event.detail.chapter));
 
     const hash = decodeURIComponent(location.hash.slice(1));
     if (hash) {
       const target = document.getElementById(hash);
       const chapter = target?.closest('.chapter');
-      if (chapter)
+      if (chapter) {
+        observeChapter(chapter);
         setActive(chapter.id, target.matches('h2') ? target.id : null);
+      }
     }
   }
 
@@ -227,17 +250,8 @@
     const targets = qsa(
         '.chapter-title-card, .chapter > h2, .chapter-pager, .chapter-completion',
         root);
-    if (reducedMotion || !('IntersectionObserver' in window)) return;
-    targets.forEach(el => el.classList.add('reveal-section'));
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {threshold: .08, rootMargin: '0px 0px -6% 0px'});
-    targets.forEach(el => observer.observe(el));
+    // Course content must never depend on an observer to become visible.
+    targets.forEach(el => el.classList.remove('reveal-section'));
   }
 
   function initTables(root = document) {

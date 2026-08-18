@@ -14,12 +14,12 @@ Created and maintained by **Ayman Aljamal — أيمن الجمل** · [github.c
 | Complete Java                   |                                         54 lessons |
 | Spring & Spring Boot            |                                         77 lessons |
 | Postman API Testing             |                                         25 lessons |
-| Python, AI & Machine Learning   |              197 lessons · 17 stages · 9 capstones |
+| Python, AI & Machine Learning   |              198 lessons · 17 stages · 9 capstones |
 | Firebase & Google Cloud         |                                         47 lessons |
 | SQL                             |                                         23 lessons |
 | Database Optimization           |                                         25 lessons |
 | Projects                        |                                  5 guided projects |
-| **Total**                       |    **562 lessons and experiences across 11 paths** |
+| **Total**                       |    **561 lessons and experiences across 11 paths** |
 
 The Academy uses a red global identity. Each course keeps a separate accent color so course context remains visible without changing the product brand.
 
@@ -42,7 +42,7 @@ The Academy uses a red global identity. Each course keeps a separate accent colo
 - Database index advisor and execution-plan viewer
 - Python model-comparison lab
 - Installable PWA with offline cache
-- No runtime dependencies, backend, or database required
+- No client-side framework runtime, backend, or database required
 
 All learner data is stored locally in the browser. Stable course and lesson IDs preserve progress between releases.
 
@@ -58,6 +58,9 @@ npm start
 
 Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 
+The standalone React curriculum is available at
+[http://127.0.0.1:4173/react.html#chapter-1](http://127.0.0.1:4173/react.html#chapter-1).
+
 Useful commands:
 
 ```bash
@@ -72,7 +75,9 @@ npm run validate:all           # all curriculum validations
 
 ## Scalable Architecture
 
-Source code is organized by responsibility, and the generated HTML is only a document shell. CSS, course data, the React reader, dashboard, catalog, and platform runtime are emitted as separate cacheable assets.
+Source code is organized by responsibility, and the generated HTML is only a
+document shell. CSS, course data, the React reader, dashboard, catalog, and
+platform runtime are emitted as separate cacheable assets.
 
 ```text
 src/data/courses/*.js
@@ -98,12 +103,35 @@ scripts/build.mjs
 
 The numbered platform files intentionally share one private closure. Their order is declared once in `scripts/source-manifest.mjs`. The build validates and concatenates those fragments into `assets/platform-bundle.js`, while every other responsibility gets its own generated asset. This keeps `index.html` small without turning maintenance into another monolithic file.
 
+### React Reader Isolation
+
+The original React curriculum is static HTML enhanced with plain JavaScript;
+it does not mount a React application. Keeping chapter content in
+`src/content/chapters/*.html` preserves semantic markup, direct hash links,
+searchability, and progressive rendering. Converting those chapters into
+JavaScript strings would increase parsing and maintenance cost without fixing
+rendering performance.
+
+`react.html` intentionally loads only these application scripts:
+
+```text
+assets/course-reader.js
+assets/learning-dashboard.js
+```
+
+It must not load `course-data.js`, catalog scripts, or `platform-bundle.js`.
+Those files belong to the Academy shell in `index.html`. Loading both renderers
+in the React document can duplicate routing and scroll work. `npm run verify`
+contains a regression gate that fails if the Academy renderer is added back to
+the standalone React reader.
+
 ## File Distribution Map
 
 - One course per file keeps reviews focused and makes new paths easy to add.
 - Shared lesson generation lives in `src/data/courses/zz-lesson-content.js`.
 - Home, course, and page UI live in the numbered platform fragments.
-- React stays special because it preserves the original 18 chapters and lazy reader bundle.
+- React stays special because it preserves the original 18 chapters in an
+  isolated reader with its own lightweight navigation and dashboard scripts.
 - Next.js now sits beside React as the modern continuation path.
 
 ## Project Structure
@@ -176,10 +204,31 @@ The production build:
 2. Reads source order from the manifest.
 3. Validates and concatenates the seven platform fragments.
 4. Compacts CSS.
-5. Emits small HTML shells plus seven independent CSS/JavaScript runtime assets.
-6. Copies the same offline-ready output into `public/`.
+5. Emits the Academy shell with its platform assets.
+6. Emits the isolated React reader with only its reader and dashboard scripts.
+7. Copies the same offline-ready output into `public/`.
 
-The automated suite currently validates 562 lessons and experiences across 11 paths and more than 130 structural, routing, accessibility, content, PWA, theme, and feature regressions.
+The automated suite currently validates 561 lessons and experiences across 11
+paths and 155 structural, routing, accessibility, content, PWA, theme, and
+feature regressions.
+
+### React Reader Troubleshooting
+
+If an already-open React tab still uses an older bundle after a rebuild, close
+that tab and reopen `react.html`. A hard refresh (`Ctrl+Shift+R`) also bypasses
+the previous document, while the versioned service-worker cache refreshes the
+offline assets. For a clean verification run:
+
+```bash
+npm run build
+npm test
+npm start
+```
+
+Then open `react.html#chapter-16`, scroll through the full chapter, and test the
+previous/next cards and sidebar links. The automated suite verifies the exact
+chapter 1–18 chain and confirms that every sidebar section belongs to its
+declared chapter.
 
 ## Deployment
 

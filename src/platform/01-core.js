@@ -112,6 +112,15 @@
       language: 'en',
       ...saved
     };
+    const record = value => value && typeof value === 'object' &&
+            !Array.isArray(value) ? value : {},
+          stringList = value => Array.isArray(value) ?
+        [...new Set(value.filter(item => typeof item === 'string'))] :
+        value && typeof value === 'object' ?
+        Object.entries(value)
+            .filter(([, enabled]) => Boolean(enabled))
+            .map(([id]) => id) :
+        [];
     if (sharedTheme === 'light' || sharedTheme === 'dark')
       state.theme = sharedTheme;
     if (sharedLanguage === 'ar' || sharedLanguage === 'en')
@@ -121,11 +130,14 @@
         localStorage.setItem(SHARED_LANGUAGE_KEY, state.language);
       } catch {
       }
-    state.completed ||= {};
-    state.bookmarks ||= [];
-    state.notes ||= {};
-    state.lastLesson ||= {};
-    state.activity ||= {};
+    state.completed = record(state.completed);
+    Object.entries(state.completed).forEach(([courseId, completed]) => {
+      state.completed[courseId] = stringList(completed);
+    });
+    state.bookmarks = stringList(state.bookmarks);
+    state.notes = record(state.notes);
+    state.lastLesson = record(state.lastLesson);
+    state.activity = record(state.activity);
     return state;
   };
   let state = readState();
@@ -240,8 +252,11 @@
   ].filter(Boolean);
   const legacyCompleted = () => {
     try {
-      return new Set(
-          JSON.parse(localStorage.getItem(LEGACY_COMPLETE_KEY) || '[]'));
+      const completed =
+          JSON.parse(localStorage.getItem(LEGACY_COMPLETE_KEY) || '[]');
+      return new Set(Array.isArray(completed) ?
+              completed.filter(id => typeof id === 'string') :
+              []);
     } catch {
       return new Set();
     }

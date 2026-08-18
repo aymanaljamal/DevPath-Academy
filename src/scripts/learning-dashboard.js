@@ -27,15 +27,42 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const cloneDefaults = () => JSON.parse(JSON.stringify(defaults));
+  const record = value =>
+      value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  const stringList = value =>
+      Array.isArray(value) ?
+      [...new Set(value.filter(item => typeof item === 'string'))] :
+      [];
   const read = () => {
     try {
       const value = JSON.parse(localStorage.getItem(APP_KEY) || 'null');
-      return value && typeof value === 'object' ? {
+      if (!value || typeof value !== 'object' || Array.isArray(value))
+        return cloneDefaults();
+      const highlights = Array.isArray(value.highlights) ?
+          value.highlights
+              .filter(item =>
+                item && typeof item === 'object' &&
+                    typeof item.id === 'string' &&
+                    typeof item.sectionId === 'string' &&
+                    typeof item.quote === 'string' &&
+                    item.quote.length >= 2 && item.quote.length <= 500)
+              .slice(-250) :
+          [];
+      return {
         ...cloneDefaults(),
         ...value,
-        preferences: {...defaults.preferences, ...value.preferences}
-      } :
-                                                  cloneDefaults();
+        bookmarks: stringList(value.bookmarks).slice(-500),
+        notes: record(value.notes),
+        quizzes: record(value.quizzes),
+        review: Array.isArray(value.review) ? value.review.slice(-500) : [],
+        highlights,
+        study: {...defaults.study, ...record(value.study)},
+        exam: {...defaults.exam, ...record(value.exam)},
+        preferences: {
+          ...defaults.preferences,
+          ...record(value.preferences)
+        }
+      };
     } catch {
       return cloneDefaults();
     }
@@ -156,11 +183,11 @@
     renderBookmarks();
     toast(index >= 0 ? 'Bookmark removed' : 'Section bookmarked');
   }
-  function syncBookmarkUI() {
+  function syncBookmarkUI(root = $('.chapter:not([hidden])') || document) {
     const active = state.bookmarks.includes(currentId());
     $('#bookmarkCurrent')?.classList.toggle('is-active', active);
     $('#bookmarkCurrent')?.setAttribute('aria-pressed', String(active));
-    $$('.section-tool[data-bookmark]').forEach(b => {
+    $$('.section-tool[data-bookmark]', root).forEach(b => {
       const on = state.bookmarks.includes(b.dataset.bookmark);
       b.classList.toggle('is-active', on);
       b.setAttribute('aria-pressed', String(on));
@@ -1182,8 +1209,11 @@
     mark.dataset.color = item.color || 'yellow';
     range.surroundContents(mark);
   }
-  function restoreHighlights() {
-    state.highlights.forEach(applyOneHighlight);
+  function restoreHighlights(root = $('.chapter:not([hidden])')) {
+    const chapterId = root?.matches?.('.chapter') ? root.id : null;
+    state.highlights
+        .filter(item => !chapterId || chapterFor(item.sectionId) === chapterId)
+        .forEach(applyOneHighlight);
   }
   function updateHighlightColorUI(color) {
     const select = $('#highlightColor'), colors = {
@@ -1437,31 +1467,20 @@
       navigator.serviceWorker.register('./sw.js').catch(() => {});
   }
   function trackReadingPosition() {
-    let timer = 0;
-    const update = () => {
-      timer = 0;
-      const candidates =
-          $$('.chapter[id],.chapter h2[id],.chapter h3[id]').filter(el => {
-            const r = el.getBoundingClientRect();
-            return r.top <= innerHeight * .35 && r.bottom > 0;
-          });
-      const target = candidates.at(-1);
-      if (target && target.id && target.id !== state.lastSection) {
-        state.lastSection = target.id;
+    const commit = id => {
+      id = safeId(id);
+      if (id !== state.lastSection) {
+        state.lastSection = id;
         save();
         syncBookmarkUI();
       }
     };
-    addEventListener('scroll', () => {
-      if (!timer) timer = requestAnimationFrame(update);
-    }, {passive: true});
+    addEventListener('reactsectionchange', event =>
+      commit(event.detail?.sectionId || event.detail?.chapterId));
     addEventListener('hashchange', () => {
-      const id = safeId(location.hash.slice(1));
-      state.lastSection = id;
-      save();
-      syncBookmarkUI();
+      commit(location.hash.slice(1));
     });
-    update();
+    commit(currentId());
   }
   function keyboardAccess() {
     document.addEventListener('keydown', e => {
@@ -1490,11 +1509,16 @@
     createDialogs();
     createDock();
     createAdvancedDialogs();
+    const quizReadyChapters = new WeakSet();
     const enhanceChapter = chapter => {
       if (!chapter) return;
       addSectionTools(chapter);
-      addCreativeQuizzes(chapter);
-      syncBookmarkUI();
+      if (!quizReadyChapters.has(chapter)) {
+        quizReadyChapters.add(chapter);
+        addCreativeQuizzes(chapter);
+      }
+      restoreHighlights(chapter);
+      syncBookmarkUI(chapter);
     };
     const enhanceCurrentChapter = () => {
       const id = safeId(location.hash.slice(1));

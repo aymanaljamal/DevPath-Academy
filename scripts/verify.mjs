@@ -20,6 +20,10 @@ String.prototype.includes = function(search, ...args) {
 const file = join(process.cwd(), 'index.html');
 const homeHtml = await readFile(file, 'utf8');
 const html = await readFile(join(process.cwd(), 'react.html'), 'utf8');
+const readme = await readFile(join(process.cwd(), 'README.md'), 'utf8');
+const vercelConfig = await readFile(
+    join(process.cwd(), 'vercel.json'), 'utf8');
+const serviceWorker = await readFile(join(process.cwd(), 'sw.js'), 'utf8');
 const publicHtml =
     await readFile(join(process.cwd(), 'public', 'index.html'), 'utf8');
 const generatedRuntimeSource = (await Promise.all([
@@ -61,8 +65,15 @@ check(
     'HTML uses external runtime parts',
     homeHtml.includes('assets/devpath-bundle.css') &&
         homeHtml.includes('assets/course-data.js') &&
+        homeHtml.includes('assets/course-reader.js') &&
         homeHtml.includes('assets/platform-bundle.js') &&
         !homeHtml.includes('<style data-source='));
+check(
+    'Academy loads the code-block enhancer before its dynamic platform',
+    homeHtml.indexOf('assets/course-reader.js') > -1 &&
+        homeHtml.indexOf('assets/course-reader.js') <
+            homeHtml.indexOf('assets/platform-bundle.js') &&
+        !homeHtml.includes('assets/learning-dashboard.js'));
 check(
     'Home shell does not require React reader chrome',
     supplementalSource.includes("$('.page')?.toggleAttribute('hidden', active)") &&
@@ -91,6 +102,52 @@ const brokenSidebarTargets = sidebarTargets.filter(id => !idSet.has(id));
 check(
     'Sidebar anchors resolve', brokenSidebarTargets.length === 0,
     brokenSidebarTargets.join(', '));
+
+const chapterDirectory = join(process.cwd(), 'src', 'content', 'chapters');
+const chapterFiles = (await readdir(chapterDirectory))
+                         .filter(name => /^chapter-\d{2}\.html$/.test(name))
+                         .sort();
+const chapterSources = await Promise.all(chapterFiles.map(
+    name => readFile(join(chapterDirectory, name), 'utf8')));
+const pagerProblems = [];
+chapterSources.forEach((source, index) => {
+  const chapterNumber = index + 1;
+  const pagerTargets = new Map(
+      [...source.matchAll(
+          /class=["'][^"']*\bpager-card--(prev|next)\b[^"']*["'][^>]*href=["']#(chapter-\d+)["']/gi)]
+          .map(match => [match[1].toLowerCase(), match[2]]));
+  const expectedPrev = chapterNumber > 1 ? `chapter-${chapterNumber - 1}` : null;
+  const expectedNext = chapterNumber < 18 ? `chapter-${chapterNumber + 1}` : null;
+  const actualPrev = pagerTargets.get('prev') || null;
+  const actualNext = pagerTargets.get('next') || null;
+  if (actualPrev !== expectedPrev || actualNext !== expectedNext) {
+    pagerProblems.push(
+        `chapter-${chapterNumber}: prev=${actualPrev}, next=${actualNext}`);
+  }
+});
+check(
+    'All React chapter pagers form an exact 1–18 chain',
+    chapterFiles.length === 18 && pagerProblems.length === 0,
+    pagerProblems.join('; '));
+
+const chapterIds = new Map(chapterSources.map((source, index) => [
+  `chapter-${index + 1}`,
+  new Set([...source.matchAll(/\bid=["']([^"']+)["']/gi)]
+              .map(match => match[1]))
+]));
+const sidebarOwnershipProblems = [];
+for (const match of sidebar.matchAll(
+    /<a\b[^>]*class=["'][^"']*\bsubnav-link\b[^"']*["'][^>]*data-chapter=["'](chapter-\d+)["'][^>]*data-section=["']([^"']+)["'][^>]*>/gi)) {
+  const [, chapter, section] = match;
+  const href = match[0].match(/\bhref=["']#([^"']+)["']/i)?.[1];
+  if (href !== section || !chapterIds.get(chapter)?.has(section)) {
+    sidebarOwnershipProblems.push(`${chapter}/${section}`);
+  }
+}
+check(
+    'Every React sidebar section belongs to its declared chapter',
+    sidebarOwnershipProblems.length === 0,
+    sidebarOwnershipProblems.join(', '));
 
 for (const scriptName of ['course.js', 'learning-dashboard.js']) {
   const source =
@@ -144,6 +201,16 @@ const structuredLessonCount =
 check('Complete React has 18 Academy lessons',
     courseLessonCount(academyCourses.react) === 18,
     `found ${courseLessonCount(academyCourses.react)}`);
+const reactLessonSlugs = academyCourses.react.modules.flatMap(
+    module => module.lessons.map(lesson => lesson[0]));
+const expectedReactSlugs = Array.from({length: 18}, (_, index) =>
+  `chapter-${index + 1}`);
+check(
+    'React curriculum and chapter files share one stable order',
+    reactLessonSlugs.join('|') === expectedReactSlugs.join('|') &&
+        chapterFiles.every((name, index) =>
+          name === `chapter-${String(index + 1).padStart(2, '0')}.html`),
+    reactLessonSlugs.join(', '));
 check(
     'Complete Java has 54 lessons',
     courseLessonCount(academyCourses['java-essentials']) === 54,
@@ -341,8 +408,26 @@ check(
         html.includes('index.html#/sources'));
 check(
     'React clean URL redirects Academy hashes home',
-    html.includes('reactDocument&&location.hash.startsWith(\'#/\')') &&
-        html.includes('`${location.origin}/${location.hash}`'));
+    nativeIncludes.call(
+        supplementalSource, "location.hash.startsWith('#/')") &&
+        nativeIncludes.call(
+            supplementalSource,
+            "new URL('index.html' + location.hash, location.href)"));
+check(
+    'React reader excludes the duplicate Academy renderer',
+    nativeIncludes.call(html, 'assets/course-reader.js') &&
+        nativeIncludes.call(html, 'assets/learning-dashboard.js') &&
+        !nativeIncludes.call(html, 'assets/course-data.js') &&
+        !nativeIncludes.call(html, 'assets/catalog-sources.js') &&
+        !nativeIncludes.call(html, 'assets/catalog-relationships.js') &&
+        !nativeIncludes.call(html, 'assets/platform-bundle.js'));
+check(
+    'README documents the isolated React architecture',
+    readme.includes('### React Reader Isolation') &&
+        readme.includes('assets/course-reader.js') &&
+        readme.includes('assets/learning-dashboard.js') &&
+        readme.includes('It must not load `course-data.js`') &&
+        readme.includes('561 lessons and experiences across 11 paths'));
 check(
     'React chapter hashes stay in the reader',
     html.includes('if(reactDocument){setActiveMode(false);return;}'));
@@ -374,11 +459,46 @@ check(
       'requestIdleCallback',
     ].every(value => homeHtml.includes(value)) &&
         !homeHtml.includes('cdnjs.cloudflare.com/ajax/libs/highlight'));
+check(
+    'Code blocks share one high-contrast palette across themes and routes',
+    [
+      '--code-bg: #0D1117',
+      '--code-raised: #161B22',
+      '--code-border: #30363D',
+      '--code-ink: #E6EDF3',
+      '--code-muted: #9CA7B4',
+      '.code-shell.diagram-shell',
+      'color: var(--code-ink) !important',
+      'background: var(--code-bg) !important',
+    ].every(value => homeHtml.includes(value)) &&
+        !homeHtml.includes('color: var(--diagram-ink, #075b75) !important'));
 check('React initializes code and learning tools per active chapter', [
   'showChapter(initialChapter)', 'targetChapters',
   'let indexed = false', 'window.ReactChapterReader',
-  'item.hidden = hidden', 'codeBlockObserver.unobserve(pre)'
+  'item.hidden = hidden', 'codeBlockObserver.unobserve(pre)',
+  "sectionObserver.disconnect()", "qsa('h2[id]', chapter)",
+  "$('.chapter:not([hidden])')", 'restoreHighlights(chapter)'
 ].every(value => supplementalSource.includes(value)));
+check('React chapter activation keeps heavy work incremental', [
+  'processed < 4', 'deferredBlocks.push(entry.target)',
+  "!pre.closest('.chapter[hidden]')", 'quizReadyChapters.has(chapter)',
+  'value.highlights', '.slice(-250)'
+].every(value => supplementalSource.includes(value)));
+check('React scrolling has one lightweight source of section state', [
+  "dispatchEvent(new CustomEvent('reactsectionchange'",
+  "addEventListener('reactsectionchange'", 'sidebar.scrollTop =',
+  "el.classList.remove('reveal-section')"
+].every(value => supplementalSource.includes(value)) &&
+    !supplementalSource.includes(
+        "$$('h2[id],h3[id]', chapter).filter(el =>"));
+check(
+    'React catalog tolerates malformed legacy completion storage',
+    supplementalSource.includes('completedChapters.has(slug)') &&
+        supplementalSource.includes('state.completed = record(state.completed)') &&
+        supplementalSource.includes('state.bookmarks = stringList(state.bookmarks)') &&
+        supplementalSource.includes('Object.entries(value)') &&
+        !supplementalSource.includes(
+            'localStorage.getItem(LEGACY_COMPLETE_KEY) ||\n                                    \'[]\')\n                                .includes(slug)'));
 check('Offline readers do not wait for remote Google Fonts',
     !homeHtml.includes('fonts.googleapis.com') &&
         !html.includes('fonts.googleapis.com'));
@@ -443,10 +563,17 @@ check('Project file experiences initialize with learner tools',
 check(
     'Daily activity is persisted on completion',
     homeHtml.includes('recordActivity(lesson.id)') &&
-        homeHtml.includes('state.activity ||= {}'));
+        homeHtml.includes('state.activity = record(state.activity)'));
 check('Interactive journey studio exists', [
   'journey-studio', 'goal-roadmap', 'course-constellation', 'goalPath'
 ].every(name => homeHtml.includes(name)));
+check(
+    'Home file distribution map respects light and dark surfaces',
+    homeHtml.includes('body[data-theme="dark"] .file-studio') &&
+        homeHtml.includes(
+            'color-mix(in srgb, var(--dp-brand) 8%, var(--dp-card))') &&
+        !homeHtml.includes(
+            'color-mix(in srgb, var(--dp-card) 92%, white), #fff'));
 check('Journey studio connects learning goals', [
   'fullstack', 'backend', 'data', 'cloud', 'performance'
 ].every(goal => homeHtml.includes(`data-learning-goal="${goal}"`)));
@@ -509,6 +636,16 @@ check(
 check(
     'PWA registration exists',
     html.includes('navigator.serviceWorker.register(\'./sw.js\')'));
+check(
+    'Mutable asset names revalidate instead of remaining stale for a year',
+    vercelConfig.includes('public, max-age=0, must-revalidate') &&
+        !vercelConfig.includes('max-age=31536000, immutable'));
+check(
+    'Service worker cache version matches the isolated React reader',
+    serviceWorker.includes('devpath-academy-v19-react-reader') &&
+        serviceWorker.includes("fetch(asset, {cache: 'reload'})") &&
+        serviceWorker.includes(
+            "fetch(event.request, {cache: 'no-cache'})"));
 check('Command palette exists', html.includes('function openCommandPalette()'));
 check('Bilingual UI exists', html.includes('function applyLanguage()'));
 check('Study timer exists', html.includes('function setupStudyTimer()'));

@@ -106,11 +106,7 @@ function reactCoursePage(course) {
                   module.lessons
                       .map(([slug, title]) => {
                         number += 1;
-                        const completed =
-                            JSON.parse(
-                                    localStorage.getItem(LEGACY_COMPLETE_KEY) ||
-                                    '[]')
-                                .includes(slug);
+                        const completed = completedChapters.has(slug);
                         return `<li class="${
                             completed ? 'done' : ''}"><a href="react.html#${
                             slug}"><span class="lesson-status">${

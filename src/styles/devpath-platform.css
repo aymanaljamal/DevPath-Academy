@@ -50,7 +50,7 @@ body.devpath-mode {
 }
 
 .devpath-logo:first-letter {
-    color: #42a846
+    color: var(--dp-brand, #b91c1c)
 }
 
 .devpath-header nav {
@@ -689,8 +689,8 @@ body.devpath-mode {
 
 .lesson-section pre {
     position: relative;
-    background: #101713;
-    color: #e7eee9;
+    background: var(--code-bg);
+    color: var(--code-ink);
     border-radius: 9px;
     padding: 22px;
     overflow: auto;
@@ -1901,12 +1901,12 @@ body[data-theme="dark"] .lesson-actions button {
     position: relative;
     margin: 18px 0 24px;
     padding: 0;
-    border: 1px solid #30363d;
+    border: 1px solid var(--code-border);
     border-radius: 13px;
-    background: #0d1117;
+    background: var(--code-bg);
     box-shadow: 0 16px 42px rgba(0, 0, 0, .2);
     overflow: hidden;
-    color: #e6edf3
+    color: var(--code-ink)
 }
 
 .code-shell .code-toolbar {
@@ -1918,16 +1918,16 @@ body[data-theme="dark"] .lesson-actions button {
     width: 100%;
     height: 40px;
     padding: 0 9px 0 15px;
-    border-bottom: 1px solid #30363d;
-    background: #161b22;
-    color: #8b949e;
+    border-bottom: 1px solid var(--code-border);
+    background: var(--code-raised);
+    color: var(--code-muted);
     font: 700 10px/1 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     letter-spacing: .09em;
     text-transform: uppercase
 }
 
 .code-shell .code-language {
-    color: #8b949e
+    color: var(--code-muted)
 }
 
 .code-shell .copy-code {
@@ -1938,10 +1938,10 @@ body[data-theme="dark"] .lesson-actions button {
     min-width: 68px;
     height: 28px;
     padding: 0 10px;
-    border: 1px solid #3d444d;
+    border: 1px solid var(--code-border);
     border-radius: 7px;
-    background: #21262d;
-    color: #e6edf3;
+    background: var(--code-action);
+    color: var(--code-ink);
     font: 700 10px 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     opacity: 1;
     cursor: pointer;
@@ -1949,8 +1949,19 @@ body[data-theme="dark"] .lesson-actions button {
 }
 
 .code-shell .copy-code:hover {
-    border-color: #6e7681;
-    background: #30363d
+    border-color: var(--code-scrollbar);
+    background: var(--code-action-hover)
+}
+
+.code-shell.diagram-shell .copy-code {
+    border-color: var(--code-border);
+    background: var(--code-action);
+    color: var(--code-ink)
+}
+
+.code-shell.diagram-shell .copy-code:hover {
+    border-color: var(--code-scrollbar);
+    background: var(--code-action-hover)
 }
 
 .code-shell .copy-code.copied {
@@ -1972,7 +1983,7 @@ body[data-theme="dark"] .lesson-actions button {
     overflow-y: hidden;
     tab-size: 2;
     scrollbar-width: thin;
-    scrollbar-color: #484f58 #0d1117
+    scrollbar-color: var(--code-scrollbar) var(--code-bg)
 }
 
 .code-shell>pre::before,
@@ -1988,7 +1999,7 @@ body[data-theme="dark"] .lesson-actions button {
     padding: 0;
     border: 0;
     background: transparent;
-    color: #e6edf3;
+    color: var(--code-ink);
     font: 13.5px/1.7 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     font-weight: 400;
     white-space: pre;
@@ -1998,9 +2009,9 @@ body[data-theme="dark"] .lesson-actions button {
 
 .code-shell.diagram-shell,
 .code-shell.diagram-shell .code-toolbar {
-    border-color: #30363d;
-    background: #0d1117;
-    color: #8b949e
+    border-color: var(--code-border);
+    background: var(--code-bg);
+    color: var(--code-muted)
 }
 
 .code-shell pre::-webkit-scrollbar {
@@ -2008,23 +2019,23 @@ body[data-theme="dark"] .lesson-actions button {
 }
 
 .code-shell pre::-webkit-scrollbar-track {
-    background: #0d1117
+    background: var(--code-bg)
 }
 
 .code-shell pre::-webkit-scrollbar-thumb {
-    border: 3px solid #0d1117;
+    border: 3px solid var(--code-bg);
     border-radius: 99px;
-    background: #484f58
+    background: var(--code-scrollbar)
 }
 
 .code-shell .hljs {
     background: transparent;
-    color: #e6edf3
+    color: var(--code-ink)
 }
 
 .code-shell .hljs-comment,
 .code-shell .hljs-quote {
-    color: #8b949e;
+    color: var(--code-muted);
     font-style: italic
 }
 
@@ -2102,8 +2113,8 @@ body[data-theme="dark"] .lesson-actions button {
 /* Original React reader code styling */
 body[data-theme="dark"] .chapter pre,
 body[data-theme="dark"] .code-shell {
-    background: #07100c !important;
-    border-color: #263b32 !important;
+    background: var(--code-bg) !important;
+    border-color: var(--code-border) !important;
     box-shadow: 0 18px 50px rgba(0, 0, 0, .3)
 }
 
@@ -2115,30 +2126,30 @@ body[data-theme="dark"] .code-shell {
 .chapter .code-shell code.language-plain,
 .chapter .code-shell code.language-text.hljs,
 .chapter .code-shell code.language-plain.hljs {
-    color: var(--diagram-ink, #075b75) !important
+    color: var(--code-ink) !important
 }
 
 body[data-theme="dark"] .chapter .code-shell code.language-text,
 body[data-theme="dark"] .chapter .code-shell code.language-plain,
 body[data-theme="dark"] .chapter .code-shell code.language-text.hljs,
 body[data-theme="dark"] .chapter .code-shell code.language-plain.hljs {
-    color: #b7e7f4 !important
+    color: var(--code-ink) !important
 }
 
 body[data-theme="dark"] .code-toolbar {
-    background: #0d1913 !important;
-    border-bottom: 1px solid #243a2f !important
+    background: var(--code-raised) !important;
+    border-bottom: 1px solid var(--code-border) !important
 }
 
 body[data-theme="dark"] .code-language {
-    color: #72ce94 !important;
+    color: var(--code-muted) !important;
     letter-spacing: .12em
 }
 
 body[data-theme="dark"] .copy-code {
-    background: #14271d !important;
-    border-color: #31503f !important;
-    color: #b4dfc3 !important
+    background: var(--code-action) !important;
+    border-color: var(--code-border) !important;
+    color: var(--code-ink) !important
 }
 
 @media(max-width:620px) {
@@ -3680,23 +3691,23 @@ body[data-theme="dark"] .react-academy-toolbar {
 
 body[data-theme="dark"] .chapter pre,
 body[data-theme="dark"] .code-shell {
-    background: #09090c !important;
-    border-color: #34343e !important
+    background: var(--code-bg) !important;
+    border-color: var(--code-border) !important
 }
 
 body[data-theme="dark"] .code-toolbar {
-    background: #18181f !important;
-    border-bottom-color: #34343e !important
+    background: var(--code-raised) !important;
+    border-bottom-color: var(--code-border) !important
 }
 
 body[data-theme="dark"] .code-language {
-    color: #55c4e8 !important
+    color: var(--code-muted) !important
 }
 
 body[data-theme="dark"] .copy-code {
-    background: #24242d !important;
-    border-color: #41414b !important;
-    color: #d8d8df !important
+    background: var(--code-action) !important;
+    border-color: var(--code-border) !important;
+    color: var(--code-ink) !important
 }
 
 body[data-theme="dark"] .complete-chapter.is-complete {
@@ -5494,7 +5505,16 @@ body[data-theme="dark"] .pulse-stats article {
     padding: 26px;
     border: 1px solid var(--dp-line);
     border-radius: 18px;
-    background: linear-gradient(135deg, color-mix(in srgb, var(--dp-card) 92%, white), #fff)
+    background: linear-gradient(135deg,
+            color-mix(in srgb, var(--dp-brand) 5%, var(--dp-card)),
+            var(--dp-card))
+}
+
+body[data-theme="dark"] .file-studio {
+    border-color: var(--dp-line);
+    background: linear-gradient(135deg,
+            color-mix(in srgb, var(--dp-brand) 8%, var(--dp-card)),
+            var(--dp-card))
 }
 
 .file-studio>.section-heading>p {

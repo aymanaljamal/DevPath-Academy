@@ -6,8 +6,16 @@
   --ink-faint: #A1A1AA;
   --rule: #E4E4E7;
   --rule-soft: #F4F4F5;
-  --code-bg: #18181B;
-  --code-ink: #F4F4F5;
+  /* Shared code palette. Code stays dark in both themes so every course,
+     project-file view, lab, and the React reader has the same contrast. */
+  --code-bg: #0D1117;
+  --code-raised: #161B22;
+  --code-border: #30363D;
+  --code-action: #21262D;
+  --code-action-hover: #30363D;
+  --code-ink: #E6EDF3;
+  --code-muted: #9CA7B4;
+  --code-scrollbar: #59636F;
   --diagram-bg: #FEF2F2;
   --diagram-ink: #7F1D1D;
   --diagram-border: #FECACA;

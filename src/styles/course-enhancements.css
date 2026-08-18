@@ -366,7 +366,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 8px 0 12px;
-    color: #AEB3CD;
+    color: var(--code-muted);
     font: 600 10px 'JetBrains Mono', monospace;
     text-transform: uppercase;
     letter-spacing: .05em

@@ -1,4 +1,4 @@
-const CACHE = 'devpath-academy-v16-home-shell';
+const CACHE = 'devpath-academy-v19-react-reader';
 const CORE = [
   './', './index.html', './react.html', './manifest.webmanifest',
   './assets/course-icon.svg', './assets/highlight.min.js',
@@ -10,9 +10,15 @@ const CORE = [
 ];
 
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE)
-      .then(cache => cache.addAll(CORE))
-      .then(() => self.skipWaiting()));
+  event.waitUntil((async() => {
+    const cache = await caches.open(CACHE);
+    await Promise.all(CORE.map(async asset => {
+      const response = await fetch(asset, {cache: 'reload'});
+      if (!response.ok) throw new Error(`Unable to cache ${asset}`);
+      await cache.put(asset, response);
+    }));
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener('activate', event => {
@@ -50,10 +56,10 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith((async() => {
-    const cached = await caches.match(event.request);
-    if (cached) return cached;
     try {
-      const response = await fetch(event.request);
+      // Runtime assets use stable names. Revalidate online so a previous
+      // service worker or HTTP cache can never pin an obsolete bundle.
+      const response = await fetch(event.request, {cache: 'no-cache'});
       if (response.ok &&
           new URL(event.request.url).origin === self.location.origin) {
         const copy = response.clone();
@@ -62,7 +68,7 @@ self.addEventListener('fetch', event => {
       }
       return response;
     } catch {
-      return unavailable();
+      return await caches.match(event.request) || unavailable();
     }
   })());
 });

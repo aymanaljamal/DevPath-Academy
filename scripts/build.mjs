@@ -64,7 +64,8 @@ const generatedBundles = [
   ...runtimeAssets.map(([name, , content]) => [name, content]),
 ];
 
-const assemble = (template, chapterHtml, selectedRuntimeAssets) =>
+const assemble = (
+    template, chapterHtml, selectedRuntimeAssets, includeCourseData = true) =>
     template
         .replace(
             '<!-- INLINE_STYLES -->',
@@ -72,18 +73,29 @@ const assemble = (template, chapterHtml, selectedRuntimeAssets) =>
         .replace('<!-- COURSE_CHAPTERS -->', () => chapterHtml)
         .replace(
             '<!-- COURSE_DATA -->',
-            '<script src="assets/course-data.js" data-source="course-data"></script>')
+            includeCourseData ?
+                '<script src="assets/course-data.js" data-source="course-data"></script>' :
+                '')
         .replace(
             '<!-- INLINE_SCRIPTS -->',
             () => selectedRuntimeAssets
                       .map(
                           ([name, source]) =>
                               `<script src="assets/${name}" data-source="${source}"></script>`)
-                      .join('\n'));
+                      .join('\n'))
+        .replace(/^[ \t]+$/gm, '');
 
-const output = assemble(homeTemplate, '', runtimeAssets.slice(2));
+// The Academy renders lesson code blocks dynamically, so it needs the shared
+// code-block enhancer even though the legacy React chapters remain excluded.
+const homeRuntimeAssets = [runtimeAssets[0], ...runtimeAssets.slice(2)];
+const output = assemble(homeTemplate, '', homeRuntimeAssets);
+// The standalone React reader owns its navigation, learning dashboard, and
+// persistence. Loading the Academy router and every curriculum here creates a
+// second renderer on the same document and makes deep chapters unnecessarily
+// expensive.
+const reactRuntimeAssets = runtimeAssets.slice(0, 2);
 const reactOutput =
-    assemble(reactTemplate, chapters.join('\n'), runtimeAssets)
+    assemble(reactTemplate, chapters.join('\n'), reactRuntimeAssets, false)
         .replace(
             '<title>DevPath Academy — Learn Modern Development</title>',
             '<title>React Developer Course | DevPath Academy</title>');
