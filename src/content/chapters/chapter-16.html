@@ -1,8 +1,7 @@
 <section class="chapter" id="chapter-16" style="--accent:#B91C1C">
      <div class="chapter-title-card">
           <span class="chapter-num">16</span>
-          <h1 class="chapter-title"
-               id="deployment-and-devops-for-react-applications">Deployment and
+          <h1 class="chapter-title" id="deployment-and-devops-for-react-applications">Deployment and
                DevOps for React Applications</h1>
      </div>
      <hr />
@@ -168,7 +167,8 @@ import { subtotal } from './pricing.js';
      </ul>
      <p>Use Vite environment variables only for public build-time
           configuration. Every value exposed through
-          <code>import.meta.env</code> is shipped to the browser.</p>
+          <code>import.meta.env</code> is shipped to the browser.
+     </p>
      <p>Example:</p>
      <pre><code class="language-env">VITE_API_URL=http://localhost:8080
 </code></pre>
@@ -214,7 +214,7 @@ export const config = { apiUrl };
      <p>Useful for:</p>
      <ul>
           <li>Local API URLs</li>
-           <li>Non-secret developer-specific flags</li>
+          <li>Non-secret developer-specific flags</li>
           <li>Developer-specific configuration</li>
      </ul>
      <hr />
@@ -244,11 +244,12 @@ export const config = { apiUrl };
           <li>GitHub Pages</li>
           <li>Netlify</li>
           <li>Vercel</li>
-           <li>Firebase Hosting</li>
-      </ul>
+          <li>Firebase Hosting</li>
+     </ul>
      <p>A client-side router also needs a navigation fallback so refreshing
           <code>/dashboard</code> serves <code>index.html</code> while missing
-          assets still return a real 404 response.</p>
+          assets still return a real 404 response.
+     </p>
      <pre><code class="language-nginx">location / {
   try_files $uri $uri/ /index.html;
 }
@@ -572,13 +573,11 @@ jobs:
           <li>Automate testing and deployment with GitHub Actions.</li>
           <li>Monitor the application in production.</li>
      </ol>
-     <div class="chapter-completion"><button aria-pressed="false"
-               class="complete-chapter" data-complete="chapter-16"
-               type="button">✓ Mark chapter complete</button></div><nav
-          aria-label="Chapter navigation" class="chapter-pager"><a
-               class="pager-card pager-card--prev" href="#chapter-15"><span
-                    class="pager-label">← Previous chapter</span><strong>15 ·
-                    Testing React Applications</strong></a><a
-               class="pager-card pager-card--next" href="#chapter-17"><span
-                    class="pager-label">Next chapter →</span><strong>17 · React
-                    Security Best Practices</strong></a></nav></section>
+     <div class="chapter-completion"><button aria-pressed="false" class="complete-chapter" data-complete="chapter-16"
+               type="button">✓ Mark chapter complete</button></div>
+     <nav aria-label="Chapter navigation" class="chapter-pager"><a class="pager-card pager-card--prev"
+               href="#chapter-15"><span class="pager-label">← Previous chapter</span><strong>15 ·
+                    Testing React Applications</strong></a><a class="pager-card pager-card--next"
+               href="#chapter-17"><span class="pager-label">Next chapter →</span><strong>17 · React
+                    Security Best Practices</strong></a></nav>
+</section>

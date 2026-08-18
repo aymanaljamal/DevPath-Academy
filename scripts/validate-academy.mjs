@@ -50,9 +50,9 @@ if (mode === 'content' || mode === 'all') {
                'REVIEW QUESTIONS', 'LESSON SUMMARY'])
     check(
         platform.includes(marker), `Shared lesson renderer missing ${marker}`);
-  const teachingLessons = allLessons.filter(item =>
-    item.course.id !== 'react' && !item.course.skipAutoContent &&
-    item.meta.kind !== 'project-structure');
+  const teachingLessons = allLessons.filter(
+      item => item.course.id !== 'react' && !item.course.skipAutoContent &&
+          item.meta.kind !== 'project-structure');
   for (const item of teachingLessons) {
     const c = item.meta.content;
     check(c, `${item.id}: missing topic-specific content`);
@@ -89,11 +89,9 @@ if (mode === 'content' || mode === 'all') {
         new Set(values).size === values.length,
         `Non-React lessons must have unique ${field} explanations`);
   }
-  const codeEntries =
-            teachingLessons
-                .flatMap(
-                    item => (item.meta.content?.examples ||
-                             []).map(example => ({item, code: example.code}))),
+  const codeEntries = teachingLessons.flatMap(
+            item => (item.meta.content?.examples ||
+                     []).map(example => ({item, code: example.code}))),
         codeBlocks = codeEntries.map(entry => entry.code);
   check(
       new Set(codeBlocks).size === codeBlocks.length,

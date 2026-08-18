@@ -40,8 +40,7 @@
       spring:
           '<path d="M20 4C11 3 5 8 5 15c0 3 2 5 5 5 7 0 10-7 10-16Z"/><path d="M6 19c3-5 7-8 12-11"/>',
       projects: '<path d="M4 5h16v14H4z"/><path d="m8 10 3 2-3 2M13 15h4"/>',
-      file:
-          '<path d="M6 2h8l4 4v16H6z"/><path d="M14 2v5h5M9 12h6M9 16h6"/>',
+      file: '<path d="M6 2h8l4 4v16H6z"/><path d="M14 2v5h5M9 12h6M9 16h6"/>',
       python:
           '<path d="M12 3c-5 0-5 2-5 4v3h7v1H6c-3 0-4 2-4 5s2 5 5 5h3v-4c0-3 2-5 5-5h4c2 0 3-2 3-5s-2-4-5-4h-5Z"/><circle cx="15" cy="6" r="1"/><path d="M12 21c5 0 5-2 5-4v-3h-7v-1h8c3 0 4-2 4-5"/><circle cx="9" cy="18" r="1"/>'
     };
@@ -52,12 +51,12 @@
   const technologyIcon = course => course.id === 'postman' ?
       '<span class="postman-mark" aria-hidden="true">P</span>' :
       icon(
-          course.id === 'java-essentials' ? 'java' :
-              course.id === 'spring-boot' ? 'spring' :
-              course.id === 'react'       ? 'react' :
-              course.id === 'python-ai'   ? 'python' :
+          course.id === 'java-essentials'     ? 'java' :
+              course.id === 'spring-boot'     ? 'spring' :
+              course.id === 'react'           ? 'react' :
+              course.id === 'python-ai'       ? 'python' :
               course.id === 'file-extensions' ? 'file' :
-                                            'projects',
+                                                'projects',
           'tech-svg');
   const applyTheme = () => {
     document.body.dataset.theme = state.theme || 'light';
@@ -112,8 +111,9 @@
       language: 'en',
       ...saved
     };
-    const record = value => value && typeof value === 'object' &&
-            !Array.isArray(value) ? value : {},
+    const record = value =>
+        value && typeof value === 'object' && !Array.isArray(value) ? value :
+                                                                      {},
           stringList = value => Array.isArray(value) ?
         [...new Set(value.filter(item => typeof item === 'string'))] :
         value && typeof value === 'object' ?
@@ -254,7 +254,8 @@
     try {
       const completed =
           JSON.parse(localStorage.getItem(LEGACY_COMPLETE_KEY) || '[]');
-      return new Set(Array.isArray(completed) ?
+      return new Set(
+          Array.isArray(completed) ?
               completed.filter(id => typeof id === 'string') :
               []);
     } catch {

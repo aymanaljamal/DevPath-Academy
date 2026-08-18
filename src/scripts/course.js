@@ -1,16 +1,18 @@
 (() => {
   'use strict';
 
-  if (location.hash.startsWith('#/')) {
+  const isStandaloneReactReader =
+    /(?:^|\/)react\.html$/i.test(location.pathname);
+  if (isStandaloneReactReader && location.hash.startsWith('#/')) {
     location.replace(new URL('index.html' + location.hash, location.href));
     return;
   }
 
   const qs = (selector, root = document) => root.querySelector(selector);
   const qsa = (selector, root = document) =>
-      Array.from(root.querySelectorAll(selector));
+    Array.from(root.querySelectorAll(selector));
   const reducedMotion =
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const languageAliases = {
     js: 'javascript',
@@ -39,7 +41,7 @@
 
   function rawLanguage(code) {
     const cls = Array.from(code?.classList || [])
-                    .find(name => name.startsWith('language-'));
+      .find(name => name.startsWith('language-'));
     return (cls?.slice('language-'.length) || 'text').toLowerCase();
   }
 
@@ -65,7 +67,7 @@
     let processed = 0;
     while (deferredBlocks.length && processed < 4) {
       if (processed > 0 && deadline && !deadline.didTimeout &&
-          deadline.timeRemaining() <= 4)
+        deadline.timeRemaining() <= 4)
         break;
       const pre = deferredBlocks.shift();
       delete pre.dataset.codeBlockQueued;
@@ -79,20 +81,20 @@
   function scheduleDeferredBlocks() {
     if (deferredWork) return;
     deferredWork = window.requestIdleCallback ?
-        window.requestIdleCallback(drainDeferredBlocks, {timeout: 800}) :
-        window.setTimeout(() => drainDeferredBlocks(), 40);
+      window.requestIdleCallback(drainDeferredBlocks, { timeout: 800 }) :
+      window.setTimeout(() => drainDeferredBlocks(), 40);
   }
 
   const codeBlockObserver =
-      'IntersectionObserver' in window ? new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          codeBlockObserver.unobserve(entry.target);
-          if (!deferredBlocks.includes(entry.target))
-            deferredBlocks.push(entry.target);
-          scheduleDeferredBlocks();
-        });
-      }, {rootMargin: '180px 0px'}) : null;
+    'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        codeBlockObserver.unobserve(entry.target);
+        if (!deferredBlocks.includes(entry.target))
+          deferredBlocks.push(entry.target);
+        scheduleDeferredBlocks();
+      });
+    }, { rootMargin: '180px 0px' }) : null;
 
   function deferCodeBlock(pre) {
     if (pre.dataset.codeBlockQueued) return;
@@ -126,19 +128,19 @@
     };
 
     toggle.addEventListener(
-        'click', () => setOpen(!sidebar.classList.contains('open')));
+      'click', () => setOpen(!sidebar.classList.contains('open')));
     close?.addEventListener('click', () => setOpen(false));
     backdrop?.addEventListener('click', () => setOpen(false));
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') setOpen(false);
     });
     qsa('.nav-link,.subnav-link')
-        .forEach(link => link.addEventListener('click', () => {
-          if (window.innerWidth <= 920) setOpen(false);
-        }));
+      .forEach(link => link.addEventListener('click', () => {
+        if (window.innerWidth <= 920) setOpen(false);
+      }));
     window.addEventListener('resize', () => {
       if (window.innerWidth > 920) setOpen(false);
-    }, {passive: true});
+    }, { passive: true });
 
     qsa('.nav-expand').forEach(button => {
       button.addEventListener('click', () => {
@@ -154,7 +156,7 @@
       const shouldExpand = group.dataset.chapter === chapterId;
       group.classList.toggle('expanded', shouldExpand);
       qs('.nav-expand', group)
-          ?.setAttribute('aria-expanded', String(shouldExpand));
+        ?.setAttribute('aria-expanded', String(shouldExpand));
     });
   }
 
@@ -167,13 +169,13 @@
     activeChapterId = chapterId;
     activeSectionId = nextSectionId;
     qsa('.nav-link')
-        .forEach(
-            link => link.classList.toggle(
-                'active', link.dataset.target === chapterId));
+      .forEach(
+        link => link.classList.toggle(
+          'active', link.dataset.target === chapterId));
     qsa('.subnav-link')
-        .forEach(
-            link => link.classList.toggle(
-                'active', !!sectionId && link.dataset.section === sectionId));
+      .forEach(
+        link => link.classList.toggle(
+          'active', !!sectionId && link.dataset.section === sectionId));
     expandChapter(chapterId);
     const active = qs('.subnav-link.active') || qs('.nav-link.active');
     const sidebar = qs('#sidebar');
@@ -186,7 +188,7 @@
         sidebar.scrollTop = bottom - sidebar.clientHeight + 24;
     }
     dispatchEvent(new CustomEvent('reactsectionchange', {
-      detail: {chapterId, sectionId: sectionId || chapterId}
+      detail: { chapterId, sectionId: sectionId || chapterId }
     }));
   }
 
@@ -194,16 +196,16 @@
     if (!('IntersectionObserver' in window)) return;
     const sectionObserver = new IntersectionObserver(entries => {
       const visible = entries.filter(e => e.isIntersecting)
-                          .sort(
-                              (a, b) => Math.abs(a.boundingClientRect.top) -
-                                  Math.abs(b.boundingClientRect.top))[0];
+        .sort(
+          (a, b) => Math.abs(a.boundingClientRect.top) -
+            Math.abs(b.boundingClientRect.top))[0];
       if (!visible) return;
       const chapter = visible.target.closest('.chapter');
       if (!chapter) return;
       setActive(chapter.id, visible.target.id);
       if (history.replaceState)
         history.replaceState(null, '', '#' + visible.target.id);
-    }, {rootMargin: '-16% 0px -68% 0px', threshold: [0, .01]});
+    }, { rootMargin: '-16% 0px -68% 0px', threshold: [0, .01] });
     let observedChapter = null;
     const observeChapter = chapter => {
       if (!chapter || chapter === observedChapter) return;
@@ -214,7 +216,7 @@
     };
     observeChapter(qs('.chapter:not([hidden])') || qs('.chapter'));
     addEventListener(
-        'reactchapterprepare', event => observeChapter(event.detail.chapter));
+      'reactchapterprepare', event => observeChapter(event.detail.chapter));
 
     const hash = decodeURIComponent(location.hash.slice(1));
     if (hash) {
@@ -242,14 +244,14 @@
         requestAnimationFrame(update);
         ticking = true;
       }
-    }, {passive: true});
+    }, { passive: true });
     update();
   }
 
   function initAnimations(root = document) {
     const targets = qsa(
-        '.chapter-title-card, .chapter > h2, .chapter-pager, .chapter-completion',
-        root);
+      '.chapter-title-card, .chapter > h2, .chapter-pager, .chapter-completion',
+      root);
     // Course content must never depend on an observer to become visible.
     targets.forEach(el => el.classList.remove('reveal-section'));
   }
@@ -296,16 +298,12 @@
     return map[raw.toLowerCase()] || raw.replace(/^\w/, s => s.toUpperCase());
   }
 
-  function enhanceCodeBlock(pre) {
+  function prepareCodeBlock(pre) {
     const code = pre.querySelector('code');
-    if (!code || !pre.isConnected) return;
+    if (!code || !pre.isConnected) return null;
     let shell = pre.parentElement?.classList.contains('code-shell') ?
-        pre.parentElement :
-        null;
-    if (shell?.dataset.codeBlockReady) {
-      highlightCode(code);
-      return;
-    }
+      pre.parentElement :
+      null;
     if (!shell) {
       shell = document.createElement('div');
       shell.className = 'code-shell';
@@ -314,6 +312,7 @@
       pre.parentNode.insertBefore(shell, pre);
       shell.appendChild(pre);
     }
+    if (shell.dataset.codeShellReady) return { code, shell };
     let button = qs('.copy-code', shell);
     let toolbar = qs('.code-toolbar', shell);
     if (!toolbar) {
@@ -354,6 +353,18 @@
     }
     button.setAttribute('aria-label', 'Copy ' + languageLabel + ' example');
     toolbar.replaceChildren(label, button);
+    shell.dataset.codeShellReady = 'true';
+    return { code, shell };
+  }
+
+  function enhanceCodeBlock(pre) {
+    const prepared = prepareCodeBlock(pre);
+    if (!prepared) return;
+    const { code, shell } = prepared;
+    if (shell.dataset.codeBlockReady) {
+      highlightCode(code);
+      return;
+    }
     shell.dataset.codeBlockReady = 'true';
     highlightCode(code);
   }
@@ -362,10 +373,17 @@
     const blocks = root.matches?.('pre') ? [root] : qsa('pre', root);
     blocks.forEach(pre => {
       if (!pre.querySelector('code')) return;
-      if (pre.parentElement?.classList.contains('code-shell'))
-        enhanceCodeBlock(pre);
-      else
-        deferCodeBlock(pre);
+      // Reserve the final block geometry before it reaches the viewport so
+      // lazy syntax highlighting cannot shift the document while scrolling.
+      prepareCodeBlock(pre);
+      if (!pre.parentElement?.dataset.codeBlockReady) deferCodeBlock(pre);
+    });
+  }
+
+  function enhanceCodeBlocksNow(root = document) {
+    const blocks = root.matches?.('pre') ? [root] : qsa('pre', root);
+    blocks.forEach(pre => {
+      if (pre.querySelector('code')) enhanceCodeBlock(pre);
     });
   }
 
@@ -381,7 +399,7 @@
     initTables(chapter);
     initCodeBlocks(chapter);
     dispatchEvent(new CustomEvent('reactchapterprepare', {
-      detail: {chapter}
+      detail: { chapter }
     }));
   }
 
@@ -408,22 +426,34 @@
     return chapter;
   }
 
-  window.ReactChapterReader = {showChapter, showTarget};
+  function navigateToTarget(target, smooth = true) {
+    const currentChapter = qs('.chapter:not([hidden])');
+    const targetChapter = target?.closest('.chapter');
+    const changesChapter =
+      Boolean(currentChapter && targetChapter && currentChapter !== targetChapter);
+    showTarget(target);
+    requestAnimationFrame(() => target.scrollIntoView({
+      behavior: smooth && !changesChapter && !reducedMotion ? 'smooth' : 'auto',
+      block: 'start'
+    }));
+  }
+
+  window.ReactChapterReader = { showChapter, showTarget };
 
   function observeCodeBlocks() {
     const observer = new MutationObserver(records => {
       const roots = new Set();
       records.forEach(record => {
         const element = record.target.nodeType === Node.ELEMENT_NODE ?
-            record.target :
-            record.target.parentElement;
+          record.target :
+          record.target.parentElement;
         const code =
-            element?.matches?.('code') ? element : element?.closest?.('code');
+          element?.matches?.('code') ? element : element?.closest?.('code');
         if (code?.closest('pre') && code.dataset.highlighted &&
-            !code.querySelector('span')) {
+          !code.querySelector('span')) {
           code.removeAttribute('data-highlighted');
           roots.add(
-              code.closest('.code-shell') || code.closest('pre').parentElement);
+            code.closest('.code-shell') || code.closest('pre').parentElement);
         }
         record.addedNodes.forEach(node => {
           if (node.nodeType !== Node.ELEMENT_NODE) return;
@@ -432,18 +462,24 @@
         });
         record.removedNodes.forEach(node => {
           if (node.nodeType !== Node.ELEMENT_NODE || !codeBlockObserver) return;
-          if (node.matches?.('pre')) codeBlockObserver.unobserve(node);
+          if (node.matches?.('pre') && !node.isConnected)
+            codeBlockObserver.unobserve(node);
           node.querySelectorAll?.('pre').forEach(
-              pre => codeBlockObserver.unobserve(pre));
+            pre => {
+              if (!pre.isConnected) codeBlockObserver.unobserve(pre);
+            });
         });
       });
       roots.forEach(root => initCodeBlocks(root));
     });
-    observer.observe(document.body, {childList: true, subtree: true});
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   window.DevPathCodeBlocks = {
-    enhance: initCodeBlocks,
+    // Academy lessons are rendered dynamically and contain only a handful of
+    // examples, so color them immediately. The large standalone React reader
+    // continues to use the incremental observer path above.
+    enhance: enhanceCodeBlocksNow,
     highlight: highlightCode
   };
 
@@ -458,8 +494,8 @@
       indexed = true;
       qsa('.chapter').forEach((chapter, chapterIndex) => {
         const chapterTitle =
-            qs('.chapter-title', chapter)?.textContent.trim() ||
-            `Chapter ${chapterIndex + 1}`;
+          qs('.chapter-title', chapter)?.textContent.trim() ||
+          `Chapter ${chapterIndex + 1}`;
         items.push({
           title: chapterTitle,
           chapter: `Chapter ${chapterIndex + 1}`,
@@ -490,12 +526,12 @@
       }
       buildIndex();
       const matches = items
-                          .filter(
-                              item => (item.title + ' ' + item.chapter + ' ' +
-                                       (item.body || ''))
-                                          .toLowerCase()
-                                          .includes(q))
-                          .slice(0, 10);
+        .filter(
+          item => (item.title + ' ' + item.chapter + ' ' +
+            (item.body || ''))
+            .toLowerCase()
+            .includes(q))
+        .slice(0, 10);
       if (!matches.length) {
         const empty = document.createElement('div');
         empty.className = 'search-empty';
@@ -538,12 +574,12 @@
     const button = qs('#backToTop');
     if (!button) return;
     const update = () =>
-        button.classList.toggle('visible', window.scrollY > 700);
-    window.addEventListener('scroll', update, {passive: true});
+      button.classList.toggle('visible', window.scrollY > 700);
+    window.addEventListener('scroll', update, { passive: true });
     button.addEventListener(
-        'click',
-        () => window.scrollTo(
-            {top: 0, behavior: reducedMotion ? 'auto' : 'smooth'}));
+      'click',
+      () => window.scrollTo(
+        { top: 0, behavior: reducedMotion ? 'auto' : 'smooth' }));
     update();
   }
 
@@ -560,9 +596,9 @@
         btn.classList.toggle('is-complete', done);
         btn.setAttribute('aria-pressed', String(done));
         btn.textContent =
-            done ? '✓ Chapter completed' : '✓ Mark chapter complete';
+          done ? '✓ Chapter completed' : '✓ Mark chapter complete';
         qs(`.nav-chapter[data-chapter="${CSS.escape(btn.dataset.complete)}"]`)
-            ?.classList.toggle('completed', done);
+          ?.classList.toggle('completed', done);
       });
     };
     qsa('[data-complete]').forEach(btn => btn.addEventListener('click', () => {
@@ -585,10 +621,8 @@
       const target = document.getElementById(id);
       if (!target) return;
       e.preventDefault();
-      showTarget(target);
       history.pushState(null, '', '#' + id);
-      target.scrollIntoView(
-          {behavior: reducedMotion ? 'auto' : 'smooth', block: 'start'});
+      navigateToTarget(target);
     });
   }
 
@@ -599,37 +633,37 @@
     lab.className = 'react-play-lab';
     lab.setAttribute('aria-labelledby', 'reactPlayLabTitle');
     lab.innerHTML =
-        `<div class="react-lab-copy"><span>INTERACTIVE REACT LAB</span><h2 id="reactPlayLabTitle">Make the component respond</h2><p>Change props, update state, and watch React derive the interface. Nothing leaves your browser.</p><div class="react-lab-controls"><label>Card title<input id="reactLabTitle" value="My learning streak" maxlength="36"></label><label>Accent<select id="reactLabAccent"><option value="#149eca">React blue</option><option value="#b91c1c">Academy red</option><option value="#7c3aed">Purple</option><option value="#059669">Green</option></select></label><div class="react-lab-actions"><button id="reactLabDecrease" type="button" aria-label="Decrease count">−</button><output id="reactLabCount" aria-live="polite">1</output><button id="reactLabIncrease" type="button" aria-label="Increase count">+</button></div><button id="reactLabToggle" type="button" aria-pressed="false">Mark completed</button><button id="reactLabReset" type="button">Reset</button></div></div><div class="react-lab-preview" id="reactLabPreview" style="--lab-accent:#149eca"><small>LIVE COMPONENT</small><h3>My learning streak</h3><strong><span id="reactLabPreviewCount">1</span> day</strong><p id="reactLabStatus">Keep the state moving.</p><div><i></i><i></i><i></i><i></i><i></i></div></div><details class="react-lab-code"><summary>Show the React pattern</summary><pre><code class="language-jsx">function StreakCard({ title, accent }) {
+      `<div class="react-lab-copy"><span>INTERACTIVE REACT LAB</span><h2 id="reactPlayLabTitle">Make the component respond</h2><p>Change props, update state, and watch React derive the interface. Nothing leaves your browser.</p><div class="react-lab-controls"><label>Card title<input id="reactLabTitle" value="My learning streak" maxlength="36"></label><label>Accent<select id="reactLabAccent"><option value="#149eca">React blue</option><option value="#b91c1c">Academy red</option><option value="#7c3aed">Purple</option><option value="#059669">Green</option></select></label><div class="react-lab-actions"><button id="reactLabDecrease" type="button" aria-label="Decrease count">−</button><output id="reactLabCount" aria-live="polite">1</output><button id="reactLabIncrease" type="button" aria-label="Increase count">+</button></div><button id="reactLabToggle" type="button" aria-pressed="false">Mark completed</button><button id="reactLabReset" type="button">Reset</button></div></div><div class="react-lab-preview" id="reactLabPreview" style="--lab-accent:#149eca"><small>LIVE COMPONENT</small><h3>My learning streak</h3><strong><span id="reactLabPreviewCount">1</span> day</strong><p id="reactLabStatus">Keep the state moving.</p><div><i></i><i></i><i></i><i></i><i></i></div></div><details class="react-lab-code"><summary>Show the React pattern</summary><pre><code class="language-jsx">function StreakCard({ title, accent }) {
   const [count, setCount] = useState(1);
   const [complete, setComplete] = useState(false);
   return &lt;article style={{ '--accent': accent }}&gt;...&lt;/article&gt;;
 }</code></pre></details>`;
     const intro = qs('.chapter-intro', firstChapter) ||
-        qs('.chapter-title', firstChapter);
+      qs('.chapter-title', firstChapter);
     intro?.insertAdjacentElement('afterend', lab);
     let count = 1, complete = false;
     const title = qs('#reactLabTitle'), accent = qs('#reactLabAccent'),
-          preview = qs('#reactLabPreview'), countOut = qs('#reactLabCount'),
-          previewCount = qs('#reactLabPreviewCount'),
-          status = qs('#reactLabStatus'), toggle = qs('#reactLabToggle');
+      preview = qs('#reactLabPreview'), countOut = qs('#reactLabCount'),
+      previewCount = qs('#reactLabPreviewCount'),
+      status = qs('#reactLabStatus'), toggle = qs('#reactLabToggle');
     const render = () => {
       qs('h3', preview).textContent =
-          title.value.trim() || 'Untitled component';
+        title.value.trim() || 'Untitled component';
       preview.style.setProperty('--lab-accent', accent.value);
       countOut.value = String(count);
       previewCount.textContent = String(count);
       qs('strong', preview).lastChild.textContent =
-          count === 1 ? ' day' : ' days';
+        count === 1 ? ' day' : ' days';
       preview.classList.toggle('is-complete', complete);
       status.textContent = complete ? 'Completed — state changed the UI.' :
-          count >= 7                ? 'A full week! Derived UI unlocked.' :
-                                      'Keep the state moving.';
+        count >= 7 ? 'A full week! Derived UI unlocked.' :
+          'Keep the state moving.';
       toggle.textContent = complete ? 'Completed ✓' : 'Mark completed';
       toggle.setAttribute('aria-pressed', String(complete));
       qsa('.react-lab-preview i', lab)
-          .forEach(
-              (bar, index) =>
-                  bar.classList.toggle('active', index < Math.min(5, count)));
+        .forEach(
+          (bar, index) =>
+            bar.classList.toggle('active', index < Math.min(5, count)));
     };
     title.addEventListener('input', render);
     accent.addEventListener('change', render);
@@ -658,7 +692,7 @@
 
   function init() {
     const hashTarget = document.getElementById(
-        decodeURIComponent(location.hash.slice(1)));
+      decodeURIComponent(location.hash.slice(1)));
     const initialChapter = hashTarget?.closest('.chapter') || qs('.chapter');
     initSidebar();
     initProgress();
@@ -671,14 +705,13 @@
     initReactPlayLab();
     observeCodeBlocks();
     if (hashTarget) requestAnimationFrame(() => {
-      hashTarget.scrollIntoView({block: 'start'});
+      hashTarget.scrollIntoView({ block: 'start' });
     });
     addEventListener('hashchange', () => {
       const target = document.getElementById(
-          decodeURIComponent(location.hash.slice(1)));
+        decodeURIComponent(location.hash.slice(1)));
       if (!target) return;
-      showTarget(target);
-      requestAnimationFrame(() => target.scrollIntoView({block: 'start'}));
+      navigateToTarget(target);
     });
   }
   if (document.readyState === 'loading')

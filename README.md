@@ -165,14 +165,14 @@ the standalone React reader.
 
 ### Editable and Generated Files
 
-| Type                | Files                                                | Rule                            |
-| ------------------- | ---------------------------------------------------- | ------------------------------- |
-| Application source  | `src/platform/**`, `src/scripts/**`, `src/styles/**` | Edit here                       |
-| Course curricula    | `src/data/courses/*.js`                              | Keep IDs and slugs stable       |
-| Catalog metadata    | `src/features/course-catalog/**`                     | Sources and relationships       |
-| Build configuration | `scripts/source-manifest.mjs`                        | Register new source layers here |
-| Generated output    | `index.html`, `react.html`, `assets/devpath-bundle.css`, `assets/*-bundle.js`, `assets/course-*.js`, `assets/catalog-*.js`, `assets/learning-dashboard.js`, `public/**` | Never edit manually |
-| Deployment/PWA      | `vercel.json`, `manifest.webmanifest`, `sw.js`       | Update intentionally            |
+| Type                | Files                                                                                                                                                                   | Rule                            |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| Application source  | `src/platform/**`, `src/scripts/**`, `src/styles/**`                                                                                                                    | Edit here                       |
+| Course curricula    | `src/data/courses/*.js`                                                                                                                                                 | Keep IDs and slugs stable       |
+| Catalog metadata    | `src/features/course-catalog/**`                                                                                                                                        | Sources and relationships       |
+| Build configuration | `scripts/source-manifest.mjs`                                                                                                                                           | Register new source layers here |
+| Generated output    | `index.html`, `react.html`, `assets/devpath-bundle.css`, `assets/*-bundle.js`, `assets/course-*.js`, `assets/catalog-*.js`, `assets/learning-dashboard.js`, `public/**` | Never edit manually             |
+| Deployment/PWA      | `vercel.json`, `manifest.webmanifest`, `sw.js`                                                                                                                          | Update intentionally            |
 
 ## Adding a Learning Path
 

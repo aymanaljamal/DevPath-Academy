@@ -40,11 +40,9 @@ let [styles, scripts, courseData, chapters] = await Promise.all([
 ]);
 
 const minifyJavaScript = async source => {
-  const result = await minify(source, {
-    compress: {passes: 2},
-    mangle: false,
-    format: {comments: false}
-  });
+  const result = await minify(
+      source,
+      {compress: {passes: 2}, mangle: false, format: {comments: false}});
   if (!result.code) throw new Error('JavaScript minification returned no code');
   return result.code;
 };
@@ -64,26 +62,26 @@ const generatedBundles = [
   ...runtimeAssets.map(([name, , content]) => [name, content]),
 ];
 
-const assemble = (
-    template, chapterHtml, selectedRuntimeAssets, includeCourseData = true) =>
-    template
-        .replace(
-            '<!-- INLINE_STYLES -->',
-            '<link rel="stylesheet" href="assets/devpath-bundle.css" data-source="style-bundle">')
-        .replace('<!-- COURSE_CHAPTERS -->', () => chapterHtml)
-        .replace(
-            '<!-- COURSE_DATA -->',
-            includeCourseData ?
-                '<script src="assets/course-data.js" data-source="course-data"></script>' :
-                '')
-        .replace(
-            '<!-- INLINE_SCRIPTS -->',
-            () => selectedRuntimeAssets
-                      .map(
-                          ([name, source]) =>
-                              `<script src="assets/${name}" data-source="${source}"></script>`)
-                      .join('\n'))
-        .replace(/^[ \t]+$/gm, '');
+const assemble =
+    (template, chapterHtml, selectedRuntimeAssets, includeCourseData = true) =>
+        template
+            .replace(
+                '<!-- INLINE_STYLES -->',
+                '<link rel="stylesheet" href="assets/devpath-bundle.css" data-source="style-bundle">')
+            .replace('<!-- COURSE_CHAPTERS -->', () => chapterHtml)
+            .replace(
+                '<!-- COURSE_DATA -->',
+                includeCourseData ?
+                    '<script src="assets/course-data.js" data-source="course-data"></script>' :
+                    '')
+            .replace(
+                '<!-- INLINE_SCRIPTS -->',
+                () => selectedRuntimeAssets
+                          .map(
+                              ([name, source]) => `<script src="assets/${
+                                  name}" data-source="${source}"></script>`)
+                          .join('\n'))
+            .replace(/^[ \t]+$/gm, '');
 
 // The Academy renders lesson code blocks dynamically, so it needs the shared
 // code-block enhancer even though the legacy React chapters remain excluded.
@@ -111,6 +109,7 @@ if (unresolvedMarkers.length) {
 }
 
 const publicDir = join(root, 'public');
+const extraHighlightLanguages = ['http', 'dockerfile', 'properties'];
 await rm(publicDir, {recursive: true, force: true});
 await mkdir(join(publicDir, 'assets'), {recursive: true});
 await mkdir(join(root, 'assets'), {recursive: true});
@@ -119,10 +118,11 @@ await Promise.all([
   writeFile(join(root, 'react.html'), reactOutput, 'utf8'),
   writeFile(join(publicDir, 'index.html'), output, 'utf8'),
   writeFile(join(publicDir, 'react.html'), reactOutput, 'utf8'),
-  ...generatedBundles.flatMap(([name, content]) => [
-    writeFile(join(root, 'assets', name), content, 'utf8'),
-    writeFile(join(publicDir, 'assets', name), content, 'utf8'),
-  ]),
+  ...generatedBundles.flatMap(
+      ([name, content]) =>
+          [writeFile(join(root, 'assets', name), content, 'utf8'),
+           writeFile(join(publicDir, 'assets', name), content, 'utf8'),
+]),
   copyFile(
       join(root, 'manifest.webmanifest'),
       join(publicDir, 'manifest.webmanifest')),
@@ -137,16 +137,19 @@ await Promise.all([
           root, 'node_modules', '@highlightjs', 'cdn-assets',
           'highlight.min.js'),
       join(publicDir, 'assets', 'highlight.min.js')),
-  copyFile(
-      join(
-          root, 'node_modules', '@highlightjs', 'cdn-assets', 'languages',
-          'http.min.js'),
-      join(root, 'assets', 'highlight-http.min.js')),
-  copyFile(
-      join(
-          root, 'node_modules', '@highlightjs', 'cdn-assets', 'languages',
-          'http.min.js'),
-      join(publicDir, 'assets', 'highlight-http.min.js')),
+  ...extraHighlightLanguages.flatMap(
+      language => [
+        copyFile(
+            join(
+                root, 'node_modules', '@highlightjs', 'cdn-assets',
+                'languages', `${language}.min.js`),
+            join(root, 'assets', `highlight-${language}.min.js`)),
+        copyFile(
+            join(
+                root, 'node_modules', '@highlightjs', 'cdn-assets',
+                'languages', `${language}.min.js`),
+            join(publicDir, 'assets', `highlight-${language}.min.js`))
+      ]),
   copyFile(
       join(
           root, 'node_modules', '@highlightjs', 'cdn-assets', 'styles',

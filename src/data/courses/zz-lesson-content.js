@@ -7575,6 +7575,12 @@ const inferLanguage = (fallback, code) => {
   if (/^(gcloud|firebase|newman|postman |python -m|\.\/|npm |docker |curl )/m
           .test(trimmed))
     return 'bash';
+  // SQL commonly contains lines beginning with FROM. Detect it before the
+  // Dockerfile grammar so database examples are not misclassified.
+  if (/^(CREATE|SELECT|INSERT|UPDATE|DELETE|BEGIN|EXPLAIN|--|\/\*)/i.test(
+          trimmed) &&
+      fallback === 'sql')
+    return 'sql';
   if (/^FROM\s|^WORKDIR\s|^COPY\s|^RUN\s|^USER\s|^CMD\s/m.test(trimmed))
     return 'dockerfile';
   if (/^(FROM |RUN useradd|ENTRYPOINT)/m.test(trimmed)) return 'dockerfile';
@@ -7584,10 +7590,6 @@ const inferLanguage = (fallback, code) => {
           trimmed))
     return trimmed.includes(':\n') ? 'yaml' : 'properties';
   if (/^(<dependency>|<project>)/.test(trimmed)) return 'xml';
-  if (/^(CREATE|SELECT|INSERT|UPDATE|DELETE|BEGIN|EXPLAIN|--|\/\*)/i.test(
-          trimmed) &&
-      fallback === 'sql')
-    return 'sql';
   return fallback;
 };
 

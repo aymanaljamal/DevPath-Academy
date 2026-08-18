@@ -1,8 +1,10 @@
-const CACHE = 'devpath-academy-v19-react-reader';
+const CACHE = 'devpath-academy-v20-code-languages';
 const CORE = [
   './', './index.html', './react.html', './manifest.webmanifest',
   './assets/course-icon.svg', './assets/highlight.min.js',
-  './assets/highlight-http.min.js', './assets/highlight-github-dark.min.css',
+  './assets/highlight-http.min.js', './assets/highlight-dockerfile.min.js',
+  './assets/highlight-properties.min.js',
+  './assets/highlight-github-dark.min.css',
   './assets/devpath-bundle.css', './assets/course-data.js',
   './assets/course-reader.js', './assets/learning-dashboard.js',
   './assets/catalog-sources.js', './assets/catalog-relationships.js',
@@ -10,7 +12,7 @@ const CORE = [
 ];
 
 self.addEventListener('install', event => {
-  event.waitUntil((async() => {
+  event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
     await Promise.all(CORE.map(async asset => {
       const response = await fetch(asset, {cache: 'reload'});
@@ -22,24 +24,27 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys()
-      .then(keys => Promise.all(
-          keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
-      .then(() => self.clients.claim()));
+  event.waitUntil(
+      caches.keys()
+          .then(
+              keys => Promise.all(keys.filter(key => key !== CACHE)
+                                      .map(key => caches.delete(key))))
+          .then(() => self.clients.claim()));
 });
 
-const unavailable = () => new Response('DevPath Academy is unavailable offline.', {
-  status: 503,
-  headers: {'Content-Type': 'text/plain; charset=utf-8'}
-});
+const unavailable = () => new Response(
+    'DevPath Academy is unavailable offline.',
+    {status: 503, headers: {'Content-Type': 'text/plain; charset=utf-8'}});
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   if (event.request.mode === 'navigate') {
-    event.respondWith((async() => {
-      const target = new URL(event.request.url).pathname.endsWith('/react.html') ?
-          './react.html' : './index.html';
+    event.respondWith((async () => {
+      const target =
+          new URL(event.request.url).pathname.endsWith('/react.html') ?
+          './react.html' :
+          './index.html';
       try {
         const response = await fetch(event.request);
         if (response.ok) {
@@ -55,7 +60,7 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  event.respondWith((async() => {
+  event.respondWith((async () => {
     try {
       // Runtime assets use stable names. Revalidate online so a previous
       // service worker or HTTP cache can never pin an obsolete bundle.

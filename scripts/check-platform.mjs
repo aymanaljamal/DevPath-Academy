@@ -5,8 +5,20 @@ import {platformSources, sharedScriptSources} from './source-manifest.mjs';
 
 const root = process.cwd();
 const readSource = file => readFile(join(root, 'src', file), 'utf8');
-const platform =
-    (await Promise.all(platformSources.map(readSource))).join('\n');
+const platformParts = await Promise.all(platformSources.map(readSource));
+const platform = platformParts.join('\n');
+
+const sharesOneClosure =
+    platformParts[0].trimStart().startsWith('(() => {') &&
+    !platformParts[0].trimEnd().endsWith('})') &&
+    platformParts.at(-1).trimEnd().endsWith('})();');
+if (sharesOneClosure)
+  console.log('PASS platform fragments share one invoked closure');
+else {
+  console.error(
+      'FAIL platform closure must open in 01-core.js and close in 06-pages-router.js');
+  process.exitCode = 1;
+}
 
 try {
   new Function(platform);

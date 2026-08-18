@@ -2,9 +2,7 @@ import {readdir, readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import vm from 'node:vm';
 
-import {
-  platformSources, sharedScriptSources, styleSources
-} from './source-manifest.mjs';
+import {platformSources, sharedScriptSources, styleSources} from './source-manifest.mjs';
 
 // Feature assertions should survive formatting-only source changes.
 const nativeIncludes = String.prototype.includes;
@@ -12,7 +10,8 @@ let supplementalSource = '';
 String.prototype.includes = function(search, ...args) {
   if (nativeIncludes.call(this, search, ...args) || typeof search !== 'string')
     return nativeIncludes.call(this, search, ...args);
-  const normalize = value => String(value).replace(/\s+/g, '').replace(/"/g, "'");
+  const normalize = value =>
+      String(value).replace(/\s+/g, '').replace(/"/g, '\'');
   return nativeIncludes.call(
       `${normalize(this)}${normalize(supplementalSource)}`, normalize(search));
 };
@@ -21,18 +20,21 @@ const file = join(process.cwd(), 'index.html');
 const homeHtml = await readFile(file, 'utf8');
 const html = await readFile(join(process.cwd(), 'react.html'), 'utf8');
 const readme = await readFile(join(process.cwd(), 'README.md'), 'utf8');
-const vercelConfig = await readFile(
-    join(process.cwd(), 'vercel.json'), 'utf8');
+const vercelConfig = await readFile(join(process.cwd(), 'vercel.json'), 'utf8');
 const serviceWorker = await readFile(join(process.cwd(), 'sw.js'), 'utf8');
 const publicHtml =
     await readFile(join(process.cwd(), 'public', 'index.html'), 'utf8');
-const generatedRuntimeSource = (await Promise.all([
-  'course-data.js', 'course-reader.js', 'learning-dashboard.js',
-  'catalog-sources.js', 'catalog-relationships.js', 'platform-bundle.js'
-].map(file => readFile(join(process.cwd(), 'assets', file), 'utf8')))).join('\n');
-supplementalSource = (await Promise.all([
-  ...platformSources, ...sharedScriptSources, ...styleSources
-].map(file => readFile(join(process.cwd(), 'src', file), 'utf8')))).join('\n');
+const generatedRuntimeSource =
+    (await Promise.all([
+      'course-data.js', 'course-reader.js', 'learning-dashboard.js',
+      'catalog-sources.js', 'catalog-relationships.js', 'platform-bundle.js'
+    ].map(file => readFile(join(process.cwd(), 'assets', file), 'utf8'))))
+        .join('\n');
+supplementalSource =
+    (await Promise.all([
+      ...platformSources, ...sharedScriptSources, ...styleSources
+    ].map(file => readFile(join(process.cwd(), 'src', file), 'utf8'))))
+        .join('\n');
 const count = pattern => [...html.matchAll(pattern)].length;
 const assertions = [];
 const check = (name, condition, detail = '') => {
@@ -57,9 +59,13 @@ check(
     `${Buffer.byteLength(homeHtml)} bytes`);
 check(
     '417 major sections',
-    [...`${html}\n${generatedRuntimeSource}`.matchAll(/<h2\b[^>]*\bid=/gi)].length -
-            [...`${html}\n${generatedRuntimeSource}`.matchAll(
-                /<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|learningPulseTitle|planBuilderTitle|reactPlayLabTitle)["']/gi)].length ===
+    [
+      ...`${html}\n${generatedRuntimeSource}`.matchAll(/<h2\b[^>]*\bid=/gi)
+    ].length -
+            [
+              ...`${html}\n${generatedRuntimeSource}`.matchAll(
+                  /<h2\b[^>]*\bid=["'](?:pathPreviewTitle|playgroundTitle|journeyTitle|learningPulseTitle|buildStudioTitle|planBuilderTitle|reactPlayLabTitle)["']/gi)
+            ].length ===
         417);
 check(
     'HTML uses external runtime parts',
@@ -76,9 +82,10 @@ check(
         !homeHtml.includes('assets/learning-dashboard.js'));
 check(
     'Home shell does not require React reader chrome',
-    supplementalSource.includes("$('.page')?.toggleAttribute('hidden', active)") &&
+    supplementalSource.includes(
+        '$(\'.page\')?.toggleAttribute(\'hidden\', active)') &&
         supplementalSource.includes(
-            "$('.sidebar')?.toggleAttribute('hidden', active)"));
+            '$(\'.sidebar\')?.toggleAttribute(\'hidden\', active)'));
 check(
     'Original 555 code blocks preserved', count(/<pre\b/gi) >= 555,
     `found ${count(/<pre\b/gi)}`);
@@ -107,17 +114,19 @@ const chapterDirectory = join(process.cwd(), 'src', 'content', 'chapters');
 const chapterFiles = (await readdir(chapterDirectory))
                          .filter(name => /^chapter-\d{2}\.html$/.test(name))
                          .sort();
-const chapterSources = await Promise.all(chapterFiles.map(
-    name => readFile(join(chapterDirectory, name), 'utf8')));
+const chapterSources = await Promise.all(
+    chapterFiles.map(name => readFile(join(chapterDirectory, name), 'utf8')));
 const pagerProblems = [];
 chapterSources.forEach((source, index) => {
   const chapterNumber = index + 1;
-  const pagerTargets = new Map(
-      [...source.matchAll(
-          /class=["'][^"']*\bpager-card--(prev|next)\b[^"']*["'][^>]*href=["']#(chapter-\d+)["']/gi)]
-          .map(match => [match[1].toLowerCase(), match[2]]));
-  const expectedPrev = chapterNumber > 1 ? `chapter-${chapterNumber - 1}` : null;
-  const expectedNext = chapterNumber < 18 ? `chapter-${chapterNumber + 1}` : null;
+  const pagerTargets = new Map([
+    ...source.matchAll(
+        /class=["'][^"']*\bpager-card--(prev|next)\b[^"']*["'][^>]*href=["']#(chapter-\d+)["']/gi)
+  ].map(match => [match[1].toLowerCase(), match[2]]));
+  const expectedPrev =
+      chapterNumber > 1 ? `chapter-${chapterNumber - 1}` : null;
+  const expectedNext =
+      chapterNumber < 18 ? `chapter-${chapterNumber + 1}` : null;
   const actualPrev = pagerTargets.get('prev') || null;
   const actualNext = pagerTargets.get('next') || null;
   if (actualPrev !== expectedPrev || actualNext !== expectedNext) {
@@ -130,14 +139,14 @@ check(
     chapterFiles.length === 18 && pagerProblems.length === 0,
     pagerProblems.join('; '));
 
-const chapterIds = new Map(chapterSources.map((source, index) => [
-  `chapter-${index + 1}`,
-  new Set([...source.matchAll(/\bid=["']([^"']+)["']/gi)]
-              .map(match => match[1]))
-]));
+const chapterIds = new Map(chapterSources.map(
+    (source, index) => [`chapter-${index + 1}`, new Set([
+                          ...source.matchAll(/\bid=["']([^"']+)["']/gi)
+                        ].map(match => match[1]))]));
 const sidebarOwnershipProblems = [];
-for (const match of sidebar.matchAll(
-    /<a\b[^>]*class=["'][^"']*\bsubnav-link\b[^"']*["'][^>]*data-chapter=["'](chapter-\d+)["'][^>]*data-section=["']([^"']+)["'][^>]*>/gi)) {
+for (
+    const match of sidebar.matchAll(
+        /<a\b[^>]*class=["'][^"']*\bsubnav-link\b[^"']*["'][^>]*data-chapter=["'](chapter-\d+)["'][^>]*data-section=["']([^"']+)["'][^>]*>/gi)) {
   const [, chapter, section] = match;
   const href = match[0].match(/\bhref=["']#([^"']+)["']/i)?.[1];
   if (href !== section || !chapterIds.get(chapter)?.has(section)) {
@@ -146,8 +155,7 @@ for (const match of sidebar.matchAll(
 }
 check(
     'Every React sidebar section belongs to its declared chapter',
-    sidebarOwnershipProblems.length === 0,
-    sidebarOwnershipProblems.join(', '));
+    sidebarOwnershipProblems.length === 0, sidebarOwnershipProblems.join(', '));
 
 for (const scriptName of ['course.js', 'learning-dashboard.js']) {
   const source =
@@ -182,34 +190,40 @@ const optimizationData = await readFile(
 const cloudData = await readFile(
     join(process.cwd(), 'src', 'data', 'courses', 'firebase-google-cloud.js'),
     'utf8');
-const courseSandbox = {window: {ACADEMY_COURSES: {}}};
+const courseSandbox = {
+  window: {ACADEMY_COURSES: {}}
+};
 vm.createContext(courseSandbox);
 const courseDirectory = join(process.cwd(), 'src', 'data', 'courses');
-for (const name of (await readdir(courseDirectory)).filter(name =>
-  name.endsWith('.js')).sort()) {
-  vm.runInContext(await readFile(join(courseDirectory, name), 'utf8'),
-      courseSandbox, {filename: name});
+for (const name of (await readdir(courseDirectory))
+         .filter(name => name.endsWith('.js'))
+         .sort()) {
+  vm.runInContext(
+      await readFile(join(courseDirectory, name), 'utf8'), courseSandbox,
+      {filename: name});
 }
 const academyCourses = courseSandbox.window.ACADEMY_COURSES;
 const courseLessonCount = course =>
-  course.modules.reduce((total, module) => total + module.lessons.length, 0);
+    course.modules.reduce((total, module) => total + module.lessons.length, 0);
 const lessonPairCount =
     source => [...source.matchAll(/\['[^']+','[^']+'\]/g)].length;
 const structuredLessonCount =
     source => [...source.matchAll(/\['[^']+','[^']+'(?:,\{[^\]]*\})?\]/g)]
                   .length;
-check('Complete React has 18 Academy lessons',
+check(
+    'Complete React has 18 Academy lessons',
     courseLessonCount(academyCourses.react) === 18,
     `found ${courseLessonCount(academyCourses.react)}`);
 const reactLessonSlugs = academyCourses.react.modules.flatMap(
     module => module.lessons.map(lesson => lesson[0]));
-const expectedReactSlugs = Array.from({length: 18}, (_, index) =>
-  `chapter-${index + 1}`);
+const expectedReactSlugs =
+    Array.from({length: 18}, (_, index) => `chapter-${index + 1}`);
 check(
     'React curriculum and chapter files share one stable order',
     reactLessonSlugs.join('|') === expectedReactSlugs.join('|') &&
-        chapterFiles.every((name, index) =>
-          name === `chapter-${String(index + 1).padStart(2, '0')}.html`),
+        chapterFiles.every(
+            (name, index) =>
+                name === `chapter-${String(index + 1).padStart(2, '0')}.html`),
     reactLessonSlugs.join(', '));
 check(
     'Complete Java has 54 lessons',
@@ -409,10 +423,10 @@ check(
 check(
     'React clean URL redirects Academy hashes home',
     nativeIncludes.call(
-        supplementalSource, "location.hash.startsWith('#/')") &&
+        supplementalSource, 'location.hash.startsWith(\'#/\')') &&
         nativeIncludes.call(
             supplementalSource,
-            "new URL('index.html' + location.hash, location.href)"));
+            'new URL(\'index.html\' + location.hash, location.href)'));
 check(
     'React reader excludes the duplicate Academy renderer',
     nativeIncludes.call(html, 'assets/course-reader.js') &&
@@ -449,6 +463,8 @@ check(
     [
       'assets/highlight.min.js',
       'assets/highlight-http.min.js',
+      'assets/highlight-dockerfile.min.js',
+      'assets/highlight-properties.min.js',
       'window.DevPathCodeBlocks',
       '.code-shell .hljs-keyword',
       '.code-shell .hljs-string',
@@ -459,6 +475,12 @@ check(
       'requestIdleCallback',
     ].every(value => homeHtml.includes(value)) &&
         !homeHtml.includes('cdnjs.cloudflare.com/ajax/libs/highlight'));
+check(
+    'Academy deep links keep the shared code highlighter active',
+    supplementalSource.includes('isStandaloneReactReader') &&
+        supplementalSource.includes(
+            'isStandaloneReactReader && location.hash.startsWith(\'#/\')') &&
+        supplementalSource.includes('enhance: enhanceCodeBlocksNow'));
 check(
     'Code blocks share one high-contrast palette across themes and routes',
     [
@@ -473,33 +495,38 @@ check(
     ].every(value => homeHtml.includes(value)) &&
         !homeHtml.includes('color: var(--diagram-ink, #075b75) !important'));
 check('React initializes code and learning tools per active chapter', [
-  'showChapter(initialChapter)', 'targetChapters',
-  'let indexed = false', 'window.ReactChapterReader',
-  'item.hidden = hidden', 'codeBlockObserver.unobserve(pre)',
-  "sectionObserver.disconnect()", "qsa('h2[id]', chapter)",
-  "$('.chapter:not([hidden])')", 'restoreHighlights(chapter)'
+  'showChapter(initialChapter)', 'targetChapters', 'let indexed = false',
+  'window.ReactChapterReader', 'item.hidden = hidden',
+  'codeBlockObserver.unobserve(pre)', 'sectionObserver.disconnect()',
+  'qsa(\'h2[id]\', chapter)', '$(\'.chapter:not([hidden])\')',
+  'restoreHighlights(chapter)'
 ].every(value => supplementalSource.includes(value)));
 check('React chapter activation keeps heavy work incremental', [
   'processed < 4', 'deferredBlocks.push(entry.target)',
-  "!pre.closest('.chapter[hidden]')", 'quizReadyChapters.has(chapter)',
+  '!pre.closest(\'.chapter[hidden]\')', 'quizReadyChapters.has(chapter)',
   'value.highlights', '.slice(-250)'
 ].every(value => supplementalSource.includes(value)));
-check('React scrolling has one lightweight source of section state', [
-  "dispatchEvent(new CustomEvent('reactsectionchange'",
-  "addEventListener('reactsectionchange'", 'sidebar.scrollTop =',
-  "el.classList.remove('reveal-section')"
-].every(value => supplementalSource.includes(value)) &&
-    !supplementalSource.includes(
-        "$$('h2[id],h3[id]', chapter).filter(el =>"));
+check(
+    'React scrolling has one lightweight source of section state',
+    [
+      'dispatchEvent(new CustomEvent(\'reactsectionchange\'',
+      'addEventListener(\'reactsectionchange\'',
+      'sidebar.scrollTop =', 'el.classList.remove(\'reveal-section\')'
+    ].every(value => supplementalSource.includes(value)) &&
+        !supplementalSource.includes(
+            '$$(\'h2[id],h3[id]\', chapter).filter(el =>'));
 check(
     'React catalog tolerates malformed legacy completion storage',
     supplementalSource.includes('completedChapters.has(slug)') &&
-        supplementalSource.includes('state.completed = record(state.completed)') &&
-        supplementalSource.includes('state.bookmarks = stringList(state.bookmarks)') &&
+        supplementalSource.includes(
+            'state.completed = record(state.completed)') &&
+        supplementalSource.includes(
+            'state.bookmarks = stringList(state.bookmarks)') &&
         supplementalSource.includes('Object.entries(value)') &&
         !supplementalSource.includes(
             'localStorage.getItem(LEGACY_COMPLETE_KEY) ||\n                                    \'[]\')\n                                .includes(slug)'));
-check('Offline readers do not wait for remote Google Fonts',
+check(
+    'Offline readers do not wait for remote Google Fonts',
     !homeHtml.includes('fonts.googleapis.com') &&
         !html.includes('fonts.googleapis.com'));
 check(
@@ -536,6 +563,19 @@ check('Improved hero exposes useful academy proof', [
   'improved-hero', 'focused paths', 'practical lessons',
   'Build my learning plan'
 ].every(value => homeHtml.includes(value)));
+check('Interactive home build studio exists', [
+  'build-studio', 'componentControls', 'studioPreview', 'studioCode',
+  'studioProjectVisual', 'data-studio-project'
+].every(value => homeHtml.includes(value)));
+check('Build studio has working state and project handlers', [
+  'setupBuildStudio', 'data-studio-accent', 'studioIncrease',
+  'studioComplete', 'projects', 'aria-selected'
+].every(value => homeHtml.includes(value)));
+check(
+    'Build studio is responsive and reduced-motion safe',
+    homeHtml.includes('@media(max-width:700px){.build-studio-heading') &&
+        homeHtml.includes(
+            '@media(prefers-reduced-motion:reduce){.studio-preview.is-running'));
 check(
     'Plan builder hash routes to the home section',
     homeHtml.includes('location.hash===\'#plan-builder\'') &&
@@ -544,7 +584,8 @@ check(
     'Platform source is split into scalable feature fragments',
     platformSources.length === 7 &&
         homeHtml.includes('data-source="platform-bundle"'));
-check('File Extensions course is registered with 12 chapters',
+check(
+    'File Extensions course is registered with 12 chapters',
     academyCourses['file-extensions']?.modules.length === 12 &&
         courseLessonCount(academyCourses['file-extensions']) === 69);
 check('Project Structure labs cover every supported path', [
@@ -558,7 +599,8 @@ check('File extension explorer supports search filters and deep links', [
   'extensionSearch', 'data-extension-filter', '/extension/',
   'setupExtensionExplorer'
 ].every(value => homeHtml.includes(value)));
-check('Project file experiences initialize with learner tools',
+check(
+    'Project file experiences initialize with learner tools',
     homeHtml.includes('setupProjectFileExperiences()'));
 check(
     'Daily activity is persisted on completion',
@@ -642,10 +684,9 @@ check(
         !vercelConfig.includes('max-age=31536000, immutable'));
 check(
     'Service worker cache version matches the isolated React reader',
-    serviceWorker.includes('devpath-academy-v19-react-reader') &&
-        serviceWorker.includes("fetch(asset, {cache: 'reload'})") &&
-        serviceWorker.includes(
-            "fetch(event.request, {cache: 'no-cache'})"));
+    serviceWorker.includes('devpath-academy-v20-code-languages') &&
+        serviceWorker.includes('fetch(asset, {cache: \'reload\'})') &&
+        serviceWorker.includes('fetch(event.request, {cache: \'no-cache\'})'));
 check('Command palette exists', html.includes('function openCommandPalette()'));
 check('Bilingual UI exists', html.includes('function applyLanguage()'));
 check('Study timer exists', html.includes('function setupStudyTimer()'));
@@ -668,7 +709,8 @@ check(
         html.includes('CERTIFICATE OF COMPLETION'));
 check(
     'PDF popups use compatible opener isolation',
-    ((html + generatedRuntimeSource).match(/popup\.opener=null/g) || []).length >= 2 &&
+    ((html + generatedRuntimeSource).match(/popup\.opener=null/g) ||
+     []).length >= 2 &&
         !html.includes('window.open(\'\',\'_blank\',\'noopener,noreferrer\')'));
 check('Persistence exists', html.includes('localStorage.setItem(APP_KEY'));
 check('Creator credit exists', html.includes('github.com/aymanaljamal'));
