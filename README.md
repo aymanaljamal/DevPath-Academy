@@ -81,7 +81,7 @@ platform runtime are emitted as separate cacheable assets.
 
 ```text
 src/data/courses/*.js
-        │ one file per learning path
+        │ outline + __content + __structure per path
         ▼
 src/features/course-catalog/
         │ official sources and cross-course relationships
@@ -128,7 +128,7 @@ the standalone React reader.
 ## File Distribution Map
 
 - One course per file keeps reviews focused and makes new paths easy to add.
-- Shared lesson generation lives in `src/data/courses/zz-lesson-content.js`.
+- Shared lesson helpers live in `_lesson-engine.js`; each path keeps its own `*__content.js` and optional `*__structure.js`.
 - Home, course, and page UI live in the numbered platform fragments.
 - React stays special because it preserves the original 18 chapters in an
   isolated reader with its own lightweight navigation and dashboard scripts.
@@ -142,7 +142,7 @@ the standalone React reader.
 │   ├── home.template.html          # small Academy document shell
 │   ├── react.template.html         # original React reader shell
 │   ├── content/chapters/          # original React curriculum
-│   ├── data/courses/              # one file per learning path
+│   ├── data/courses/              # outline, __content, and __structure per path
 │   ├── features/course-catalog/   # sources and relationships
 │   ├── platform/                  # shared Academy feature fragments
 │   ├── scripts/                   # original React reader/dashboard
@@ -176,12 +176,14 @@ the standalone React reader.
 
 ## Adding a Learning Path
 
-1. Create `src/data/courses/<course-id>.js`.
-2. Register a stable course ID, slug, titles, description, color, category, and modules.
-3. Give every lesson a stable slug and bilingual metadata.
-4. Add official sources in `src/features/course-catalog/sources.js`.
-5. Add relevant course connections in `relationships.js`.
-6. Run `npm run build && npm test`.
+1. Create `src/data/courses/<course-id>.js` for the outline.
+2. Add `src/data/courses/<course-id>__content.js` for lesson explanations, examples, and guidance.
+3. Optionally add `<course-id>__structure.js` for a project-structure lab.
+4. Register a stable course ID, slug, titles, description, color, category, and modules.
+5. Give every lesson a stable slug and bilingual metadata.
+6. Add official sources in `src/features/course-catalog/sources.js`.
+7. Add relevant course connections in `relationships.js`.
+8. Run `npm run build && npm test`.
 
 Course files are discovered automatically. The new path receives routing, search, progress, notes, bookmarks, navigation, and toolbar support from the shared platform.
 

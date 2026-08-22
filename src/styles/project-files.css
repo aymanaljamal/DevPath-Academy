@@ -2,10 +2,20 @@
 .extension-explorer {
     --pf-surface: var(--dp-card, #fff);
     --pf-soft: color-mix(in srgb, var(--course) 5%, var(--dp-card, #fff));
-    --pf-line: var(--dp-line, #dfe3df);
-    --pf-ink: var(--dp-ink, #17211d);
-    --pf-muted: var(--dp-muted, #68726d)
+    --pf-line: var(--dp-line, #e2e8f0);
+    --pf-ink: var(--dp-ink, #0f172a);
+    --pf-muted: var(--dp-muted, #64748b)
 }
+
+body[data-theme="dark"] .project-structure-studio,
+body[data-theme="dark"] .extension-explorer {
+    --pf-surface: #17171b;
+    --pf-soft: color-mix(in srgb, var(--course) 8%, #17171b);
+    --pf-line: #2e2e38;
+    --pf-ink: #f8fafc;
+    --pf-muted: #94a3b8;
+}
+
 
 .pf-principle {
     margin: 32px 0 18px;

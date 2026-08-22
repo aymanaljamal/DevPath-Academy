@@ -740,63 +740,64 @@ footer {
 
 /* ---------- Crimson Red Theme Refinements ---------- */
 :focus-visible {
-  outline: 3px solid rgba(185, 28, 28, .24);
+  outline: 3px solid color-mix(in srgb, var(--accent) 30%, transparent);
   outline-offset: 3px;
 }
 
 .sidebar {
-  box-shadow: 8px 0 30px -28px rgba(127, 29, 29, .28);
+  box-shadow: 8px 0 30px -28px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
 .nav-link:hover {
-  background: #FEF2F2;
-  color: #7F1D1D;
+  background: var(--accent-soft, #FEF2F2);
+  color: var(--accent-dark, #7F1D1D);
 }
 
 .nav-link.active {
-  background: #FEF2F2;
-  color: #7F1D1D;
+  background: var(--accent-soft, #FEF2F2);
+  color: var(--accent-dark, #7F1D1D);
 }
 
 .nav-link.active .nav-num {
-  color: #B91C1C;
+  color: var(--accent, #B91C1C);
 }
 
 .chapter h3,
 .chapter a {
-  color: #B91C1C;
+  color: var(--accent, #B91C1C);
 }
 
 .chapter a:hover {
-  color: #991B1B;
+  color: var(--accent-hover, #991B1B);
 }
 
 .chapter-num {
-  background: linear-gradient(135deg, #B91C1C, #991B1B);
-  box-shadow: 0 6px 16px -10px rgba(127, 29, 29, .75);
+  background: linear-gradient(135deg, var(--accent, #B91C1C), var(--accent-hover, #991B1B));
+  box-shadow: 0 6px 16px -10px color-mix(in srgb, var(--accent) 65%, transparent);
 }
 
 .chapter-title-card {
-  border-bottom-color: #B91C1C;
+  border-bottom-color: var(--accent, #B91C1C);
 }
 
 .chapter h2::before {
-  background: #B91C1C;
+  background: var(--accent, #B91C1C);
 }
 
 .chapter li::marker {
-  color: #B91C1C;
+  color: var(--accent, #B91C1C);
 }
 
 .chapter hr::after {
-  color: #B91C1C;
+  color: var(--accent, #B91C1C);
 }
 
 .chapter th {
-  background: #991B1B;
+  background: var(--accent-hover, #991B1B);
 }
 
 ::selection {
-  background: #FEE2E2;
-  color: #7F1D1D;
+  background: var(--chip-bg, #FEE2E2);
+  color: var(--chip-ink, #7F1D1D);
 }
+

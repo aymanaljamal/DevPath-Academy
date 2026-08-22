@@ -1,12 +1,13 @@
 :root {
-    --dp-bg: #f5f5f1;
+    --dp-bg: #f8f9fa;
     --dp-card: #fff;
-    --dp-ink: #17211d;
-    --dp-muted: #68726d;
-    --dp-line: #dfe3df;
+    --dp-ink: #0f172a;
+    --dp-muted: #64748b;
+    --dp-line: #e2e8f0;
     --dp-green: #173f32;
     --dp-lime: #d6ff65
 }
+
 
 body.devpath-mode {
     background: var(--dp-bg);
@@ -930,16 +931,16 @@ body.devpath-mode {
 }
 
 body[data-theme="dark"].devpath-mode {
-    --dp-bg: #101512;
-    --dp-card: #18201c;
-    --dp-ink: #f1f6f3;
-    --dp-muted: #a1ada7;
-    --dp-line: #303a35;
-    --dp-green: #357b61
+    --dp-bg: #0c0c0f;
+    --dp-card: #17171b;
+    --dp-ink: #f8fafc;
+    --dp-muted: #94a3b8;
+    --dp-line: #2e2e38;
+    --dp-green: #ef4444
 }
 
 .devpath-mode[data-theme="dark"] .devpath-header {
-    background: #101512e8
+    background: rgba(12, 12, 15, .92)
 }
 
 .devpath-mode[data-theme="dark"] .path-visual span,
@@ -952,13 +953,14 @@ body[data-theme="dark"].devpath-mode {
 .devpath-mode[data-theme="dark"] .lesson-section p,
 .devpath-mode[data-theme="dark"] .lesson-section li,
 .devpath-mode[data-theme="dark"] .takeaways li {
-    color: #c3ccc7
+    color: #cbd5e1
 }
 
 .devpath-mode[data-theme="dark"] .takeaways {
     background: #241719;
     border-color: #632c32
 }
+
 
 @media(max-width:1050px) {
     .course-grid {
@@ -2457,13 +2459,13 @@ body.devpath-mode {
 
 /* Premium night theme */
 body[data-theme="dark"].devpath-mode {
-    --dp-bg: #090e0c;
-    --dp-card: #111916;
-    --dp-ink: #eef7f2;
-    --dp-muted: #91a39a;
-    --dp-line: #25332c;
-    --dp-green: #62c98b;
-    background: #090e0c;
+    --dp-bg: #0c0c0f;
+    --dp-card: #17171b;
+    --dp-ink: #f8fafc;
+    --dp-muted: #94a3b8;
+    --dp-line: #2e2e38;
+    --dp-green: #ef4444;
+    background: #0c0c0f;
     color: var(--dp-ink)
 }
 
@@ -2472,14 +2474,14 @@ body[data-theme="dark"].devpath-mode::before {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle at 15% 0%, rgba(69, 163, 61, .09), transparent 34%), radial-gradient(circle at 90% 20%, rgba(20, 158, 202, .07), transparent 30%);
+    background: radial-gradient(circle at 12% 0%, rgba(185, 28, 28, .13), transparent 34%), radial-gradient(circle at 88% 22%, rgba(239, 68, 68, .055), transparent 28%);
     z-index: -1
 }
 
 body[data-theme="dark"] .devpath-header {
-    background: rgba(9, 14, 12, .88);
-    border-bottom-color: #24332c;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, .22)
+    background: rgba(12, 12, 15, .92);
+    border-bottom-color: #2e2e38;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .35)
 }
 
 body[data-theme="dark"] .course-card,
@@ -2488,64 +2490,66 @@ body[data-theme="dark"] .home-insights>article,
 body[data-theme="dark"] .academy-overview,
 body[data-theme="dark"] .source-grid section,
 body[data-theme="dark"] .creator-panel {
-    background: #111916;
-    border-color: #26362e;
-    box-shadow: 0 18px 55px rgba(0, 0, 0, .22)
+    background: #17171b;
+    border-color: #2e2e38;
+    box-shadow: 0 18px 55px rgba(0, 0, 0, .28)
 }
 
 body[data-theme="dark"] .course-card:hover {
-    border-color: color-mix(in srgb, var(--course) 48%, #26362e);
-    box-shadow: 0 22px 65px rgba(0, 0, 0, .35)
+    border-color: color-mix(in srgb, var(--course) 55%, #2e2e38);
+    box-shadow: 0 22px 65px rgba(0, 0, 0, .45)
 }
 
 body[data-theme="dark"] .course-hero {
-    background: #0d1512;
-    border: 1px solid #283a31;
-    box-shadow: inset 0 1px rgba(255, 255, 255, .025), 0 22px 70px rgba(0, 0, 0, .28)
+    background: #131316;
+    border: 1px solid #2e2e38;
+    box-shadow: inset 0 1px rgba(255, 255, 255, .04), 0 22px 70px rgba(0, 0, 0, .35)
 }
 
 body[data-theme="dark"] .explanation-grid {
-    background: #293a31;
-    border-color: #293a31
+    background: #2e2e38;
+    border-color: #2e2e38
 }
 
 body[data-theme="dark"] .explanation-grid>div {
-    background: #111916
+    background: #17171b
 }
 
 body[data-theme="dark"] .takeaways {
-    background: #10261c;
-    border: 1px solid #235039
+    background: #241719;
+    border: 1px solid #632c32
 }
 
 body[data-theme="dark"] .practice-card {
-    background: #101c17;
-    border: 1px solid #2d503e
+    background: #151519;
+    border: 1px solid #453035
 }
 
 body[data-theme="dark"] .lesson-section p,
 body[data-theme="dark"] .lesson-section li,
 body[data-theme="dark"] .practice-card p {
-    color: #b9c9c1
+    color: #cbd5e1
 }
 
 body[data-theme="dark"] .devpath-dialog {
-    background: #111916
+    background: #17171b;
+    border: 1px solid #35353d
 }
 
 body[data-theme="dark"] .devpath-dialog input,
 body[data-theme="dark"] .devpath-dialog textarea {
-    background: #0b110e;
-    color: #eef7f2;
-    border-color: #2a3b32
+    background: #101013;
+    color: #f8fafc;
+    border-color: #35353d
 }
 
 body[data-theme="dark"] .mobile-menu,
 body[data-theme="dark"] .lesson-actions button {
-    background: #111916;
-    border-color: #2a3b32;
-    color: #dce9e2
+    background: #17171b;
+    border-color: #35353d;
+    color: #f8fafc
 }
+
 
 /* One global code-block surface for every course and dynamically rendered lesson. */
 .code-shell {
@@ -6776,8 +6780,8 @@ body[data-theme="dark"] .premium-hero .hero-panel-progress span {
 }
 
 body[data-theme="dark"] .premium-hero .hero-panel-chip {
-    background: color-mix(in srgb, var(--course) 18%, #f4f7f8);
-    color: color-mix(in srgb, var(--course) 78%, #fff)
+    background: color-mix(in srgb, var(--course) 22%, #17181c);
+    color: color-mix(in srgb, var(--course) 85%, #fff)
 }
 
 body[data-theme="dark"] .premium-hero .hero-panel-progress progress {
@@ -6801,7 +6805,7 @@ body[data-theme="dark"] .premium-hero .hero-panel-progress progress {
     padding: 18px;
     border: 1px solid var(--dp-line);
     border-radius: 20px;
-    background: color-mix(in srgb, var(--dp-card) 94%, white)
+    background: var(--dp-card)
 }
 
 .premium-module-nav {
@@ -6847,7 +6851,7 @@ body[data-theme="dark"] .premium-hero .hero-panel-progress progress {
 .module-nav-progress {
     padding: 12px;
     border-radius: 14px;
-    background: color-mix(in srgb, var(--course) 6%, white)
+    background: color-mix(in srgb, var(--course) 7%, var(--dp-card))
 }
 
 .module-nav-progress span,
@@ -6888,7 +6892,7 @@ body[data-theme="dark"] .premium-hero .hero-panel-progress progress {
 }
 
 .premium-module-nav a:hover {
-    background: color-mix(in srgb, var(--course) 7%, white);
+    background: color-mix(in srgb, var(--course) 8%, var(--dp-card));
     transform: translateX(2px)
 }
 
@@ -6942,7 +6946,7 @@ body[data-theme="dark"] .premium-hero .hero-panel-progress progress {
 
 .premium-lesson-sidebar details a.active,
 .premium-lesson-sidebar details a:hover {
-    background: color-mix(in srgb, var(--course) 9%, white);
+    background: color-mix(in srgb, var(--course) 10%, var(--dp-card));
     color: var(--course)
 }
 
@@ -6954,7 +6958,7 @@ body[data-theme="dark"] .premium-hero .hero-panel-progress progress {
 }
 
 .premium-lesson-toc a:hover {
-    background: color-mix(in srgb, var(--course) 8%, white);
+    background: color-mix(in srgb, var(--course) 8%, var(--dp-card));
     color: var(--dp-ink)
 }
 
@@ -6991,7 +6995,7 @@ body[data-theme="dark"] .premium-hero .hero-panel-progress progress {
     padding: 18px 20px;
     border: 1px solid color-mix(in srgb, var(--course) 20%, var(--dp-line));
     border-radius: 18px;
-    background: linear-gradient(135deg, color-mix(in srgb, var(--course) 8%, white), var(--dp-card))
+    background: linear-gradient(135deg, color-mix(in srgb, var(--course) 8%, var(--dp-card)), var(--dp-card))
 }
 
 .lesson-intro-strip span {
@@ -7007,6 +7011,56 @@ body[data-theme="dark"] .premium-hero .hero-panel-progress progress {
     font-weight: 800;
     letter-spacing: -.02em
 }
+
+body[data-theme="dark"] .premium-module-nav,
+body[data-theme="dark"] .premium-lesson-sidebar,
+body[data-theme="dark"] .premium-lesson-toc {
+    background: #17171b;
+    border-color: #2e2e38;
+}
+
+body[data-theme="dark"] .module-search,
+body[data-theme="dark"] .lesson-sidebar-search {
+    background: #101013;
+    border-color: #2e2e38;
+}
+
+body[data-theme="dark"] .module-nav-progress {
+    background: color-mix(in srgb, var(--course) 12%, #17171b);
+}
+
+body[data-theme="dark"] .premium-module-nav a {
+    color: #f8fafc;
+}
+
+body[data-theme="dark"] .premium-module-nav a:hover {
+    background: color-mix(in srgb, var(--course) 12%, #17171b);
+}
+
+body[data-theme="dark"] .premium-lesson-sidebar details a {
+    color: #94a3b8;
+}
+
+body[data-theme="dark"] .premium-lesson-sidebar details a.active,
+body[data-theme="dark"] .premium-lesson-sidebar details a:hover {
+    background: color-mix(in srgb, var(--course) 16%, #17171b);
+    color: color-mix(in srgb, var(--course) 85%, #fff);
+}
+
+body[data-theme="dark"] .premium-lesson-toc a {
+    color: #94a3b8;
+}
+
+body[data-theme="dark"] .premium-lesson-toc a:hover {
+    background: color-mix(in srgb, var(--course) 12%, #17171b);
+    color: #f8fafc;
+}
+
+body[data-theme="dark"] .lesson-intro-strip {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--course) 14%, #17171b), #17171b);
+    border-color: color-mix(in srgb, var(--course) 30%, #2e2e38);
+}
+
 
 .premium-lesson-content .lesson-section {
     margin: 46px 0
